@@ -1,0 +1,23 @@
+{
+  "name": "@parliament-pulse/vote-normalizer",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@parliament-pulse/shared": "*",
+    "@parliament-pulse/db": "*",
+    "@parliament-pulse/queue": "*",
+    "@parliament-pulse/source-watcher": "*",
+    "bullmq": "^5.30.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
