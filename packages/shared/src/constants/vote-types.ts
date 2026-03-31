@@ -2,7 +2,7 @@
  * Vote type classification helpers.
  */
 
-import type { VoteType, BillStage, Significance } from '../types/vote.js';
+import type { VoteType, BillStage, Significance } from '../types/vote';
 
 export const VOTE_TYPE_LABELS: Record<VoteType, string> = {
   bill_second_reading: 'Second Reading',

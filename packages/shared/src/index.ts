@@ -1,20 +1,20 @@
 // Types
-export * from './types/vote.js';
-export * from './types/article.js';
-export * from './types/social.js';
-export * from './types/review.js';
+export * from './types/vote';
+export * from './types/article';
+export * from './types/social';
+export * from './types/review';
 
 // Constants
-export * from './constants/parties.js';
-export * from './constants/chambers.js';
-export * from './constants/vote-types.js';
+export * from './constants/parties';
+export * from './constants/chambers';
+export * from './constants/vote-types';
 
 // Schemas
-export * from './schemas/vote.schema.js';
-export * from './schemas/article.schema.js';
-export * from './schemas/social.schema.js';
+export * from './schemas/vote.schema';
+export * from './schemas/article.schema';
+export * from './schemas/social.schema';
 
 // Utils
-export * from './utils/slug.js';
-export * from './utils/date.js';
-export * from './utils/party-aggregate.js';
+export * from './utils/slug';
+export * from './utils/date';
+export * from './utils/party-aggregate';

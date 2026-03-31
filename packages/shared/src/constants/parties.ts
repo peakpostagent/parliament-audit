@@ -34,28 +34,39 @@ export const PARTY_COLORS: Record<string, string> = {
  * The House XML uses various formats; this handles normalization.
  */
 export const PARTY_NAME_MAP: Record<string, string> = {
-  // English
+  // English full names
   'Liberal': 'LPC',
+  'Liberal Party of Canada': 'LPC',
   'Conservative': 'CPC',
+  'Conservative Party of Canada': 'CPC',
   'NDP': 'NDP',
   'New Democratic Party': 'NDP',
   'Bloc Québécois': 'BQ',
   'Bloc Quebecois': 'BQ',
+  'Bloc': 'BQ',
   'Green Party': 'GPC',
+  'Green Party of Canada': 'GPC',
   'Green': 'GPC',
   'Independent': 'IND',
-  // French
+  // French full names
   'Libéral': 'LPC',
+  'Parti libéral du Canada': 'LPC',
   'Conservateur': 'CPC',
+  'Parti conservateur du Canada': 'CPC',
   'Nouveau Parti démocratique': 'NDP',
   'Parti vert': 'GPC',
   'Indépendant': 'IND',
-  // Abbreviations seen in XML
+  // Short codes / abbreviations (OpenParliament API, XML feeds)
+  'LPC': 'LPC',
   'Lib.': 'LPC',
+  'CPC': 'CPC',
   'Con.': 'CPC',
   'NPD': 'NDP',
   'BQ': 'BQ',
+  'BLQ': 'BQ',
+  'GPC': 'GPC',
   'PV': 'GPC',
+  'IND': 'IND',
   'Ind.': 'IND',
 };
 

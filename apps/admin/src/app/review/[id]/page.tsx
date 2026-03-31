@@ -1,6 +1,7 @@
 import { db, schema } from '@parliament-pulse/db';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
+import { ReviewActions } from './ReviewActions';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -148,45 +149,8 @@ export default async function ReviewDetailPage({ params }: PageProps) {
           )}
         </div>
 
-        {/* Review checklist */}
-        <div className="bg-white border rounded-lg p-4">
-          <h3 className="font-bold text-sm mb-2">Editor Checklist</h3>
-          <form className="space-y-2">
-            {[
-              'Vote totals verified against source',
-              'Party positions match data',
-              'Bill number/title correct',
-              'No partisan language',
-              'All sources verified',
-              'Headline is accurate',
-              'Summary is factual',
-            ].map((item) => (
-              <label key={item} className="flex items-center gap-2 text-sm">
-                <input type="checkbox" className="rounded" />
-                <span>{item}</span>
-              </label>
-            ))}
-          </form>
-        </div>
-
-        {/* Actions */}
-        <div className="bg-white border rounded-lg p-4 space-y-2">
-          <h3 className="font-bold text-sm mb-2">Actions</h3>
-          <button className="w-full bg-green-600 text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition-colors">
-            Approve & Publish
-          </button>
-          <button className="w-full bg-amber-500 text-white px-4 py-2 rounded font-medium hover:bg-amber-600 transition-colors">
-            Request Edits
-          </button>
-          <button className="w-full bg-red-600 text-white px-4 py-2 rounded font-medium hover:bg-red-700 transition-colors">
-            Reject
-          </button>
-          <textarea
-            placeholder="Review notes..."
-            className="w-full border rounded p-2 text-sm mt-2"
-            rows={3}
-          />
-        </div>
+        {/* Interactive review actions (checklist + approve/reject/edit) */}
+        <ReviewActions articleId={article.id} />
 
         {/* Metadata */}
         <div className="bg-white border rounded-lg p-4 text-xs text-gray-500 space-y-1">

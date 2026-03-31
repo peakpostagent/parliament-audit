@@ -1,5 +1,5 @@
-import type { MemberResult, PartyResult } from '../types/vote.js';
-import { PARTY_SHORT_NAMES, PARTY_SORT_ORDER } from '../constants/parties.js';
+import type { MemberResult, PartyResult } from '../types/vote';
+import { PARTY_SHORT_NAMES, PARTY_SORT_ORDER } from '../constants/parties';
 
 /**
  * Compute party-level vote aggregates from individual member results.

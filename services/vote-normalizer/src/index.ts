@@ -13,7 +13,6 @@ import {
   voteReadyQueue,
   type VoteDiscoveredJob,
 } from '@parliament-pulse/queue';
-import { fetchHouseVoteDetail } from '@parliament-pulse/source-watcher/src/watchers/house-votes.js';
 import { normalizeHouseVote } from './normalize.js';
 
 const connection = createRedisConnection();
@@ -25,15 +24,8 @@ const worker = new Worker<VoteDiscoveredJob>(
     console.log(`[normalizer] Processing ${chamber} vote #${voteNumber}...`);
 
     if (chamber === 'house') {
-      // Fetch detailed vote data (with per-member breakdown)
-      const detailXml = await fetchHouseVoteDetail(voteNumber);
-
-      // Normalize
-      const normalized = await normalizeHouseVote({
-        voteDetailXml: detailXml,
-        parliament,
-        session,
-      });
+      // Normalize using OpenParliament API (sourced from ourcommons.ca)
+      const normalized = await normalizeHouseVote({ voteNumber });
 
       // Store in database
       const [voteRecord] = await db

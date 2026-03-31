@@ -10,11 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/shared": "*",
     "@parliament-pulse/db": "*",
     "@parliament-pulse/queue": "*",
+    "@parliament-pulse/shared": "*",
     "@parliament-pulse/source-watcher": "*",
-    "bullmq": "^5.30.0"
+    "bullmq": "^5.30.0",
+    "cheerio": "^1.2.0"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

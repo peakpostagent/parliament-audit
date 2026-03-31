@@ -43,10 +43,24 @@ export interface ParsedMemberVote {
 }
 
 /**
+ * Sanitize XML from ourcommons.ca before parsing.
+ * The API occasionally returns HTML comments (<!-- ... -->) and other
+ * non-standard constructs that break strict XML parsers.
+ */
+function sanitizeXml(xml: string): string {
+  // Remove XML/HTML comments (including unclosed ones)
+  return xml
+    .replace(/<!--[\s\S]*?-->/g, '')   // closed comments
+    .replace(/<!--[\s\S]*/g, '')        // unclosed comments (truncate)
+    .replace(/\r\n/g, '\n')             // normalize line endings
+    .trim();
+}
+
+/**
  * Parse a detailed House vote XML document.
  */
 export function parseHouseVoteDetailXml(xml: string): ParsedHouseVote {
-  const parsed = xmlParser.parse(xml);
+  const parsed = xmlParser.parse(sanitizeXml(xml));
 
   // Navigate the XML tree — structure varies between endpoints
   const voteData = parsed?.VoteDetails
@@ -89,7 +103,7 @@ export function parseHouseVoteDetailXml(xml: string): ParsedHouseVote {
  * Parse the vote list XML (which has less detail per vote, but all votes).
  */
 export function parseHouseVoteListXml(xml: string): ParsedHouseVote[] {
-  const parsed = xmlParser.parse(xml);
+  const parsed = xmlParser.parse(sanitizeXml(xml));
 
   const votesNode = parsed?.ArrayOfVoteDetails?.VoteDetails
     ?? parsed?.VoteDetails

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { MobileNav } from '@/components/MobileNav';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen bg-white">
         <Header />
-        <main className="max-w-5xl mx-auto px-4 py-8">
+        <main className="max-w-6xl mx-auto px-4 py-8">
           {children}
         </main>
         <Footer />
@@ -38,8 +39,8 @@ export default function RootLayout({
 
 function Header() {
   return (
-    <header className="bg-[#1a1a2e] text-white">
-      <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="bg-[#1a1a2e] text-white relative">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <div>
           <a href="/" className="text-xl font-bold tracking-tight">
             Parliament Pulse
@@ -53,6 +54,7 @@ function Header() {
           <a href="/methodology" className="hover:text-red-400 transition-colors">Methodology</a>
           <a href="/glossary" className="hover:text-red-400 transition-colors">Glossary</a>
         </nav>
+        <MobileNav />
       </div>
     </header>
   );
@@ -61,7 +63,7 @@ function Header() {
 function Footer() {
   return (
     <footer className="bg-gray-100 border-t mt-16">
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="font-bold mb-2">Parliament Pulse</h3>

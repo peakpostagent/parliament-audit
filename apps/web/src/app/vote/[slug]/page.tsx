@@ -6,6 +6,8 @@ import { PartyBreakdown } from '@/components/PartyBreakdownBar';
 import { StatusBadge, ResultBadge } from '@/components/StatusBadge';
 import { VerificationBox } from '@/components/VerificationBox';
 import { FactBox } from '@/components/FactBox';
+import { CopyLinkButton } from '@/components/CopyLinkButton';
+import { RecentVotesSidebar } from '@/components/RecentVotesSidebar';
 import { VOTE_TYPE_LABELS } from '@parliament-pulse/shared';
 
 interface PageProps {
@@ -31,6 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = await getArticle(slug);
   if (!article) return { title: 'Vote Not Found — Parliament Pulse' };
 
+  const ogImageUrl = `https://parliamentpulse.ca/api/og/vote/${slug}`;
+
   return {
     title: `${article.headline} — Parliament Pulse`,
     description: article.summary,
@@ -39,6 +43,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: article.summary,
       type: 'article',
       publishedTime: article.publishedAt?.toISOString(),
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: article.headline }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.headline,
+      description: article.summary,
+      images: [ogImageUrl],
     },
   };
 }
@@ -59,7 +70,11 @@ export default async function VoteDetailPage({ params }: PageProps) {
   const hasCorrections = article.corrections && article.corrections.length > 0;
 
   return (
-    <article className="max-w-3xl mx-auto">
+    <div className="flex gap-8 max-w-6xl mx-auto">
+      {/* Left sidebar — recent votes list */}
+      <RecentVotesSidebar currentSlug={slug} />
+
+    <article className="flex-1 min-w-0">
       {/* Correction banner */}
       {hasCorrections && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
@@ -169,13 +184,9 @@ export default async function VoteDetailPage({ params }: PageProps) {
         >
           Facebook
         </a>
-        <button
-          className="text-sm text-blue-600 hover:text-blue-800"
-          title="Copy link"
-        >
-          Copy Link
-        </button>
+        <CopyLinkButton url={`https://parliamentpulse.ca/vote/${article.slug}`} />
       </div>
     </article>
+    </div>
   );
 }

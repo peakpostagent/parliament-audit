@@ -1,3 +1,3 @@
-export { db, schema } from './client.js';
-export type { Database } from './client.js';
-export * from './schema.js';
+export { db, schema } from './client';
+export type { Database } from './client';
+export * from './schema';

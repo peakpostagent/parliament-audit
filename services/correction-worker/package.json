@@ -1,0 +1,21 @@
+{
+  "name": "@parliament-pulse/correction-worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@parliament-pulse/db": "*",
+    "@parliament-pulse/shared": "*",
+    "@parliament-pulse/queue": "*",
+    "bullmq": "^5.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}

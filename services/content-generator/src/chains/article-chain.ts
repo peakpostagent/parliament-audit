@@ -22,7 +22,7 @@ import {
   ArticleDraftSchema,
   SocialDraftsSchema,
 } from '@parliament-pulse/shared';
-import { classifyVote } from '@parliament-pulse/vote-normalizer/src/classify.js';
+import { classifyVote } from '../classify.js';
 import { buildArticlePrompt } from '../prompts/compose.prompt.js';
 import { buildSocialPrompt } from '../prompts/social.prompt.js';
 import { runFactCheck } from '../fact-checker/index.js';
@@ -102,6 +102,11 @@ export async function generateArticle(vote: NormalizedVote): Promise<GenerationR
   let social: SocialDrafts;
   try {
     const parsed = JSON.parse(socialText);
+    // Enforce platform character limits before schema validation
+    if (parsed.x?.text && parsed.x.text.length > 280) {
+      // Trim to last word boundary before 277 chars, then add "…"
+      parsed.x.text = parsed.x.text.substring(0, 277).replace(/\s+\S*$/, '') + '…';
+    }
     social = SocialDraftsSchema.parse(parsed);
   } catch (err) {
     console.error('[content-gen] Failed to parse social response:', err);
