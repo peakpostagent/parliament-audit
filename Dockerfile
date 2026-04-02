@@ -66,7 +66,7 @@ COPY --from=builder /app ./
 
 # Copy and make entrypoint executable
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
-RUN chmod +x /app/docker-entrypoint.sh
+RUN sed -i 's/\r$//' /app/docker-entrypoint.sh && chmod +x /app/docker-entrypoint.sh
 
 # Remove dev dependencies
 RUN npm prune --omit=dev 2>/dev/null || true
