@@ -64,9 +64,13 @@ ENV NODE_ENV=production
 # Copy the entire built monorepo (simple & reliable — optimise later)
 COPY --from=builder /app ./
 
+# Copy and make entrypoint executable
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
 # Remove dev dependencies
 RUN npm prune --omit=dev 2>/dev/null || true
 
 EXPOSE 3000 3001
 
-CMD ["/bin/sh", "-c", "if [ \"$SERVICE\" = \"web\" ]; then cd apps/web && npm start; elif [ \"$SERVICE\" = \"admin\" ]; then cd apps/admin && npm start; elif [ \"$SERVICE\" = \"migrate\" ]; then cd packages/db && npx drizzle-kit push; else cd services/$SERVICE && npm start; fi"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
