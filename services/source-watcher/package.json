@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/source-watcher",
+  "name": "@parliament-audit/source-watcher",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/shared": "*",
-    "@parliament-pulse/db": "*",
-    "@parliament-pulse/queue": "*",
+    "@parliament-audit/shared": "*",
+    "@parliament-audit/db": "*",
+    "@parliament-audit/queue": "*",
     "node-cron": "^3.0.3",
     "fast-xml-parser": "^4.5.0"
   },

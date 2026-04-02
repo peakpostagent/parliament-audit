@@ -3,18 +3,18 @@ import { MobileNav } from '@/components/MobileNav';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Parliament Pulse — Canada deserves to know.',
+  title: 'Parliament Audit — Canada deserves to know.',
   description: 'Track every vote in Canada\'s Parliament. Non-partisan. Factual. Transparent. See how each party voted on bills, motions, and amendments.',
   openGraph: {
-    title: 'Parliament Pulse',
+    title: 'Parliament Audit',
     description: 'Track every vote in Canada\'s Parliament. Non-partisan. Factual. Transparent.',
-    siteName: 'Parliament Pulse',
+    siteName: 'Parliament Audit',
     locale: 'en_CA',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Parliament Pulse',
+    title: 'Parliament Audit',
     description: 'Track every vote in Canada\'s Parliament.',
   },
 };
@@ -43,7 +43,7 @@ function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <div>
           <a href="/" className="text-xl font-bold tracking-tight">
-            Parliament Pulse
+            Parliament Audit
           </a>
           <p className="text-sm text-gray-300 mt-0.5">Canada deserves to know.</p>
         </div>
@@ -66,7 +66,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-bold mb-2">Parliament Pulse</h3>
+            <h3 className="font-bold mb-2">Parliament Audit</h3>
             <p className="text-sm text-gray-600">
               Non-partisan parliamentary vote tracking. We report the record. You decide what it means.
             </p>
@@ -90,7 +90,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-4 border-t text-center text-xs text-gray-500">
-          Parliament Pulse is an independent civic project. Not affiliated with the Government of Canada.
+          Parliament Audit is an independent civic project. Not affiliated with the Government of Canada.
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/vote-normalizer",
+  "name": "@parliament-audit/vote-normalizer",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -10,10 +10,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/db": "*",
-    "@parliament-pulse/queue": "*",
-    "@parliament-pulse/shared": "*",
-    "@parliament-pulse/source-watcher": "*",
+    "@parliament-audit/db": "*",
+    "@parliament-audit/queue": "*",
+    "@parliament-audit/shared": "*",
+    "@parliament-audit/source-watcher": "*",
     "bullmq": "^5.30.0",
     "cheerio": "^1.2.0"
   },

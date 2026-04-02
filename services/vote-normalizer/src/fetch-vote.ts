@@ -12,7 +12,7 @@
 const PARLIAMENT = 45;
 const SESSION = 1;
 const BASE_URL = 'https://api.openparliament.ca';
-const USER_AGENT = 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)';
+const USER_AGENT = 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)';
 
 const headers = {
   'User-Agent': USER_AGENT,

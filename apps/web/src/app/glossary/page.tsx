@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Glossary — Parliament Pulse',
+  title: 'Glossary — Parliament Audit',
   description: 'Plain-English definitions of Canadian parliamentary terms.',
 };
 
 const GLOSSARY_TERMS = [
-  { term: 'Recorded Division', definition: 'A formal vote in Parliament where each member\'s individual vote (Yea, Nay, or Paired) is recorded by name. This is what Parliament Pulse tracks.' },
+  { term: 'Recorded Division', definition: 'A formal vote in Parliament where each member\'s individual vote (Yea, Nay, or Paired) is recorded by name. This is what Parliament Audit tracks.' },
   { term: 'First Reading', definition: 'The introduction of a bill in Parliament. This is usually a formality — there is no debate or vote at first reading.' },
   { term: 'Second Reading', definition: 'The first major debate on a bill. MPs debate the general principles of the bill. If it passes second reading, it goes to committee for detailed study.' },
   { term: 'Committee Stage', definition: 'A parliamentary committee studies the bill in detail, hears witnesses, and may propose amendments. The committee then reports the bill back to the House.' },
@@ -34,7 +34,7 @@ export default function GlossaryPage() {
     <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-2">Parliamentary Glossary</h1>
       <p className="text-gray-600 mb-8">
-        Plain-English definitions of the parliamentary terms you'll see on Parliament Pulse.
+        Plain-English definitions of the parliamentary terms you'll see on Parliament Audit.
       </p>
 
       <div className="space-y-4">

@@ -1,5 +1,5 @@
 /**
- * Parliament Pulse — X (Twitter) Social Post Publisher
+ * Parliament Audit — X (Twitter) Social Post Publisher
  *
  * Posts queued draft social posts to X (Twitter) using the X API v2.
  *
@@ -88,7 +88,7 @@ function buildTweetText(post: {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
-  console.log(`\n[post-to-x] Parliament Pulse — X Publisher`);
+  console.log(`\n[post-to-x] Parliament Audit — X Publisher`);
   if (isDryRun) console.log('[post-to-x] DRY RUN — previewing only, not posting');
 
   // Fetch pending X posts
@@ -166,7 +166,7 @@ async function main() {
         .where(eq(schema.socialPosts.id, post.id));
 
       console.log(`[post-to-x] ✓ Posted — tweet ID: ${tweet.id}`);
-      console.log(`[post-to-x]   https://x.com/parliamentpulse/status/${tweet.id}`);
+      console.log(`[post-to-x]   https://x.com/parliamentaudit/status/${tweet.id}`);
       posted++;
 
       // X API rate limit: 17 tweets per 15min on Basic tier, 100/24h free tier

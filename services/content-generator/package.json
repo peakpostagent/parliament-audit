@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/content-generator",
+  "name": "@parliament-audit/content-generator",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/shared": "*",
-    "@parliament-pulse/db": "*",
-    "@parliament-pulse/queue": "*",
+    "@parliament-audit/shared": "*",
+    "@parliament-audit/db": "*",
+    "@parliament-audit/queue": "*",
     "@anthropic-ai/sdk": "^0.39.0",
     "bullmq": "^5.30.0"
   },

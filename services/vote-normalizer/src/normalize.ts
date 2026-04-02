@@ -11,8 +11,8 @@
  * and province — far more accurate than the OpenParliament approximations.
  */
 
-import type { NormalizedVote, VoteResult, RecordStatus, SourceRef, MemberResult, PartyResult } from '@parliament-pulse/shared';
-import { PARLIAMENT_URLS, PARTY_SHORT_NAMES, PARTY_SORT_ORDER } from '@parliament-pulse/shared';
+import type { NormalizedVote, VoteResult, RecordStatus, SourceRef, MemberResult, PartyResult } from '@parliament-audit/shared';
+import { PARLIAMENT_URLS, PARTY_SHORT_NAMES, PARTY_SORT_ORDER } from '@parliament-audit/shared';
 import { scrapeOurCommonsVote, type OurCommonsVoteDetail, type OurCommonsBallot } from './scrapers/ourcommons-html.js';
 import {
   fetchVoteDetail,
@@ -316,7 +316,7 @@ async function fetchBillMetadata(billNumber: string | null): Promise<{
   try {
     const legisUrl = `https://www.parl.ca/legisinfo/en/bills/json?parlsession=${parlSession}`;
     const resp = await fetch(legisUrl, {
-      headers: { 'User-Agent': 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)', 'Accept': 'application/json' },
+      headers: { 'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)', 'Accept': 'application/json' },
     });
     if (resp.ok) {
       const bills = await resp.json();
@@ -341,7 +341,7 @@ function extractBillNumber(billUrl: string | null): string | null {
 }
 
 function normalizePartyCode(name: string): string {
-  const { PARTY_NAME_MAP } = require('@parliament-pulse/shared');
+  const { PARTY_NAME_MAP } = require('@parliament-audit/shared');
   return PARTY_NAME_MAP[name] || PARTY_NAME_MAP[name.trim()] || name.substring(0, 3).toUpperCase();
 }
 

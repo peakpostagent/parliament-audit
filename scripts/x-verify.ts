@@ -1,5 +1,5 @@
 /**
- * Parliament Pulse — X Credentials Verifier
+ * Parliament Audit — X Credentials Verifier
  *
  * Quick check that your X API credentials are valid and the account is reachable.
  * Run this first after adding credentials to .env.

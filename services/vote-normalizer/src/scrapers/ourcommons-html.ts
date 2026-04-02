@@ -17,7 +17,7 @@
  */
 
 import * as cheerio from 'cheerio';
-import { PARTY_NAME_MAP } from '@parliament-pulse/shared';
+import { PARTY_NAME_MAP } from '@parliament-audit/shared';
 
 const OC_BASE = 'https://www.ourcommons.ca';
 const PARLIAMENT = 45;
@@ -142,7 +142,7 @@ export async function scrapeOurCommonsVote(
 
   const resp = await fetch(url, {
     headers: {
-      'User-Agent': 'Parliament Pulse / civic-media-platform (parliamentpulse.ca)',
+      'User-Agent': 'Parliament Audit / civic-media-platform (parliamentaudit.ca)',
       'Accept': 'text/html',
     },
   });

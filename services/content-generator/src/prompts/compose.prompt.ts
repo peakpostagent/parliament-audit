@@ -5,8 +5,8 @@
  * and produces a complete article draft in structured JSON format.
  */
 
-import type { NormalizedVote, VoteClassification } from '@parliament-pulse/shared';
-import { VOTE_TYPE_EXPLANATIONS, CHAMBERS, PARTY_SHORT_NAMES } from '@parliament-pulse/shared';
+import type { NormalizedVote, VoteClassification } from '@parliament-audit/shared';
+import { VOTE_TYPE_EXPLANATIONS, CHAMBERS, PARTY_SHORT_NAMES } from '@parliament-audit/shared';
 
 export function buildArticlePrompt(
   vote: NormalizedVote,
@@ -20,7 +20,7 @@ export function buildArticlePrompt(
     .map(p => `  ${p.partyName} (${p.partyShort}): ${p.yeas} Yea, ${p.nays} Nay, ${p.paired} Paired, ${p.absent} Absent (caucus: ${p.caucusSize})`)
     .join('\n');
 
-  return `You are a civic journalist for Parliament Pulse, a non-partisan Canadian parliamentary vote tracker.
+  return `You are a civic journalist for Parliament Audit, a non-partisan Canadian parliamentary vote tracker.
 
 EDITORIAL RULES — NON-NEGOTIABLE:
 1. Use ONLY the vote data provided below. Do not invent ANY facts, names, numbers, or context not present in the data.

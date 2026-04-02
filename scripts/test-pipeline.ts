@@ -19,7 +19,7 @@ const TARGET_VOTE = parseInt(process.argv[2] || '93', 10);
 
 async function run() {
   console.log('═══════════════════════════════════════════════════');
-  console.log(`  Parliament Pulse — Pipeline Test (Vote #${TARGET_VOTE})`);
+  console.log(`  Parliament Audit — Pipeline Test (Vote #${TARGET_VOTE})`);
   console.log('═══════════════════════════════════════════════════\n');
 
   // STEP 1+2: Fetch and normalize via OpenParliament API
@@ -196,7 +196,7 @@ async function run() {
       platform,
       captionText: 'text' in content ? content.text : content.caption,
       hashtags: 'hashtags' in content ? content.hashtags : [],
-      linkUrl: `https://parliamentpulse.ca/vote/${result.article.slug}`,
+      linkUrl: `https://parliamentaudit.ca/vote/${result.article.slug}`,
       status: 'draft',
     }).onConflictDoNothing();
   }

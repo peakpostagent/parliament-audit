@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/admin",
+  "name": "@parliament-audit/admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/shared": "*",
-    "@parliament-pulse/db": "*",
-    "@parliament-pulse/queue": "*",
+    "@parliament-audit/shared": "*",
+    "@parliament-audit/db": "*",
+    "@parliament-audit/queue": "*",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

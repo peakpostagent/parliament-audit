@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/shared",
+  "name": "@parliament-audit/shared",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",

@@ -1,4 +1,4 @@
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { desc, eq } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
 
@@ -27,7 +27,7 @@ export default async function HomePage() {
           Every Vote. Every Party. Every Time.
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Parliament Pulse tracks every recorded vote in Canada's House of Commons and Senate.
+          Parliament Audit tracks every recorded vote in Canada's House of Commons and Senate.
           Non-partisan. Factual. Transparent. Because Canada deserves to know.
         </p>
       </section>

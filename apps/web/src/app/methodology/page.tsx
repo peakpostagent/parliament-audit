@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Methodology — Parliament Pulse',
-  description: 'How Parliament Pulse collects, verifies, and publishes parliamentary vote data.',
+  title: 'Methodology — Parliament Audit',
+  description: 'How Parliament Audit collects, verifies, and publishes parliamentary vote data.',
 };
 
 export default function MethodologyPage() {

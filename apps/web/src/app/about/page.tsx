@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About — Parliament Pulse',
-  description: 'Parliament Pulse is an independent, non-partisan project that tracks every recorded vote in Canada\'s Parliament.',
+  title: 'About — Parliament Audit',
+  description: 'Parliament Audit is an independent, non-partisan project that tracks every recorded vote in Canada\'s Parliament.',
 };
 
 export default function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">About Parliament Pulse</h1>
+      <h1 className="text-3xl font-bold mb-6">About Parliament Audit</h1>
 
       <section className="prose prose-gray max-w-none">
         <p className="text-lg text-gray-700 mb-6">
-          Parliament Pulse is an independent civic project that tracks every recorded vote in
+          Parliament Audit is an independent civic project that tracks every recorded vote in
           Canada's House of Commons and Senate. We make parliamentary voting accessible,
           understandable, and transparent for all Canadians.
         </p>
@@ -47,7 +47,7 @@ export default function AboutPage() {
 
         <h2 className="text-xl font-bold mt-8 mb-3">How It Works</h2>
         <p>
-          Parliament Pulse automatically monitors official parliamentary data sources. When a new
+          Parliament Audit automatically monitors official parliamentary data sources. When a new
           recorded vote is published, our system ingests the data, verifies it against official
           records, generates a factual article, and publishes it after editorial review.
         </p>
@@ -57,10 +57,10 @@ export default function AboutPage() {
 
         <h2 className="text-xl font-bold mt-8 mb-3">Contact</h2>
         <p>
-          Found an error? <a href="mailto:corrections@parliamentpulse.ca" className="text-red-600 hover:text-red-800 underline">corrections@parliamentpulse.ca</a>
+          Found an error? <a href="mailto:corrections@parliamentaudit.ca" className="text-red-600 hover:text-red-800 underline">corrections@parliamentaudit.ca</a>
         </p>
         <p>
-          General inquiries: <a href="mailto:hello@parliamentpulse.ca" className="text-red-600 hover:text-red-800 underline">hello@parliamentpulse.ca</a>
+          General inquiries: <a href="mailto:hello@parliamentaudit.ca" className="text-red-600 hover:text-red-800 underline">hello@parliamentaudit.ca</a>
         </p>
       </section>
     </div>

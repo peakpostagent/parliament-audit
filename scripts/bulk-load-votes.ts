@@ -202,7 +202,7 @@ async function processVote(voteNumber: number): Promise<'ok' | 'skip' | 'error'>
         platform,
         captionText: 'text' in content ? content.text : content.caption,
         hashtags: 'hashtags' in content ? content.hashtags : [],
-        linkUrl: `https://parliamentpulse.ca/vote/${result.article.slug}`,
+        linkUrl: `https://parliamentaudit.ca/vote/${result.article.slug}`,
         status: 'draft',
       }).onConflictDoNothing();
     }
@@ -220,7 +220,7 @@ async function processVote(voteNumber: number): Promise<'ok' | 'skip' | 'error'>
 
 async function run() {
   console.log('═══════════════════════════════════════════════════════');
-  console.log(`  Parliament Pulse — Bulk Vote Loader`);
+  console.log(`  Parliament Audit — Bulk Vote Loader`);
   console.log(`  Votes: ${voteNumbers.join(', ')}`);
   console.log(`  Auto-approve: ${autoApprove ? 'YES (will publish immediately)' : 'NO (in_review)'}`);
   console.log('═══════════════════════════════════════════════════════\n');

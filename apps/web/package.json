@@ -1,5 +1,5 @@
 {
-  "name": "@parliament-pulse/web",
+  "name": "@parliament-audit/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@parliament-pulse/db": "*",
-    "@parliament-pulse/shared": "*",
+    "@parliament-audit/db": "*",
+    "@parliament-audit/shared": "*",
     "@vercel/og": "^0.11.1",
     "next": "^16.2.1",
     "react": "^19.2.4",

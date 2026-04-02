@@ -1,4 +1,4 @@
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { desc, eq, or } from 'drizzle-orm';
 
 export const revalidate = 30;
@@ -97,7 +97,7 @@ export default async function ReviewQueuePage() {
                   </span>
                 </div>
                 <a
-                  href={`https://parliamentpulse.ca/vote/${article.slug}`}
+                  href={`https://parliamentaudit.ca/vote/${article.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-blue-600 hover:underline"

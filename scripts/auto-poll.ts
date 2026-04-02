@@ -1,5 +1,5 @@
 /**
- * Parliament Pulse — Automated Vote Poller
+ * Parliament Audit — Automated Vote Poller
  *
  * Polls ourcommons.ca for new recorded divisions, runs each new vote through
  * the full pipeline (scrape → normalize → AI article → store), and publishes.
@@ -52,7 +52,7 @@ function sanitizeXml(xml: string): string {
 async function fetchVoteList(): Promise<number[]> {
   const resp = await fetch(VOTE_LIST_URL, {
     headers: {
-      'User-Agent': 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)',
+      'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)',
       'Accept': 'application/xml, text/xml',
     },
   });
@@ -227,7 +227,7 @@ async function processVote(voteNumber: number): Promise<'published' | 'review' |
 
     // 6. Upsert social posts
     const platforms = ['x', 'facebook', 'instagram', 'threads'] as const;
-    const imageUrl = `https://parliamentpulse.ca/api/og/vote/${result.article.slug}`;
+    const imageUrl = `https://parliamentaudit.ca/api/og/vote/${result.article.slug}`;
     for (const platform of platforms) {
       const content = result.social[platform];
       if (!content) continue;
@@ -237,7 +237,7 @@ async function processVote(voteNumber: number): Promise<'published' | 'review' |
         platform,
         captionText: 'text' in content ? content.text : content.caption,
         hashtags: 'hashtags' in content ? content.hashtags : [],
-        linkUrl: `https://parliamentpulse.ca/vote/${result.article.slug}`,
+        linkUrl: `https://parliamentaudit.ca/vote/${result.article.slug}`,
         imageUrl,
         status: 'draft',
       }).onConflictDoNothing();
@@ -297,7 +297,7 @@ async function postToX(articleId: string, articleSlug: string): Promise<void> {
     if (hashtags.length > 0) tweetText += `\n\n${hashtags.join(' ')}`;
 
     // Append link if not already present
-    const link = post.linkUrl ?? `https://parliamentpulse.ca/vote/${articleSlug}`;
+    const link = post.linkUrl ?? `https://parliamentaudit.ca/vote/${articleSlug}`;
     if (!tweetText.includes(link)) tweetText += `\n\n${link}`;
 
     const { data: tweet } = await xClient.readWrite.v2.tweet(tweetText);
@@ -307,7 +307,7 @@ async function postToX(articleId: string, articleSlug: string): Promise<void> {
       .set({ status: 'posted', postedAt: new Date(), platformPostId: tweet.id })
       .where(eq(schema.socialPosts.id, post.id));
 
-    console.log(`  [x] ✓ Posted https://x.com/parliamentpulse/status/${tweet.id}`);
+    console.log(`  [x] ✓ Posted https://x.com/parliamentaudit/status/${tweet.id}`);
   } catch (err: any) {
     const msg = err?.data?.detail || err?.message || String(err);
     console.error(`  [x] ❌ Post failed: ${msg}`);
@@ -322,7 +322,7 @@ async function postToX(articleId: string, articleSlug: string): Promise<void> {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   const startedAt = new Date();
-  console.log(`\n[auto-poll] ${startedAt.toISOString()} — Parliament Pulse vote poller`);
+  console.log(`\n[auto-poll] ${startedAt.toISOString()} — Parliament Audit vote poller`);
 
   if (isDryRun) console.log('[auto-poll] DRY RUN — detecting only, no processing');
 

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { desc, eq } from 'drizzle-orm';
 
 export const metadata: Metadata = {
-  title: 'Corrections — Parliament Pulse',
-  description: 'A public log of all corrections made to Parliament Pulse articles.',
+  title: 'Corrections — Parliament Audit',
+  description: 'A public log of all corrections made to Parliament Audit articles.',
 };
 
 export const revalidate = 3600;
@@ -27,11 +27,11 @@ export default async function CorrectionsPage() {
       <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
         <h2 className="font-bold text-green-800 mb-1">Our Correction Policy</h2>
         <p className="text-sm text-green-700">
-          Parliament Pulse is committed to accuracy. When official records are updated or we
+          Parliament Audit is committed to accuracy. When official records are updated or we
           identify an error, we correct the article and post a visible notice. We never
           silently edit published articles. Report errors to{' '}
-          <a href="mailto:corrections@parliamentpulse.ca" className="underline">
-            corrections@parliamentpulse.ca
+          <a href="mailto:corrections@parliamentaudit.ca" className="underline">
+            corrections@parliamentaudit.ca
           </a>.
         </p>
       </div>

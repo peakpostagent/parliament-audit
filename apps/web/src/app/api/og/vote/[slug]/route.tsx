@@ -1,5 +1,5 @@
 /**
- * Parliament Pulse — Dynamic OG Image Generator
+ * Parliament Audit — Dynamic OG Image Generator
  *
  * Generates a branded social card for every vote article.
  * Served at: /api/og/vote/[slug]
@@ -8,7 +8,7 @@
  *   • Dark background + high-contrast text — readable as a small thumbnail
  *   • PASSED / FAILED verdict is the dominant visual element
  *   • Party breakdown as horizontal bars using official party colours
- *   • Parliament Pulse brand identity top-right
+ *   • Parliament Audit brand identity top-right
  *   • 1200×630 (16:9) — optimal for X/Twitter feed and Facebook
  *
  * The same image URL is referenced in article page <meta og:image> tags,
@@ -16,7 +16,7 @@
  */
 
 import { ImageResponse } from '@vercel/og';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
 import { NextRequest } from 'next/server';
 
@@ -148,7 +148,7 @@ export async function GET(
             </div>
           </div>
 
-          {/* Right: Parliament Pulse brand */}
+          {/* Right: Parliament Audit brand */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -169,7 +169,7 @@ export async function GET(
               letterSpacing: '0.08em',
               display: 'flex',
             }}>
-              PARLIAMENTPULSE.CA
+              PARLIAMENTAUDIT.CA
             </div>
           </div>
         </div>
@@ -436,7 +436,7 @@ export async function GET(
               borderRadius: '50%',
               display: 'flex',
             }} />
-            <span style={{ color: '#64748B', fontSize: '13px', display: 'flex' }}>parliamentpulse.ca</span>
+            <span style={{ color: '#64748B', fontSize: '13px', display: 'flex' }}>parliamentaudit.ca</span>
           </div>
         </div>
       </div>

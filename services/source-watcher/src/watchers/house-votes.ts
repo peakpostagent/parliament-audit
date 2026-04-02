@@ -7,9 +7,9 @@
  */
 
 import { XMLParser } from 'fast-xml-parser';
-import { PARLIAMENT_URLS } from '@parliament-pulse/shared';
-import { db, schema } from '@parliament-pulse/db';
-import { voteDiscoveredQueue } from '@parliament-pulse/queue';
+import { PARLIAMENT_URLS } from '@parliament-audit/shared';
+import { db, schema } from '@parliament-audit/db';
+import { voteDiscoveredQueue } from '@parliament-audit/queue';
 import { eq, and } from 'drizzle-orm';
 
 const xmlParser = new XMLParser({
@@ -43,7 +43,7 @@ async function fetchHouseVotesXml(): Promise<string> {
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)',
+      'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)',
     },
   });
 
@@ -154,7 +154,7 @@ export async function fetchHouseVoteDetail(voteNumber: number): Promise<string> 
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)',
+      'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)',
     },
   });
 

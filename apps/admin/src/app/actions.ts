@@ -1,6 +1,6 @@
 'use server';
 
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
 
 export async function approveArticle(articleId: string, reviewNotes: string) {

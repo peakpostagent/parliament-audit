@@ -16,7 +16,7 @@
  * and Flourish parliament chart best practices.
  */
 
-import { PARTY_COLORS, PARTY_SHORT_NAMES } from '@parliament-pulse/shared';
+import { PARTY_COLORS, PARTY_SHORT_NAMES } from '@parliament-audit/shared';
 
 interface PartyResult {
   partyShort: string;

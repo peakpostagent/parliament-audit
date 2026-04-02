@@ -1,5 +1,5 @@
 /**
- * Article types for Parliament Pulse.
+ * Article types for Parliament Audit.
  */
 
 export type ArticleStatus =

@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  transpilePackages: ['@parliament-pulse/shared', '@parliament-pulse/db'],
+  transpilePackages: ['@parliament-audit/shared', '@parliament-audit/db'],
 };
 
 export default nextConfig;

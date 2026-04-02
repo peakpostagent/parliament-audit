@@ -10,10 +10,10 @@
  *   5. Creates an audit trail
  */
 import { Worker } from 'bullmq';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
-import { createRedisConnection } from '@parliament-pulse/queue';
-import type { CorrectionJob } from '@parliament-pulse/queue';
+import { createRedisConnection } from '@parliament-audit/queue';
+import type { CorrectionJob } from '@parliament-audit/queue';
 
 const connection = createRedisConnection();
 

@@ -1,6 +1,6 @@
 import { PartyBreakdown } from './PartyBreakdownBar';
 import { StatusBadge, ResultBadge } from './StatusBadge';
-import { VOTE_TYPE_LABELS } from '@parliament-pulse/shared';
+import { VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
 interface VoteCardProps {
   slug: string;

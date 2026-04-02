@@ -17,11 +17,11 @@ import type {
   VoteClassification,
   ConfidenceScore,
   FactCheckResult,
-} from '@parliament-pulse/shared';
+} from '@parliament-audit/shared';
 import {
   ArticleDraftSchema,
   SocialDraftsSchema,
-} from '@parliament-pulse/shared';
+} from '@parliament-audit/shared';
 import { classifyVote } from '../classify.js';
 import { buildArticlePrompt } from '../prompts/compose.prompt.js';
 import { buildSocialPrompt } from '../prompts/social.prompt.js';
@@ -77,7 +77,7 @@ export async function generateArticle(vote: NormalizedVote): Promise<GenerationR
   console.log(`[content-gen] Article generated: "${articleDraft.headline}"`);
 
   // Step 3: Generate social posts
-  const articleUrl = `https://parliamentpulse.ca/vote/${articleDraft.slug}`;
+  const articleUrl = `https://parliamentaudit.ca/vote/${articleDraft.slug}`;
   const socialPrompt = buildSocialPrompt({
     headline: articleDraft.headline,
     summary: articleDraft.summary,

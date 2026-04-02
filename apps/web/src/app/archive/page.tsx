@@ -1,7 +1,7 @@
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { desc, eq, and, ilike, sql } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
-import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-pulse/shared';
+import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
 export const revalidate = 300;
 

@@ -5,8 +5,8 @@
  * substantive (about legislation) or procedural.
  */
 
-import type { VoteType, BillStage, Significance, VoteClassification } from '@parliament-pulse/shared';
-import { VOTE_TYPE_SIGNIFICANCE } from '@parliament-pulse/shared';
+import type { VoteType, BillStage, Significance, VoteClassification } from '@parliament-audit/shared';
+import { VOTE_TYPE_SIGNIFICANCE } from '@parliament-audit/shared';
 
 /**
  * Classify a vote based on its subject text and bill number.

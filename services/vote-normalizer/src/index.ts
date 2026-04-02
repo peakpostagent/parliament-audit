@@ -7,12 +7,12 @@
  */
 
 import { Worker } from 'bullmq';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import {
   createRedisConnection,
   voteReadyQueue,
   type VoteDiscoveredJob,
-} from '@parliament-pulse/queue';
+} from '@parliament-audit/queue';
 import { normalizeHouseVote } from './normalize.js';
 
 const connection = createRedisConnection();
@@ -161,6 +161,6 @@ worker.on('failed', (job, err) => {
 });
 
 console.log('════════════════════════════════════════════');
-console.log('  Parliament Pulse — Vote Normalizer');
+console.log('  Parliament Audit — Vote Normalizer');
 console.log('════════════════════════════════════════════');
 console.log('[normalizer] Worker started, waiting for jobs...');

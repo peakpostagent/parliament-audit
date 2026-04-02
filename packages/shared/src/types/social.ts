@@ -1,5 +1,5 @@
 /**
- * Social media post types for Parliament Pulse.
+ * Social media post types for Parliament Audit.
  */
 
 export type SocialPlatform = 'x' | 'facebook' | 'instagram' | 'threads' | 'tiktok' | 'youtube';
@@ -62,8 +62,8 @@ export interface VoteCardDesign {
     nays: number;
   };
   footer: {
-    brand: 'Parliament Pulse';
-    url: 'parliamentpulse.ca';
+    brand: 'Parliament Audit';
+    url: 'parliamentaudit.ca';
     tagline: 'Canada deserves to know.';
   };
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Parliament Pulse — Editor Dashboard',
+  title: 'Parliament Audit — Editor Dashboard',
 };
 
 export default function AdminLayout({

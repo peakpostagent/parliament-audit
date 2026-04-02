@@ -7,19 +7,19 @@
  */
 
 import { Worker } from 'bullmq';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import {
   createRedisConnection,
   contentReviewQueue,
   contentApprovedQueue,
   type VoteReadyJob,
-} from '@parliament-pulse/queue';
+} from '@parliament-audit/queue';
 import { eq } from 'drizzle-orm';
 import { generateArticle } from './chains/article-chain.js';
 import { shouldAutoPublish } from './confidence.js';
-import type { NormalizedVote, PartyResult, MemberResult, SourceRef } from '@parliament-pulse/shared';
-import { CHAMBERS } from '@parliament-pulse/shared';
-import { formatDateTimeET } from '@parliament-pulse/shared';
+import type { NormalizedVote, PartyResult, MemberResult, SourceRef } from '@parliament-audit/shared';
+import { CHAMBERS } from '@parliament-audit/shared';
+import { formatDateTimeET } from '@parliament-audit/shared';
 
 const connection = createRedisConnection();
 
@@ -130,7 +130,7 @@ const worker = new Worker<VoteReadyJob>(
         platform,
         captionText: 'text' in content ? content.text : content.caption,
         hashtags: 'hashtags' in content ? content.hashtags : content.firstCommentHashtags,
-        linkUrl: `https://parliamentpulse.ca/vote/${result.article.slug}`,
+        linkUrl: `https://parliamentaudit.ca/vote/${result.article.slug}`,
         status: 'draft',
       });
     }
@@ -197,6 +197,6 @@ worker.on('failed', (job, err) => {
 });
 
 console.log('════════════════════════════════════════════');
-console.log('  Parliament Pulse — Content Generator');
+console.log('  Parliament Audit — Content Generator');
 console.log('════════════════════════════════════════════');
 console.log('[content-gen] Worker started, waiting for jobs...');

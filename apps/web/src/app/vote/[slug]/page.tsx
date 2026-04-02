@@ -1,4 +1,4 @@
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -8,7 +8,7 @@ import { VerificationBox } from '@/components/VerificationBox';
 import { FactBox } from '@/components/FactBox';
 import { CopyLinkButton } from '@/components/CopyLinkButton';
 import { RecentVotesSidebar } from '@/components/RecentVotesSidebar';
-import { VOTE_TYPE_LABELS } from '@parliament-pulse/shared';
+import { VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -31,12 +31,12 @@ async function getArticle(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug);
-  if (!article) return { title: 'Vote Not Found — Parliament Pulse' };
+  if (!article) return { title: 'Vote Not Found — Parliament Audit' };
 
-  const ogImageUrl = `https://parliamentpulse.ca/api/og/vote/${slug}`;
+  const ogImageUrl = `https://parliamentaudit.ca/api/og/vote/${slug}`;
 
   return {
-    title: `${article.headline} — Parliament Pulse`,
+    title: `${article.headline} — Parliament Audit`,
     description: article.summary,
     openGraph: {
       title: article.headline,
@@ -169,7 +169,7 @@ export default async function VoteDetailPage({ params }: PageProps) {
       <div className="mt-8 pt-6 border-t flex items-center gap-4">
         <span className="text-sm font-medium text-gray-500">Share:</span>
         <a
-          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://parliamentpulse.ca/vote/${article.slug}`)}&text=${encodeURIComponent(article.headline)}`}
+          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://parliamentaudit.ca/vote/${article.slug}`)}&text=${encodeURIComponent(article.headline)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-blue-600 hover:text-blue-800"
@@ -177,14 +177,14 @@ export default async function VoteDetailPage({ params }: PageProps) {
           X / Twitter
         </a>
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://parliamentpulse.ca/vote/${article.slug}`)}`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://parliamentaudit.ca/vote/${article.slug}`)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-blue-600 hover:text-blue-800"
         >
           Facebook
         </a>
-        <CopyLinkButton url={`https://parliamentpulse.ca/vote/${article.slug}`} />
+        <CopyLinkButton url={`https://parliamentaudit.ca/vote/${article.slug}`} />
       </div>
     </article>
     </div>

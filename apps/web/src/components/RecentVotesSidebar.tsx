@@ -8,7 +8,7 @@
  * Server component — fetches data at render time.
  */
 
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq, desc, and } from 'drizzle-orm';
 import Link from 'next/link';
 

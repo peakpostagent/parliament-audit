@@ -6,7 +6,7 @@
  * whether an article can be auto-published or needs human review.
  */
 
-import type { NormalizedVote, FactCheckResult, ConfidenceScore } from '@parliament-pulse/shared';
+import type { NormalizedVote, FactCheckResult, ConfidenceScore } from '@parliament-audit/shared';
 
 export const AUTO_PUBLISH_THRESHOLD = 0.85;
 

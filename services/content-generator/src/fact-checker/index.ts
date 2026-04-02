@@ -5,7 +5,7 @@
  * Every claim in the article must be traceable to the normalized vote data.
  */
 
-import type { ArticleDraft, NormalizedVote, FactCheck, FactCheckResult } from '@parliament-pulse/shared';
+import type { ArticleDraft, NormalizedVote, FactCheck, FactCheckResult } from '@parliament-audit/shared';
 
 /**
  * Run all fact-checks on an article draft against source vote data.

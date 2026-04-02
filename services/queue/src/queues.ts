@@ -4,7 +4,7 @@ import { createRedisConnection } from './connection.js';
 const connection = createRedisConnection();
 
 /**
- * All queue definitions for Parliament Pulse pipeline.
+ * All queue definitions for Parliament Audit pipeline.
  *
  * Event flow:
  *   vote.discovered → vote-parser → vote-normalizer → vote.ready

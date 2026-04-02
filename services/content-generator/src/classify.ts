@@ -3,8 +3,8 @@
  * Avoids cross-service src/ imports from vote-normalizer.
  */
 
-import type { VoteType, BillStage, Significance, VoteClassification } from '@parliament-pulse/shared';
-import { VOTE_TYPE_SIGNIFICANCE } from '@parliament-pulse/shared';
+import type { VoteType, BillStage, Significance, VoteClassification } from '@parliament-audit/shared';
+import { VOTE_TYPE_SIGNIFICANCE } from '@parliament-audit/shared';
 
 export function classifyVote(subjectText: string, billNumber?: string | null): VoteClassification {
   const lower = subjectText.toLowerCase();

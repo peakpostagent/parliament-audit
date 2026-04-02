@@ -1,5 +1,5 @@
 /**
- * Date utilities for Parliament Pulse.
+ * Date utilities for Parliament Audit.
  * All dates are handled in Eastern Time (Ottawa) by default.
  */
 

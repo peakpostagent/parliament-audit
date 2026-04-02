@@ -1,5 +1,5 @@
 /**
- * Core vote types for Parliament Pulse.
+ * Core vote types for Parliament Audit.
  * These represent the canonical normalized data model for parliamentary votes.
  */
 

@@ -9,10 +9,10 @@
  *   4. Creates an audit log entry
  */
 import { Worker } from 'bullmq';
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
-import { createRedisConnection } from '@parliament-pulse/queue';
-import type { ContentApprovedJob } from '@parliament-pulse/queue';
+import { createRedisConnection } from '@parliament-audit/queue';
+import type { ContentApprovedJob } from '@parliament-audit/queue';
 
 const connection = createRedisConnection();
 

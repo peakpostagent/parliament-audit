@@ -1,4 +1,4 @@
-import { db, schema } from '@parliament-pulse/db';
+import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { ReviewActions } from './ReviewActions';

@@ -2,7 +2,7 @@
  * Social Media Copy Generation Prompt
  */
 
-import type { ArticleDraft, PartyResult } from '@parliament-pulse/shared';
+import type { ArticleDraft, PartyResult } from '@parliament-audit/shared';
 
 export function buildSocialPrompt(params: {
   headline: string;
@@ -21,7 +21,7 @@ export function buildSocialPrompt(params: {
     .map(p => `  ${p.partyName}: ${p.yeas} Yes, ${p.nays} No`)
     .join('\n');
 
-  return `You are a social media copywriter for Parliament Pulse, a non-partisan Canadian parliamentary vote tracker.
+  return `You are a social media copywriter for Parliament Audit, a non-partisan Canadian parliamentary vote tracker.
 
 RULES — NON-NEGOTIABLE:
 1. Use ONLY the data provided below. Do not invent facts.

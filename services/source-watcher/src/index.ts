@@ -9,7 +9,7 @@ import { startSchedules, pollAllNow } from './schedule.js';
 
 async function main(): Promise<void> {
   console.log('════════════════════════════════════════════');
-  console.log('  Parliament Pulse — Source Watcher');
+  console.log('  Parliament Audit — Source Watcher');
   console.log('  Canada deserves to know.');
   console.log('════════════════════════════════════════════');
   console.log();

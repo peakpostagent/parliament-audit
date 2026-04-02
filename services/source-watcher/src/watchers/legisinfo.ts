@@ -5,7 +5,7 @@
  * Used to enrich vote records with bill context.
  */
 
-import { PARLIAMENT_URLS } from '@parliament-pulse/shared';
+import { PARLIAMENT_URLS } from '@parliament-audit/shared';
 
 const CURRENT_PARLIAMENT = 45;
 const CURRENT_SESSION = 1;
@@ -31,7 +31,7 @@ export async function fetchBills(): Promise<BillMetadata[]> {
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'ParliamentPulse/1.0 (civic media; contact@parliamentpulse.ca)',
+      'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)',
       'Accept': 'application/json',
     },
   });

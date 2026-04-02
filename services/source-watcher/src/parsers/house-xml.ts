@@ -6,8 +6,8 @@
  */
 
 import { XMLParser } from 'fast-xml-parser';
-import type { VoteCast, MemberResult } from '@parliament-pulse/shared';
-import { PARTY_NAME_MAP } from '@parliament-pulse/shared';
+import type { VoteCast, MemberResult } from '@parliament-audit/shared';
+import { PARTY_NAME_MAP } from '@parliament-audit/shared';
 
 const xmlParser = new XMLParser({
   ignoreAttributes: false,

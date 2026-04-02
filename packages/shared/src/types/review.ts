@@ -1,5 +1,5 @@
 /**
- * Editorial review types for Parliament Pulse.
+ * Editorial review types for Parliament Audit.
  */
 
 export type ReviewDecision = 'approve' | 'needs_edits' | 'reject';

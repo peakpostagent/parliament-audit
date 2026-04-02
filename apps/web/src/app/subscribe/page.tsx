@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Subscribe — Parliament Pulse',
+  title: 'Subscribe — Parliament Audit',
   description: 'Get notified when Parliament votes on the issues that matter to you.',
 };
 
@@ -61,7 +61,7 @@ export default function SubscribePage() {
 
           <p className="text-xs text-gray-500 mt-2">
             We respect your inbox. Unsubscribe anytime. We never share your email.
-            Parliament Pulse is a civic project, not a political campaign.
+            Parliament Audit is a civic project, not a political campaign.
           </p>
         </form>
       </div>

@@ -32,12 +32,12 @@ export function VerificationBox({ verificationText, sources, recordStatus, lastV
       </div>
 
       <div className="mt-3 pt-3 border-t border-green-200 text-xs text-green-700">
-        <p>Parliament Pulse uses official parliamentary data sources. We never fabricate vote counts, party positions, or bill details.</p>
+        <p>Parliament Audit uses official parliamentary data sources. We never fabricate vote counts, party positions, or bill details.</p>
         <p className="mt-1">
           See our full{' '}
           <a href="/methodology" className="underline">methodology</a>.
           {' '}Report errors:{' '}
-          <a href="mailto:corrections@parliamentpulse.ca" className="underline">corrections@parliamentpulse.ca</a>
+          <a href="mailto:corrections@parliamentaudit.ca" className="underline">corrections@parliamentaudit.ca</a>
         </p>
       </div>
     </div>
