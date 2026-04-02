@@ -69,12 +69,4 @@ RUN npm prune --omit=dev 2>/dev/null || true
 
 EXPOSE 3000 3001
 
-CMD if [ "$SERVICE" = "web" ]; then \
-      cd apps/web && npm start; \
-    elif [ "$SERVICE" = "admin" ]; then \
-      cd apps/admin && npm start; \
-    elif [ "$SERVICE" = "migrate" ]; then \
-      cd packages/db && npx drizzle-kit push; \
-    else \
-      cd services/$SERVICE && npm start; \
-    fi
+CMD ["/bin/sh", "-c", "if [ \"$SERVICE\" = \"web\" ]; then cd apps/web && npm start; elif [ \"$SERVICE\" = \"admin\" ]; then cd apps/admin && npm start; elif [ \"$SERVICE\" = \"migrate\" ]; then cd packages/db && npx drizzle-kit push; else cd services/$SERVICE && npm start; fi"]
