@@ -41,6 +41,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Dummy DATABASE_URL for Next.js build (not used at runtime)
+ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
+
 ARG SERVICE=web
 RUN if [ "$SERVICE" = "web" ]; then \
       npx turbo build --filter=@parliament-audit/web...; \
