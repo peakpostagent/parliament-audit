@@ -2,6 +2,7 @@ import { db, schema } from '@parliament-audit/db';
 import { desc, eq } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 300; // Revalidate every 5 minutes
 
 export default async function HomePage() {

@@ -21,6 +21,7 @@ import { eq } from 'drizzle-orm';
 import { NextRequest } from 'next/server';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 // ─── Party colors (matches constants/parties.ts) ──────────────────────────────
 // Brightened from official brand colors for legibility on dark backgrounds

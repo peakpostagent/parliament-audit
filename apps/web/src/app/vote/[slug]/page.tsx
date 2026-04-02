@@ -10,6 +10,8 @@ import { CopyLinkButton } from '@/components/CopyLinkButton';
 import { RecentVotesSidebar } from '@/components/RecentVotesSidebar';
 import { VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

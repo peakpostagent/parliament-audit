@@ -3,6 +3,7 @@ import { desc, eq, and, ilike, sql } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
 import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 300;
 
 interface ArchivePageProps {

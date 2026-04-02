@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description: 'A public log of all corrections made to Parliament Audit articles.',
 };
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
 export default async function CorrectionsPage() {
