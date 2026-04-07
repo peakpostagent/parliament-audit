@@ -319,7 +319,7 @@ async function fetchBillMetadata(billNumber: string | null): Promise<{
       headers: { 'User-Agent': 'ParliamentAudit/1.0 (civic media; contact@parliamentaudit.ca)', 'Accept': 'application/json' },
     });
     if (resp.ok) {
-      const bills = await resp.json();
+      const bills = await resp.json() as Record<string, any>;
       const billList = Array.isArray(bills) ? bills : bills.Bills || bills.bills || [];
       const match = billList.find((b: any) => {
         const num = (b.NumberCode || b.BillNumberCode || '').toUpperCase().replace(/\s/g, '');

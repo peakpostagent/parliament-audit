@@ -50,7 +50,7 @@ RUN if [ "$SERVICE" = "web" ]; then \
     elif [ "$SERVICE" = "admin" ]; then \
       npx turbo build --filter=@parliament-audit/admin...; \
     else \
-      npx turbo build; \
+      npx turbo build --filter=@parliament-audit/$SERVICE...; \
     fi
 
 # ── Stage 3: Production runner ───────────────────────────────────────────────
@@ -63,6 +63,17 @@ ENV NODE_ENV=production
 
 # Copy the entire built monorepo (simple & reliable — optimise later)
 COPY --from=builder /app ./
+
+# Next.js standalone mode: copy static assets into standalone directory
+RUN if [ "$SERVICE" = "web" ]; then \
+      mkdir -p /app/apps/web/.next/standalone/apps/web/.next && \
+      cp -r /app/apps/web/.next/static /app/apps/web/.next/standalone/apps/web/.next/static && \
+      if [ -d /app/apps/web/public ]; then cp -r /app/apps/web/public /app/apps/web/.next/standalone/apps/web/public; fi; \
+    elif [ "$SERVICE" = "admin" ]; then \
+      mkdir -p /app/apps/admin/.next/standalone/apps/admin/.next && \
+      cp -r /app/apps/admin/.next/static /app/apps/admin/.next/standalone/apps/admin/.next/static && \
+      if [ -d /app/apps/admin/public ]; then cp -r /app/apps/admin/public /app/apps/admin/.next/standalone/apps/admin/public; fi; \
+    fi
 
 # Copy and make entrypoint executable
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh

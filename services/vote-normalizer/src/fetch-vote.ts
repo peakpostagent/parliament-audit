@@ -95,7 +95,7 @@ export async function fetchVoteDetail(voteNumber: number): Promise<OpenParliamen
   const url = `${BASE_URL}/votes/${PARLIAMENT}-${SESSION}/${voteNumber}/`;
   const resp = await fetch(url, { headers });
   if (!resp.ok) throw new Error(`OpenParliament vote detail failed: ${resp.status} for vote #${voteNumber}`);
-  return resp.json();
+  return resp.json() as Promise<OpenParliamentVote>;
 }
 
 /**
@@ -109,7 +109,7 @@ export async function fetchVoteBallots(voteNumber: number): Promise<OpenParliame
   while (url) {
     const resp = await fetch(url, { headers });
     if (!resp.ok) throw new Error(`OpenParliament ballots failed: ${resp.status}`);
-    const data: { objects: OpenParliamentBallot[]; pagination?: { next_url?: string } } = await resp.json();
+    const data = await resp.json() as { objects: OpenParliamentBallot[]; pagination?: { next_url?: string } };
     ballots.push(...data.objects);
     url = data.pagination?.next_url ? `${BASE_URL}${data.pagination.next_url}` : null;
   }
@@ -125,7 +125,7 @@ export async function fetchMembership(membershipUrl: string): Promise<OpenParlia
     const url = `${BASE_URL}${membershipUrl}`;
     const resp = await fetch(url, { headers });
     if (!resp.ok) return null;
-    return resp.json();
+    return resp.json() as Promise<OpenParliamentMembership>;
   } catch {
     return null;
   }

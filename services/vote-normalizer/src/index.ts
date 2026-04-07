@@ -57,7 +57,7 @@ const worker = new Worker<VoteDiscoveredJob>(
           journalsUrl: normalized.journalsUrl,
           legisinfoUrl: normalized.legisinfoUrl,
           sittingNumber: normalized.sittingNumber,
-          rawXml: detailXml,
+          rawXml: null,
         })
         .onConflictDoUpdate({
           target: [schema.votes.chamber, schema.votes.parliament, schema.votes.session, schema.votes.voteNumber],
