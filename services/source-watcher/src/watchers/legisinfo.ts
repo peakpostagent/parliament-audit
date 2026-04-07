@@ -40,7 +40,7 @@ export async function fetchBills(): Promise<BillMetadata[]> {
     throw new Error(`Failed to fetch LEGISinfo bills: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data: any = await response.json();
 
   // LEGISinfo JSON structure — adapt based on actual response shape
   const bills = Array.isArray(data) ? data : data.Bills || data.bills || [];
