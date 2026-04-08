@@ -18,9 +18,9 @@ const xmlParser = new XMLParser({
   textNodeName: '#text',
 });
 
-// Current parliament/session — update when a new session begins
-const CURRENT_PARLIAMENT = 45;
-const CURRENT_SESSION = 1;
+// Current parliament/session — configurable via environment variables
+const CURRENT_PARLIAMENT = parseInt(process.env.CURRENT_PARLIAMENT ?? '45', 10);
+const CURRENT_SESSION = parseInt(process.env.CURRENT_SESSION ?? '1', 10);
 
 interface HouseVoteXmlEntry {
   VoteNumber: number;

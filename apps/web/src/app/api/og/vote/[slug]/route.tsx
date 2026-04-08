@@ -162,7 +162,7 @@ export async function GET(
               letterSpacing: '-0.02em',
               display: 'flex',
             }}>
-              Parliament<span style={{ color: '#D71920', marginLeft: '6px', display: 'flex' }}>Pulse</span>
+              Parliament<span style={{ color: '#D71920', marginLeft: '6px', display: 'flex' }}>Audit</span>
             </div>
             <div style={{
               color: '#64748B',

@@ -7,8 +7,8 @@
 
 import { PARLIAMENT_URLS } from '@parliament-audit/shared';
 
-const CURRENT_PARLIAMENT = 45;
-const CURRENT_SESSION = 1;
+const CURRENT_PARLIAMENT = parseInt(process.env.CURRENT_PARLIAMENT ?? '45', 10);
+const CURRENT_SESSION = parseInt(process.env.CURRENT_SESSION ?? '1', 10);
 
 export interface BillMetadata {
   billNumber: string;
