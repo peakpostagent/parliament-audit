@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/about', label: 'About' },
   { href: '/methodology', label: 'Methodology' },
   { href: '/glossary', label: 'Glossary' },
+  { href: '/subscribe', label: 'Subscribe' },
 ];
 
 export function MobileNav() {
@@ -19,6 +20,7 @@ export function MobileNav() {
         onClick={() => setOpen(!open)}
         className="text-white p-2"
         aria-label="Toggle navigation menu"
+        aria-expanded={open}
       >
         {open ? (
           // X icon

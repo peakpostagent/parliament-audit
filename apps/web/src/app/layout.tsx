@@ -26,9 +26,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Parliament Audit',
+              url: 'https://parliamentaudit.ca',
+              description: 'Non-partisan parliamentary vote tracking for Canada.',
+              sameAs: ['https://x.com/ParliamentAudit'],
+            }),
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-white">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-[#1a1a2e] focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:text-sm focus:font-medium"
+        >
+          Skip to main content
+        </a>
         <Header />
-        <main className="max-w-6xl mx-auto px-4 py-8">
+        <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
           {children}
         </main>
         <Footer />
@@ -47,12 +68,13 @@ function Header() {
           </a>
           <p className="text-sm text-gray-300 mt-0.5">Canada deserves to know.</p>
         </div>
-        <nav className="hidden md:flex gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-sm">
           <a href="/" className="hover:text-red-400 transition-colors">Latest</a>
           <a href="/archive" className="hover:text-red-400 transition-colors">Archive</a>
           <a href="/about" className="hover:text-red-400 transition-colors">About</a>
           <a href="/methodology" className="hover:text-red-400 transition-colors">Methodology</a>
           <a href="/glossary" className="hover:text-red-400 transition-colors">Glossary</a>
+          <a href="/subscribe" className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-medium transition-colors">Subscribe</a>
         </nav>
         <MobileNav />
       </div>

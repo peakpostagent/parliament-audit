@@ -20,8 +20,24 @@ export default async function HomePage() {
     },
   });
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Parliament Audit',
+    url: 'https://parliamentaudit.ca',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://parliamentaudit.ca/archive?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero section */}
       <section className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
