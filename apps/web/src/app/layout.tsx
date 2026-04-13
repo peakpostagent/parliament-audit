@@ -87,6 +87,10 @@ function Footer() {
               <li><a href="https://sencanada.ca" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">Senate of Canada</a></li>
               <li><a href="https://www.parl.ca/legisinfo" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">LEGISinfo</a></li>
             </ul>
+            <h3 className="font-bold mt-4 mb-2">Follow Us</h3>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li><a href="https://x.com/ParliamentAudit" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+            </ul>
           </div>
         </div>
         <div className="mt-8 pt-4 border-t text-center text-xs text-gray-500">

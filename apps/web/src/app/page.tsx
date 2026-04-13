@@ -43,7 +43,16 @@ export default async function HomePage() {
         {latestArticles.length === 0 ? (
           <div className="text-center py-16 text-gray-500">
             <p className="text-lg mb-2">No votes published yet.</p>
-            <p className="text-sm">Check back soon — we're monitoring Parliament for new recorded divisions.</p>
+            <p className="text-sm mb-6">Check back soon — we're monitoring Parliament for new recorded divisions.</p>
+            <div className="max-w-md mx-auto text-left bg-gray-50 rounded-lg p-6 text-sm">
+              <p className="font-semibold text-gray-700 mb-3">While you wait:</p>
+              <ul className="space-y-2 text-gray-600">
+                <li className="flex gap-2"><span className="text-red-600 font-bold">1.</span> <a href="/about" className="hover:text-red-600 underline">Learn about the project</a> and why we built it</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">2.</span> <a href="/methodology" className="hover:text-red-600 underline">Read our methodology</a> — how we collect and verify data</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">3.</span> <a href="/subscribe" className="hover:text-red-600 underline">Subscribe for alerts</a> so you never miss a vote</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">4.</span> <a href="https://x.com/ParliamentAudit" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 underline">Follow us on X</a> for updates</li>
+              </ul>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
