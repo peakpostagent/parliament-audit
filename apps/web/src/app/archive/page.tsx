@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
 import { db, schema } from '@parliament-audit/db';
 import { desc, eq, and, ilike, sql } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
 import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-audit/shared';
+
+export const metadata: Metadata = {
+  title: 'Vote Archive — Parliament Audit',
+  description: 'Search and filter every recorded vote in Canada\'s House of Commons and Senate. Browse by party, result, vote type, and more.',
+};
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 300;
