@@ -33,7 +33,7 @@ async function getArticle(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug);
-  if (!article) return { title: 'Vote Not Found — Parliament Audit' };
+  if (!article) return { title: 'Vote Not Found' };
 
   const ogImageUrl = `https://parliamentaudit.ca/api/og/vote/${slug}`;
 

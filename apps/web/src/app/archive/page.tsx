@@ -5,7 +5,7 @@ import { VoteCard } from '@/components/VoteCard';
 import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
 export const metadata: Metadata = {
-  title: 'Vote Archive — Parliament Audit',
+  title: 'Vote Archive',
   description: 'Search and filter every recorded vote in Canada\'s House of Commons and Senate. Browse by party, result, vote type, and more.',
 };
 

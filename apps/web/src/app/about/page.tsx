@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About — Parliament Audit',
+  title: 'About',
   description: 'Parliament Audit is an independent, non-partisan project that tracks every recorded vote in Canada\'s Parliament.',
 };
 
@@ -46,11 +46,36 @@ export default function AboutPage() {
         </ul>
 
         <h2 className="text-xl font-bold mt-8 mb-3">How It Works</h2>
-        <p>
-          Parliament Audit automatically monitors official parliamentary data sources. When a new
-          recorded vote is published, our system ingests the data, verifies it against official
-          records, generates a factual article, and publishes it after editorial review.
-        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6 not-prose">
+          <div className="bg-gray-50 border rounded-lg p-5 text-center">
+            <div className="text-3xl mb-2">1</div>
+            <h3 className="font-bold text-sm mb-1">Monitor</h3>
+            <p className="text-xs text-gray-600">
+              We automatically check official parliamentary data sources every 15 minutes during sitting days.
+            </p>
+          </div>
+          <div className="bg-gray-50 border rounded-lg p-5 text-center">
+            <div className="text-3xl mb-2">2</div>
+            <h3 className="font-bold text-sm mb-1">Verify</h3>
+            <p className="text-xs text-gray-600">
+              Vote totals are cross-checked against official records. Party breakdowns are validated.
+            </p>
+          </div>
+          <div className="bg-gray-50 border rounded-lg p-5 text-center">
+            <div className="text-3xl mb-2">3</div>
+            <h3 className="font-bold text-sm mb-1">Explain</h3>
+            <p className="text-xs text-gray-600">
+              We generate a plain-language article explaining what was voted on and why it matters.
+            </p>
+          </div>
+          <div className="bg-gray-50 border rounded-lg p-5 text-center">
+            <div className="text-3xl mb-2">4</div>
+            <h3 className="font-bold text-sm mb-1">Publish</h3>
+            <p className="text-xs text-gray-600">
+              After editorial review, the article goes live with full sources and verification details.
+            </p>
+          </div>
+        </div>
         <p>
           Read more about our process on our <a href="/methodology" className="text-red-600 hover:text-red-800 underline">Methodology page</a>.
         </p>
@@ -63,6 +88,17 @@ export default function AboutPage() {
           General inquiries: <a href="mailto:hello@parliamentaudit.ca" className="text-red-600 hover:text-red-800 underline">hello@parliamentaudit.ca</a>
         </p>
       </section>
+
+      <div className="mt-12 grid sm:grid-cols-2 gap-4">
+        <a href="/find-your-mp" className="block bg-[#1a1a2e] text-white rounded-lg p-6 hover:bg-[#2a2a4e] transition-colors">
+          <h3 className="font-bold text-lg mb-1">Find Your MP</h3>
+          <p className="text-gray-300 text-sm">Enter your postal code to see who represents you in Ottawa.</p>
+        </a>
+        <a href="/subscribe" className="block bg-red-600 text-white rounded-lg p-6 hover:bg-red-700 transition-colors">
+          <h3 className="font-bold text-lg mb-1">Subscribe</h3>
+          <p className="text-red-100 text-sm">Get notified every time Parliament votes on the issues that matter.</p>
+        </a>
+      </div>
     </div>
   );
 }

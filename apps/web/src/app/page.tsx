@@ -65,8 +65,8 @@ export default async function HomePage() {
               <ul className="space-y-2 text-gray-600">
                 <li className="flex gap-2"><span className="text-red-600 font-bold">1.</span> <a href="/about" className="hover:text-red-600 underline">Learn about the project</a> and why we built it</li>
                 <li className="flex gap-2"><span className="text-red-600 font-bold">2.</span> <a href="/methodology" className="hover:text-red-600 underline">Read our methodology</a> — how we collect and verify data</li>
-                <li className="flex gap-2"><span className="text-red-600 font-bold">3.</span> <a href="/subscribe" className="hover:text-red-600 underline">Subscribe for alerts</a> so you never miss a vote</li>
-                <li className="flex gap-2"><span className="text-red-600 font-bold">4.</span> <a href="https://x.com/ParliamentAudit" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 underline">Follow us on X</a> for updates</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">3.</span> <a href="/find-your-mp" className="hover:text-red-600 underline">Find your MP</a> and see who represents you</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">4.</span> <a href="/subscribe" className="hover:text-red-600 underline">Subscribe for alerts</a> so you never miss a vote</li>
               </ul>
             </div>
           </div>

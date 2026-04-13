@@ -3,7 +3,11 @@ import { MobileNav } from '@/components/MobileNav';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Parliament Audit — Canada deserves to know.',
+  metadataBase: new URL('https://parliamentaudit.ca'),
+  title: {
+    default: 'Parliament Audit — Canada deserves to know.',
+    template: '%s — Parliament Audit',
+  },
   description: 'Track every vote in Canada\'s Parliament. Non-partisan. Factual. Transparent. See how each party voted on bills, motions, and amendments.',
   openGraph: {
     title: 'Parliament Audit',
@@ -14,8 +18,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@ParliamentAudit',
+    creator: '@ParliamentAudit',
     title: 'Parliament Audit',
     description: 'Track every vote in Canada\'s Parliament.',
+  },
+  alternates: {
+    canonical: '/',
   },
 };
 
@@ -71,9 +80,9 @@ function Header() {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <a href="/" className="hover:text-red-400 transition-colors">Latest</a>
           <a href="/archive" className="hover:text-red-400 transition-colors">Archive</a>
+          <a href="/find-your-mp" className="hover:text-red-400 transition-colors">Find Your MP</a>
           <a href="/about" className="hover:text-red-400 transition-colors">About</a>
           <a href="/methodology" className="hover:text-red-400 transition-colors">Methodology</a>
-          <a href="/glossary" className="hover:text-red-400 transition-colors">Glossary</a>
           <a href="/subscribe" className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-medium transition-colors">Subscribe</a>
         </nav>
         <MobileNav />
@@ -97,6 +106,7 @@ function Footer() {
             <h3 className="font-bold mb-2">Links</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li><a href="/about" className="hover:text-red-600">About Us</a></li>
+              <li><a href="/find-your-mp" className="hover:text-red-600">Find Your MP</a></li>
               <li><a href="/methodology" className="hover:text-red-600">Our Methodology</a></li>
               <li><a href="/corrections" className="hover:text-red-600">Corrections</a></li>
               <li><a href="/glossary" className="hover:text-red-600">Glossary</a></li>

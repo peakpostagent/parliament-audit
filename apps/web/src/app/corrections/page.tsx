@@ -3,7 +3,7 @@ import { db, schema } from '@parliament-audit/db';
 import { desc, eq } from 'drizzle-orm';
 
 export const metadata: Metadata = {
-  title: 'Corrections — Parliament Audit',
+  title: 'Corrections',
   description: 'A public log of all corrections made to Parliament Audit articles.',
 };
 

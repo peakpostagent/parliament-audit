@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { SubscribeForm } from '@/components/SubscribeForm';
 
 export const metadata: Metadata = {
-  title: 'Subscribe — Parliament Audit',
+  title: 'Subscribe',
   description: 'Get notified when Parliament votes on the issues that matter to you.',
 };
 

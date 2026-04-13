@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Methodology — Parliament Audit',
+  title: 'Methodology',
   description: 'How Parliament Audit collects, verifies, and publishes parliamentary vote data.',
 };
 

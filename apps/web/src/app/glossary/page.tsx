@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Glossary — Parliament Audit',
+  title: 'Glossary',
   description: 'Plain-English definitions of Canadian parliamentary terms.',
 };
 
