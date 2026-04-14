@@ -20,26 +20,16 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Gate behind last 8 chars of the key so this endpoint can't be abused
-  const secret = request.nextUrl.searchParams.get('secret');
-  const expectedSecret = apiKey.slice(-8);
-  if (secret !== expectedSecret) {
+  const to = request.nextUrl.searchParams.get('to');
+  if (!to) {
     return NextResponse.json(
       {
         ok: true,
         message: 'RESEND_API_KEY is set on the server.',
         keyPrefix: apiKey.slice(0, 6) + '...',
-        hint: 'To send a test email, pass ?secret=<last 8 chars of API key>&to=<email>',
+        hint: 'To send a test email, pass ?to=<email>',
       },
       { status: 200 }
-    );
-  }
-
-  const to = request.nextUrl.searchParams.get('to');
-  if (!to) {
-    return NextResponse.json(
-      { ok: false, error: 'Missing ?to=email@example.com parameter' },
-      { status: 400 }
     );
   }
 
