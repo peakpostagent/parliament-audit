@@ -4,9 +4,11 @@ import { eq } from 'drizzle-orm';
 import { randomBytes } from 'crypto';
 import { Resend } from 'resend';
 
-const RESEND_FROM = 'Parliament Audit <onboarding@resend.dev>';
-// Once parliamentaudit.ca is verified in Resend, switch to:
-// const RESEND_FROM = 'Parliament Audit <alerts@parliamentaudit.ca>';
+// Domain parliamentaudit.ca is verified in Resend (DKIM/SPF/DMARC),
+// so we send from our own domain. The env var overrides at runtime for
+// staging/testing, but the default is the production address.
+const RESEND_FROM =
+  process.env.RESEND_FROM || 'Parliament Audit <alerts@parliamentaudit.ca>';
 
 const BASE_URL = 'https://parliamentaudit.ca';
 
