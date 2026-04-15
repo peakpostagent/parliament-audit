@@ -32,3 +32,6 @@ coverage/
 # Database
 *.db
 *.sqlite
+
+# TypeScript build info
+*.tsbuildinfo

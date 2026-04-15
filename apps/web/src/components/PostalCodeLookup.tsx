@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import Link from 'next/link';
 
 interface Representative {
   name: string;
@@ -161,12 +162,12 @@ export function PostalCodeLookup() {
             <p className="text-gray-300 text-sm mb-3">
               Subscribe to get notified every time a recorded vote happens in Parliament.
             </p>
-            <a
+            <Link
               href="/subscribe"
               className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors"
             >
               Subscribe for Vote Alerts
-            </a>
+            </Link>
           </div>
         </div>
       )}

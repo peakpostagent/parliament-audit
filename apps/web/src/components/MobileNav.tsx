@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const NAV_LINKS = [
   { href: '/', label: 'Latest' },
@@ -43,14 +44,14 @@ export function MobileNav() {
         <nav className="absolute top-full left-0 right-0 bg-[#1a1a2e] border-t border-white/10 z-50">
           <div className="flex flex-col py-2">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="px-4 py-3 text-sm text-gray-200 hover:text-red-400 hover:bg-white/5 transition-colors"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </nav>

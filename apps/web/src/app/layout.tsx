@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { MobileNav } from '@/components/MobileNav';
 import { Analytics } from '@/components/Analytics';
 import './globals.css';
@@ -74,18 +75,18 @@ function Header() {
     <header className="bg-[#1a1a2e] text-white relative">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <div>
-          <a href="/" className="text-xl font-bold tracking-tight">
+          <Link href="/" className="text-xl font-bold tracking-tight">
             Parliament Audit
-          </a>
+          </Link>
           <p className="text-sm text-gray-300 mt-0.5">Canada deserves to know.</p>
         </div>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="/" className="hover:text-red-400 transition-colors">Latest</a>
-          <a href="/archive" className="hover:text-red-400 transition-colors">Archive</a>
-          <a href="/find-your-mp" className="hover:text-red-400 transition-colors">Find Your MP</a>
-          <a href="/about" className="hover:text-red-400 transition-colors">About</a>
-          <a href="/methodology" className="hover:text-red-400 transition-colors">Methodology</a>
-          <a href="/subscribe" className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-medium transition-colors">Subscribe</a>
+          <Link href="/" className="hover:text-red-400 transition-colors">Latest</Link>
+          <Link href="/archive" className="hover:text-red-400 transition-colors">Archive</Link>
+          <Link href="/find-your-mp" className="hover:text-red-400 transition-colors">Find Your MP</Link>
+          <Link href="/about" className="hover:text-red-400 transition-colors">About</Link>
+          <Link href="/methodology" className="hover:text-red-400 transition-colors">Methodology</Link>
+          <Link href="/subscribe" className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-medium transition-colors">Subscribe</Link>
         </nav>
         <MobileNav />
       </div>
@@ -107,11 +108,11 @@ function Footer() {
           <div>
             <h3 className="font-bold mb-2">Links</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li><a href="/about" className="hover:text-red-600">About Us</a></li>
-              <li><a href="/find-your-mp" className="hover:text-red-600">Find Your MP</a></li>
-              <li><a href="/methodology" className="hover:text-red-600">Our Methodology</a></li>
-              <li><a href="/corrections" className="hover:text-red-600">Corrections</a></li>
-              <li><a href="/glossary" className="hover:text-red-600">Glossary</a></li>
+              <li><Link href="/about" className="hover:text-red-600">About Us</Link></li>
+              <li><Link href="/find-your-mp" className="hover:text-red-600">Find Your MP</Link></li>
+              <li><Link href="/methodology" className="hover:text-red-600">Our Methodology</Link></li>
+              <li><Link href="/corrections" className="hover:text-red-600">Corrections</Link></li>
+              <li><Link href="/glossary" className="hover:text-red-600">Glossary</Link></li>
             </ul>
           </div>
           <div>

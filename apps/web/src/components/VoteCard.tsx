@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { PartyBreakdown } from './PartyBreakdownBar';
 import { StatusBadge, ResultBadge } from './StatusBadge';
 import { VOTE_TYPE_LABELS } from '@parliament-audit/shared';
@@ -32,7 +33,7 @@ export function VoteCard(props: VoteCardProps) {
   const typeLabel = VOTE_TYPE_LABELS[props.voteType as keyof typeof VOTE_TYPE_LABELS] || props.voteType;
 
   return (
-    <a
+    <Link
       href={`/vote/${props.slug}`}
       className="block border rounded-lg p-5 hover:shadow-md transition-shadow bg-white"
     >
@@ -40,11 +41,11 @@ export function VoteCard(props: VoteCardProps) {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <span className="font-medium uppercase">{chamberLabel} #{props.voteNumber}</span>
-          <span>|</span>
+          <span aria-hidden="true">|</span>
           <span>{props.voteDate}</span>
           {props.billNumber && (
             <>
-              <span>|</span>
+              <span aria-hidden="true">|</span>
               <span className="font-medium">{props.billNumber}</span>
             </>
           )}
@@ -64,6 +65,6 @@ export function VoteCard(props: VoteCardProps) {
         <ResultBadge result={props.result} yeas={props.yeasTotal} nays={props.naysTotal} />
         <span className="text-xs text-gray-400">{typeLabel}</span>
       </div>
-    </a>
+    </Link>
   );
 }

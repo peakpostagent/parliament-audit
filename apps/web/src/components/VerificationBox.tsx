@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 interface VerificationBoxProps {
   verificationText: string;
   sources: Array<{ label: string; url: string }>;
@@ -35,7 +37,7 @@ export function VerificationBox({ verificationText, sources, recordStatus, lastV
         <p>Parliament Audit uses official parliamentary data sources. We never fabricate vote counts, party positions, or bill details.</p>
         <p className="mt-1">
           See our full{' '}
-          <a href="/methodology" className="underline">methodology</a>.
+          <Link href="/methodology" className="underline">methodology</Link>.
           {' '}Report errors:{' '}
           <a href="mailto:corrections@parliamentaudit.ca" className="underline">corrections@parliamentaudit.ca</a>
         </p>

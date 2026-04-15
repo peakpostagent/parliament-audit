@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Methodology',
@@ -77,7 +78,7 @@ export default function MethodologyPage() {
         <h2 className="text-xl font-bold mt-8 mb-3">7. Corrections</h2>
         <p>
           When we get something wrong, we fix it publicly. See our{' '}
-          <a href="/corrections" className="text-red-600 hover:text-red-800 underline">corrections page</a>{' '}
+          <Link href="/corrections" className="text-red-600 hover:text-red-800 underline">corrections page</Link>{' '}
           for a full log.
         </p>
       </section>

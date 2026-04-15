@@ -1,6 +1,7 @@
 import { db, schema } from '@parliament-audit/db';
 import { desc, eq, asc } from 'drizzle-orm';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -88,10 +89,10 @@ export default async function BillPage({ params }: PageProps) {
     <div className="max-w-4xl mx-auto">
       {/* Breadcrumbs */}
       <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-        <a href="/" className="hover:text-red-600">Home</a>
-        <span className="mx-2">/</span>
-        <a href="/archive" className="hover:text-red-600">Archive</a>
-        <span className="mx-2">/</span>
+        <Link href="/" className="hover:text-red-600">Home</Link>
+        <span className="mx-2" aria-hidden="true">/</span>
+        <Link href="/archive" className="hover:text-red-600">Archive</Link>
+        <span className="mx-2" aria-hidden="true">/</span>
         <span className="text-gray-700">Bill {billNumber}</span>
       </nav>
 
@@ -209,12 +210,12 @@ export default async function BillPage({ params }: PageProps) {
         <p className="text-red-100 text-sm mb-3">
           Get notified every time Parliament holds another vote on this bill.
         </p>
-        <a
+        <Link
           href="/subscribe"
           className="inline-block bg-white text-red-600 hover:bg-red-50 px-4 py-2 rounded font-medium text-sm transition-colors"
         >
           Subscribe for Vote Alerts
-        </a>
+        </Link>
       </div>
     </div>
   );

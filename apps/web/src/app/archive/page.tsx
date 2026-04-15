@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { db, schema } from '@parliament-audit/db';
-import { desc, eq, and, ilike, sql } from 'drizzle-orm';
+import { desc, eq, and, ilike } from 'drizzle-orm';
 import { VoteCard } from '@/components/VoteCard';
 import { PARTY_SHORT_NAMES, VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
@@ -137,12 +138,12 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
               Search
             </button>
 
-            <a
+            <Link
               href="/archive"
               className="text-sm text-gray-500 hover:text-red-600 self-center"
             >
               Clear filters
-            </a>
+            </Link>
           </div>
         </form>
       </div>
@@ -209,23 +210,23 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
       {/* Pagination */}
       <div className="flex items-center justify-between mt-8">
         {page > 1 ? (
-          <a
+          <Link
             href={buildUrl({ page: String(page - 1) })}
             className="text-sm text-blue-600 hover:text-blue-800"
           >
             &larr; Previous
-          </a>
+          </Link>
         ) : (
           <span />
         )}
         <span className="text-sm text-gray-500">Page {page}</span>
         {hasNextPage ? (
-          <a
+          <Link
             href={buildUrl({ page: String(page + 1) })}
             className="text-sm text-blue-600 hover:text-blue-800"
           >
             Next &rarr;
-          </a>
+          </Link>
         ) : (
           <span />
         )}
@@ -242,12 +243,12 @@ function EmptyState({ hasFilters }: { hasFilters: boolean }) {
         <p className="text-sm text-gray-600 mb-4">
           Try widening your search or clearing filters.
         </p>
-        <a
+        <Link
           href="/archive"
           className="inline-block bg-[#1a1a2e] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#2a2a4e] transition-colors"
         >
           Clear all filters
-        </a>
+        </Link>
       </div>
     );
   }
@@ -262,18 +263,18 @@ function EmptyState({ hasFilters }: { hasFilters: boolean }) {
         the moment we publish.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <a
+        <Link
           href="/subscribe"
           className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors"
         >
           Subscribe for Vote Alerts
-        </a>
-        <a
+        </Link>
+        <Link
           href="/methodology"
           className="inline-block border border-gray-300 hover:bg-white text-gray-700 px-4 py-2 rounded text-sm font-medium transition-colors"
         >
           How we source votes
-        </a>
+        </Link>
       </div>
     </div>
   );

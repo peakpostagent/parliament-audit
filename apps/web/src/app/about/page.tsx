@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -77,7 +78,7 @@ export default function AboutPage() {
           </div>
         </div>
         <p>
-          Read more about our process on our <a href="/methodology" className="text-red-600 hover:text-red-800 underline">Methodology page</a>.
+          Read more about our process on our <Link href="/methodology" className="text-red-600 hover:text-red-800 underline">Methodology page</Link>.
         </p>
 
         <h2 className="text-xl font-bold mt-8 mb-3">Contact</h2>
@@ -90,14 +91,14 @@ export default function AboutPage() {
       </section>
 
       <div className="mt-12 grid sm:grid-cols-2 gap-4">
-        <a href="/find-your-mp" className="block bg-[#1a1a2e] text-white rounded-lg p-6 hover:bg-[#2a2a4e] transition-colors">
+        <Link href="/find-your-mp" className="block bg-[#1a1a2e] text-white rounded-lg p-6 hover:bg-[#2a2a4e] transition-colors">
           <h3 className="font-bold text-lg mb-1">Find Your MP</h3>
           <p className="text-gray-300 text-sm">Enter your postal code to see who represents you in Ottawa.</p>
-        </a>
-        <a href="/subscribe" className="block bg-red-600 text-white rounded-lg p-6 hover:bg-red-700 transition-colors">
+        </Link>
+        <Link href="/subscribe" className="block bg-red-600 text-white rounded-lg p-6 hover:bg-red-700 transition-colors">
           <h3 className="font-bold text-lg mb-1">Subscribe</h3>
           <p className="text-red-100 text-sm">Get notified every time Parliament votes on the issues that matter.</p>
-        </a>
+        </Link>
       </div>
     </div>
   );

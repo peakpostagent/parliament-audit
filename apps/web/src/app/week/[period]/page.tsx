@@ -1,6 +1,7 @@
 import { db, schema } from '@parliament-audit/db';
 import { and, eq, gte, lte, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -120,10 +121,10 @@ export default async function WeekPage({ params }: PageProps) {
     <div className="max-w-4xl mx-auto">
       {/* Breadcrumbs */}
       <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-        <a href="/" className="hover:text-red-600">Home</a>
-        <span className="mx-2">/</span>
-        <a href="/archive" className="hover:text-red-600">Archive</a>
-        <span className="mx-2">/</span>
+        <Link href="/" className="hover:text-red-600">Home</Link>
+        <span className="mx-2" aria-hidden="true">/</span>
+        <Link href="/archive" className="hover:text-red-600">Archive</Link>
+        <span className="mx-2" aria-hidden="true">/</span>
         <span className="text-gray-700">Week {parsed.week}, {parsed.year}</span>
       </nav>
 
@@ -202,24 +203,24 @@ export default async function WeekPage({ params }: PageProps) {
 
       {/* Week nav */}
       <nav className="flex items-center justify-between border-t pt-4" aria-label="Week navigation">
-        <a
+        <Link
           href={`/week/${prevPeriod}`}
           className="text-sm text-blue-600 hover:text-blue-800"
         >
           ← Previous week
-        </a>
-        <a
+        </Link>
+        <Link
           href="/archive"
           className="text-sm text-gray-500 hover:text-red-600"
         >
           All weeks
-        </a>
-        <a
+        </Link>
+        <Link
           href={`/week/${nextPeriod}`}
           className="text-sm text-blue-600 hover:text-blue-800"
         >
           Next week →
-        </a>
+        </Link>
       </nav>
     </div>
   );

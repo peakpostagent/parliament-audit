@@ -1,6 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { db, schema } from '@parliament-audit/db';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, isNotNull } from 'drizzle-orm';
+
+function slugifyMemberName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://parliamentaudit.ca';
@@ -19,6 +26,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic vote article pages
   let articlePages: MetadataRoute.Sitemap = [];
+  let billPages: MetadataRoute.Sitemap = [];
+  let mpPages: MetadataRoute.Sitemap = [];
+
   try {
     const articles = await db.query.articles.findMany({
       where: eq(schema.articles.status, 'published'),
@@ -32,9 +42,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }));
+
+    // Distinct bill numbers that actually have votes
+    const bills = await db
+      .selectDistinct({ billNumber: schema.votes.billNumber })
+      .from(schema.votes)
+      .where(isNotNull(schema.votes.billNumber));
+
+    billPages = bills
+      .filter((b) => b.billNumber)
+      .map((b) => ({
+        url: `${baseUrl}/bill/${encodeURIComponent(b.billNumber as string)}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+
+    // Distinct MP names for /mp/[slug]
+    const members = await db
+      .selectDistinct({ memberName: schema.voteMemberResults.memberName })
+      .from(schema.voteMemberResults);
+
+    mpPages = members.map((m) => ({
+      url: `${baseUrl}/mp/${slugifyMemberName(m.memberName)}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }));
   } catch {
     // Database may not be available during build
   }
 
-  return [...staticPages, ...articlePages];
+  return [...staticPages, ...articlePages, ...billPages, ...mpPages];
 }

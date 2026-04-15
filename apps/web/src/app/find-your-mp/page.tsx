@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { PostalCodeLookup } from '@/components/PostalCodeLookup';
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function FindYourMPPage() {
           <div>
             <h3 className="font-medium">Can I get notified about my MP&apos;s votes?</h3>
             <p className="text-sm text-gray-600 mt-1">
-              Yes! <a href="/subscribe" className="text-red-600 hover:text-red-800 underline">Subscribe for vote alerts</a> and
+              Yes! <Link href="/subscribe" className="text-red-600 hover:text-red-800 underline">Subscribe for vote alerts</Link> and
               we&apos;ll notify you every time a recorded vote happens in Parliament.
             </p>
           </div>

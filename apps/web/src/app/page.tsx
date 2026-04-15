@@ -1,5 +1,6 @@
 import { db, schema } from '@parliament-audit/db';
 import { desc, eq } from 'drizzle-orm';
+import Link from 'next/link';
 import { VoteCard } from '@/components/VoteCard';
 
 export const dynamic = 'force-dynamic';
@@ -63,10 +64,10 @@ export default async function HomePage() {
             <div className="max-w-md mx-auto text-left bg-gray-50 rounded-lg p-6 text-sm">
               <p className="font-semibold text-gray-700 mb-3">While you wait:</p>
               <ul className="space-y-2 text-gray-600">
-                <li className="flex gap-2"><span className="text-red-600 font-bold">1.</span> <a href="/about" className="hover:text-red-600 underline">Learn about the project</a> and why we built it</li>
-                <li className="flex gap-2"><span className="text-red-600 font-bold">2.</span> <a href="/methodology" className="hover:text-red-600 underline">Read our methodology</a> — how we collect and verify data</li>
-                <li className="flex gap-2"><span className="text-red-600 font-bold">3.</span> <a href="/find-your-mp" className="hover:text-red-600 underline">Find your MP</a> and see who represents you</li>
-                <li className="flex gap-2"><span className="text-red-600 font-bold">4.</span> <a href="/subscribe" className="hover:text-red-600 underline">Subscribe for alerts</a> so you never miss a vote</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">1.</span> <Link href="/about" className="hover:text-red-600 underline">Learn about the project</Link> and why we built it</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">2.</span> <Link href="/methodology" className="hover:text-red-600 underline">Read our methodology</Link> — how we collect and verify data</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">3.</span> <Link href="/find-your-mp" className="hover:text-red-600 underline">Find your MP</Link> and see who represents you</li>
+                <li className="flex gap-2"><span className="text-red-600 font-bold">4.</span> <Link href="/subscribe" className="hover:text-red-600 underline">Subscribe for alerts</Link> so you never miss a vote</li>
               </ul>
             </div>
           </div>
@@ -100,12 +101,12 @@ export default async function HomePage() {
         <p className="text-gray-300 mb-4">
           Get notified when Parliament votes on the issues that matter to you.
         </p>
-        <a
+        <Link
           href="/subscribe"
           className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-md font-medium transition-colors"
         >
           Subscribe for Vote Alerts
-        </a>
+        </Link>
       </section>
     </div>
   );

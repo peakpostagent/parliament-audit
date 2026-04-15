@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { db, schema } from '@parliament-audit/db';
 import { eq } from 'drizzle-orm';
 
@@ -21,7 +22,7 @@ export default async function UnsubscribePage({ searchParams }: PageProps) {
       <div className="max-w-xl mx-auto text-center py-16">
         <h1 className="text-2xl font-bold mb-3">Invalid link</h1>
         <p className="text-gray-600">This unsubscribe link is missing a token. Please use the link from your email.</p>
-        <a href="/" className="inline-block mt-6 text-red-600 hover:text-red-800 underline">Go to Homepage</a>
+        <Link href="/" className="inline-block mt-6 text-red-600 hover:text-red-800 underline">Go to Homepage</Link>
       </div>
     );
   }
@@ -35,7 +36,7 @@ export default async function UnsubscribePage({ searchParams }: PageProps) {
       <div className="max-w-xl mx-auto text-center py-16">
         <h1 className="text-2xl font-bold mb-3">Token not found</h1>
         <p className="text-gray-600">We couldn&apos;t find this unsubscribe link. It may have already been used or is invalid.</p>
-        <a href="/" className="inline-block mt-6 text-red-600 hover:text-red-800 underline">Go to Homepage</a>
+        <Link href="/" className="inline-block mt-6 text-red-600 hover:text-red-800 underline">Go to Homepage</Link>
       </div>
     );
   }
@@ -58,18 +59,18 @@ export default async function UnsubscribePage({ searchParams }: PageProps) {
         Changed your mind? You can always resubscribe on the subscribe page.
       </p>
       <div className="flex gap-3 justify-center">
-        <a
+        <Link
           href="/subscribe"
           className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors"
         >
           Resubscribe
-        </a>
-        <a
+        </Link>
+        <Link
           href="/"
           className="inline-block border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded text-sm font-medium transition-colors"
         >
           Go to Homepage
-        </a>
+        </Link>
       </div>
     </div>
   );
