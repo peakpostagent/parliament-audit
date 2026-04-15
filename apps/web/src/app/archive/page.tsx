@@ -180,10 +180,9 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
 
       {/* Results */}
       {articles.length === 0 ? (
-        <div className="text-center py-16 text-gray-500">
-          <p className="text-lg mb-2">No votes found.</p>
-          <p className="text-sm">Try adjusting your search terms or filters.</p>
-        </div>
+        <EmptyState
+          hasFilters={Boolean(params.q || params.chamber || params.result || params.type || params.party)}
+        />
       ) : (
         <div className="space-y-4">
           {articles.map((article) => (
@@ -230,6 +229,51 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
         ) : (
           <span />
         )}
+      </div>
+    </div>
+  );
+}
+
+function EmptyState({ hasFilters }: { hasFilters: boolean }) {
+  if (hasFilters) {
+    return (
+      <div className="text-center py-16 bg-gray-50 border border-dashed border-gray-300 rounded-lg">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">No votes match those filters.</h2>
+        <p className="text-sm text-gray-600 mb-4">
+          Try widening your search or clearing filters.
+        </p>
+        <a
+          href="/archive"
+          className="inline-block bg-[#1a1a2e] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#2a2a4e] transition-colors"
+        >
+          Clear all filters
+        </a>
+      </div>
+    );
+  }
+  return (
+    <div className="text-center py-12 bg-gray-50 border border-dashed border-gray-300 rounded-lg">
+      <h2 className="text-lg font-bold text-gray-800 mb-2">
+        The archive is filling up.
+      </h2>
+      <p className="text-sm text-gray-600 max-w-md mx-auto mb-5">
+        Parliament Audit is newly launched. We&apos;re ingesting votes from the current
+        session and writing explainers as they happen. Check back soon — or get notified
+        the moment we publish.
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/subscribe"
+          className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors"
+        >
+          Subscribe for Vote Alerts
+        </a>
+        <a
+          href="/methodology"
+          className="inline-block border border-gray-300 hover:bg-white text-gray-700 px-4 py-2 rounded text-sm font-medium transition-colors"
+        >
+          How we source votes
+        </a>
       </div>
     </div>
   );

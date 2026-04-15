@@ -8,6 +8,8 @@ import { VerificationBox } from '@/components/VerificationBox';
 import { FactBox } from '@/components/FactBox';
 import { CopyLinkButton } from '@/components/CopyLinkButton';
 import { RecentVotesSidebar } from '@/components/RecentVotesSidebar';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { ReadingTime } from '@/components/ReadingTime';
 import { VOTE_TYPE_LABELS } from '@parliament-audit/shared';
 
 export const dynamic = 'force-dynamic';
@@ -71,12 +73,34 @@ export default async function VoteDetailPage({ params }: PageProps) {
   const sources = (article.sourcesJson as any)?.sources || [];
   const hasCorrections = article.corrections && article.corrections.length > 0;
 
+  // Combined body text for reading-time estimate
+  const bodyText = [
+    article.summary,
+    article.whatHappened,
+    article.partyBreakdown,
+    article.whyItMatters,
+    article.whatNext,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const crumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Archive', href: '/archive' },
+    ...(vote.billNumber
+      ? [{ label: vote.billNumber, href: `/bill/${vote.billNumber}` }]
+      : []),
+    { label: article.headline },
+  ];
+
   return (
     <div className="flex gap-8 max-w-6xl mx-auto">
       {/* Left sidebar — recent votes list */}
       <RecentVotesSidebar currentSlug={slug} />
 
     <article className="flex-1 min-w-0">
+      <Breadcrumbs items={crumbs} className="mb-4" />
+
       {/* Correction banner */}
       {hasCorrections && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
@@ -92,10 +116,12 @@ export default async function VoteDetailPage({ params }: PageProps) {
       {/* Header bar */}
       <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4">
         <span className="font-medium uppercase">{vote.chamber === 'house' ? 'House' : 'Senate'} Vote #{vote.voteNumber}</span>
-        <span>|</span>
+        <span aria-hidden="true">|</span>
         <span>{vote.voteDate}</span>
-        <span>|</span>
+        <span aria-hidden="true">|</span>
         <span>{typeLabel}</span>
+        <span aria-hidden="true">|</span>
+        <ReadingTime text={bodyText} className="text-gray-500" />
         <StatusBadge status={vote.recordStatus} />
       </div>
 
