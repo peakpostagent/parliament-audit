@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { MobileNav } from '@/components/MobileNav';
+import { Analytics } from '@/components/Analytics';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -62,6 +63,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
