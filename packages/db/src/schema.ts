@@ -190,6 +190,39 @@ export const corrections = pgTable('corrections', {
 });
 
 // ──────────────────────────────────────────────
+// SUBSCRIBERS
+// ──────────────────────────────────────────────
+
+export const subscribers = pgTable('subscribers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  email: text('email').notNull().unique(),
+
+  // Preferences
+  prefAllVotes: boolean('pref_all_votes').notNull().default(true),
+  prefBillsOnly: boolean('pref_bills_only').notNull().default(false),
+  prefWeeklyDigest: boolean('pref_weekly_digest').notNull().default(false),
+
+  // Double opt-in flow
+  confirmed: boolean('confirmed').notNull().default(false),
+  confirmationToken: text('confirmation_token'),
+  confirmedAt: timestamp('confirmed_at', { withTimezone: true }),
+
+  // Unsubscribe
+  unsubscribeToken: text('unsubscribe_token').notNull(),
+  unsubscribedAt: timestamp('unsubscribed_at', { withTimezone: true }),
+
+  // Welcome email tracking (for backfilling after domain verification)
+  welcomeEmailSent: boolean('welcome_email_sent').notNull().default(false),
+  welcomeEmailSentAt: timestamp('welcome_email_sent_at', { withTimezone: true }),
+
+  // Source attribution
+  signupSource: text('signup_source'), // e.g. 'homepage', 'subscribe-page', 'find-your-mp'
+
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+// ──────────────────────────────────────────────
 // AUDIT LOG
 // ──────────────────────────────────────────────
 
