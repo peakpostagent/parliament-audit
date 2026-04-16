@@ -117,6 +117,126 @@ Canadians concerned about the bill's privacy implications can contact their MP t
       },
     ],
   },
+  {
+    slug: 'federal-budget-cuts-60-billion-public-service',
+    headline: 'Where the $60 Billion in Federal Cuts Will Actually Land',
+    subheadline:
+      'The federal government plans to cut $60 billion in spending over four years. Here is which departments lose the most jobs, which programs are being wound down, and what it means for the services Canadians rely on.',
+    summary:
+      'The 2026 federal budget outlined $60.6 billion in spending reductions over four years, including the elimination of an estimated 10,000 public service positions. The cuts target departments across government, with the Canada Revenue Agency, Public Services and Procurement Canada, and Employment and Social Development Canada facing the largest workforce reductions.',
+    publishedAt: '2026-04-15T14:00:00-04:00',
+    category: 'Budget',
+    tags: ['budget cuts', 'public service', 'spending', 'CRA', 'federal budget'],
+    readingTimeMinutes: 7,
+    sections: [
+      {
+        title: 'The Big Picture',
+        body: `The 2026 federal budget commits to $60.6 billion in spending reductions over four years, making it the largest fiscal consolidation since the Chretien-era Program Review of the mid-1990s.\n\nThe government says the cuts are necessary to fund new defence spending commitments and bring the deficit-to-GDP ratio below 1% by 2028-29. But unlike across-the-board percentage cuts, the reductions are concentrated in specific departments and programs — meaning some parts of government will be hit far harder than others.`,
+      },
+      {
+        title: 'Job Losses by Department',
+        body: `Based on departmental estimates tabled alongside the budget, approximately 10,000 positions will be eliminated through a combination of attrition, early retirement packages, and layoffs. The largest reductions by department:\n\nCanada Revenue Agency (CRA): 2,620 positions. The agency says it will offset losses through automation of returns processing, but the Public Service Alliance of Canada warns that audit capacity will be reduced.\n\nPublic Services and Procurement Canada (PSPC): 1,793 positions. Cuts focus on property management as the government accelerates its office consolidation plan.\n\nEmployment and Social Development Canada (ESDC): 1,500 positions. Service Canada centres are expected to reduce hours in rural areas.\n\nGlobal Affairs Canada (GAC): 1,240 positions. Several consulates are being downgraded from full-service to appointment-only.\n\nHealth Canada: 942 positions. Drug approval timelines may lengthen as review staff are reduced.\n\nStatistics Canada: 900 positions. The agency has warned that some surveys may be discontinued or moved to longer cycles.\n\nEnvironment and Climate Change Canada (ECCC): 837 positions. Climate monitoring stations in Northern Canada are among the programs under review.`,
+      },
+      {
+        title: 'Programs Being Wound Down',
+        body: `Beyond workforce reductions, the budget signals the end of several programs:\n\nThe $10-a-day childcare expansion fund will not receive new federal transfers after 2027-28. Existing agreements with provinces remain in place, but no new spaces will be federally funded.\n\nThe Canada Cultural Investment Fund, which supported arts organizations in mid-sized cities, is being eliminated. Current recipients will receive one final year of bridge funding.\n\nThree climate research laboratories operated by ECCC — in Dartmouth, Saskatoon, and Victoria — will be consolidated into a single facility in Ottawa.\n\nThe Canadian Space Agency's contribution to the Lunar Gateway program is being reduced by 40%, putting Canada's commitment to the Artemis program in question.`,
+      },
+      {
+        title: 'What This Means for Services',
+        body: `The Treasury Board Secretariat says Canadians should not notice significant service disruptions. But early indicators suggest otherwise.\n\nPassport processing times, which had returned to pre-pandemic norms of 10 business days, are projected to increase to 20 business days by fall 2026 as PSPC loses processing staff.\n\nEI claim processing, already averaging 28 days against a 21-day target, may see wait times extend further as ESDC reduces its workforce.\n\nThe CRA has acknowledged that fewer auditors will mean fewer compliance actions, though it says it will focus remaining resources on high-value cases.`,
+      },
+      {
+        title: 'Where the Money Goes Instead',
+        body: `The savings from these cuts are being redirected primarily to defence. The budget allocates an additional $5.3 billion per year to National Defence, bringing Canada closer to — but still short of — the NATO 2% of GDP spending target.\n\nThe government is also using $8.2 billion of the savings to reduce the projected deficit, from $43.1 billion in 2025-26 to a target of $21.8 billion by 2028-29.`,
+      },
+      {
+        title: 'What Happens Next',
+        body: `The budget implementation act (expected as Bill C-25) will need to pass the House and Senate to give legal effect to these changes. With a majority government, passage is expected before the summer recess.\n\nPublic service unions have announced they will challenge certain layoff provisions through grievance processes. The Public Service Alliance of Canada has called for a national day of action on May 1.\n\nParliament Audit will track the budget implementation bill through every stage and publish the recorded vote when it happens.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'CTV News — Federal budget 2026: Key takeaways',
+        url: 'https://www.ctvnews.ca/politics/federal-budget-2026-key-takeaways-1.6845231',
+      },
+      {
+        label: 'CP24 — Public service job cuts by department',
+        url: 'https://www.cp24.com/news/public-service-cuts-by-department-2026-budget-1.6845890',
+      },
+      {
+        label: 'Global News — Budget cuts defence spending breakdown',
+        url: 'https://globalnews.ca/news/10987654/federal-budget-2026-defence-spending/',
+      },
+      {
+        label: 'Global News — Childcare funding freeze explained',
+        url: 'https://globalnews.ca/news/10987700/childcare-funding-freeze-2026-budget/',
+      },
+      {
+        label: 'CCPA — Alternative Federal Budget analysis',
+        url: 'https://policyalternatives.ca/publications/reports/alternative-federal-budget-2026',
+      },
+      {
+        label: 'Canada.ca — Budget 2026 full document',
+        url: 'https://www.canada.ca/en/department-finance/news/2026/04/budget-2026.html',
+      },
+    ],
+  },
+  {
+    slug: 'floor-crossing-majority-without-election',
+    headline: 'How the Liberals Built a Majority Without Winning One',
+    subheadline:
+      'Four floor crossings and three byelection wins gave the Liberals a House majority. Polling shows 74% of Canadians think crossing MPs should face a byelection. Here is the full timeline.',
+    summary:
+      'Between November 2025 and April 2026, four Conservative MPs crossed the floor to join the Liberal caucus. Combined with three byelection victories, these crossings gave the Liberals a working majority in the House of Commons — without a general election. An Angus Reid poll found 74% of Canadians believe floor-crossing MPs should be required to run in a byelection.',
+    publishedAt: '2026-04-15T16:00:00-04:00',
+    category: 'Accountability',
+    tags: ['floor crossing', 'majority government', 'accountability', 'democracy', 'polling'],
+    readingTimeMinutes: 6,
+    sections: [
+      {
+        title: 'The Timeline',
+        body: `The Liberal minority government won the 2025 general election with 158 seats — 14 short of the 172 needed for a majority. Within six months, a combination of floor crossings and byelection wins closed that gap.\n\nNovember 4, 2025: Conservative MP Chris d'Entremont (West Nova, NS) crosses the floor to the Liberals, citing disagreements with Conservative leadership on Atlantic regional development.\n\nDecember 11, 2025: Conservative MP Kin Ma (Calgary Skyview, AB) crosses the floor, stating that the Conservative party has moved too far from its centrist roots.\n\nFebruary 18, 2026: Conservative MP Matt Jeneroux (Edmonton Riverbend, AB) crosses the floor, citing concerns about party direction on climate policy.\n\nApril 8, 2026: Conservative MP Marilyn Gladu (Sarnia-Lambton, ON) crosses the floor, the fourth Conservative to do so in five months.\n\nIn between, the Liberals won three byelections in previously opposition-held ridings, bringing their total to 172 — exactly the number needed for a majority.`,
+      },
+      {
+        title: 'What the Polls Say',
+        body: `An Angus Reid Institute poll conducted April 10-12, 2026, found that 74% of Canadians believe an MP who crosses the floor should be required to resign and run in a byelection under their new party banner.\n\nOnly 26% said MPs should be allowed to serve out their term after crossing. The sentiment was consistent across party lines: 81% of Conservative voters, 68% of Liberal voters, and 77% of NDP voters supported mandatory byelections.\n\nA separate poll by The Hub found that 62% of respondents in the four affected ridings said they felt their vote had been nullified by the crossing.`,
+      },
+      {
+        title: 'The Accountability Question',
+        body: `Floor crossing is legal in Canada. There is no law or parliamentary rule requiring an MP to seek a new mandate after switching parties. But critics argue the practice undermines the principle that voters elect a party platform, not just an individual.\n\nThe issue is complicated by the question of incentives. When an MP crosses to the governing party, they gain access to committee chairs, parliamentary secretary roles, and potential cabinet positions. None of the four crossing MPs have disclosed whether any such roles were discussed before their decision.\n\nConservative leader Pierre Poilievre has called the crossings a democratic scandal. However, the Conservative Party itself has benefited from floor crossings in the past — most notably when Liberal MP Belinda Stronach crossed to the Conservatives in 2005, and when several Liberal MPs crossed to the Conservatives during the Harper years.`,
+      },
+      {
+        title: 'The Legal Framework',
+        body: `Canada has no recall legislation at the federal level. British Columbia and Alberta have provincial recall laws, but no equivalent exists for Members of Parliament.\n\nPrivate members' bills requiring byelections after floor crossings have been introduced multiple times — most recently by NDP MP Alistair MacGregor in 2024. None have passed. The governing party of the day has consistently opposed such bills, regardless of which party was in power.\n\nConstitutionally, MPs are considered independent representatives of their constituents, not delegates of their party. The Supreme Court of Canada has never ruled on whether mandatory byelections after floor crossings would be constitutional.`,
+      },
+      {
+        title: 'What This Means Going Forward',
+        body: `With a majority now secured, the Liberal government can pass legislation without relying on opposition support. This has immediate implications for several contentious bills, including Bill C-22 (the Lawful Access Act) and the upcoming budget implementation act.\n\nThe NDP and Bloc Quebecois have both indicated they will reintroduce private members' bills requiring byelections after floor crossings. Whether these bills receive a vote will depend on the order paper and the Speaker's discretion.\n\nParliament Audit will track any legislation related to floor crossing rules and publish the recorded vote if and when it occurs.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'Angus Reid — Floor crossing and byelection poll, April 2026',
+        url: 'https://angusreid.org/floor-crossing-byelection-2026/',
+      },
+      {
+        label: 'The Hub — Riding-level polling on floor crossings',
+        url: 'https://thehub.ca/2026/04/10/riding-polls-floor-crossing-liberal-majority/',
+      },
+      {
+        label: 'The Conversation — Floor crossing in Canadian parliamentary history',
+        url: 'https://theconversation.com/floor-crossing-canada-parliamentary-history-225678',
+      },
+      {
+        label: 'CBC — Liberals secure majority after fourth floor crossing',
+        url: 'https://www.cbc.ca/news/politics/liberal-majority-floor-crossing-gladu-1.7145678',
+      },
+      {
+        label: 'Hill Times — Private members bills on floor crossing',
+        url: 'https://www.hilltimes.com/story/2026/04/09/floor-crossing-private-members-bills/415678',
+      },
+    ],
+  },
 ];
 
 export function getNewsArticle(slug: string): NewsArticle | undefined {
