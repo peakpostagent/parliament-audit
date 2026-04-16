@@ -109,6 +109,7 @@ function Footer() {
           <div>
             <h3 className="font-bold mb-2">Links</h3>
             <ul className="text-sm text-gray-600 space-y-1">
+              <li><Link href="/news" className="hover:text-red-600">News</Link></li>
               <li><Link href="/about" className="hover:text-red-600">About Us</Link></li>
               <li><Link href="/find-your-mp" className="hover:text-red-600">Find Your MP</Link></li>
               <li><Link href="/methodology" className="hover:text-red-600">Our Methodology</Link></li>

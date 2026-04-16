@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { db, schema } from '@parliament-audit/db';
 import { eq, desc, isNotNull } from 'drizzle-orm';
+import { newsArticles } from '@/content/news-articles';
 
 function slugifyMemberName(name: string): string {
   return name
@@ -22,7 +23,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/corrections`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/subscribe`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
   ];
+
+  // News editorial articles
+  const newsPages: MetadataRoute.Sitemap = newsArticles.map((article) => ({
+    url: `${baseUrl}/news/${article.slug}`,
+    lastModified: article.updatedAt ? new Date(article.updatedAt) : new Date(article.publishedAt),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
 
   // Dynamic vote article pages
   let articlePages: MetadataRoute.Sitemap = [];
@@ -73,5 +83,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Database may not be available during build
   }
 
-  return [...staticPages, ...articlePages, ...billPages, ...mpPages];
+  return [...staticPages, ...newsPages, ...articlePages, ...billPages, ...mpPages];
 }
