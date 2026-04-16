@@ -147,40 +147,88 @@ Every tweet follows this structure:
 
 ## Draft Tweets for Review
 
-The following are ready-to-review drafts based on the three articles currently on parliamentaudit.ca. All are under 280 characters. **Do not post until approved.**
+All drafts are under 280 characters. **Do not post until approved.**
 
-### Bill C-22 / Surveillance & Metadata Retention
+---
+
+### Bill C-22 / Surveillance & Metadata
 
 **Draft 1:**
-> Bill C-22 would let federal agencies retain Canadians' metadata for up to 5 years without a warrant. The bill passed second reading with no party voting against it. What's in it: parliamentaudit.ca
+> Bill C-22 would require ISPs to store every Canadian's metadata for up to a year — who you called, when, and where you were. It's at second reading now.
+
+What's in it → parliamentaudit.ca/news/bill-c-22-lawful-access-metadata-surveillance
 
 **Draft 2:**
-> Your phone calls, texts, and location data — stored for years by the government without judicial oversight. That's what Bill C-22 authorizes. Plain-language breakdown: parliamentaudit.ca
+> The Privacy Commissioner has no oversight role in Bill C-22. The bill lets the Public Safety Minister issue secret orders forcing telecoms to build surveillance capabilities.
 
-**Draft 3:**
-> Every party in the House voted to advance Bill C-22, the metadata retention bill. No opposition. No recorded dissent. Here's what the bill actually says: parliamentaudit.ca
+Full breakdown → parliamentaudit.ca/news/bill-c-22-lawful-access-metadata-surveillance
+
+---
 
 ### $60B Federal Budget Cuts
 
+**Draft 3:**
+> $60.6B in cuts over 4 years. 10,000 public service jobs eliminated. CRA loses 2,620 positions. Passport wait times projected to double by fall.
+
+Department-by-department → parliamentaudit.ca/news/federal-budget-cuts-60-billion-public-service
+
 **Draft 4:**
-> $60 billion in federal spending cuts over 4 years. Which departments lose funding, which programs disappear, and what it means for services you use. The breakdown: parliamentaudit.ca
+> The $10-a-day childcare expansion won't get new federal funding after 2027-28. Three climate labs consolidated into one. Canada's lunar program cut 40%.
+
+Where the cuts land → parliamentaudit.ca/news/federal-budget-cuts-60-billion-public-service
+
+---
+
+### Floor Crossing / Liberal Majority
 
 **Draft 5:**
-> The government committed to $60B in cuts but hasn't published a department-by-department breakdown. We pulled what's public so far. Where the cuts land: parliamentaudit.ca
+> 4 Conservative MPs crossed the floor to the Liberals since November. Combined with 3 byelection wins, it gave them a majority — without a general election.
+
+Full timeline → parliamentaudit.ca/news/floor-crossing-majority-without-election
 
 **Draft 6:**
-> $60B in cuts. That's roughly $1,500 per Canadian. Where does it come from? Health transfers, infrastructure, public service jobs — here's what we know so far: parliamentaudit.ca
+> 74% of Canadians say floor-crossing MPs should face a byelection. That's consistent across party lines — 81% of CPC voters, 68% of LPC voters, 77% of NDP voters.
 
-### Floor Crossing / Liberal Majority Without an Election
+The polling → parliamentaudit.ca/news/floor-crossing-majority-without-election
+
+---
+
+### Bill C-9 / Combatting Hate Act
 
 **Draft 7:**
-> Two opposition MPs crossed the floor to the Liberals this session, giving the party a working majority — without a single Canadian casting a ballot. The record: parliamentaudit.ca
+> Bill C-9 passed the House 186–137. Liberals + Bloc voted yes. Conservatives, NDP, and Greens voted no. The key issue: removing a decades-old religious speech defence.
+
+What the bill does → parliamentaudit.ca/news/bill-c9-combatting-hate-act-religious-exemption
 
 **Draft 8:**
-> Floor crossings changed the balance of power in the House. The Liberals now hold a majority they didn't win at the ballot box. How it happened: parliamentaudit.ca
+> The NDP voted against an anti-hate bill. The Conservatives voted with them. Why? Both sides objected to removing the religious text defence — but for different reasons.
+
+The vote breakdown → parliamentaudit.ca/news/bill-c9-combatting-hate-act-religious-exemption
+
+---
+
+### Bill C-12 / Immigration Reform
 
 **Draft 9:**
-> Canadians elected a minority Parliament. Floor crossings turned it into a majority. No byelection, no vote, no public input. What the rules allow: parliamentaudit.ca
+> Bill C-12 is now law. 30,000 refugee claimants have received letters saying their cases may be ineligible. A new one-year filing deadline is the reason.
+
+What changed → parliamentaudit.ca/news/bill-c12-immigration-reform-refugee-rights
 
 **Draft 10:**
-> Should MPs who cross the floor have to face voters in a byelection? Current rules say no. Here's how the House balance shifted without an election: parliamentaudit.ca
+> The government can now cancel permanent resident visas, work permits, and study permits if it's deemed in the "public interest." That term is not defined in the law.
+
+Full analysis → parliamentaudit.ca/news/bill-c12-immigration-reform-refugee-rights
+
+---
+
+### Bill C-225 / Bailey's Law
+
+**Draft 11:**
+> Bailey's Law would make killing an intimate partner automatic first-degree murder. It passed second reading with a standing ovation — rare all-party support.
+
+What the bill does → parliamentaudit.ca/news/bill-c225-baileys-law-intimate-partner-violence
+
+**Draft 12:**
+> Bill C-225 is one of the few private member's bills to clear committee this Parliament. It would also let courts hold domestic violence suspects for 7-day risk assessments before bail.
+
+The full story → parliamentaudit.ca/news/bill-c225-baileys-law-intimate-partner-violence
