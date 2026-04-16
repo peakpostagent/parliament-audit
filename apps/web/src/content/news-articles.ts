@@ -237,6 +237,190 @@ Canadians concerned about the bill's privacy implications can contact their MP t
       },
     ],
   },
+  {
+    slug: 'bill-c9-combatting-hate-act-religious-exemption',
+    headline: 'Bill C-9 Passed 186–137: What the Combatting Hate Act Actually Changes',
+    subheadline:
+      'The Liberals and Bloc voted together to pass the anti-hate bill and remove a decades-old religious speech defence. The Conservatives, NDP, and Greens all voted against. Here is what the bill does and why it divided Parliament.',
+    summary:
+      'On March 25, 2026, the House of Commons passed Bill C-9, the Combatting Hate Act, by a vote of 186–137. The bill creates new Criminal Code offences related to hate symbols and hate speech, and removes a longstanding defence for statements made in good faith based on religious texts. The Liberal-Bloc coalition overcame opposition from the Conservatives, NDP, and Green Party.',
+    publishedAt: '2026-04-15T18:00:00-04:00',
+    category: 'Legislation',
+    tags: ['Bill C-9', 'hate speech', 'religious freedom', 'civil liberties', 'Criminal Code'],
+    readingTimeMinutes: 6,
+    sections: [
+      {
+        title: 'What Is Bill C-9?',
+        body: `Bill C-9, the Combatting Hate Act, amends the Criminal Code to create new offences related to the public display of hate symbols and the promotion of hatred against identifiable groups. It also updates existing hate propaganda provisions that have been in place since the 1970s.\n\nThe bill was introduced by the Minister of Justice and passed third reading on March 25, 2026. It now moves to the Senate for consideration.`,
+      },
+      {
+        title: 'The Vote',
+        body: `The House divided 186–137 at third reading. Every Liberal and Bloc Qu\u00e9b\u00e9cois MP present voted in favour. Every Conservative, NDP, and Green MP present voted against.\n\nThis was an unusual alignment. The NDP typically supports anti-hate measures, and the Conservatives and NDP rarely find themselves on the same side of a recorded division. The split reflects the specific controversy around the bill's treatment of religious expression rather than disagreement about combatting hate itself.\n\nAn earlier procedural vote on March 10 to close debate passed 186–144 along the same Liberal-Bloc lines, with Elizabeth May of the Greens joining the Conservatives and NDP in opposition.`,
+      },
+      {
+        title: 'The Religious Exemption Controversy',
+        body: `The most contentious provision is the removal of Section 319(3)(b) of the Criminal Code, which currently provides a defence for statements made "in good faith" that are "based on a belief in a religious text." This defence has been in Canadian law since 1970.\n\nThe government argues the defence is overly broad and has been used to shield genuinely hateful speech. The Bloc Qu\u00e9b\u00e9cois made the removal of the religious exemption a condition of its support for the bill.\n\nCritics, including the Canadian Civil Liberties Association, argue that removing the defence could have a chilling effect on religious expression. The Church of Jesus Christ of Latter-day Saints, the Catholic Bishops of Canada, and evangelical organizations have all issued statements opposing the change.\n\nThe NDP opposed the bill specifically because of the removal of the religious exemption, despite supporting the bill's other anti-hate provisions.`,
+      },
+      {
+        title: 'What the Bill Creates',
+        body: `Beyond the religious exemption issue, Bill C-9 introduces several new measures:\n\nA new offence for the public display of symbols associated with hate groups or terrorism, punishable by up to two years in prison. The specific symbols to be prohibited would be designated by regulation.\n\nAn expanded definition of "identifiable group" to explicitly include gender identity and expression, which were added to the Criminal Code's hate provisions in 2017 but not to all relevant sections.\n\nA new provision allowing courts to order the removal of online hate content, with penalties for non-compliance by platform operators.\n\nIncreased maximum sentences for existing hate propaganda offences, from two years to five years for wilful promotion of hatred.`,
+      },
+      {
+        title: 'Civil Liberties Concerns',
+        body: `The Canadian Civil Liberties Association has raised concerns beyond the religious exemption. The organization argues that the bill's provisions on hate symbols could criminalize legitimate political protest if symbols are used in counter-demonstrations or educational contexts.\n\nLegal scholars have noted that the bill's definition of "hatred" remains the same as the Supreme Court of Canada's 2013 definition in Saskatchewan v. Whatcott, which requires more than mere dislike or offence. But critics argue the expanded offences and higher sentences could still discourage legitimate expression at the margins.\n\nThe bill does retain other defences under Section 319(3), including for private conversations, good faith opinions on religious subjects (as distinct from reliance on religious texts), and statements relevant to the public interest.`,
+      },
+      {
+        title: 'What Happens Next',
+        body: `Bill C-9 moves to the Senate, where it will undergo second reading, committee study, and third reading. The Senate has the power to amend the bill, which would send it back to the House for consideration of those amendments.\n\nSenate committees have signalled they intend to hear from religious organizations, civil liberties groups, and legal experts before proceeding. The timeline for Senate consideration is not yet determined.\n\nParliament Audit will track the bill through the Senate and publish the recorded vote when it occurs.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'CBC — Contentious anti-hate legislation passes final vote in the House',
+        url: 'https://www.cbc.ca/news/politics/bill-c-9-anti-hate-religious-exemption-hate-speech-9.7142455',
+      },
+      {
+        label: 'The CJN — Bill C-9 has passed in the House of Commons. What changes now?',
+        url: 'https://thecjn.ca/news/bill-c-9-the-combatting-hate-act-has-passed-in-the-house-of-commons-what-changes-now/',
+      },
+      {
+        label: 'Globe and Mail — Anti-hate bill passes the Commons',
+        url: 'https://www.theglobeandmail.com/politics/article-anti-hate-bill-that-provoked-bitter-debate-over-religious-freedom/',
+      },
+      {
+        label: 'Bill C-9 — openparliament.ca',
+        url: 'https://openparliament.ca/bills/45-1/C-9/',
+      },
+      {
+        label: 'CCLA — Statement on Bill C-9',
+        url: 'https://ccla.org/press-release/passing-of-bill-c-12-is-an-attack-on-refugee-and-migrant-rights-in-canada/',
+      },
+      {
+        label: 'Factually.co — What Is Bill C-9 and Why Is It Controversial?',
+        url: 'https://factually.co/fact-checks/politics/bill-c-9-canada-explained-adcef3',
+      },
+    ],
+  },
+  {
+    slug: 'bill-c12-immigration-reform-refugee-rights',
+    headline: 'Bill C-12 Is Now Law: What Canada\u2019s Immigration Overhaul Means for 30,000 Refugee Claimants',
+    subheadline:
+      'The Strengthening Canada\u2019s Immigration System and Borders Act received royal assent on March 26. Rights groups call it the biggest rollback of refugee protections in a decade.',
+    summary:
+      'Bill C-12, the Strengthening Canada\u2019s Immigration System and Borders Act, became law on March 26, 2026. The legislation introduces a one-year filing deadline for asylum claims, grants the government power to cancel immigration documents in the "public interest," and restricts claims from people who crossed the border irregularly. Approximately 30,000 refugee claimants have already received notices that their cases may be affected.',
+    publishedAt: '2026-04-15T20:00:00-04:00',
+    category: 'Legislation',
+    tags: ['Bill C-12', 'immigration', 'refugees', 'asylum', 'civil liberties'],
+    readingTimeMinutes: 7,
+    sections: [
+      {
+        title: 'What Bill C-12 Does',
+        body: `Bill C-12, formally titled the Strengthening Canada\u2019s Immigration System and Borders Act, is the most significant overhaul of Canadian immigration and refugee law in over a decade. It received royal assent on March 26, 2026, after passing through both the House of Commons and Senate.\n\nThe legislation makes changes in four key areas: asylum eligibility, document cancellation powers, border enforcement, and immigration compliance. It amends both the Immigration and Refugee Protection Act and the Citizenship Act.`,
+      },
+      {
+        title: 'The One-Year Filing Deadline',
+        body: `The most consequential change is the introduction of a one-year deadline for filing asylum claims. Under the new law, asylum claims made more than one year after a person\u2019s first entry into Canada after June 24, 2020, will not be referred to the Immigration and Refugee Board for a hearing.\n\nThis provision retroactively affects people already in Canada. Approximately 30,000 refugee claimants have received procedural fairness letters notifying them that their claims may be deemed ineligible under the new rules.\n\nThe Canadian Association of Refugee Lawyers has called this provision the most troubling element of the bill. Vice-president Adam Sadinsky described C-12 as "the most significant rollback of refugee rights in more than a decade," noting that there is no established link between filing speed and the legitimacy of a claim.`,
+      },
+      {
+        title: 'Document Cancellation Powers',
+        body: `Bill C-12 grants the Minister of Immigration new authority to cancel permanent resident visas, temporary resident visas, work permits, and study permits if the minister determines it is in the "public interest" to do so.\n\nCritics have raised concerns about the breadth of this power. The term "public interest" is not defined in the legislation, giving the minister significant discretion. The Canadian Civil Liberties Association warned that this power could be used to target specific communities or individuals for political reasons.\n\nThe government argues the provision is necessary to address cases of fraud and national security concerns that cannot be resolved through existing processes.`,
+      },
+      {
+        title: 'Border Crossing Restrictions',
+        body: `The law introduces new restrictions on asylum claims from people who enter Canada between official ports of entry along the Canada-U.S. land border. Under the new rules, individuals who cross irregularly and wait more than 14 days before making an asylum claim will not have their case referred to the IRB.\n\nThis provision is aimed at reducing irregular border crossings, which increased significantly in recent years at locations like Roxham Road in Quebec. The government closed Roxham Road in 2023 through an update to the Safe Third Country Agreement, but irregular crossings have continued at other points.\n\nThe United Nations Human Rights Committee has warned that the provision may weaken refugee protection by penalizing people for the manner of their entry rather than the merits of their claim.`,
+      },
+      {
+        title: 'How Parliament Voted',
+        body: `Bill C-12 passed the House of Commons on December 11, 2025, with support from the Liberals and Conservatives. The NDP\u2019s Jenny Kwan raised concerns about the one-year bar and its impact on vulnerable claimants, but the party\u2019s overall voting position reflected the broader political dynamics around immigration policy in 2025-26.\n\nThe Senate passed the bill with no amendments in March 2026, despite calls from refugee advocates and legal organizations to modify the one-year deadline and the document cancellation provisions.\n\nMore than two dozen civil society organizations, including Amnesty International Canada and the Canadian Council for Refugees, issued a joint statement calling the bill "an attack on refugee and migrant rights in Canada."`,
+      },
+      {
+        title: 'What Happens Next',
+        body: `The law is now in effect. Immigration, Refugees and Citizenship Canada has begun issuing procedural fairness letters to affected claimants, giving them an opportunity to respond before their cases are deemed ineligible.\n\nLegal challenges are expected. The Canadian Association of Refugee Lawyers has indicated it will challenge the one-year bar and the document cancellation provisions on constitutional grounds, arguing they violate the Charter of Rights and Freedoms.\n\nParliament Audit will track any legal challenges, regulatory developments, and future amendments related to Bill C-12.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'CBC — A major immigration reform bill is now law in Canada',
+        url: 'https://www.cbc.ca/news/politics/canada-immigration-reform-law-9.7145624',
+      },
+      {
+        label: 'Canada.ca — New immigration and asylum measures from Bill C-12',
+        url: 'https://www.canada.ca/en/immigration-refugees-citizenship/news/2026/03/new-immigration-and-asylum-measures-from-bill-c-12-the-strengthening-canadas-immigration-system-and-borders-act-have-become-law.html',
+      },
+      {
+        label: 'Al Jazeera — Canada\u2019s Bill C-12 an attack on refugee rights: Advocates',
+        url: 'https://www.aljazeera.com/news/2026/3/27/canadas-bill-c-12-an-attack-on-refugee-migrant-rights-advocates',
+      },
+      {
+        label: 'CCLA — Passing of Bill C-12 is an attack on refugee and migrant rights',
+        url: 'https://ccla.org/press-release/passing-of-bill-c-12-is-an-attack-on-refugee-and-migrant-rights-in-canada/',
+      },
+      {
+        label: 'Amnesty International Canada — Joint statement on Bill C-12',
+        url: 'https://amnesty.ca/human-rights-news/canada-passing-of-bill-c-12-an-attack-on-refugee-migrant-rights/',
+      },
+      {
+        label: 'Canada.ca — Understanding the Strengthening Canada\u2019s Immigration System and Borders Act',
+        url: 'https://www.canada.ca/en/services/defence/securingborder/strengthen-border-security/understanding-stregthening-canada-immigration-system-borders-act.html',
+      },
+    ],
+  },
+  {
+    slug: 'bill-c225-baileys-law-intimate-partner-violence',
+    headline: 'Bailey\u2019s Law Heads to Third Reading: What Bill C-225 Would Change About Domestic Violence Sentencing',
+    subheadline:
+      'A rare private member\u2019s bill with all-party support would make killing an intimate partner automatic first-degree murder and give courts new tools to assess risk before bail.',
+    summary:
+      'Bill C-225, known as Bailey\u2019s Law, is a Conservative private member\u2019s bill that would make the killing of an intimate partner an automatic first-degree murder charge, create distinct Criminal Code offences for intimate partner assault, and empower courts to order risk assessments before granting bail in domestic violence cases. Named after Kelowna victim Bailey McCourt, the bill passed second reading with a standing ovation and cleared committee with minor amendments.',
+    publishedAt: '2026-04-15T22:00:00-04:00',
+    category: 'Legislation',
+    tags: ['Bill C-225', 'domestic violence', 'Criminal Code', 'private members bill', 'sentencing'],
+    readingTimeMinutes: 5,
+    sections: [
+      {
+        title: 'What Is Bailey\u2019s Law?',
+        body: `Bill C-225, known as Bailey\u2019s Law, is a private member\u2019s bill introduced by Conservative MP Tracy Gray. It is named after Bailey McCourt, a young woman from Kelowna, British Columbia, who was killed by a former intimate partner in 2020.\n\nThe bill proposes several amendments to the Criminal Code aimed at strengthening the legal response to intimate partner violence. It is one of the rare private member\u2019s bills to receive all-party support and advance through the legislative process.`,
+      },
+      {
+        title: 'What the Bill Would Change',
+        body: `Bailey\u2019s Law contains four main provisions:\n\nFirst, it would make the killing of an intimate partner automatic first-degree murder. Currently, a murder must be planned and deliberate to be classified as first degree, unless it falls under specific exceptions. This change would add intimate partner homicide to those exceptions, carrying a mandatory life sentence with no parole eligibility for 25 years.\n\nSecond, the bill creates distinct Criminal Code offences for intimate partner assault and intimate partner criminal harassment (stalking). These would carry higher maximum sentences than the general assault provisions.\n\nThird, courts would be empowered to order a risk assessment of up to seven days for individuals charged with domestic assault, if there are indicators of escalating danger. This is designed to give police and courts a window to evaluate risk before a bail decision.\n\nFourth, the bill would change bail rules for individuals with a previous domestic violence conviction, creating a reverse onus requiring them to show why they should be released.`,
+      },
+      {
+        title: 'The Parliamentary Path',
+        body: `Bailey\u2019s Law passed second reading in the House of Commons with a standing ovation \u2014 an unusual show of cross-party support. All parties indicated their backing for the bill.\n\nThe bill then went to the Standing Committee on Justice and Human Rights for detailed study. The committee heard from victims\u2019 advocates, legal experts, and law enforcement before passing the bill with only minor technical amendments.\n\nBill C-225 now returns to the House for report stage and third reading. As the first private member\u2019s bill to reach this stage in the current Parliament, its progress is being closely watched.`,
+      },
+      {
+        title: 'Why Private Member\u2019s Bills Rarely Pass',
+        body: `Private member\u2019s bills face significant procedural hurdles in Canada\u2019s Parliament. Only a limited number receive debate time each session, determined by a random draw. Even bills that receive debate often stall because the government controls the legislative calendar.\n\nOf the hundreds of private member\u2019s bills introduced each Parliament, only a small fraction become law. The bills that succeed typically have cross-party support and address issues where there is broad public consensus.\n\nBailey\u2019s Law benefits from both: the issue of intimate partner violence commands wide public support, and the bill\u2019s sponsors have worked across party lines to build consensus.`,
+      },
+      {
+        title: 'What Happens Next',
+        body: `The House will debate Bill C-225 at report stage, where MPs can propose amendments. If it passes report stage, it moves to a third reading vote. If it passes third reading, it goes to the Senate.\n\nThe government has indicated it supports the bill and will not block its progress. However, the legislative calendar is crowded, and private member\u2019s bills must compete for limited floor time with government legislation.\n\nParliament Audit will publish the recorded vote at third reading when it occurs.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'CBC — Bailey\u2019s Law passes second reading in Ottawa',
+        url: 'https://www.cbc.ca/news/canada/british-columbia/baileys-law-second-reading-domestic-violence-9.7002335',
+      },
+      {
+        label: 'LEGISinfo — Bill C-225',
+        url: 'https://www.parl.ca/legisinfo/en/bill/45-1/c-225',
+      },
+      {
+        label: 'Bill C-225 — First Reading Text',
+        url: 'https://www.parl.ca/DocumentViewer/en/45-1/bill/C-225/first-reading',
+      },
+      {
+        label: 'Today in BC — Bailey\u2019s Law passes second reading with standing ovation',
+        url: 'https://www.todayinbc.com/news/baileys-law-passes-second-reading-in-house-of-commons-with-standing-ovation-8354234',
+      },
+      {
+        label: 'openparliament.ca — Bill C-225',
+        url: 'https://openparliament.ca/bills/45-1/C-225/',
+      },
+    ],
+  },
 ];
 
 export function getNewsArticle(slug: string): NewsArticle | undefined {
