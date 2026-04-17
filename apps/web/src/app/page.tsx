@@ -9,18 +9,24 @@ export const revalidate = 300; // Revalidate every 5 minutes
 
 export default async function HomePage() {
   // Fetch latest published articles with their vote and party data
-  const latestArticles = await db.query.articles.findMany({
-    where: eq(schema.articles.status, 'published'),
-    orderBy: desc(schema.articles.publishedAt),
-    limit: 20,
-    with: {
-      vote: {
-        with: {
-          partyResults: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let latestArticles: any[] = [];
+  try {
+    latestArticles = await db.query.articles.findMany({
+      where: eq(schema.articles.status, 'published'),
+      orderBy: desc(schema.articles.publishedAt),
+      limit: 20,
+      with: {
+        vote: {
+          with: {
+            partyResults: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch {
+    // Database may not be available during development
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',
