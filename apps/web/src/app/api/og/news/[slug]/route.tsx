@@ -254,7 +254,7 @@ export async function GET(
               display: 'flex',
             }}
           >
-            Non-partisan \u00b7 Factual \u00b7 Transparent
+            {'Non-partisan \u00b7 Factual \u00b7 Transparent'}
           </div>
         </div>
       </div>

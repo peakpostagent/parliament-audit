@@ -359,7 +359,7 @@ function FloorCrossingPollChart() {
           ))}
 
           <div style={{ color: '#475569', fontSize: '13px', marginTop: '12px', display: 'flex' }}>
-            &quot;Should an MP who crosses the floor be required to resign and run in a byelection?&quot;
+            {'"Should an MP who crosses the floor be required to resign and run in a byelection?"'}
           </div>
         </div>
       </div>
