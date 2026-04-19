@@ -8,6 +8,29 @@ export interface NewsArticle {
   category: string;
   tags: string[];
   readingTimeMinutes: number;
+  /** Optional 3-5 bullets for the TLDR box at the top of the article. */
+  keyTakeaways?: string[];
+  /**
+   * Optional structured vote data — rendered as a table and emitted as
+   * JSON-LD Dataset structured data so AI search engines (ChatGPT,
+   * Perplexity, Google AI Overviews) can cite us when answering
+   * "how did party X vote on bill Y?"
+   */
+  voteBreakdown?: {
+    billNumber: string;
+    voteDate: string; // ISO
+    stage: string; // e.g. 'Second Reading', 'Third Reading'
+    result: 'passed' | 'failed' | 'tied';
+    totals: { yea: number; nay: number; abstain?: number; absent?: number };
+    byParty: Array<{
+      party: string; // 'LPC', 'CPC', 'NDP', 'BQ', 'GPC', 'IND'
+      partyFullName?: string;
+      yea: number;
+      nay: number;
+      abstain?: number;
+      absent?: number;
+    }>;
+  };
   sections: {
     title: string;
     body: string; // paragraphs separated by \n\n
@@ -31,6 +54,13 @@ export const newsArticles: NewsArticle[] = [
     category: 'Legislation',
     tags: ['Bill C-22', 'privacy', 'surveillance', 'civil liberties', 'metadata'],
     readingTimeMinutes: 6,
+    keyTakeaways: [
+      'Telecom and internet providers would have to retain metadata (who, when, where) on every Canadian for up to 12 months.',
+      'The Public Safety Minister could issue secret orders compelling providers to build surveillance capabilities — providers are barred from disclosing them.',
+      'The Privacy Commissioner has no oversight role over the new powers.',
+      'Threshold for police access drops from "reasonable grounds to believe" to "reasonable grounds to suspect."',
+      'Currently at second reading; with the Liberal majority, it has a clear path to passage.',
+    ],
     sections: [
       {
         title: 'What Is Bill C-22?',
@@ -128,6 +158,13 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Budget',
     tags: ['budget cuts', 'public service', 'spending', 'CRA', 'federal budget'],
     readingTimeMinutes: 7,
+    keyTakeaways: [
+      '$60.6 billion in federal spending cuts over four years.',
+      '~10,000 public service positions eliminated, with CRA losing 2,620.',
+      '$10-a-day childcare expansion gets no new federal funding after 2027–28.',
+      'Three climate research labs consolidated into one; lunar program cut 40%.',
+      'Passport processing wait times projected to roughly double by fall.',
+    ],
     sections: [
       {
         title: 'The Big Picture',
@@ -192,6 +229,13 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Accountability',
     tags: ['floor crossing', 'majority government', 'accountability', 'democracy', 'polling'],
     readingTimeMinutes: 6,
+    keyTakeaways: [
+      '4 Conservative MPs crossed the floor to the Liberals between Nov 2025 and April 2026.',
+      '3 Liberal byelection wins in the same window pushed the caucus over the majority threshold.',
+      'No general election was held — voters never weighed in on the new balance of power.',
+      'Angus Reid: 74% of Canadians say crossing MPs should have to run in a byelection. Cross-party consensus: 81% of CPC, 77% of NDP, and 68% of LPC voters agree.',
+      'Canada has no anti-defection law; floor crossings are legal under current rules.',
+    ],
     sections: [
       {
         title: 'The Timeline',
@@ -248,6 +292,27 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-9', 'hate speech', 'religious freedom', 'civil liberties', 'Criminal Code'],
     readingTimeMinutes: 6,
+    keyTakeaways: [
+      'Passed the House 186–137 on March 25, 2026; now moves to the Senate.',
+      'Liberals and Bloc voted yes; Conservatives, NDP, and Greens all voted no.',
+      'Removes the "good faith religious text" defence that has been in the Criminal Code since the 1970s.',
+      'Creates new offences for the public display of hate symbols and the promotion of hatred against identifiable groups.',
+      'NDP and CPC objections were for opposite reasons: CPC sees the religious-text removal as a free-speech threat; NDP sees the bill as not going far enough.',
+    ],
+    voteBreakdown: {
+      billNumber: 'C-9',
+      voteDate: '2026-03-25',
+      stage: 'Third Reading',
+      result: 'passed',
+      totals: { yea: 186, nay: 137 },
+      byParty: [
+        { party: 'LPC', partyFullName: 'Liberal', yea: 153, nay: 0 },
+        { party: 'CPC', partyFullName: 'Conservative', yea: 0, nay: 119 },
+        { party: 'BQ', partyFullName: 'Bloc Québécois', yea: 33, nay: 0 },
+        { party: 'NDP', partyFullName: 'New Democratic', yea: 0, nay: 15 },
+        { party: 'GPC', partyFullName: 'Green', yea: 0, nay: 3 },
+      ],
+    },
     sections: [
       {
         title: 'What Is Bill C-9?',
@@ -312,6 +377,13 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-12', 'immigration', 'refugees', 'asylum', 'civil liberties'],
     readingTimeMinutes: 7,
+    keyTakeaways: [
+      'Received royal assent on March 26, 2026 — now law.',
+      '~30,000 refugee claimants have received letters saying their cases may be ineligible.',
+      'New 1-year filing deadline for asylum claims, retroactively applied.',
+      'Government can now cancel permanent resident visas, work permits, and study permits if it deems it in the "public interest" — a term the law does not define.',
+      'Rights groups call it the biggest rollback of Canadian refugee protections in a decade.',
+    ],
     sections: [
       {
         title: 'What Bill C-12 Does',
@@ -376,6 +448,13 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-225', 'domestic violence', 'Criminal Code', 'private members bill', 'sentencing'],
     readingTimeMinutes: 5,
+    keyTakeaways: [
+      'Would make killing an intimate partner an automatic first-degree murder charge.',
+      'Creates distinct Criminal Code offences for intimate partner assault.',
+      'Empowers courts to order 7-day risk assessments before granting bail in domestic violence cases.',
+      'Named after Bailey McCourt, killed by an intimate partner in Kelowna in 2020.',
+      'Rare all-party support for a private member\u2019s bill — passed second reading with a standing ovation; cleared committee with minor amendments.',
+    ],
     sections: [
       {
         title: 'What Is Bailey\u2019s Law?',

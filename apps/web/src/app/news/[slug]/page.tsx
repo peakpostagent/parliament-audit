@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getNewsArticle, getAllNewsSlugs } from '@/content/news-articles';
+import { getNewsArticle, getAllNewsSlugs, type NewsArticle } from '@/content/news-articles';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -43,6 +43,177 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+const SITE_URL = 'https://parliamentaudit.ca';
+
+/**
+ * Build JSON-LD structured data so AI search engines (ChatGPT, Perplexity,
+ * Google AI Overviews) and traditional crawlers (Google, Bing) can ingest
+ * our articles cleanly. Emits Article + (when applicable) Dataset for
+ * structured vote data + BreadcrumbList for navigation.
+ */
+function buildJsonLd(article: NewsArticle): unknown {
+  const articleUrl = `${SITE_URL}/news/${article.slug}`;
+  const ogImage = `${SITE_URL}/api/og/news/${article.slug}`;
+
+  const articleSchema: Record<string, unknown> = {
+    '@type': 'NewsArticle',
+    headline: article.headline,
+    description: article.summary,
+    image: [ogImage],
+    datePublished: article.publishedAt,
+    ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
+    author: {
+      '@type': 'Organization',
+      name: 'Parliament Audit',
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Parliament Audit',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/icon-512.png`,
+      },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+    articleSection: article.category,
+    keywords: article.tags.join(', '),
+    isAccessibleForFree: true,
+    inLanguage: 'en-CA',
+  };
+
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'News', item: `${SITE_URL}/news` },
+      { '@type': 'ListItem', position: 3, name: article.headline, item: articleUrl },
+    ],
+  };
+
+  const graph: unknown[] = [articleSchema, breadcrumb];
+
+  // Dataset schema for structured vote data — parseable by AI agents
+  // answering "how did party X vote on bill Y?"
+  if (article.voteBreakdown) {
+    const v = article.voteBreakdown;
+    graph.push({
+      '@type': 'Dataset',
+      name: `Bill ${v.billNumber} vote breakdown — ${v.stage}`,
+      description: `Recorded division on Bill ${v.billNumber} (${v.stage}, ${v.voteDate}). Result: ${v.result.toUpperCase()} ${v.totals.yea}–${v.totals.nay}.`,
+      url: articleUrl,
+      datePublished: v.voteDate,
+      creator: { '@type': 'Organization', name: 'House of Commons of Canada' },
+      isAccessibleForFree: true,
+      license: 'https://www.ourcommons.ca/en/important-notices',
+      variableMeasured: ['party', 'yea', 'nay', 'abstain', 'absent'],
+      distribution: {
+        '@type': 'DataDownload',
+        encodingFormat: 'text/html',
+        contentUrl: articleUrl,
+      },
+    });
+  }
+
+  return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+const PARTY_COLORS: Record<string, string> = {
+  LPC: 'bg-red-600',
+  CPC: 'bg-blue-700',
+  NDP: 'bg-orange-500',
+  BQ: 'bg-cyan-500',
+  GPC: 'bg-green-600',
+  IND: 'bg-gray-500',
+};
+
+function VoteTable({ vote }: { vote: NonNullable<NewsArticle['voteBreakdown']> }) {
+  const showAbstain = vote.byParty.some((p) => (p.abstain ?? 0) > 0);
+  const showAbsent = vote.byParty.some((p) => (p.absent ?? 0) > 0);
+  const resultColor =
+    vote.result === 'passed'
+      ? 'text-green-700'
+      : vote.result === 'failed'
+        ? 'text-red-700'
+        : 'text-gray-700';
+  return (
+    <figure className="my-8 border border-gray-200 rounded-lg overflow-hidden bg-white">
+      <figcaption className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <div>
+            <span className="font-bold text-gray-900">
+              Bill {vote.billNumber} — {vote.stage}
+            </span>
+            <span className="ml-2 text-sm text-gray-500">{vote.voteDate}</span>
+          </div>
+          <div className={`text-sm font-bold uppercase tracking-wide ${resultColor}`}>
+            {vote.result} {vote.totals.yea}–{vote.totals.nay}
+          </div>
+        </div>
+      </figcaption>
+      <table className="w-full text-sm">
+        <thead className="bg-gray-50 text-gray-600 text-xs uppercase tracking-wide">
+          <tr>
+            <th className="text-left px-4 py-2">Party</th>
+            <th className="text-right px-4 py-2">Yea</th>
+            <th className="text-right px-4 py-2">Nay</th>
+            {showAbstain && <th className="text-right px-4 py-2">Abstain</th>}
+            {showAbsent && <th className="text-right px-4 py-2">Absent</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {vote.byParty.map((p) => (
+            <tr key={p.party} className="border-t border-gray-100">
+              <td className="px-4 py-2 flex items-center gap-2">
+                <span
+                  className={`inline-block w-3 h-3 rounded-sm ${PARTY_COLORS[p.party] ?? 'bg-gray-400'}`}
+                  aria-hidden="true"
+                />
+                <span className="font-medium text-gray-800">
+                  {p.partyFullName ?? p.party}
+                </span>
+                <span className="text-gray-400 text-xs">({p.party})</span>
+              </td>
+              <td className="text-right px-4 py-2 font-mono text-gray-700">{p.yea || '—'}</td>
+              <td className="text-right px-4 py-2 font-mono text-gray-700">{p.nay || '—'}</td>
+              {showAbstain && (
+                <td className="text-right px-4 py-2 font-mono text-gray-700">
+                  {p.abstain || '—'}
+                </td>
+              )}
+              {showAbsent && (
+                <td className="text-right px-4 py-2 font-mono text-gray-700">
+                  {p.absent || '—'}
+                </td>
+              )}
+            </tr>
+          ))}
+          <tr className="border-t-2 border-gray-300 bg-gray-50 font-bold">
+            <td className="px-4 py-2 text-gray-900">Total</td>
+            <td className="text-right px-4 py-2 font-mono text-gray-900">
+              {vote.totals.yea}
+            </td>
+            <td className="text-right px-4 py-2 font-mono text-gray-900">
+              {vote.totals.nay}
+            </td>
+            {showAbstain && (
+              <td className="text-right px-4 py-2 font-mono text-gray-900">
+                {vote.totals.abstain ?? '—'}
+              </td>
+            )}
+            {showAbsent && (
+              <td className="text-right px-4 py-2 font-mono text-gray-900">
+                {vote.totals.absent ?? '—'}
+              </td>
+            )}
+          </tr>
+        </tbody>
+      </table>
+    </figure>
+  );
+}
+
 export default async function NewsArticlePage({ params }: PageProps) {
   const { slug } = await params;
   const article = getNewsArticle(slug);
@@ -57,9 +228,24 @@ export default async function NewsArticlePage({ params }: PageProps) {
     month: 'long',
     day: 'numeric',
   });
+  const updatedDate = article.updatedAt
+    ? new Date(article.updatedAt).toLocaleDateString('en-CA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : null;
+
+  const jsonLd = buildJsonLd(article);
 
   return (
     <div className="max-w-3xl mx-auto">
+      {/* JSON-LD: Article + (Dataset) + BreadcrumbList for AEO/GEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Breadcrumbs */}
       <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-red-600">
@@ -84,6 +270,14 @@ export default async function NewsArticlePage({ params }: PageProps) {
         </span>
         <span aria-hidden="true">|</span>
         <time dateTime={article.publishedAt}>{formattedDate}</time>
+        {updatedDate && (
+          <>
+            <span aria-hidden="true">|</span>
+            <time dateTime={article.updatedAt} className="italic">
+              Updated {updatedDate}
+            </time>
+          </>
+        )}
         <span aria-hidden="true">|</span>
         <span>{article.readingTimeMinutes} min read</span>
       </div>
@@ -96,10 +290,41 @@ export default async function NewsArticlePage({ params }: PageProps) {
         <p className="text-lg text-gray-600 mb-6">{article.subheadline}</p>
       )}
 
+      {/* TLDR / Key Takeaways box */}
+      {article.keyTakeaways && article.keyTakeaways.length > 0 && (
+        <aside
+          className="mb-8 bg-amber-50 border border-amber-200 rounded-lg p-5"
+          aria-labelledby="key-takeaways-heading"
+        >
+          <h2
+            id="key-takeaways-heading"
+            className="text-sm font-bold uppercase tracking-wider text-amber-900 mb-3 flex items-center gap-2"
+          >
+            <span aria-hidden="true">⚡</span> Key Takeaways
+          </h2>
+          <ul className="space-y-2">
+            {article.keyTakeaways.map((point, i) => (
+              <li
+                key={i}
+                className="text-gray-800 leading-relaxed flex gap-2"
+              >
+                <span className="text-amber-700 font-bold mt-0.5" aria-hidden="true">
+                  →
+                </span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
       {/* Summary box */}
       <div className="bg-gray-50 border-l-4 border-red-600 p-4 rounded-r-lg mb-8">
         <p className="font-medium text-gray-800">{article.summary}</p>
       </div>
+
+      {/* Vote breakdown table (when present) */}
+      {article.voteBreakdown && <VoteTable vote={article.voteBreakdown} />}
 
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-8">

@@ -156,7 +156,9 @@ async function main() {
   }
 
   const tweet = TWEETS[tweetNum - 1];
-  const postText = `${tweet.text} ${tweet.url}`;
+  // #cdnpoli puts us in the Canadian-politics custom feed (60%+ of Bluesky
+  // discovery flows through custom feeds — see content/growth-tactics-2026.md)
+  const postText = `${tweet.text} ${tweet.url}\n\n#cdnpoli`;
 
   console.log(`[post-to-bluesky] Preparing tweet #${tweet.id}`);
   console.log(`──────────────────────────────────────────`);
