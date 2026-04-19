@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\Users\\colet\\Documents\\Social Media\\parliament-audit\" && npx tsx scripts/post-to-bluesky.ts:*)",
+      "Bash(npx tsx scripts/post-to-bluesky.ts:*)",
+      "Bash(npx tsx:*)"
+    ]
+  }
+}
