@@ -110,6 +110,77 @@ What the bill does →`,
 The full story →`,
     url: 'https://parliamentaudit.ca/news/bill-c225-baileys-law-intimate-partner-violence',
   },
+  // ─── Floor-crossing accountability series ──────────────────────────────────
+  {
+    id: 13,
+    text: `Jan 11: MP Marilyn Gladu said constituents "deserve a chance to have a redo" when an MP switches parties.
+
+Apr 8: She crossed the floor.
+
+She has not called a byelection.
+
+Receipts →`,
+    url: 'https://parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross',
+  },
+  {
+    id: 14,
+    text: `Sarnia's mayor and the local CPC riding association president have both publicly called for MP Marilyn Gladu to face a byelection — matching her own January 2026 stance.
+
+She hasn't committed.
+
+Why →`,
+    url: 'https://parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross',
+  },
+  {
+    id: 15,
+    text: `Nov 6, 2025: MP Matt Jeneroux announced he was resigning. His words: "no coercion was involved," "my focus must turn entirely to my family."
+
+Feb 18: He kept the seat and crossed to the Liberals.
+
+Record →`,
+    url: 'https://parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor',
+  },
+  {
+    id: 16,
+    text: `Weeks after crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia.
+
+What changed since Nov 6 →`,
+    url: 'https://parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor',
+  },
+  {
+    id: 17,
+    text: `Dec 2, 2025: In the House, MP Michael Ma called the Liberals "team asset inflation," "team rentier economy," and "team feudalism."
+
+Dec 11 — 9 days later — he crossed to join them.
+
+Hansard →`,
+    url: 'https://parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal',
+  },
+  {
+    id: 18,
+    text: `"The night I attended the Conservative Christmas party, I was truly a Conservative member... I had not made a decision at that point."
+
+— MP Michael Ma, on the morning he crossed to the Liberals.
+
+The account →`,
+    url: 'https://parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal',
+  },
+  {
+    id: 19,
+    text: `MP Chris d'Entremont won by 533 votes as a CPC in Apr 2025. 6 months later he crossed to the Liberals.
+
+Democracy Watch filed an ethics complaint over his lost Deputy Speaker top-up. Commissioner declined.
+
+→`,
+    url: 'https://parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint',
+  },
+  {
+    id: 20,
+    text: `In the 5 days after crossing the floor, MP Chris d'Entremont gave at least 3 different reasons. One had to be retracted. One cited the federal budget — which hadn't been tabled yet.
+
+Timeline →`,
+    url: 'https://parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint',
+  },
 ];
 
 // ─── Bluesky client ───────────────────────────────────────────────────────────

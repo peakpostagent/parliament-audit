@@ -232,3 +232,88 @@ What the bill does → parliamentaudit.ca/news/bill-c225-baileys-law-intimate-pa
 > Bill C-225 is one of the few private member's bills to clear committee this Parliament. It would also let courts hold domestic violence suspects for 7-day risk assessments before bail.
 
 The full story → parliamentaudit.ca/news/bill-c225-baileys-law-intimate-partner-violence
+
+---
+
+## Floor-Crossing Accountability Series (drafts 13–20)
+
+Each MP gets two posts: one "what they said vs. what they did" framing, one follow-up.
+All claims are sourced in the linked article.
+
+### Marilyn Gladu — Sarnia-Lambton
+
+**Draft 13 — Gladu, the headline contradiction:**
+> Jan 11, 2026: MP Marilyn Gladu told the Petrolia Lambton Independent that constituents "deserve a chance to have a redo" when their MP switches parties.
+>
+> Apr 8, 2026: She crossed the floor to the Liberals.
+>
+> She has not called a byelection.
+>
+> The record → parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross
+
+**Draft 14 — Gladu follow-up (local pressure):**
+> Sarnia's mayor and the local Conservative riding association president have both publicly called for MP Marilyn Gladu to face a byelection in keeping with her own January 2026 statement.
+>
+> She has not committed to one.
+>
+> Why this matters → parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross
+
+### Matt Jeneroux — Edmonton Riverbend
+
+**Draft 15 — Jeneroux, the contradiction:**
+> Nov 6, 2025: MP Matt Jeneroux announced he was resigning from Parliament. His statement: "no coercion was involved" and "my focus must turn entirely to my family."
+>
+> Feb 18, 2026: He kept the seat instead and crossed to the Liberals.
+>
+> Same family. Opposite decision. 14 weeks apart.
+>
+> Full record → parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor
+
+**Draft 16 — Jeneroux follow-up (rewards):**
+> Within weeks of his February floor crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia.
+>
+> What changed since Nov 6 → parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor
+
+### Michael Ma — Markham–Unionville
+
+**Draft 17 — Ma, "team feudalism" → team Liberal:**
+> Dec 2, 2025: In the House, MP Michael Ma called the Liberals "team asset inflation," "team rentier economy," and "team feudalism."
+>
+> Dec 11, 2025 — nine days later — he crossed the floor to join them.
+>
+> The full Hansard record → parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal
+
+**Draft 18 — Ma follow-up (the night before):**
+> "The night I attended the Conservative Christmas party, I was truly a Conservative member, and really an MP… I had not made a decision at that point."
+>
+> — MP Michael Ma, Dec 18, 2025, on the morning he crossed the floor to the Liberals.
+>
+> The full account → parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal
+
+### Chris d'Entremont — Acadie–Annapolis
+
+**Draft 19 — d'Entremont, the ethics complaint:**
+> MP Chris d'Entremont won re-election by 533 votes as a Conservative in April 2025.
+>
+> Six months later he crossed to the Liberals — losing his Deputy Speaker salary top-up in the process.
+>
+> Democracy Watch filed a formal ethics complaint. The Commissioner declined to investigate.
+>
+> The record → parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint
+
+**Draft 20 — d'Entremont follow-up (shifting reasons):**
+> In the first five days after crossing the floor, MP Chris d'Entremont gave at least three different reasons. One had to be retracted after he misled a media outlet. Another cited the federal budget — which had not yet been tabled when he crossed.
+>
+> Full timeline → parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint
+
+### Series wrap-up
+
+**Draft 21 — the roundup:**
+> The 4 Conservative MPs who crossed to the Liberals between Nov 2025 and April 2026:
+>
+> ▸ d'Entremont — won by 533 votes, ethics complaint filed
+> ▸ Ma — called the Liberals "team feudalism" 9 days before joining them
+> ▸ Jeneroux — said he was resigning citing family, then crossed instead
+> ▸ Gladu — endorsed automatic byelections for crossers, then crossed
+>
+> Full series → parliamentaudit.ca/news

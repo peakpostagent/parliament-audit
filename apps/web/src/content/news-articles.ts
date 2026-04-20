@@ -239,7 +239,7 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     sections: [
       {
         title: 'The Timeline',
-        body: `The Liberal minority government won the 2025 general election with 158 seats — 14 short of the 172 needed for a majority. Within six months, a combination of floor crossings and byelection wins closed that gap.\n\nNovember 4, 2025: Conservative MP Chris d'Entremont (West Nova, NS) crosses the floor to the Liberals, citing disagreements with Conservative leadership on Atlantic regional development.\n\nDecember 11, 2025: Conservative MP Kin Ma (Calgary Skyview, AB) crosses the floor, stating that the Conservative party has moved too far from its centrist roots.\n\nFebruary 18, 2026: Conservative MP Matt Jeneroux (Edmonton Riverbend, AB) crosses the floor, citing concerns about party direction on climate policy.\n\nApril 8, 2026: Conservative MP Marilyn Gladu (Sarnia-Lambton, ON) crosses the floor, the fourth Conservative to do so in five months.\n\nIn between, the Liberals won three byelections in previously opposition-held ridings, bringing their total to 172 — exactly the number needed for a majority.`,
+        body: `The Liberal minority government won the 2025 general election with 158 seats — 14 short of the 172 needed for a majority. Within six months, a combination of floor crossings and byelection wins closed that gap.\n\nNovember 4, 2025: Conservative MP Chris d'Entremont (Acadie–Annapolis, NS) crosses the floor to the Liberals on budget day, citing disagreements with Conservative leadership.\n\nDecember 11, 2025: Conservative MP Michael Ma (Markham–Unionville, ON) crosses the floor, nine days after a House speech in which he called the Liberals "team feudalism."\n\nFebruary 18, 2026: Conservative MP Matt Jeneroux (Edmonton Riverbend, AB) crosses the floor — three months after publicly announcing he was resigning his seat citing family.\n\nApril 8, 2026: Conservative MP Marilyn Gladu (Sarnia-Lambton, ON) crosses the floor — three months after going on the record supporting automatic byelections for MPs who switch parties.\n\nIn between, the Liberals won three byelections in previously opposition-held ridings, bringing their total to 172 — exactly the number needed for a majority.`,
       },
       {
         title: 'What the Polls Say',
@@ -256,6 +256,10 @@ Canadians concerned about the bill's privacy implications can contact their MP t
       {
         title: 'What This Means Going Forward',
         body: `With a majority now secured, the Liberal government can pass legislation without relying on opposition support. This has immediate implications for several contentious bills, including Bill C-22 (the Lawful Access Act) and the upcoming budget implementation act.\n\nThe NDP and Bloc Quebecois have both indicated they will reintroduce private members' bills requiring byelections after floor crossings. Whether these bills receive a vote will depend on the order paper and the Speaker's discretion.\n\nParliament Audit will track any legislation related to floor crossing rules and publish the recorded vote if and when it occurs.`,
+      },
+      {
+        title: 'The Four MPs — Individual Records',
+        body: `Parliament Audit has published an individual accountability piece on each of the four MPs who crossed the floor. Each is fully sourced.\n\n• Chris d'Entremont (Acadie\u2013Annapolis) — won re-election by 533 votes; lost his Deputy Speaker salary top-up; Democracy Watch filed a formal ethics complaint that the Commissioner declined to investigate. Read: parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint\n\n• Michael Ma (Markham\u2013Unionville) — called the Liberals "team feudalism" in a Hansard speech nine days before joining them; admitted he was "truly a Conservative" the night before crossing. Read: parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal\n\n• Matt Jeneroux (Edmonton Riverbend) — announced his resignation citing family in November 2025 with "no coercion involved," then kept the seat and crossed in February 2026; named Special Advisor to the Prime Minister within weeks. Read: parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor\n\n• Marilyn Gladu (Sarnia-Lambton) — went on the record in January 2026 endorsing automatic byelections for floor-crossers ("we deserve a chance to have a redo"), then crossed the floor herself three months later. Sarnia's mayor and the local CPC riding association president have both publicly demanded a byelection. Read: parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross`,
       },
     ],
     sources: [
@@ -498,6 +502,293 @@ Canadians concerned about the bill's privacy implications can contact their MP t
         label: 'openparliament.ca — Bill C-225',
         url: 'https://openparliament.ca/bills/45-1/C-225/',
       },
+    ],
+  },
+  // ───────────────────────────────────────────────────────────────────────────
+  // Floor-crossing accountability series
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'marilyn-gladu-byelection-pledge-then-floor-cross',
+    headline:
+      'Marilyn Gladu Endorsed Byelections for Floor-Crossers in January. In April, She Crossed the Floor.',
+    subheadline:
+      'In a January 11 interview with the Petrolia Lambton Independent, the Sarnia-Lambton MP said constituents "deserve a chance to have a redo" when their MP switches parties. Three months later, she joined the Liberals — and has not called a byelection.',
+    summary:
+      'On January 11, 2026, Conservative MP Marilyn Gladu told a local newspaper she supported a petition calling for automatic byelections when MPs switch parties, saying voters "deserve a chance to have a redo." On April 8, 2026, she crossed the floor to the Liberals herself. Sarnia-Lambton\u2019s mayor and the local Conservative riding association president have publicly called for her to face a byelection. She has not.',
+    publishedAt: '2026-04-19T18:00:00-04:00',
+    category: 'Accountability',
+    tags: ['floor crossing', 'Marilyn Gladu', 'accountability', 'Sarnia-Lambton', 'byelection'],
+    readingTimeMinutes: 5,
+    keyTakeaways: [
+      'On Jan 11, 2026, Gladu told the Petrolia Lambton Independent she supported a petition for automatic byelections after floor-crossings.',
+      'On April 8, 2026 — three months later — she crossed the floor from the Conservatives to the Liberals.',
+      'She has not called a byelection. Sarnia\u2019s mayor and the local CPC riding association president have both publicly demanded one.',
+      'Other reversals on joining the Liberal caucus: pro-life voting record (now states she will protect women\u2019s right to choose) and previous opposition to vaccine mandates.',
+      'Gladu was elected as a Conservative in October 2015 and re-elected as a Conservative in 2019, 2021, and April 2025.',
+    ],
+    sections: [
+      {
+        title: 'What She Said in January',
+        body: `On January 11, 2026, the Petrolia Lambton Independent published an interview with Sarnia-Lambton Conservative MP Marilyn Gladu. The subject: a constituent-driven petition calling on Parliament to require automatic byelections when an MP switches parties.
+
+Gladu was on the record in support. The Independent quoted her in full:
+
+"Really, the whole point of being an MP is to represent your constituents. So, if they're voting you in under one platform, for you to switch for whatever reasons, just seems to me to not be representing what you're supposed to be there to represent. We elected you under this banner, and if you don't want to be under that banner, then we deserve a chance to have a redo."
+
+The Sarnia Journal subsequently confirmed the quote and the position.`,
+      },
+      {
+        title: 'What She Did in April',
+        body: `On April 8, 2026 — 87 days later — Gladu announced she was crossing the floor to join Mark Carney's Liberals. Her stated reason, per CBC: "I've heard clearly from constituents that you want serious leadership and a real plan to build a stronger and more independent Canadian economy."
+
+The contradiction was noted immediately by local outlets. The Sarnia Journal headline read: "Gladu crosses the floor despite prior support for by-elections for party-switching MPs."
+
+Sarnia Mayor Mike Bradley and the Sarnia-Lambton Conservative riding association president have both publicly called for Gladu to face a byelection in keeping with her own January position. As of publication, Gladu has not committed to one.`,
+      },
+      {
+        title: 'Other Position Reversals',
+        body: `Gladu's caucus switch coincided with public reversals on two other long-held positions.
+
+On abortion: Gladu voted in favour of Bill C-233 (the 2021 sex-selective abortion ban) and spoke at the 2017 March for Life on Parliament Hill. After joining the Liberal caucus, she stated: "I will protect the rights and freedoms of women to choose." The Catholic Register and Global News documented the shift.
+
+On vaccine mandates: As a Conservative, Gladu led an internal "mini-caucus" against federal vaccine mandates and was dropped from the Conservative shadow cabinet in 2021 after publicly comparing COVID-19 risk unfavourably to polio — remarks she later apologized for, calling them "misinformation." She now sits in a caucus that has supported mandate-related employment insurance denials.`,
+      },
+      {
+        title: 'Background',
+        body: `Marilyn Gladu was first elected as the Conservative MP for Sarnia-Lambton in October 2015. She was re-elected in 2019, 2021, and again in the April 2025 federal election — each time on the Conservative ticket.
+
+A chemical engineer by training (BSc, Queen's University; 21 years at Dow Chemical, then engineering director at Suncor), she became the first female chemical engineer to sit in the House of Commons. She was named Maclean's "Most Collegial Parliamentarian" in 2016.
+
+Her notable legislative work as a Conservative includes Bill C-277 (the 2017 palliative care framework) and Bill C-228 (2023 pension protection). She chaired the Standing Committee on the Status of Women and ran an unsuccessful 2020 Conservative leadership bid that was disqualified for failing to meet the signature and deposit requirements.`,
+      },
+    ],
+    sources: [
+      { label: 'Petrolia Lambton Independent — Jan 11, 2026 Gladu interview', url: 'https://petrolialambtonindependent.ca/2026/01/11/gladu-backs-call-for-automatic-by-elections-for-mps-who-switch-parties/' },
+      { label: 'Sarnia Journal — Gladu crosses despite prior byelection support', url: 'https://www.thesarniajournal.ca/news/gladu-crosses-the-floor-despite-prior-support-for-by-elections-for-party-switching-mps-12113791' },
+      { label: 'CBC — Marilyn Gladu crosses to Liberals (April 8, 2026)', url: 'https://www.cbc.ca/news/politics/conservative-mp-marilyn-gladu-crosses-floor-to-liberals-9.7156167' },
+      { label: 'Globe and Mail — Gladu floor crossing', url: 'https://www.theglobeandmail.com/politics/article-marilyn-gladu-floor-crossing-conservatives-liberals-mark-carney/' },
+      { label: 'CBC — Sarnia mayor calls for byelection', url: 'https://www.cbc.ca/news/canada/windsor/marilyn-gladu-byelection-call-9.7158488' },
+      { label: 'Catholic Register — Gladu and the pro-life vote', url: 'https://www.catholicregister.org/item/3745-floor-crosser-gladu-turns-back-on-pro-life-past' },
+      { label: 'Global News — Gladu, Liberals, and abortion rights', url: 'https://globalnews.ca/news/11771261/marilyn-gladu-liberals-abortion-carney/' },
+      { label: 'Sarnia Journal — Gladu apologizes for COVID/polio comparison', url: 'https://www.thesarniajournal.ca/top-story/update-gladu-apologizes-for-remarks-dropped-from-tory-shadow-cabinet-7971815' },
+      { label: 'House of Commons — Marilyn Gladu profile', url: 'https://www.ourcommons.ca/members/en/marilyn-gladu(88938)' },
+    ],
+  },
+  {
+    slug: 'matt-jeneroux-resigned-then-crossed-floor',
+    headline:
+      'In November, Matt Jeneroux Resigned Citing Family. In February, He Crossed the Floor Instead.',
+    subheadline:
+      'The Edmonton Riverbend MP said his "focus must turn entirely to my family" when announcing his resignation in November 2025. Fourteen weeks later, he kept his seat and joined the Liberals — getting a Special Advisor role and foreign trips with the Prime Minister within weeks.',
+    summary:
+      'On November 6, 2025, Conservative MP Matt Jeneroux announced he was resigning from Parliament, telling constituents there was "no coercion" involved and that his focus needed to be on his family. On February 18, 2026, he reversed course, kept the Edmonton Riverbend seat his constituents had elected him to as a Conservative, and crossed the floor to the Liberals. Within weeks he was named a Special Advisor to the Prime Minister on Economic and Security Partnerships and joined Mark Carney on a trip to India, Australia, and Japan.',
+    publishedAt: '2026-04-19T18:30:00-04:00',
+    category: 'Accountability',
+    tags: ['floor crossing', 'Matt Jeneroux', 'accountability', 'Edmonton Riverbend'],
+    readingTimeMinutes: 5,
+    keyTakeaways: [
+      'Nov 6, 2025: Jeneroux announced his resignation from Parliament, citing family and explicitly denying any coercion.',
+      'Feb 18, 2026: He reversed, kept his Conservative-won seat, and joined the Liberals — without triggering a byelection.',
+      'Within weeks, he was named Special Advisor to the Prime Minister on Economic and Security Partnerships and traveled with Carney to India, Japan, and Australia.',
+      'He won Edmonton Riverbend with 50.24% of the vote in April 2025 as a Conservative.',
+      'Jeneroux\u2019s primary residence is reported to be in Victoria, BC.',
+    ],
+    sections: [
+      {
+        title: 'November 2025: The Resignation',
+        body: `On November 6, 2025, Matt Jeneroux posted a resignation statement to Facebook and confirmed it to CBC News. The full statement is publicly available.
+
+His own framing: "I want to be clear that there was no coercion involved in my decision to resign... For now, my focus must turn entirely to my family."
+
+He noted he had run in the April 2025 federal election "hopeful that Canadians would put their faith in a team led by Pierre Poilievre's Conservatives" — language that affirmed the Conservative banner he had run under.
+
+The CBC headline at the time: "Conservative Matt Jeneroux resigns from Parliament."`,
+      },
+      {
+        title: 'February 2026: The Reversal',
+        body: `On February 18, 2026, Jeneroux did not resign. Instead, he announced he was crossing the floor to join Mark Carney's Liberals — keeping the seat his constituents had elected him to as a Conservative.
+
+His new framing, per the CBC, cited "several conversations around the dinner table" and Mark Carney's Davos speech, framing the move as a response to a "national unity crisis."
+
+Conservative Leader Pierre Poilievre called the move a "betrayal" and alleged "dirty backroom deals."
+
+Same family. Same constituents. Opposite decision. Fourteen weeks apart.`,
+      },
+      {
+        title: 'What Came Next',
+        body: `Within weeks of crossing, Jeneroux was named Special Advisor to the Prime Minister on Economic and Security Partnerships. He joined Carney on a foreign trip to India, Japan, and Australia in March 2026. Global News documented both.
+
+His own November 2025 statement preempted the obvious question: he said there was "no coercion" in his decision to resign. The February reversal — and the speed of the cabinet-adjacent advisory role and foreign-trip access that followed — invites a follow-up question: what changed?
+
+As of publication, Jeneroux has not indicated any willingness to face a byelection in Edmonton Riverbend. Constituents quoted by local outlet Junonews have called the move "unconscionable" and "a complete rejection of democracy."`,
+      },
+      {
+        title: 'Background',
+        body: `Matt Jeneroux was first elected as the Conservative MP for Edmonton Riverbend in 2015. He was re-elected in 2019, 2021, and most recently in April 2025 with 50.24 per cent of the vote.
+
+Before federal politics, he served as a Progressive Conservative MLA for Edmonton-South West from 2012 to 2015 and was the author of Alberta's Bill 203 (Compassionate Care Leave). He held a series of opposition shadow portfolios in Ottawa, including Health (2019–2020), Infrastructure, Innovation and Science, Housing & Diversity, and most recently Supply Chains.
+
+He passed Bill C-220 (extension of bereavement leave) with all-party support and was named CAMIMH's Champion of Mental Health in 2024.`,
+      },
+    ],
+    sources: [
+      { label: 'CBC — Conservative Matt Jeneroux resigns from Parliament (Nov 6, 2025)', url: 'https://www.cbc.ca/news/politics/conservative-matt-jeneroux-resigns-9.6970100' },
+      { label: 'Matt Jeneroux Facebook resignation post', url: 'https://www.facebook.com/mattjeneroux/posts/1210644494220209/' },
+      { label: 'CBC — Jeneroux joins Liberals (Feb 18, 2026)', url: 'https://www.cbc.ca/news/politics/jeneroux-joins-liberals-9.7095322' },
+      { label: 'CP24 — Poilievre calls floor crossing a "betrayal"', url: 'https://www.cp24.com/news/canada/2026/02/18/conservative-mp-jeneroux-floor-crossing-a-betrayal-pierre-poilievre-says/' },
+      { label: 'Global News — Jeneroux crosses floor to Liberals', url: 'https://globalnews.ca/news/11672379/matt-jeneroux-crosses-floor-liberals/' },
+      { label: 'Global News — Carney, Jeneroux, India/Japan/Australia trip', url: 'https://globalnews.ca/news/11686665/mark-carney-matt-jeneroux-india-japan-australia-trip/' },
+      { label: 'House of Commons — Matt Jeneroux profile', url: 'https://www.ourcommons.ca/members/en/matt-jeneroux(89167)' },
+    ],
+  },
+  {
+    slug: 'michael-ma-team-feudalism-then-team-liberal',
+    headline:
+      'Nine Days Before Joining the Liberals, Michael Ma Called Them "Team Feudalism" in Parliament',
+    subheadline:
+      'On December 2, 2025, the Markham–Unionville MP rose in the House to call the Liberals "team asset inflation," "team rentier economy," and "team feudalism." Nine days later, he was one of them. He has admitted he was "truly a Conservative" the night before he crossed.',
+    summary:
+      'Conservative MP Michael Ma crossed the floor to Mark Carney\u2019s Liberals on December 11, 2025 — nine days after a Hansard speech in which he attacked the Liberal record on housing, productivity, and economic governance, calling them "team feudalism." He has since admitted he was "truly a Conservative" at the Conservative Christmas party the night before he crossed. A constituent petition calling for his resignation has reportedly gathered tens of thousands of signatures.',
+    publishedAt: '2026-04-19T19:00:00-04:00',
+    category: 'Accountability',
+    tags: ['floor crossing', 'Michael Ma', 'accountability', 'Markham\u2013Unionville', 'Hansard'],
+    readingTimeMinutes: 5,
+    keyTakeaways: [
+      'Dec 2, 2025: Ma rose in Parliament and called the Liberals "team asset inflation," "team rentier economy," and "team feudalism."',
+      'Dec 11, 2025 — nine days later — he crossed the floor to join the Liberals.',
+      'Ma has publicly admitted he was "truly a Conservative member" at the Conservative Christmas party the night before he crossed.',
+      'A constituent resignation petition has reportedly gathered ~37,000 signatures (CBC). Ma has not committed to a byelection.',
+      'Ma was first elected as a Conservative in April 2025 with 50.65% of the vote in Markham–Unionville, flipping the seat.',
+    ],
+    sections: [
+      {
+        title: 'December 2: "Team Feudalism"',
+        body: `On December 2, 2025, Conservative MP Michael Ma rose in the House of Commons during budget debate. CPAC's video record and Ma's own website carry the speech.
+
+His own words on the Liberal economic record: "team asset inflation," "team rentier economy," and "team feudalism." He said "The Liberals do not believe in a productive economy that works for hard-working Canadians."
+
+Two weeks earlier, on November 18, 2025, Ma had risen on Bill C-14 to attack the Liberal record on crime, saying the government "cater[s] to common criminals" and demanding the repeal of Liberal-passed Bill C-5 and Bill C-75.
+
+Both speeches are in Hansard.`,
+      },
+      {
+        title: 'December 11: The Floor Crossing',
+        body: `On Thursday, December 11, 2025, Ma announced he was crossing the floor to the Liberals. He attended the Liberal holiday party in Gatineau the same evening.
+
+His stated reasons, per Global News: Carney's "steady, practical approach" and "unity and decisive action for Canada's future." He said he could deliver more for constituents as a government MP.
+
+The CBC reported the move made the Liberals one seat short of a majority — and made Ma the second Conservative to cross to Carney's caucus, after Chris d'Entremont's November 4 defection.
+
+BNN Bloomberg reported Natural Resources Minister Tim Hodgson had hosted Ma for dinner and was instrumental in the recruitment.`,
+      },
+      {
+        title: '"Truly a Conservative" — The Night Before',
+        body: `In a December 18, 2025 interview, Ma was pressed on the optics of attending the Conservative Christmas party — and posing for photos with Pierre Poilievre — the night before he announced his crossing.
+
+His own answer, per CP24: "The night I attended the Conservative (Christmas) party, I was truly a Conservative member, and really an MP… I had not made a decision at that point."
+
+The defence is unusual. Most floor-crossers describe a deliberation that takes weeks. Ma's public account is that the decision crystallized in less than 24 hours.`,
+      },
+      {
+        title: 'Constituent Response',
+        body: `A January 3, 2026 town hall in Markham–Unionville, covered by Rebel News, drew hundreds of constituents and former staffers. Former Ma staffer Deepak Talreja told the room he had not worked for Ma personally — "It was the party."
+
+CBC has reported that a constituent petition demanding Ma's resignation has gathered approximately 37,000 signatures (figures vary across coverage; earliest Rebel News reporting cited ~9,348). Ma has not addressed the petition or indicated he will face a byelection.`,
+      },
+      {
+        title: 'Other Items in the Public Record',
+        body: `Ma served as a director of the Chinese Canadian Conservative Association in 2019, an organization named in a Jamestown Foundation report on overseas United Front activity. The Bureau, a Canadian investigative outlet, has reported on the connection — explicitly noting "no allegation or evidence that Ma himself was acting under United Front motivations."
+
+In March 2026, Ma drew controversy at the Industry Committee for questioning witness Margaret McCuaig-Johnston on whether her testimony about Shenzhen forced labour was "hearsay." McCuaig-Johnston told reporters Ma was "trying to undermine" her testimony.
+
+Background: Ma was born in Hong Kong, immigrated to Canada at age 12, and holds a BSc in Computer Science from UBC and an MBA from the University of South Australia. He ran unsuccessfully in Don Valley East in 2019 before winning Markham–Unionville for the Conservatives in April 2025.`,
+      },
+    ],
+    sources: [
+      { label: 'CBC — MP Michael Ma crosses floor to Liberals', url: 'https://www.cbc.ca/news/politics/mp-crosses-floor-to-liberals-9.7012767' },
+      { label: 'Globe and Mail — Michael Ma joins Carney Liberals', url: 'https://www.theglobeandmail.com/politics/article-mp-michael-ma-crosses-floor-liberals-carney-conservatives-markham/' },
+      { label: 'Global News — Michael Ma floor crossing', url: 'https://globalnews.ca/news/11574421/michael-ma-floor-crossing-liberal-government/' },
+      { label: 'CP24 — Ma admits he was "truly a Conservative" the night before', url: 'https://www.cp24.com/local/york/2025/12/18/michael-ma-says-he-was-truly-a-conservative-the-night-before-he-crossed-the-floor-to-the-liberals/' },
+      { label: 'Hansard No. 55 — Ma on Bill C-14, Nov 18, 2025', url: 'https://www.ourcommons.ca/documentviewer/en/45-1/house/sitting-55/hansard' },
+      { label: 'Ma\u2019s Dec 2 budget speech (CPAC clip)', url: 'https://www.youtube.com/watch?v=S-41LLmZLZE' },
+      { label: 'Ma\u2019s own MP site — Dec 2 budget speech text', url: 'https://mpmichaelma.ca/mp-ma-on-the-budget-is-the-government-acting-as-a-player-or-referee/' },
+      { label: 'BNN Bloomberg — Government House Leader on more frustrated Conservatives', url: 'https://www.bnnbloomberg.ca/business/2025/12/12/government-house-leader-says-there-are-more-frustrated-conservative-mps-amid-floor-crossing/' },
+      { label: 'Rebel News — Markham–Unionville town hall, Jan 3, 2026', url: 'https://www.rebelnews.com/_we_did_not_vote_for_this_constituents_of_markham_unionville_demand_accountability_in_town_hall_meeting' },
+      { label: 'The Bureau — coverage of Ma and PRC-linked associations (with caveats)', url: 'https://www.thebureau.news/p/exclusive-floor-crossing-mp-michael' },
+      { label: 'Probe International — Ma at Industry Committee, McCuaig-Johnston testimony', url: 'https://journal.probeinternational.org/2026/03/27/liberal-mp-michael-ma-sparks-outrage-and-questions-of-ccp-influence-in-parliament/' },
+    ],
+  },
+  {
+    slug: 'chris-dentremont-deputy-speaker-ethics-complaint',
+    headline:
+      'Chris d\u2019Entremont Won by 533 Votes as a Conservative. Six Months Later, He Was a Liberal — and Democracy Watch Filed an Ethics Complaint.',
+    subheadline:
+      'The Acadie–Annapolis MP crossed the floor on the morning of the 2025 federal budget, after losing his Deputy Speaker salary top-up. Democracy Watch asked the Ethics Commissioner to investigate whether the lost income was a financial motive. The Commissioner declined.',
+    summary:
+      'On November 4, 2025 — the morning of the federal budget — Conservative MP Chris d\u2019Entremont became the first Conservative to cross to Mark Carney\u2019s Liberals, six months after winning re-election by 533 votes on the Conservative ticket. Within ten days, the watchdog group Democracy Watch filed a formal complaint with the Conflict of Interest and Ethics Commissioner, arguing that d\u2019Entremont\u2019s loss of his Deputy Speaker salary top-up created a financial motive that warranted investigation under the Conflict of Interest Code. The Commissioner declined to investigate.',
+    publishedAt: '2026-04-19T19:30:00-04:00',
+    category: 'Accountability',
+    tags: ['floor crossing', 'Chris d\u2019Entremont', 'accountability', 'ethics commissioner', 'Acadie\u2013Annapolis'],
+    readingTimeMinutes: 5,
+    keyTakeaways: [
+      'D\u2019Entremont won the April 2025 federal election by approximately 533 votes — the smallest margin in his federal career.',
+      'Crossed the floor on Nov 4, 2025 — the morning of the federal budget. He was the first Conservative to cross to the Carney Liberals.',
+      'Democracy Watch filed a formal complaint asking the Ethics Commissioner to examine whether the loss of his Deputy Speaker salary top-up created a financial motive.',
+      'The Ethics Commissioner declined to investigate; Democracy Watch said the Commissioner "rolled over like a lapdog."',
+      'D\u2019Entremont gave at least three different reasons for crossing in the first five days, one of which he had to retract after misleading a media outlet.',
+    ],
+    sections: [
+      {
+        title: 'The Crossing',
+        body: `On the morning of November 4, 2025 — federal budget day — Conservative MP Chris d'Entremont announced he was crossing the floor to the Liberals. He was the first Conservative to join Mark Carney's caucus.
+
+He had been re-elected six months earlier, in the April 2025 federal election, by approximately 533 votes — the smallest margin of his federal career — on the Conservative ticket. Former Conservative Party president Rob Batherson, quoted by CBC, said d'Entremont had "betrayed his voters."
+
+D'Entremont himself has told CTV he is "not sure" whether he will run again as a Liberal: "I'm 56 and may want to spend some time at home."`,
+      },
+      {
+        title: 'The Ethics Complaint',
+        body: `On November 14, 2025 — ten days after the crossing — the watchdog group Democracy Watch filed a formal complaint with the Conflict of Interest and Ethics Commissioner.
+
+The complaint focused on a specific financial fact: d'Entremont had been Deputy Speaker of the House of Commons under the Conservatives, a role that comes with an annual salary top-up of approximately $46,000. He lost the role and the top-up under the new government.
+
+Democracy Watch argued that the loss of that income created a financial motive for the crossing — one that should be examined under the Conflict of Interest Code for Members of the House of Commons. The complaint letter is publicly posted (PDF below).
+
+The Ethics Commissioner declined to investigate. Democracy Watch publicly responded that the Commissioner had "rolled over like a lapdog" and "misled Parliament."`,
+      },
+      {
+        title: 'Three Reasons in Five Days',
+        body: `D'Entremont's stated rationale for the crossing shifted in the first week.
+
+The first reason cited the contents of the federal budget — a budget that had not yet been tabled when he crossed that morning. He gave a different reason the following day. A third reason came five days later, which he was forced to correct after misleading a media outlet.
+
+Democracy Watch documented the shifting account; CBC's coverage of d'Entremont's interactions with Conservative leadership during the same week corroborated parts of the timeline.`,
+      },
+      {
+        title: 'The Confrontation Account',
+        body: `D'Entremont publicly described a meeting in which Conservative House Leader Andrew Scheer and Whip Chris Warkentin "barged" into his office, almost knocked over his assistant, and called him a "snake." The Conservatives publicly disputed the account, calling it inaccurate.
+
+CBC has reported on both versions. As of publication, no on-the-record neutral witness has confirmed either account in full.`,
+      },
+      {
+        title: 'Background',
+        body: `Chris d'Entremont was first elected federally as a Conservative MP for West Nova in 2019. The riding was renamed Acadie–Annapolis in the 2024 federal redistribution. He served as Deputy Speaker and Chair of Committees of the Whole from November 2021 until 2025 — the first Acadian to hold the role.
+
+Before federal politics, d'Entremont served three terms as the Progressive Conservative MLA for Argyle (later Argyle-Barrington), Nova Scotia, from 2003 to 2019. He held provincial cabinet portfolios for Agriculture and Fisheries (2003–06), Health (2006–09), and Acadian Affairs (2003–09).
+
+He was born in Yarmouth, Nova Scotia, and trained in radio broadcasting at Loyalist College.`,
+      },
+    ],
+    sources: [
+      { label: 'Democracy Watch — call for Ethics Commissioner investigation', url: 'https://democracywatch.ca/group-calls-on-ethics-commissioner-to-rule-on-floor-crossing-by-mp-chris-dentremont/' },
+      { label: 'Democracy Watch — formal complaint letter (PDF, Nov 14, 2025)', url: 'https://democracywatch.ca/wp-content/uploads/LettToEthicsCommReMPdEntremontNov142025.pdf' },
+      { label: 'Democracy Watch — response to Commissioner declining to investigate', url: 'https://democracywatch.ca/ethics-commissioner-misled-parliament-rolls-over-on-floor-crossing-by-mp-chris-dentremont/' },
+      { label: 'CBC — d\u2019Entremont crosses to Liberals', url: 'https://www.cbc.ca/news/politics/chris-dentremont-liberals-poilievre-9.6967559' },
+      { label: 'CBC — Conservative leadership confrontation account', url: 'https://www.cbc.ca/news/politics/yelling-conservative-leadership-dentremont-9.6972680' },
+      { label: 'CBC — Nova Scotia reaction to floor crossing', url: 'https://www.cbc.ca/news/canada/nova-scotia/chris-d-entremont-reaction-in-nova-scotia-9.6968088' },
+      { label: 'CTV — d\u2019Entremont on whether he\u2019ll run again', url: 'https://www.ctvnews.ca/politics/article/conservative-mps-absolutely-ask-about-experience-joining-liberal-caucus-floor-crosser-dentremont/' },
+      { label: 'House of Commons — Chris d\u2019Entremont profile', url: 'https://www.ourcommons.ca/members/en/chris-dentremont(49344)' },
+      { label: 'Liberal Party of Canada — statement on d\u2019Entremont joining caucus', url: 'https://liberal.ca/statement-from-mp-chris-dentremont/' },
     ],
   },
 ];
