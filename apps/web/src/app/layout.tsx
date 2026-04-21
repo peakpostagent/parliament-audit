@@ -47,7 +47,10 @@ export default function RootLayout({
               name: 'Parliament Audit',
               url: 'https://parliamentaudit.ca',
               description: 'Non-partisan parliamentary vote tracking for Canada.',
-              sameAs: ['https://x.com/ParliamentAudit'],
+              sameAs: [
+                'https://x.com/ParliamentAudit',
+                'https://bsky.app/profile/parliamentaudit.bsky.social',
+              ],
             }),
           }}
         />
@@ -127,6 +130,7 @@ function Footer() {
             <h3 className="font-bold mt-4 mb-2">Follow Us</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li><a href="https://x.com/ParliamentAudit" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+              <li><a href="https://bsky.app/profile/parliamentaudit.bsky.social" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">Bluesky</a></li>
             </ul>
           </div>
         </div>
