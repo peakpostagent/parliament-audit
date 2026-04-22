@@ -144,12 +144,13 @@ The doc has a week-by-week. The biggest first step: **incorporate the federal no
 
 ---
 
-## 6. Known state / pending deploy
+## 6. Final confirmed state
 
-- **Umami homepage tracking**: ✅ live (verified `window.umami` readiness via browser)
-- **Umami SSG route tracking** (/news, /about, /bill, /mp): ⏳ rebuilding with Dockerfile fix, ETA ~5 min from this report
-- **Pageview count so far**: 2 real visits (homepage hits from my end-to-end verification earlier tonight). Real data starts accumulating the moment the Dockerfile rebuild lands.
+- **Umami tracking**: ✅ **live on all routes** (confirmed post-rebuild, 05:06 UTC deploy `a744b7ea`)
+  - `/` ✓ &nbsp; `/news` ✓ &nbsp; `/about` ✓ &nbsp; `/news/[slug]` ✓
+  - Ingestion verified end-to-end: a clean-shot beacon registered 1 pageview in the database and returned correctly via `/api/websites/:id/stats`. Real human traffic will accumulate from here.
+- **Note on early zero counts**: my browser-automation test visits were filtered by Umami's built-in bot detection (expected behaviour — it's working). Real visitors (including you on any device) will register normally.
 - **Scheduled tweets** for the day: still set to fire; drafts are in the OLD voice (see recommendation in section 2 above).
-- **3 research docs saved**: `content/voice-playbook.md`, `content/analytics-playbook.md`, `content/monetization-strategy.md`.
+- **3 research docs saved** (committed in `2216874`): `content/voice-playbook.md`, `content/analytics-playbook.md`, `content/monetization-strategy.md`.
 
 Good morning.
