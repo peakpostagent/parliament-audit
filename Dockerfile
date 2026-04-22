@@ -44,6 +44,15 @@ COPY . .
 # Dummy DATABASE_URL for Next.js build (not used at runtime)
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 
+# NEXT_PUBLIC_* vars must be declared as ARGs so Railway can inject them
+# at build time — otherwise Next.js sees `undefined` and inlines `null`
+# into SSG bundles (the Analytics component then renders nothing on
+# statically-generated routes like /news, /about, /bill/[n], /mp/[s]).
+ARG NEXT_PUBLIC_UMAMI_URL
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ENV NEXT_PUBLIC_UMAMI_URL=${NEXT_PUBLIC_UMAMI_URL}
+ENV NEXT_PUBLIC_UMAMI_WEBSITE_ID=${NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+
 ARG SERVICE=web
 RUN if [ "$SERVICE" = "web" ]; then \
       npx turbo build --filter=@parliament-audit/web...; \
