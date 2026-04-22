@@ -1,26 +1,26 @@
 import Script from 'next/script';
 
 /**
- * Privacy-friendly analytics. Supports Plausible out of the box.
+ * Privacy-friendly analytics — self-hosted Umami on Railway.
  *
- * To enable:
- *   - Set NEXT_PUBLIC_PLAUSIBLE_DOMAIN=parliamentaudit.ca on Railway
- *   - Optionally set NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL to self-host
+ * Required env vars (set on the parliament-audit web service):
+ *   NEXT_PUBLIC_UMAMI_URL          — base URL of the Umami instance
+ *   NEXT_PUBLIC_UMAMI_WEBSITE_ID   — UUID Umami issues per registered site
  *
- * If NEXT_PUBLIC_PLAUSIBLE_DOMAIN is not set, this component renders nothing.
+ * If either is missing this component renders nothing (local dev,
+ * preview deploys, etc.). No cookies, no personal data, no ad tech.
  */
 export function Analytics() {
-  const domain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
-  const scriptUrl =
-    process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL || 'https://plausible.io/js/script.js';
+  const umamiUrl = process.env.NEXT_PUBLIC_UMAMI_URL;
+  const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
-  if (!domain) return null;
+  if (!umamiUrl || !websiteId) return null;
 
   return (
     <Script
       defer
-      data-domain={domain}
-      src={scriptUrl}
+      src={`${umamiUrl}/script.js`}
+      data-website-id={websiteId}
       strategy="afterInteractive"
     />
   );
