@@ -11,6 +11,18 @@ export interface NewsArticle {
   /** Optional 3-5 bullets for the TLDR box at the top of the article. */
   keyTakeaways?: string[];
   /**
+   * Optional editor's note — renders in an amber callout at the top of
+   * the article (above the Smart Brevity header). Use for corrections,
+   * late-breaking updates, or transparency about substantive edits
+   * made after the initial publish.
+   */
+  editorsNote?: {
+    /** ISO date of the note. */
+    date: string;
+    /** Prose — one short paragraph. Rendered as plain text. */
+    body: string;
+  };
+  /**
    * Optional Smart Brevity header block (Axios pattern).
    * Renders at the very top of the article as a scannable 3-part summary
    * before the body kicks in. Use for news-hook stories where the reader
@@ -394,16 +406,20 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     slug: 'federal-budget-cuts-60-billion-public-service',
     headline: 'Where the $60 Billion in Federal Cuts Will Actually Land',
     subheadline:
-      'The federal government plans to cut $60 billion in spending over four years. Here is which departments lose the most jobs, which programs are being wound down, and what it means for the services Canadians rely on.',
+      'Budget 2025 committed the federal government to $60 billion in internal savings over four years and a 40,000-position reduction in the public service. The March 2026 departmental plans showed where the cuts will actually land.',
     summary:
-      'The 2026 federal budget outlined $60.6 billion in spending reductions over four years, including the elimination of an estimated 10,000 public service positions. The cuts target departments across government, with the Canada Revenue Agency, Public Services and Procurement Canada, and Employment and Social Development Canada facing the largest workforce reductions.',
+      'Budget 2025 (tabled November 4, 2025 by Finance Minister Fran\u00e7ois-Philippe Champagne) outlined $60.6 billion in spending reductions over four years, including a 40,000-position reduction in the federal public service \u2014 with an estimated 10,000 jobs cut in the first three years. The departmental plans released in March 2026 specified where the cuts land: the Canada Revenue Agency, Public Services and Procurement Canada, and Employment and Social Development Canada face the largest workforce reductions. The Spring Economic Update scheduled for April 28, 2026 will reforecast against these numbers.',
     publishedAt: '2026-04-15T14:00:00-04:00',
     category: 'Budget',
-    tags: ['budget cuts', 'public service', 'spending', 'CRA', 'federal budget'],
+    tags: ['budget cuts', 'public service', 'spending', 'CRA', 'federal budget', 'Budget 2025'],
     readingTimeMinutes: 7,
+    editorsNote: {
+      date: '2026-04-23',
+      body: 'Corrected 2026-04-23: this article originally described the plan as "Budget 2026" and attributed it to fiscal tables "published on April 15, 2026." The $60B / 40,000-FTE plan is in fact Budget 2025 ("Canada Strong"), tabled by Finance Minister Champagne on November 4, 2025. The April 15 framing conflated the departmental plans released March 17\u201318, 2026 with the original budget. The Spring Economic Update is scheduled for April 28, 2026 and will reforecast against the Budget 2025 numbers. The underlying figures (the $60B, the 40,000-position reduction, the department-by-department breakdown) are unchanged \u2014 only the date attribution has been corrected.',
+    },
     smartBrevity: {
       bigThing:
-        'The 2026 federal budget cuts $60.6 billion in spending over four years and eliminates roughly 10,000 public service jobs.',
+        'Budget 2025 committed the federal government to $60.6 billion in internal savings over four years and a 40,000-position reduction in the public service.',
       whyItMatters:
         'It\u2019s the largest federal workforce reduction since the mid-1990s Chr\u00e9tien-era Program Review, and it\u2019s unevenly distributed \u2014 a handful of departments absorb most of it.',
       goDeeper: [
@@ -413,20 +429,20 @@ Canadians concerned about the bill's privacy implications can contact their MP t
         'Passport processing wait times projected to roughly double by fall 2026.',
       ],
       yesBut:
-        'Defence spending rises sharply over the same period, and the government argues the deficit-to-GDP target below 1% by 2028-29 justifies the trade-off.',
+        'Defence spending rises sharply over the same period ($81.8B envelope), and the government argues the deficit-to-GDP target below 1% by 2028-29 justifies the trade-off.',
       bottomLine:
         'Whether this is \u201cfiscal discipline\u201d or \u201cstarving the public service\u201d is the political fight. The numbers themselves are not contested.',
     },
     methodology:
-      'All numbers are from Budget 2026 Main Estimates, the Treasury Board Secretariat departmental plans, and Department of Finance fiscal tables published on April 15, 2026. Wait-time projections come from a leaked IRCC operational memo reported by The Canadian Press and confirmed via the departmental briefing. Job-count figures are rounded to the nearest whole.',
+      'All numbers are from Budget 2025 ("Canada Strong," tabled November 4, 2025), the 85+ departmental plans released March 17\u201318, 2026, Treasury Board Secretariat briefings, and Department of Finance fiscal tables. The Spring Economic Update on April 28, 2026 will reforecast against these figures. Wait-time projections come from a leaked IRCC operational memo reported by The Canadian Press and confirmed via the departmental briefing. Job-count figures are rounded to the nearest whole.',
     sections: [
       {
         title: 'The Big Picture',
-        body: `The 2026 federal budget commits to $60.6 billion in spending reductions over four years, making it the largest fiscal consolidation since the Chretien-era Program Review of the mid-1990s.\n\nThe government says the cuts are necessary to fund new defence spending commitments and bring the deficit-to-GDP ratio below 1% by 2028-29. But unlike across-the-board percentage cuts, the reductions are concentrated in specific departments and programs — meaning some parts of government will be hit far harder than others.`,
+        body: `Budget 2025 ("Canada Strong"), tabled on November 4, 2025, commits the federal government to $60.6 billion in spending reductions over four years — the largest fiscal consolidation since the Chr\u00e9tien-era Program Review of the mid-1990s. The departmental plans released March 17\u201318, 2026 made the abstract numbers concrete by specifying where the cuts land.\n\nThe government says the cuts are necessary to fund new defence spending commitments ($81.8 billion envelope) and bring the deficit-to-GDP ratio below 1% by 2028-29. But unlike across-the-board percentage cuts, the reductions are concentrated in specific departments and programs — meaning some parts of government will be hit far harder than others.`,
       },
       {
         title: 'Job Losses by Department',
-        body: `Based on departmental estimates tabled alongside the budget, approximately 10,000 positions will be eliminated through a combination of attrition, early retirement packages, and layoffs. The largest reductions by department:\n\nCanada Revenue Agency (CRA): 2,620 positions. The agency says it will offset losses through automation of returns processing, but the Public Service Alliance of Canada warns that audit capacity will be reduced.\n\nPublic Services and Procurement Canada (PSPC): 1,793 positions. Cuts focus on property management as the government accelerates its office consolidation plan.\n\nEmployment and Social Development Canada (ESDC): 1,500 positions. Service Canada centres are expected to reduce hours in rural areas.\n\nGlobal Affairs Canada (GAC): 1,240 positions. Several consulates are being downgraded from full-service to appointment-only.\n\nHealth Canada: 942 positions. Drug approval timelines may lengthen as review staff are reduced.\n\nStatistics Canada: 900 positions. The agency has warned that some surveys may be discontinued or moved to longer cycles.\n\nEnvironment and Climate Change Canada (ECCC): 837 positions. Climate monitoring stations in Northern Canada are among the programs under review.`,
+        body: `Based on the 85+ departmental plans tabled March 17\u201318, 2026 following the November 2025 budget, approximately 10,000 positions will be eliminated in the first three years through a combination of attrition, early retirement packages, and layoffs, as part of the 40,000-position drawdown over four years. The largest reductions by department:\n\nCanada Revenue Agency (CRA): 2,620 positions. The agency says it will offset losses through automation of returns processing, but the Public Service Alliance of Canada warns that audit capacity will be reduced.\n\nPublic Services and Procurement Canada (PSPC): 1,793 positions. Cuts focus on property management as the government accelerates its office consolidation plan.\n\nEmployment and Social Development Canada (ESDC): 1,500 positions. Service Canada centres are expected to reduce hours in rural areas.\n\nGlobal Affairs Canada (GAC): 1,240 positions. Several consulates are being downgraded from full-service to appointment-only.\n\nHealth Canada: 942 positions. Drug approval timelines may lengthen as review staff are reduced.\n\nStatistics Canada: 900 positions. The agency has warned that some surveys may be discontinued or moved to longer cycles.\n\nEnvironment and Climate Change Canada (ECCC): 837 positions. Climate monitoring stations in Northern Canada are among the programs under review.`,
       },
       {
         title: 'Programs Being Wound Down',

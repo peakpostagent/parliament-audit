@@ -314,6 +314,33 @@ export default async function NewsArticlePage({ params }: PageProps) {
         <p className="text-lg text-gray-600 mb-6">{article.subheadline}</p>
       )}
 
+      {/* Editor's note — for corrections, substantive post-publish edits */}
+      {article.editorsNote && (
+        <aside
+          className="mb-6 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4"
+          aria-label="Editor's note"
+        >
+          <div className="flex items-baseline gap-2 mb-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-900">
+              Editor&apos;s note
+            </span>
+            <time
+              dateTime={article.editorsNote.date}
+              className="text-xs text-amber-800"
+            >
+              {new Date(article.editorsNote.date).toLocaleDateString('en-CA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+          </div>
+          <p className="text-sm text-amber-950 leading-relaxed">
+            {article.editorsNote.body}
+          </p>
+        </aside>
+      )}
+
       {/* Smart Brevity header (Axios pattern) — news-hook scannable summary */}
       {article.smartBrevity && (
         <aside
