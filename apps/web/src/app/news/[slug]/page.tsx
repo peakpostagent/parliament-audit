@@ -290,6 +290,66 @@ export default async function NewsArticlePage({ params }: PageProps) {
         <p className="text-lg text-gray-600 mb-6">{article.subheadline}</p>
       )}
 
+      {/* Smart Brevity header (Axios pattern) — news-hook scannable summary */}
+      {article.smartBrevity && (
+        <aside
+          className="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
+          aria-label="Smart-brevity summary"
+        >
+          <div className="mb-4">
+            <span className="block text-xs font-bold uppercase tracking-widest text-red-700 mb-1">
+              The big thing
+            </span>
+            <p className="text-lg font-semibold text-[#1a1a2e] leading-snug">
+              {article.smartBrevity.bigThing}
+            </p>
+          </div>
+          <div className="mb-4">
+            <span className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">
+              Why it matters
+            </span>
+            <p className="text-gray-800 leading-relaxed">
+              {article.smartBrevity.whyItMatters}
+            </p>
+          </div>
+          {article.smartBrevity.goDeeper.length > 0 && (
+            <div className="mb-4">
+              <span className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+                Go deeper
+              </span>
+              <ul className="space-y-1.5">
+                {article.smartBrevity.goDeeper.map((point, i) => (
+                  <li key={i} className="flex gap-2 text-gray-800 leading-relaxed">
+                    <span className="text-red-700 font-bold mt-0.5" aria-hidden="true">
+                      •
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {article.smartBrevity.yesBut && (
+            <div className="mb-4">
+              <span className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">
+                Yes, but
+              </span>
+              <p className="text-gray-800 leading-relaxed">{article.smartBrevity.yesBut}</p>
+            </div>
+          )}
+          {article.smartBrevity.bottomLine && (
+            <div className="pt-3 border-t border-gray-100">
+              <span className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">
+                The bottom line
+              </span>
+              <p className="text-gray-800 font-medium leading-relaxed">
+                {article.smartBrevity.bottomLine}
+              </p>
+            </div>
+          )}
+        </aside>
+      )}
+
       {/* TLDR / Key Takeaways box */}
       {article.keyTakeaways && article.keyTakeaways.length > 0 && (
         <aside
@@ -316,6 +376,24 @@ export default async function NewsArticlePage({ params }: PageProps) {
             ))}
           </ul>
         </aside>
+      )}
+
+      {/* How we reported this — per-article methodology (The Markup pattern) */}
+      {article.methodology && (
+        <details className="mb-8 border border-gray-200 rounded-lg bg-gray-50 group">
+          <summary className="cursor-pointer p-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 select-none flex items-center gap-2">
+            <span
+              className="inline-block transition-transform group-open:rotate-90 text-gray-400"
+              aria-hidden="true"
+            >
+              ▸
+            </span>
+            How we reported this
+          </summary>
+          <div className="px-4 pb-4 pt-1 text-gray-700 text-sm leading-relaxed">
+            {article.methodology}
+          </div>
+        </details>
       )}
 
       {/* Summary box */}

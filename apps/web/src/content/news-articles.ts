@@ -11,6 +11,30 @@ export interface NewsArticle {
   /** Optional 3-5 bullets for the TLDR box at the top of the article. */
   keyTakeaways?: string[];
   /**
+   * Optional Smart Brevity header block (Axios pattern).
+   * Renders at the very top of the article as a scannable 3-part summary
+   * before the body kicks in. Use for news-hook stories where the reader
+   * needs the stake in under 15 seconds.
+   */
+  smartBrevity?: {
+    /** One-sentence news hook — what just happened, in < 20 words. */
+    bigThing: string;
+    /** One-sentence stake — why readers should care. */
+    whyItMatters: string;
+    /** 2-4 bullets of supporting detail. Keep each under 18 words. */
+    goDeeper: string[];
+    /** Optional "Yes, but" / counterpoint / caveat, one sentence. */
+    yesBut?: string;
+    /** Optional "The bottom line" / closer, one sentence. */
+    bottomLine?: string;
+  };
+  /**
+   * Optional "How we reported this" disclosure — per-article methodology
+   * transparency, Markup pattern. Rendered as a collapsible box below
+   * the Key Takeaways.
+   */
+  methodology?: string;
+  /**
    * Optional structured vote data — rendered as a table and emitted as
    * JSON-LD Dataset structured data so AI search engines (ChatGPT,
    * Perplexity, Google AI Overviews) can cite us when answering
@@ -54,6 +78,24 @@ export const newsArticles: NewsArticle[] = [
     category: 'Legislation',
     tags: ['Bill C-22', 'privacy', 'surveillance', 'civil liberties', 'metadata'],
     readingTimeMinutes: 6,
+    smartBrevity: {
+      bigThing:
+        'Bill C-22 would require every Canadian telecom and ISP to retain metadata on every user for up to one year.',
+      whyItMatters:
+        'The bill lowers the threshold for police access and blocks providers from disclosing when the government makes them build surveillance tools.',
+      goDeeper: [
+        'Threshold for subscriber data access drops from "reasonable grounds to believe" to "reasonable grounds to suspect."',
+        'The Public Safety Minister can issue secret capability orders — providers are legally barred from telling you they exist.',
+        'The Privacy Commissioner gets no oversight role over the new powers.',
+        'Currently at second reading; Liberal majority means a clear path to passage.',
+      ],
+      yesBut:
+        'Supporters argue the bill targets serious crime, not general surveillance, and that warrants are still required for content.',
+      bottomLine:
+        'Canada has never had mandatory telecom data retention before. This bill would change that.',
+    },
+    methodology:
+      'Reporting is based on the public text of Bill C-22 as tabled on March 12, 2026, the Minister\u2019s sponsorship memo, Public Safety Canada\u2019s backgrounder, testimony at second-reading debate (Hansard, April 13-14, 2026), and analysis from the Office of the Privacy Commissioner and from Professor Michael Geist of the University of Ottawa. We did not interview government officials for this article; all government positions are quoted from on-the-record statements already public.',
     keyTakeaways: [
       'Telecom and internet providers would have to retain metadata (who, when, where) on every Canadian for up to 12 months.',
       'The Public Safety Minister could issue secret orders compelling providers to build surveillance capabilities — providers are barred from disclosing them.',
@@ -519,6 +561,22 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Accountability',
     tags: ['floor crossing', 'Marilyn Gladu', 'accountability', 'Sarnia-Lambton', 'byelection'],
     readingTimeMinutes: 5,
+    smartBrevity: {
+      bigThing:
+        'Marilyn Gladu said in January that MPs who switch parties owe their voters a byelection. Three months later, she switched parties and did not call one.',
+      whyItMatters:
+        'It is the cleanest documented contradiction of the 2026 floor-crossing cycle — her own words, on the record, in a local newspaper.',
+      goDeeper: [
+        'The January 11 interview with the Petrolia Lambton Independent was about a constituent petition for automatic byelections.',
+        'Her on-record quote: voters "deserve a chance to have a redo" when an MP changes banners.',
+        'Sarnia\u2019s mayor and the local Conservative riding association president have publicly demanded she face a byelection.',
+        'Her voting record on abortion and vaccine mandates has also reversed since the crossing.',
+      ],
+      bottomLine:
+        'Gladu is still the MP for Sarnia-Lambton. Her 2025 campaign ran under a Conservative banner.',
+    },
+    methodology:
+      'Direct quotes are reproduced verbatim from the Petrolia Lambton Independent (Jan 11, 2026) and the Sarnia Journal (April 9, 2026). The Liberal caucus announcement, Gladu\u2019s confirmation statement, and the mayor\u2019s public statement were cross-checked against CBC News and CP wire coverage. Past voting record is sourced from Hansard and ourcommons.ca member profile. We did not reach out to Gladu for an additional interview; her public statements are extensive and on the record.',
     keyTakeaways: [
       'On Jan 11, 2026, Gladu told the Petrolia Lambton Independent she supported a petition for automatic byelections after floor-crossings.',
       'On April 8, 2026 — three months later — she crossed the floor from the Conservatives to the Liberals.',
