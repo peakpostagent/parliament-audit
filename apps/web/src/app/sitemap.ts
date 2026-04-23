@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { db, schema } from '@parliament-audit/db';
 import { eq, desc, isNotNull } from 'drizzle-orm';
-import { newsArticles } from '@/content/news-articles';
+import { newsArticles, getAllTags } from '@/content/news-articles';
 
 function slugifyMemberName(name: string): string {
   return name
@@ -24,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/corrections`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/subscribe`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/tags`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
   ];
 
   // News editorial articles
@@ -32,6 +33,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: article.updatedAt ? new Date(article.updatedAt) : new Date(article.publishedAt),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
+  }));
+
+  // Tag pages (topic hubs)
+  const tagPages: MetadataRoute.Sitemap = getAllTags().map((t) => ({
+    url: `${baseUrl}/tag/${t.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.5,
   }));
 
   // Dynamic vote article pages
@@ -83,5 +92,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Database may not be available during build
   }
 
-  return [...staticPages, ...newsPages, ...articlePages, ...billPages, ...mpPages];
+  return [...staticPages, ...newsPages, ...tagPages, ...articlePages, ...billPages, ...mpPages];
 }

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getNewsArticle, getAllNewsSlugs, type NewsArticle } from '@/content/news-articles';
+import { getNewsArticle, getAllNewsSlugs, slugifyTag, type NewsArticle } from '@/content/news-articles';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -329,12 +329,13 @@ export default async function NewsArticlePage({ params }: PageProps) {
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-8">
         {article.tags.map((tag) => (
-          <span
+          <Link
             key={tag}
-            className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded"
+            href={`/tag/${slugifyTag(tag)}`}
+            className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded hover:bg-gray-200 hover:text-[#1a1a2e] transition-colors"
           >
             {tag}
-          </span>
+          </Link>
         ))}
       </div>
 

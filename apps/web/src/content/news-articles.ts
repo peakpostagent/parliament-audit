@@ -800,3 +800,48 @@ export function getNewsArticle(slug: string): NewsArticle | undefined {
 export function getAllNewsSlugs(): string[] {
   return newsArticles.map((a) => a.slug);
 }
+
+/**
+ * Tag helpers — kebab-case slug is the URL form, original casing is
+ * preserved for display. Lookup is case/slug-insensitive.
+ */
+export function slugifyTag(tag: string): string {
+  return tag
+    .toLowerCase()
+    .replace(/[\u2013\u2014]/g, '-') // en/em dash
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function getAllTags(): Array<{ tag: string; slug: string; count: number }> {
+  const counts = new Map<string, { tag: string; count: number }>();
+  for (const article of newsArticles) {
+    for (const tag of article.tags) {
+      const slug = slugifyTag(tag);
+      const existing = counts.get(slug);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        counts.set(slug, { tag, count: 1 });
+      }
+    }
+  }
+  return Array.from(counts.entries())
+    .map(([slug, { tag, count }]) => ({ tag, slug, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
+
+export function getArticlesByTagSlug(slug: string): NewsArticle[] {
+  return newsArticles
+    .filter((a) => a.tags.some((t) => slugifyTag(t) === slug))
+    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+}
+
+/** Human-readable label for a tag slug — uses the original casing from any matching article. */
+export function getTagLabel(slug: string): string | undefined {
+  for (const article of newsArticles) {
+    const match = article.tags.find((t) => slugifyTag(t) === slug);
+    if (match) return match;
+  }
+  return undefined;
+}

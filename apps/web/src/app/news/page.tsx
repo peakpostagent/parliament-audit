@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { newsArticles } from '@/content/news-articles';
+import { newsArticles, slugifyTag } from '@/content/news-articles';
 
 export const metadata: Metadata = {
   title: 'News — Parliament Audit',
@@ -21,7 +21,15 @@ export default function NewsIndexPage() {
         <span className="text-gray-700">News</span>
       </nav>
 
-      <h1 className="text-3xl font-bold mb-2">News</h1>
+      <div className="flex items-baseline justify-between mb-2">
+        <h1 className="text-3xl font-bold">News</h1>
+        <Link
+          href="/tags"
+          className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+        >
+          Browse by topic →
+        </Link>
+      </div>
       <p className="text-gray-600 mb-8">
         In-depth coverage of Canadian legislation, government spending, and
         parliamentary accountability.
@@ -60,12 +68,13 @@ export default function NewsIndexPage() {
               </Link>
               <div className="flex flex-wrap gap-2 mt-3">
                 {article.tags.slice(0, 4).map((tag) => (
-                  <span
+                  <Link
                     key={tag}
-                    className="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded"
+                    href={`/tag/${slugifyTag(tag)}`}
+                    className="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded hover:bg-gray-200 hover:text-[#1a1a2e] transition-colors"
                   >
                     {tag}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </article>
