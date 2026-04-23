@@ -91,3 +91,21 @@ e1c68c8  weekly-review.ts for Monday ritual
 Full commit log: `git log --oneline 110fe02..HEAD` (since the v1 Builders pricing).
 
 Good morning.
+
+---
+
+## Final smoke test — 2026-04-23 05:27 UTC
+
+Post-deploy verification of the overnight routes:
+
+```
+/press-review                                                          HTTP/1.1 200
+/press-review/rss.xml                                                  HTTP/1.1 200
+/news/press-review-budget-austerity-vs-investment                      HTTP/1.1 200
+/news/press-review-floor-crossings-how-the-press-covered-it            HTTP/1.1 200
+/builders                                                              HTTP/1.1 200
+/support                                                               HTTP/1.1 200
+/rss.xml                                                               HTTP/1.1 200
+```
+
+All green. Overnight sprint closed.
