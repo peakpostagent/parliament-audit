@@ -2,6 +2,27 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getNewsArticle, getAllNewsSlugs, slugifyTag, type NewsArticle } from '@/content/news-articles';
+import RepublishBlock from '@/components/RepublishBlock';
+
+/** Build a plain-HTML version of the article body for CMS copy-paste. */
+function buildRepublishBodyHtml(sections: NewsArticle['sections']): string {
+  return sections
+    .map((section) => {
+      const paragraphs = section.body
+        .split('\n\n')
+        .map((p) => `  <p>${escapeHtmlInline(p.trim())}</p>`)
+        .join('\n');
+      return `  <h2>${escapeHtmlInline(section.title)}</h2>\n${paragraphs}`;
+    })
+    .join('\n');
+}
+
+function escapeHtmlInline(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -493,6 +514,16 @@ export default async function NewsArticlePage({ params }: PageProps) {
           Get Vote Alerts
         </Link>
       </div>
+
+      {/* Steal Our Stories — per-article republish block (ProPublica pattern) */}
+      <RepublishBlock
+        articleSlug={article.slug}
+        headline={article.headline}
+        summary={article.summary}
+        publishedAt={article.publishedAt}
+        readingTimeMinutes={article.readingTimeMinutes}
+        bodyHtml={buildRepublishBodyHtml(article.sections)}
+      />
     </div>
   );
 }

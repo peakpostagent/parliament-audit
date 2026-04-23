@@ -118,6 +118,7 @@ function Footer() {
               <li><Link href="/methodology" className="hover:text-red-600">Our Methodology</Link></li>
               <li><Link href="/corrections" className="hover:text-red-600">Corrections</Link></li>
               <li><Link href="/glossary" className="hover:text-red-600">Glossary</Link></li>
+              <li><Link href="/republish" className="hover:text-red-600">Republish</Link></li>
             </ul>
           </div>
           <div>
