@@ -23,6 +23,83 @@ const PARTY_COLORS: Record<string, string> = {
   GPC: '#3D9B35',
 };
 
+/**
+ * Standardized source-attribution band — Visual Capitalist pattern.
+ * Appears at the bottom of every chart image: explicit source, origin URL,
+ * retrieval date, and Parliament Audit brand + URL so the image stays
+ * traceable if detached from the post.
+ */
+function SourceFooter({
+  source,
+  sourceUrl,
+  retrieved,
+}: {
+  source: string;
+  sourceUrl?: string;
+  retrieved: string;
+}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        marginTop: '20px',
+        paddingTop: '14px',
+        borderTop: '1px solid #1F2A3A',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <span
+          style={{
+            color: '#94A3B8',
+            fontSize: '12px',
+            fontWeight: '700',
+            letterSpacing: '0.12em',
+            display: 'flex',
+          }}
+        >
+          SOURCE
+        </span>
+        <span style={{ color: '#E2E8F0', fontSize: '14px', display: 'flex' }}>
+          {source}
+        </span>
+        {sourceUrl && (
+          <span style={{ color: '#475569', fontSize: '12px', display: 'flex' }}>
+            {sourceUrl}
+          </span>
+        )}
+        <span style={{ color: '#475569', fontSize: '11px', display: 'flex' }}>
+          Retrieved {retrieved}
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+        <span
+          style={{
+            color: '#FFFFFF',
+            fontSize: '14px',
+            fontWeight: '800',
+            display: 'flex',
+          }}
+        >
+          Parliament
+          <span style={{ color: '#D71920', marginLeft: '4px', display: 'flex' }}>Audit</span>
+        </span>
+        <span
+          style={{
+            color: '#64748B',
+            fontSize: '11px',
+            letterSpacing: '0.08em',
+            display: 'flex',
+          }}
+        >
+          PARLIAMENTAUDIT.CA
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function VoteSplitChart({
   title,
   subtitle,
@@ -152,21 +229,22 @@ function VoteSplitChart({
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#22C55E', borderRadius: '2px', display: 'flex' }} />
-            <span style={{ color: '#94A3B8', fontSize: '14px', display: 'flex' }}>Voted Yea (In Favour)</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ width: '12px', height: '12px', background: '#EF4444', borderRadius: '2px', display: 'flex' }} />
-            <span style={{ color: '#94A3B8', fontSize: '14px', display: 'flex' }}>Voted Nay (Against)</span>
-          </div>
+      {/* Legend */}
+      <div style={{ display: 'flex', gap: '20px', marginTop: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '12px', height: '12px', background: '#22C55E', borderRadius: '2px', display: 'flex' }} />
+          <span style={{ color: '#94A3B8', fontSize: '14px', display: 'flex' }}>Voted Yea (In Favour)</span>
         </div>
-        <span style={{ color: '#475569', fontSize: '13px', display: 'flex' }}>
-          Source: House of Commons Recorded Division · March 25, 2026
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '12px', height: '12px', background: '#EF4444', borderRadius: '2px', display: 'flex' }} />
+          <span style={{ color: '#94A3B8', fontSize: '14px', display: 'flex' }}>Voted Nay (Against)</span>
+        </div>
       </div>
+      <SourceFooter
+        source="House of Commons — 45th Parliament, 2nd Session, Recorded Division on Bill C-9"
+        sourceUrl="ourcommons.ca/Members/en/Votes"
+        retrieved="April 2026"
+      />
     </div>
   );
 }
@@ -254,15 +332,15 @@ function BudgetCutsChart() {
         })}
       </div>
 
-      {/* Footer */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
-        <span style={{ color: '#64748B', fontSize: '13px', display: 'flex' }}>
-          $60.6 billion in total spending reductions over 4 years
-        </span>
-        <span style={{ color: '#475569', fontSize: '13px', display: 'flex' }}>
-          Sources: Treasury Board Secretariat, departmental estimates
-        </span>
-      </div>
+      {/* Summary line */}
+      <span style={{ color: '#64748B', fontSize: '13px', marginTop: '12px', display: 'flex' }}>
+        $60.6 billion in total spending reductions over 4 years
+      </span>
+      <SourceFooter
+        source="Treasury Board Secretariat & departmental Main Estimates 2026-27"
+        sourceUrl="canada.ca/en/treasury-board-secretariat"
+        retrieved="April 2026"
+      />
     </div>
   );
 }
@@ -364,12 +442,11 @@ function FloorCrossingPollChart() {
         </div>
       </div>
 
-      {/* Footer */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
-        <span style={{ color: '#475569', fontSize: '13px', display: 'flex' }}>
-          Source: Angus Reid Institute, n=1,607 Canadian adults
-        </span>
-      </div>
+      <SourceFooter
+        source="Angus Reid Institute public opinion survey, n=1,607 Canadian adults"
+        sourceUrl="angusreid.org"
+        retrieved="April 2026"
+      />
     </div>
   );
 }
