@@ -28,6 +28,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  /**
+   * Search-engine ownership verification. Drop the site-specific codes
+   * into these env vars on Railway and they render in the <head>.
+   * Leave empty strings to skip — empty meta tags are silently omitted
+   * by Next.js.
+   *   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION   (Google Search Console)
+   *   NEXT_PUBLIC_BING_SITE_VERIFICATION     (Bing Webmaster Tools)
+   */
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export default function RootLayout({
