@@ -20,6 +20,7 @@ import 'dotenv/config';
 import { TwitterApi } from 'twitter-api-v2';
 import { db, schema } from '../packages/db/src/client.js';
 import { eq, and, isNull } from 'drizzle-orm';
+import { withUtm } from './utm.js';
 
 // ─── CLI args ─────────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
@@ -56,6 +57,10 @@ function buildTweetText(post: {
 }): string {
   let text = post.captionText.trim();
 
+  // Tag our URL with UTM params — every click back to the site from X
+  // becomes traceable in Umami, even though X strips the referer header.
+  const taggedUrl = post.linkUrl ? withUtm(post.linkUrl, { source: 'x', medium: 'social' }) : null;
+
   // Append hashtags if not already in caption
   const hashtags = (post.hashtags ?? [])
     .map(h => (h.startsWith('#') ? h : `#${h}`))
@@ -66,21 +71,21 @@ function buildTweetText(post: {
   }
 
   // Append link if not already in caption
-  if (post.linkUrl && !text.includes(post.linkUrl)) {
-    text = `${text}\n\n${post.linkUrl}`;
+  if (taggedUrl && !text.includes(taggedUrl)) {
+    text = `${text}\n\n${taggedUrl}`;
   }
 
   // X truncates at 280 chars. The link counts as 23 chars (t.co).
   // We stay under by trimming caption if needed.
   const LINK_LENGTH = 23;
   const hashtagPart = hashtags.length > 0 ? `\n\n${hashtags.join(' ')}` : '';
-  const linkPart = post.linkUrl ? `\n\n${'x'.repeat(LINK_LENGTH)}` : '';
+  const linkPart = taggedUrl ? `\n\n${'x'.repeat(LINK_LENGTH)}` : '';
   const maxCaption = 280 - hashtagPart.length - linkPart.length;
 
   if (post.captionText.length > maxCaption) {
     text = post.captionText.substring(0, maxCaption - 1) + '…';
     if (hashtags.length > 0) text += hashtagPart;
-    if (post.linkUrl) text += `\n\n${post.linkUrl}`;
+    if (taggedUrl) text += `\n\n${taggedUrl}`;
   }
 
   return text;

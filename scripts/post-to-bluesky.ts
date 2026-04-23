@@ -16,6 +16,7 @@
 
 import 'dotenv/config';
 import { AtpAgent, RichText } from '@atproto/api';
+import { withUtm } from './utm.js';
 
 // ─── CLI args ─────────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
@@ -227,9 +228,13 @@ async function main() {
   }
 
   const tweet = TWEETS[tweetNum - 1];
+  // Tag our URL with UTM params — Bluesky preserves them, Umami can then
+  // attribute every click back to this platform + this week's campaign
+  // even when the referer header is missing.
+  const taggedUrl = withUtm(tweet.url, { source: 'bluesky', medium: 'social' });
   // #cdnpoli puts us in the Canadian-politics custom feed (60%+ of Bluesky
   // discovery flows through custom feeds — see content/growth-tactics-2026.md)
-  const postText = `${tweet.text} ${tweet.url}\n\n#cdnpoli`;
+  const postText = `${tweet.text} ${taggedUrl}\n\n#cdnpoli`;
 
   console.log(`[post-to-bluesky] Preparing tweet #${tweet.id}`);
   console.log(`──────────────────────────────────────────`);

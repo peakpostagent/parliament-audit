@@ -38,6 +38,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Parliament Audit — News"
+          href="/rss.xml"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -121,6 +127,7 @@ function Footer() {
               <li><Link href="/glossary" className="hover:text-red-600">Glossary</Link></li>
               <li><Link href="/republish" className="hover:text-red-600">Republish</Link></li>
               <li><Link href="/support" className="hover:text-red-600">Support us</Link></li>
+              <li><a href="/rss.xml" className="hover:text-red-600">RSS feed</a></li>
             </ul>
           </div>
           <div>
