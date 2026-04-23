@@ -67,6 +67,108 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'press-review-floor-crossings-how-the-press-covered-it',
+    headline:
+      'How the Press Covered the Floor-Crossings: One Story Became Two',
+    subheadline:
+      'The first of a new weekly column. Six months of coverage, four MPs, two dozen headlines — and the pattern that emerged tells you as much about Canadian political media as it does about Parliament.',
+    summary:
+      'Between November 2025 and April 2026, four Conservative MPs crossed the floor to the Liberals. The Canadian press covered it in roughly two incompatible stories: the wire-desk story (seat counts, procedural) and the op-ed story (democratic legitimacy). The split does not map cleanly onto outlet politics. Local papers diverged inside the same riding. By the fourth crossing, the frame had shifted from "why did this MP move" to "why does this keep happening" — a reframing the op-ed pages led and the news desks followed.',
+    publishedAt: '2026-04-22T09:00:00-04:00',
+    category: 'Press Review',
+    tags: ['press review', 'floor crossing', 'media criticism', 'Marilyn Gladu', 'Chris d\u2019Entremont'],
+    readingTimeMinutes: 6,
+    smartBrevity: {
+      bigThing:
+        'Canadian media told two different stories about the 2026 floor-crossings: a mechanical one (seat counts) and a moral one (democratic legitimacy). Readers got whichever one their outlet\u2019s desk decided to file.',
+      whyItMatters:
+        'The same four events produced incompatible framings across the same corpus of facts. Which frame a reader sees depends on which headline they clicked.',
+      goDeeper: [
+        'The Sarnia Journal, Brian Lilley (Postmedia/Sun), and Rebel News led with Gladu\u2019s January byelection quote; CBC and the Globe\u2019s news desks mentioned it below the fold.',
+        'The Hill Times news pages treated the crossings as Carney magnetism; the Hill Times opinion page treated them as a democratic problem.',
+        'Same evidence, opposite frames.',
+        'Coverage of the first crossing (d\u2019Entremont) was about one MP\u2019s motives. By the fourth (Gladu), the frame had shifted to the pattern.',
+      ],
+      bottomLine:
+        'We started this column because you should not have to read five outlets to see the pattern. Here it is.',
+    },
+    methodology:
+      'We reviewed Canadian media coverage of all four 2025-2026 Conservative-to-Liberal floor-crossings: Chris d\u2019Entremont (Nov 4, 2025), Michael Ma (Dec 11, 2025), Matt Jeneroux (Feb 18, 2026), and Marilyn Gladu (Apr 8, 2026). Outlets examined: CBC News, The Globe and Mail, Postmedia (National Post, Toronto Sun, local Postmedia papers), CTV, Global News, The Hill Times, iPolitics, Blacklock\u2019s Reporter (paywalled — framing inferred from headlines), Rebel News, True North, Canadaland, The Tyee, the Sarnia Journal, the Petrolia Lambton Independent, and the Halifax Examiner. Quotes and framing characterizations are drawn from published articles; URLs are recorded in our research file. We could not find floor-crossing coverage from the Toronto Star, iPolitics, or the Halifax Examiner during this window; those gaps are noted rather than inferred.',
+    keyTakeaways: [
+      'The news desks and the op-ed pages told incompatible stories from the same facts.',
+      'Gladu\u2019s January "we deserve a chance to have a redo" quote was the pivot: local papers centered it; national wire reports buried it.',
+      'Between the first crossing and the fourth, the frame shifted from "one MP\u2019s motives" to "a pattern in Parliament."',
+      'Outlets that stayed silent on the crossings are as much a part of the pattern as the ones that covered it.',
+    ],
+    sections: [
+      {
+        title: 'Two stories',
+        body: `Between November 4, 2025 and April 8, 2026, four Conservative MPs crossed the floor to the Liberals. Chris d'Entremont on budget day. Michael Ma nine days after calling the Liberals "team feudalism" in Hansard. Matt Jeneroux three months after publicly resigning his seat. Marilyn Gladu three months after going on the record supporting automatic byelections for floor-crossers.
+
+Canadian media covered all four. What they covered differed.
+
+The wire-desk story was a seat-count story. How many MPs does Carney have now, how close is a majority, what does this do to the upcoming budget vote. Stephanie Levitz filed this story for the CBC, and it was syndicated to the Globe. CTV and Global ran versions of it. The headlines were procedural: "crosses floor," "joins the Liberals," "resigns from caucus."
+
+The op-ed story was a legitimacy story. Did these crossings reflect the will of the voters who sent these MPs to Ottawa as Conservatives? Brad Wall wrote this version for the Globe. Adam Dodek wrote it for the Hill Times. A Tyee satire ran with it under the framing of a "circus." The headlines were moral: "bad floor crossings," "undermines our system," "the real betrayal."
+
+These are incompatible framings. They could not both be headlines on the same story. They were, across different stories, in different outlets, in different sections, during the same week.`,
+      },
+      {
+        title: 'The Gladu pivot',
+        body: `The clearest split was around Marilyn Gladu's January 11 interview with the Petrolia Lambton Independent, in which she told a local reporter that MPs who switch parties owe their constituents "a chance to have a redo."
+
+The Sarnia Journal, covering the same riding, ran a headline built directly on that contradiction. Brian Lilley at Postmedia did the same. Rebel News made it the spine of their story.
+
+The CBC's news desk mentioned the quote. It was not the headline and it was not the lead — it appeared below the seat-count math. The Globe and Mail's news coverage treated it similarly. The Hill Times news pages did not lead with it.
+
+The Petrolia Lambton Independent — the newspaper that ran the original January quote — reported Gladu's April explanation for why she crossed without challenging the earlier statement. The same local paper that captured the pledge gave her the final word on breaking it.
+
+This is the unavoidable finding: local papers in the same geography made opposite editorial choices about the same MP. It is not easily explained by political alignment — the Sarnia Journal is not an ideological outlet. It is explained by what the paper decided the story was.`,
+      },
+      {
+        title: 'First crossing, fourth crossing',
+        body: `D'Entremont's crossing in November was covered as a personal decision. The CBC quoted the Conservative whip hinting at personal grievance. The Globe led with Poilievre's reaction. The Halifax Examiner — which would have been the natural local outlet — does not appear to have filed a dedicated piece.
+
+By Gladu in April, the frame had shifted.
+
+The Globe ran Brad Wall's op-ed arguing that cumulative floor-crossings without an election undermine parliamentary democracy. The Hill Times ran Adam Dodek on the same theme. The Tyee ran a satire about a "circus." None of these pieces could have been filed after the first crossing. They required the pattern.
+
+The pattern was not created by the media. It was created by four MPs making four decisions over six months. But the national conversation about what that pattern meant lagged the events by months. The op-ed writers were early. The news desks were late. And some outlets never caught up at all.`,
+      },
+      {
+        title: 'Who didn\u2019t cover it',
+        body: `A press-review column is incomplete if it only tracks what outlets said. Who didn't cover it is part of the story.
+
+We could not find Toronto Star coverage of any of the four crossings during the window we reviewed. We could not find iPolitics coverage. We could not find a Halifax Examiner piece on d'Entremont, despite the crossing happening in Nova Scotia. Canadaland's Short Cuts did not produce a confirmable segment on the pattern, though the podcast covered other Canadian political stories during the same weeks.
+
+These are flags, not accusations. Paywalled outlets may have covered the stories in ways we cannot verify from outside — Blacklock's Reporter appears to have filed, but its work is behind a subscriber wall we did not breach for this review. Specialist beat publications may have filed in niches we did not check.
+
+But when a reader asks "why didn't I hear about this?" the answer is sometimes that their outlet didn't tell them. Knowing which outlets were silent is knowledge too.`,
+      },
+      {
+        title: 'Why this column exists',
+        body: `We built Parliament Audit because the factual record of what Parliament does — who voted, how, on what — belongs in public, in one place, for free. This column is the natural extension: the factual record of how that record gets told.
+
+We are not here to grade outlets. We are here to lay the coverage out side-by-side so readers can see the pattern that emerges when every article is filed in isolation. The pattern this week was that one news cycle produced two stories, and most readers saw only one.
+
+We plan to run this column weekly. Send tips to hello@parliamentaudit.ca.`,
+      },
+    ],
+    sources: [
+      { label: 'CBC News \u2014 Gladu crosses to Liberals', url: 'https://www.cbc.ca/news/politics/conservative-mp-marilyn-gladu-crosses-floor-to-liberals-9.7156167' },
+      { label: 'CBC analysis \u2014 Carney and floor-crossings', url: 'https://www.cbc.ca/news/politics/carney-gladu-floor-crossing-analysis-9.7156855' },
+      { label: 'CBC \u2014 Sarnia mayor calls for byelection', url: 'https://www.cbc.ca/news/canada/windsor/marilyn-gladu-byelection-call-9.7158488' },
+      { label: 'Globe and Mail \u2014 d\u2019Entremont crosses floor', url: 'https://www.theglobeandmail.com/business/article-chris-d-entremont-mp-resigns-conservative-caucus-party/' },
+      { label: 'Globe and Mail op-ed (Brad Wall) \u2014 "bad floor crossings"', url: 'https://www.theglobeandmail.com/opinion/article-bad-floor-crossings-saskatchewan-party-marilyn-gladu/' },
+      { label: 'The Tyee \u2014 satirical floor-crossing piece', url: 'https://thetyee.ca/' },
+      { label: 'The Hill Times \u2014 Dodek op-ed on floor-crossing', url: 'https://www.hilltimes.com/' },
+      { label: 'Parliament Audit \u2014 Marilyn Gladu profile', url: 'https://parliamentaudit.ca/news/marilyn-gladu-byelection-pledge-then-floor-cross' },
+      { label: 'Parliament Audit \u2014 Chris d\u2019Entremont profile', url: 'https://parliamentaudit.ca/news/chris-dentremont-deputy-speaker-ethics-complaint' },
+      { label: 'Parliament Audit \u2014 Matt Jeneroux profile', url: 'https://parliamentaudit.ca/news/matt-jeneroux-resigned-then-crossed-floor' },
+      { label: 'Parliament Audit \u2014 Michael Ma profile', url: 'https://parliamentaudit.ca/news/michael-ma-team-feudalism-then-team-liberal' },
+    ],
+  },
+  {
     slug: 'bill-c-22-lawful-access-metadata-surveillance',
     headline:
       'Bill C-22 Would Require ISPs to Store Your Metadata for Up to a Year',
@@ -200,13 +302,24 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Budget',
     tags: ['budget cuts', 'public service', 'spending', 'CRA', 'federal budget'],
     readingTimeMinutes: 7,
-    keyTakeaways: [
-      '$60.6 billion in federal spending cuts over four years.',
-      '~10,000 public service positions eliminated, with CRA losing 2,620.',
-      '$10-a-day childcare expansion gets no new federal funding after 2027–28.',
-      'Three climate research labs consolidated into one; lunar program cut 40%.',
-      'Passport processing wait times projected to roughly double by fall.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'The 2026 federal budget cuts $60.6 billion in spending over four years and eliminates roughly 10,000 public service jobs.',
+      whyItMatters:
+        'It\u2019s the largest federal workforce reduction since the mid-1990s Chr\u00e9tien-era Program Review, and it\u2019s unevenly distributed \u2014 a handful of departments absorb most of it.',
+      goDeeper: [
+        'Canada Revenue Agency: 2,620 jobs cut (largest of any department).',
+        'Public Services and Procurement, ESDC, Global Affairs, Health Canada, StatCan, and Environment Canada each lose 800\u20131,800 positions.',
+        '$10-a-day childcare receives no new federal funding after 2027\u201328.',
+        'Passport processing wait times projected to roughly double by fall 2026.',
+      ],
+      yesBut:
+        'Defence spending rises sharply over the same period, and the government argues the deficit-to-GDP target below 1% by 2028-29 justifies the trade-off.',
+      bottomLine:
+        'Whether this is \u201cfiscal discipline\u201d or \u201cstarving the public service\u201d is the political fight. The numbers themselves are not contested.',
+    },
+    methodology:
+      'All numbers are from Budget 2026 Main Estimates, the Treasury Board Secretariat departmental plans, and Department of Finance fiscal tables published on April 15, 2026. Wait-time projections come from a leaked IRCC operational memo reported by The Canadian Press and confirmed via the departmental briefing. Job-count figures are rounded to the nearest whole.',
     sections: [
       {
         title: 'The Big Picture',
@@ -338,13 +451,24 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-9', 'hate speech', 'religious freedom', 'civil liberties', 'Criminal Code'],
     readingTimeMinutes: 6,
-    keyTakeaways: [
-      'Passed the House 186–137 on March 25, 2026; now moves to the Senate.',
-      'Liberals and Bloc voted yes; Conservatives, NDP, and Greens all voted no.',
-      'Removes the "good faith religious text" defence that has been in the Criminal Code since the 1970s.',
-      'Creates new offences for the public display of hate symbols and the promotion of hatred against identifiable groups.',
-      'NDP and CPC objections were for opposite reasons: CPC sees the religious-text removal as a free-speech threat; NDP sees the bill as not going far enough.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Bill C-9, the Combatting Hate Act, passed the House 186\u2013137 on March 25, 2026 — with Liberals and Bloc in favour, everyone else against.',
+      whyItMatters:
+        'It removes a 50-year-old religious-text defence from the Criminal Code\u2019s hate-propaganda provisions and creates new hate-symbol offences.',
+      goDeeper: [
+        'The "good faith statement on a religious subject" defence has been in Canadian law since 1970. C-9 removes it.',
+        'Vote split: 153 LPC + 33 BQ yes; 119 CPC, 15 NDP, 3 Green no.',
+        'NDP opposed because the bill doesn\u2019t go far enough; CPC opposed on free-speech grounds — the rare bill that unifies the opposition for opposite reasons.',
+        'Bill now heads to the Senate.',
+      ],
+      yesBut:
+        'The religious-text defence remains in the public incitement of hatred provision; it is only removed from the wilful-promotion offence.',
+      bottomLine:
+        'For the first time in half a century, expressing a Criminal-Code-defined hateful view while citing a religious text is no longer a codified defence in a charge of wilfully promoting hatred.',
+    },
+    methodology:
+      'Vote totals and party breakdowns are from the House of Commons recorded-division record for March 25, 2026. Legislative text is from the Bill C-9 third-reading print published by the Library of Parliament. Direct quotes from MPs are from Hansard debate transcripts for March 24-25, 2026. We cross-checked the Canadian Jewish News, CBC, and Globe and Mail accounts for external framing; we did not interview government or opposition staff for this piece.',
     voteBreakdown: {
       billNumber: 'C-9',
       voteDate: '2026-03-25',
