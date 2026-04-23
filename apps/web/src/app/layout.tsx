@@ -92,6 +92,7 @@ function Header() {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/" className="hover:text-red-400 transition-colors">Latest</Link>
           <Link href="/news" className="hover:text-red-400 transition-colors">News</Link>
+          <Link href="/press-review" className="hover:text-red-400 transition-colors">Press Review</Link>
           <Link href="/archive" className="hover:text-red-400 transition-colors">Archive</Link>
           <Link href="/find-your-mp" className="hover:text-red-400 transition-colors">Find Your MP</Link>
           <Link href="/about" className="hover:text-red-400 transition-colors">About</Link>

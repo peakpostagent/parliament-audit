@@ -6,6 +6,7 @@ import Link from 'next/link';
 const NAV_LINKS = [
   { href: '/', label: 'Latest' },
   { href: '/news', label: 'News' },
+  { href: '/press-review', label: 'Press Review' },
   { href: '/archive', label: 'Archive' },
   { href: '/find-your-mp', label: 'Find Your MP' },
   { href: '/about', label: 'About' },
