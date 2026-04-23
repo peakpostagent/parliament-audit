@@ -60,9 +60,22 @@ Don't read into the numbers. Full honest read at `content/analytics-report-2026-
 4. **Commit to the weekly Press Review cadence** — pattern + two landing pages + sidebar archive are in place. Every Friday, drop a new article with `category: 'Press Review'` into `news-articles.ts`.
 5. **Incorporate the non-profit** — $250 + ~2 hours of paperwork. Blocks QCJO + RJO + Inspirit grant application. Nothing else monetization-wise moves without this.
 
-## Backlog items in flight
+## Second Press Review column shipped
 
-- Second Press Review column on the federal budget cuts — research agent is finishing up; when it lands, the article will be ready to write. Research saved to `content/press-coverage-research-budget-cuts.md`.
+**"The Budget Called Both 'Austerity' and 'Not Really Cutting' by Opposite Sides"** — grounded in real coverage from CBC, Globe (Bill Curry), National Post (Kelly McParland), CCPA (David Macdonald), PSAC, Canadian Taxpayers Federation, Fraser Institute, PressProgress, and The Tyee. Names the three incompatible framings that emerged from the same budget document. Research file at `content/press-coverage-research-budget-cuts.md` captures every URL used.
+
+**⚠️ Factual issue flagged by the research agent — needs your call.**
+
+The existing article `federal-budget-cuts-60-billion-public-service` (in `news-articles.ts`) is dated April 15, 2026 and references "the 2026 federal budget." Per the research: there is **no federal Budget 2026 on that date**. The $60B / 40,000-FTE plan was **Budget 2025** ("Canada Strong") tabled by Finance Minister Champagne on **November 4, 2025**. The **Spring Economic Update** is scheduled for **April 28, 2026**.
+
+The new Press Review column I just wrote uses the correct dates (Nov 4, 2025 budget + April 28, 2026 update). But the original article still carries the inaccurate framing.
+
+**Three ways to resolve:**
+1. **Rewrite the original article** to anchor on the real Budget 2025 dates + cite the departmental plans tabled March 17-18, 2026.
+2. **Reframe it** as a post-budget-first-six-months retrospective pegged to the upcoming Spring Economic Update — keep the publish date but acknowledge it is a retrospective.
+3. **Quiet-correct**: add an editor's note at the top ("Corrected 2026-04-23: this article originally misidentified Budget 2025 as Budget 2026") and adjust the dates in the body.
+
+I did not edit the existing article silently. Your call on which move. Option 1 is the cleanest; option 3 is the most transparent if the piece has already been circulated.
 
 ## Everything that changed tonight
 

@@ -138,6 +138,18 @@ export default function PressReviewPage() {
         </p>
       </section>
 
+      <section className="mb-8 text-sm text-gray-600">
+        <span>
+          Subscribe to just this column:{' '}
+          <a
+            href="/press-review/rss.xml"
+            className="text-red-700 hover:underline"
+          >
+            RSS feed →
+          </a>
+        </span>
+      </section>
+
       <section className="bg-[#1a1a2e] text-white rounded-lg p-6">
         <h2 className="text-lg font-bold mb-2">Tip us a story</h2>
         <p className="text-gray-300 text-sm leading-relaxed mb-4">

@@ -67,6 +67,105 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'press-review-budget-austerity-vs-investment',
+    headline:
+      'Press Review: The Budget Called Both "Austerity" and "Not Really Cutting" by Opposite Sides',
+    subheadline:
+      'Six months after the Carney government tabled Budget 2025, the press coverage has settled into three incompatible framings \u2014 and the one most readers saw treats the word "austerity" as neutral descriptor rather than political claim.',
+    summary:
+      'The November 4, 2025 federal budget promised $60 billion in internal savings and a 40,000-position reduction in the public service over four years. Six months later \u2014 with the Spring Economic Update due April 28, 2026 \u2014 Canadian media coverage has crystallized into three framings the outlets themselves will not reconcile. Left-flank analysis calls it austerity in service of rearmament. Right-flank analysis calls it not really cutting at all. Most mainstream news adopted Carney\u2019s own phrase \u2014 "austerity and investment at the same time" \u2014 as a neutral descriptor. Both opposing analyses called the budget "Orwellian." Neither was talking about the other.',
+    publishedAt: '2026-04-23T09:00:00-04:00',
+    category: 'Press Review',
+    tags: ['press review', 'budget cuts', 'media criticism', 'public service', 'defence'],
+    readingTimeMinutes: 6,
+    smartBrevity: {
+      bigThing:
+        'Canadian media told three incompatible stories about the $60B budget cuts. Most readers saw only one — the one that borrowed Carney\u2019s own framing as neutral descriptor.',
+      whyItMatters:
+        'The factual basis was identical across outlets. The framing was not. Whether a reader sees "austerity in service of rearmament," "not really cutting," or "a responsible trade-off" depends almost entirely on which outlet\u2019s headline they clicked.',
+      goDeeper: [
+        'Left-flank (CCPA, Tyee, PSAC, PressProgress): austerity in service of rearmament.',
+        'Right-flank (Taxpayers Federation, Fraser Institute, National Post column): spending is still ballooning; the cuts are theatre.',
+        'Mainstream news (CBC highlights, Globe wire, CP copy): "austerity and investment at the same time" \u2014 Carney\u2019s own phrase, adopted as description.',
+        'Both left and right called the same budget "Orwellian."',
+      ],
+      bottomLine:
+        'The framing split that actually mattered was whether an outlet put the $60B cuts and the $81.8B defence spending in the same sentence. Most did not.',
+    },
+    methodology:
+      'We reviewed Canadian media coverage of Budget 2025 ("Canada Strong," tabled November 4, 2025) and the March 17\u201318, 2026 departmental-plan releases that made the abstract cuts concrete. Outlets examined: CBC News, The Globe and Mail, National Post / Postmedia, Toronto Star (via syndicated wire), The Hill Times (editorial), iPolitics, CTV News, Canadian Press wire, CCPA, PSAC, Canadian Taxpayers Federation, Fraser Institute, PressProgress, The Tyee. Quotes are sourced from published pieces; URLs captured in the companion research file. Columnist attributions are to their specific pieces, not to the outlets generally. Budget 2025 was tabled by Finance Minister Fran\u00e7ois-Philippe Champagne; the Spring Economic Update is scheduled for April 28, 2026.',
+    keyTakeaways: [
+      'Three incompatible framings emerged from the same facts: austerity-for-rearmament, not-really-cutting, and neutral-trade-off.',
+      'CCPA\u2019s David Macdonald: "Dramatic increases to military spending \u2014 and tax cuts \u2014 won\u2019t pay for themselves." This framing was heavily cited on the left.',
+      'Canadian Taxpayers Federation and Fraser Institute argued the cuts were theatre; spending overall is still rising.',
+      'Most mainstream news adopted Carney\u2019s own phrase \u2014 "austerity and investment at the same time" \u2014 as a neutral descriptor rather than as a contested political claim.',
+      'The $60B in cuts and the $81.8B defence envelope rarely appeared in the same sentence in mainstream coverage. They did in left-flank analysis.',
+    ],
+    sections: [
+      {
+        title: 'Three framings, one budget',
+        body: `The Budget 2025 headline numbers were uncontested. $60 billion in internal savings over four years. A 40,000-position reduction in the federal public service. $81.8 billion in defence spending commitments. A $78.3 billion deficit. These numbers are the same in every outlet\u2019s coverage.
+
+What the outlets did with them is not.
+
+Bill Curry at the Globe and Mail and the CBC\u2019s budget-day coverage both adopted Prime Minister Mark Carney\u2019s own formulation \u2014 that the budget is \u201can austerity and investment budget at the same time\u201d \u2014 as a neutral descriptor. Canadian Press wire copy, which is what most regional papers ran, followed the same framing.
+
+David Macdonald at the Canadian Centre for Policy Alternatives did not. In a post-budget analysis that was picked up by PressProgress, PSAC, and The Tyee, Macdonald named the trade-off directly: \u201cDramatic increases to military spending \u2014 and tax cuts \u2014 won\u2019t pay for themselves.\u201d The column connected the $60 billion in cuts to the $81.8 billion defence envelope in a single sentence. Mainstream news rarely did.
+
+Kelly McParland at the National Post pushed the opposite direction: the cuts are theatre, program spending is still growing, and calling this an \u201caus-terity\u201d budget is itself the Orwellian framing. The Canadian Taxpayers Federation and the Fraser Institute made the same argument through different vocabulary.
+
+Both sides used the word \u201cOrwellian.\u201d Neither was describing the other.`,
+      },
+      {
+        title: 'The sentence that rarely got written',
+        body: `The most consequential reporting choice was not vocabulary. It was adjacency.
+
+Did a given article put the $60 billion public-service reduction and the $81.8 billion new defence envelope into the same paragraph? The left-flank pieces consistently did. Macdonald\u2019s CCPA analysis did. The Tyee\u2019s budget coverage did. PSAC\u2019s response called it out explicitly.
+
+Mainstream news desks largely did not. The Globe\u2019s budget-day lead ran the $78.3B deficit number, the 40,000-FTE figure, and the defence commitment as three separate facts in three separate sections. CBC\u2019s budget-highlights explainer listed all of them under different subheadings. Canadian Press wire copy tended to follow the same structure.
+
+There is a journalism-procedural reason for this. News desks file the budget\u2019s own structure: revenue, spending, deficit, program areas. Each area gets its own paragraph. The causal argument \u2014 that the cuts in one column are funding the additions in another \u2014 is a synthesis a news-desk reporter is not trained to make on deadline. Opinion columns, think-tank analyses, and long-form magazine coverage all made it. Budget-day news largely did not.
+
+This is not a criticism of news-desk output. It is a description of what news-desk output can and cannot do in the time available. But it has a consequence: the reader who read only the news-desk version of the story did not read the argument. The reader who read the CCPA piece or a Tyee feature did.`,
+      },
+      {
+        title: 'PSAC and the union voice',
+        body: `Public Service Alliance of Canada national president Sharon DeSousa was quoted across the budget cycle, but unevenly.
+
+Her strongest pre-budget line \u2014 \u201cwho is really making sacrifices in this budget?\u201d \u2014 appeared prominently in PSAC\u2019s October press releases and was picked up by union-facing coverage. It largely vanished from the November 4 news cycle. By the March 17\u201318 departmental-plan release, union voices were quoted again \u2014 CBC\u2019s Ottawa bureau gave PSAC and PIPSC direct quotes in the \u201cconcern over federal job, program cuts\u201d piece.
+
+CTV\u2019s budget-day coverage led with PSAC\u2019s warning that the cuts could reach 70,000 jobs if the government\u2019s savings targets were not met through attrition alone. That ceiling number \u2014 70,000 \u2014 did not appear in most Globe or CBC mainstream coverage.
+
+The pattern is consistent with broader Canadian budget-coverage practice: unions are quoted reactively, around the moments when their members are directly affected (budget day, departmental plans, strike votes). In between, their analysis largely disappears from national news even when the policy question is unchanged.`,
+      },
+      {
+        title: 'What we take from this',
+        body: `A budget story is a natural test case for Press Review. Every major outlet covers it. The facts are codified in the budget document itself. The spread comes entirely from framing.
+
+Three observations, evidence-first:
+
+The mainstream framing adopted the government\u2019s own descriptor. "Austerity and investment at the same time" is a political claim. News desks that used it neutrally \u2014 without quotation marks, without attribution, without a follow-up sentence contesting it \u2014 effectively ratified it. That is a framing choice, even when it reads as neutral.
+
+The connective argument lived in opinion and analysis. The most important single fact \u2014 that the cuts and the defence spending are fiscally linked \u2014 was made in think-tank reports and opinion columns. It was mostly absent from wire copy. Readers who stopped at the news section did not see it.
+
+The ceiling numbers were in the labour coverage. The 70,000-job ceiling PSAC warned about appeared in labour-friendly outlets and CTV\u2019s specific piece. The 40,000-position floor appeared everywhere. Readers who read only mainstream news got one number. Readers who read one more piece got the range.
+
+None of this tells you what the right framing was. It tells you that multiple framings existed, and that which one a reader encountered was not an accident.`,
+      },
+    ],
+    sources: [
+      { label: 'CBC \u2014 Carney budget to slash public service by 16,000 over 3 years', url: 'https://www.cbc.ca/news/canada/ottawa/carney-budget-to-slash-public-service-by-16-000-over-3-years-9.6965108' },
+      { label: 'CBC \u2014 Highlights of budget 2025', url: 'https://www.cbc.ca/news/politics/budget-highlights-9.6966595' },
+      { label: 'CBC \u2014 Departmental plans fuel concern over federal job cuts', url: 'https://www.cbc.ca/news/canada/ottawa/union-budget-carney-public-service-department-plans-9.7133612' },
+      { label: 'Globe and Mail \u2014 Budget 2025: 40,000 public service jobs (Bill Curry)', url: 'https://www.theglobeandmail.com/politics/article-carney-federal-budget-2025-cuts/' },
+      { label: 'CCPA analysis by David Macdonald \u2014 Budget 2025', url: 'https://policyalternatives.ca/publications/reports/budget-2025/' },
+      { label: 'Canadian Taxpayers Federation \u2014 Budget 2025 response', url: 'https://www.taxpayer.com/' },
+      { label: 'Fraser Institute \u2014 Budget 2025 commentary', url: 'https://www.fraserinstitute.org/' },
+      { label: 'PSAC \u2014 Budget 2025 press response (Sharon DeSousa)', url: 'https://psacunion.ca/' },
+      { label: 'Parliament Audit \u2014 "Where the $60B in federal cuts will actually land"', url: 'https://parliamentaudit.ca/news/federal-budget-cuts-60-billion-public-service' },
+    ],
+  },
+  {
     slug: 'press-review-floor-crossings-how-the-press-covered-it',
     headline:
       'How the Press Covered the Floor-Crossings: One Story Became Two',
