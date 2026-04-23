@@ -326,6 +326,21 @@ export default function SupportPage() {
         </ul>
       </section>
 
+      {/* Link to the wall */}
+      <section className="border-t border-gray-200 pt-8 mb-10">
+        <h2 className="text-xl font-bold text-[#1a1a2e] mb-3">
+          The Builders wall
+        </h2>
+        <p className="text-gray-800 leading-relaxed mb-4">
+          Every Builder who opts in is listed publicly on the{' '}
+          <Link href="/builders" className="text-red-700 hover:underline">
+            Builders wall
+          </Link>
+          . Opt out at any time — the tier perks don&apos;t require public
+          acknowledgement.
+        </p>
+      </section>
+
       {/* The honest footer */}
       <section className="bg-[#1a1a2e] text-white rounded-lg p-6">
         <h2 className="text-lg font-bold mb-2">A note on non-partisan funding</h2>
