@@ -3,6 +3,7 @@ import { desc, eq, sql } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { newsArticles, slugifyTag, type NewsArticle } from '@/content/news-articles';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 300;
@@ -21,17 +22,60 @@ function slugify(name: string): string {
 async function findMemberBySlug(slug: string) {
   // Query all distinct member names, then match by slugified name.
   // Once we have more MPs, we'll index this. For now, the set is small.
-  const rows = await db
-    .selectDistinct({
-      memberName: schema.voteMemberResults.memberName,
-      memberId: schema.voteMemberResults.memberId,
-      partyShort: schema.voteMemberResults.partyShort,
-      constituency: schema.voteMemberResults.constituency,
-      province: schema.voteMemberResults.province,
-    })
-    .from(schema.voteMemberResults);
+  try {
+    const rows = await db
+      .selectDistinct({
+        memberName: schema.voteMemberResults.memberName,
+        memberId: schema.voteMemberResults.memberId,
+        partyShort: schema.voteMemberResults.partyShort,
+        constituency: schema.voteMemberResults.constituency,
+        province: schema.voteMemberResults.province,
+      })
+      .from(schema.voteMemberResults);
 
-  return rows.find((r) => slugify(r.memberName) === slug) || null;
+    const match = rows.find((r) => slugify(r.memberName) === slug);
+    if (match) return match;
+  } catch {
+    // Database may be unavailable (dev, preview builds). Fall through to
+    // the news-article fallback so MPs we've written about still render.
+  }
+
+  // Fallback: if this slug matches a tag on any news article (e.g. a
+  // floor-crosser profile), synthesize a minimal member record so the
+  // page still shows useful context pre-vote-pipeline.
+  const article = findArticleByMpSlug(slug);
+  if (article) {
+    const nameFromTag =
+      article.tags.find((t) => slugifyTag(t) === slug) ||
+      article.headline.split(/\s+/).slice(0, 2).join(' ');
+    return {
+      memberName: nameFromTag,
+      memberId: null,
+      partyShort: 'IND',
+      constituency: null,
+      province: null,
+    };
+  }
+
+  return null;
+}
+
+/** Articles tagged with this MP's name (the tag is a name-like slug match). */
+function findArticlesByMp(slug: string, memberName: string): NewsArticle[] {
+  const nameSlug = slugify(memberName);
+  return newsArticles.filter((a) =>
+    a.tags.some((t) => {
+      const ts = slugifyTag(t);
+      return ts === slug || ts === nameSlug;
+    }),
+  );
+}
+
+/** Used by fallback path — does ANY article have a tag matching this slug? */
+function findArticleByMpSlug(slug: string): NewsArticle | undefined {
+  return newsArticles.find((a) =>
+    a.tags.some((t) => slugifyTag(t) === slug),
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -72,25 +116,38 @@ export default async function MPPage({ params }: PageProps) {
     notFound();
   }
 
-  // Fetch recent votes for this MP
-  const memberVotes = await db
-    .select({
-      voteCast: schema.voteMemberResults.voteCast,
-      voteNumber: schema.votes.voteNumber,
-      voteDate: schema.votes.voteDate,
-      chamber: schema.votes.chamber,
-      billNumber: schema.votes.billNumber,
-      subjectText: schema.votes.subjectText,
-      result: schema.votes.result,
-      articleSlug: schema.articles.slug,
-      articleHeadline: schema.articles.headline,
-    })
-    .from(schema.voteMemberResults)
-    .innerJoin(schema.votes, eq(schema.voteMemberResults.voteId, schema.votes.id))
-    .leftJoin(schema.articles, eq(schema.articles.voteId, schema.votes.id))
-    .where(eq(schema.voteMemberResults.memberName, member.memberName))
-    .orderBy(desc(schema.votes.voteDate))
-    .limit(50);
+  // Fetch recent votes for this MP (DB-optional — renders with zero votes
+  // if the pipeline hasn't ingested any yet)
+  // Loose typing here — the DB columns are inferred at call site; we only
+  // care that the JSX below can read them. Using any[] keeps the fallback
+  // path (empty array) trivially type-compatible with the render.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let memberVotes: any[] = [];
+  try {
+    memberVotes = await db
+      .select({
+        voteCast: schema.voteMemberResults.voteCast,
+        voteNumber: schema.votes.voteNumber,
+        voteDate: schema.votes.voteDate,
+        chamber: schema.votes.chamber,
+        billNumber: schema.votes.billNumber,
+        subjectText: schema.votes.subjectText,
+        result: schema.votes.result,
+        articleSlug: schema.articles.slug,
+        articleHeadline: schema.articles.headline,
+      })
+      .from(schema.voteMemberResults)
+      .innerJoin(schema.votes, eq(schema.voteMemberResults.voteId, schema.votes.id))
+      .leftJoin(schema.articles, eq(schema.articles.voteId, schema.votes.id))
+      .where(eq(schema.voteMemberResults.memberName, member.memberName))
+      .orderBy(desc(schema.votes.voteDate))
+      .limit(50);
+  } catch {
+    // Fine — no vote data yet.
+  }
+
+  // Our editorial coverage of this specific MP (floor-crosser profiles etc.)
+  const coverage = findArticlesByMp(slug, member.memberName);
 
   // Calculate voting stats
   const stats = memberVotes.reduce(
@@ -155,6 +212,48 @@ export default async function MPPage({ params }: PageProps) {
             No recorded votes tracked for {member.memberName} yet. Check back soon — we&apos;re monitoring Parliament daily.
           </p>
         </div>
+      )}
+
+      {/* Our coverage of this MP (when we've written about them) */}
+      {coverage.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-xl font-bold mb-3">
+            Our coverage of {member.memberName}
+          </h2>
+          <ul className="space-y-2">
+            {coverage.map((a) => (
+              <li
+                key={a.slug}
+                className="bg-white border rounded-lg p-4 hover:border-gray-300 transition-colors"
+              >
+                <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
+                  <span className="font-semibold uppercase text-red-700">
+                    {a.category}
+                  </span>
+                  <span aria-hidden="true">·</span>
+                  <time dateTime={a.publishedAt}>
+                    {new Date(a.publishedAt).toLocaleDateString('en-CA', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <span aria-hidden="true">·</span>
+                  <span>{a.readingTimeMinutes} min read</span>
+                </div>
+                <Link
+                  href={`/news/${a.slug}`}
+                  className="font-semibold text-[#1a1a2e] hover:text-red-700 transition-colors"
+                >
+                  {a.headline}
+                </Link>
+                <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                  {a.summary}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       {/* Voting record */}
