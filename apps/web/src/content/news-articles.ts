@@ -483,8 +483,12 @@ Canadians concerned about the bill's privacy implications can contact their MP t
         url: 'https://policyalternatives.ca/publications/reports/alternative-federal-budget-2026',
       },
       {
-        label: 'Canada.ca — Budget 2026 full document',
-        url: 'https://www.canada.ca/en/department-finance/news/2026/04/budget-2026.html',
+        label: 'Canada.ca — Budget 2025 ("Canada Strong") full document',
+        url: 'https://www.canada.ca/en/department-finance/news/2025/11/budget-2025.html',
+      },
+      {
+        label: 'Treasury Board Secretariat — March 2026 departmental plans',
+        url: 'https://www.canada.ca/en/treasury-board-secretariat/services/planned-government-spending/reports-plans-priorities.html',
       },
     ],
   },
@@ -1195,4 +1199,40 @@ export function getTagLabel(slug: string): string | undefined {
     if (match) return match;
   }
   return undefined;
+}
+
+/**
+ * Find articles related to a given slug, scored by tag overlap + category
+ * affinity. Returns up to `limit` articles, excluding the source slug.
+ *
+ * Scoring:
+ *   +3 per shared tag (case-insensitive)
+ *   +1 if same category
+ *   recency tiebreak (newer wins)
+ *
+ * Intended for the "Related reporting" block at the end of each article.
+ */
+export function getRelatedArticles(slug: string, limit = 3): NewsArticle[] {
+  const source = getNewsArticle(slug);
+  if (!source) return [];
+  const sourceTags = new Set(source.tags.map((t) => t.toLowerCase()));
+
+  const scored = newsArticles
+    .filter((a) => a.slug !== slug)
+    .map((a) => {
+      const sharedTags = a.tags.filter((t) => sourceTags.has(t.toLowerCase())).length;
+      const categoryMatch = a.category === source.category ? 1 : 0;
+      return {
+        article: a,
+        score: sharedTags * 3 + categoryMatch,
+        publishedAt: a.publishedAt,
+      };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.publishedAt < b.publishedAt ? 1 : -1;
+    });
+
+  return scored.slice(0, limit).map((x) => x.article);
 }

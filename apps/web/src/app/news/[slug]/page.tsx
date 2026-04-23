@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getNewsArticle, getAllNewsSlugs, slugifyTag, type NewsArticle } from '@/content/news-articles';
+import { getNewsArticle, getAllNewsSlugs, getRelatedArticles, slugifyTag, type NewsArticle } from '@/content/news-articles';
 import RepublishBlock from '@/components/RepublishBlock';
 import { SourceLink } from '@/components/SourceLink';
 import { ArticleEngagementTracker } from '@/components/ArticleEngagementTracker';
@@ -261,6 +261,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
     : null;
 
   const jsonLd = buildJsonLd(article);
+  const related = getRelatedArticles(article.slug, 3);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -492,6 +493,39 @@ export default async function NewsArticlePage({ params }: PageProps) {
             {article.sources.map((source, i) => (
               <li key={i}>
                 <SourceLink url={source.url} label={source.label} slug={article.slug} kind="source" />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Related reporting */}
+      {related.length > 0 && (
+        <section className="mb-8" aria-labelledby="related-heading">
+          <h3
+            id="related-heading"
+            className="font-bold mb-4 text-sm uppercase tracking-wide text-gray-600"
+          >
+            More reporting on this
+          </h3>
+          <ul className="grid gap-3 sm:grid-cols-3">
+            {related.map((r) => (
+              <li
+                key={r.slug}
+                className="border border-gray-200 rounded-lg p-4 hover:border-gray-400 transition-colors flex flex-col"
+              >
+                <span className="text-xs font-semibold uppercase text-red-700 mb-1">
+                  {r.category}
+                </span>
+                <Link
+                  href={`/news/${r.slug}`}
+                  className="font-semibold text-[#1a1a2e] hover:text-red-700 transition-colors leading-snug text-sm mb-2"
+                >
+                  {r.headline}
+                </Link>
+                <p className="text-xs text-gray-600 line-clamp-2 mt-auto">
+                  {r.subheadline || r.summary}
+                </p>
               </li>
             ))}
           </ul>
