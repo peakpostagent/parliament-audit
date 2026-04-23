@@ -139,58 +139,119 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* Tier placeholder — filled in when you set prices */}
+      {/*
+        Builder tiers — v1 pricing set 2026-04-22.
+        Benchmarks: The Tyee Builders ($5-$50/mo range), Canadaland
+        Patreon ($5-$50/mo), The Hub ($9-15/mo), the Logic ($300/yr).
+        These land deliberately mid-range for an indie civic project.
+        Prices and perks are intended as a launch baseline — revise once
+        we have a few months of live subscriber data.
+
+        Button action: until Stripe Checkout is wired, every CTA routes
+        to /subscribe (the free newsletter) so we can tell the wait list
+        when tiers open. Swap hrefs to Stripe Checkout URLs when ready.
+      */}
       <section className="mb-10" id="tiers">
         <h2 className="text-2xl font-bold text-[#1a1a2e] mb-4">Builder tiers</h2>
         <p className="text-sm text-gray-600 italic mb-5">
-          Tiers, pricing, and checkout are launching soon. If you want a
-          heads-up the moment they open, leave your email below — we&apos;ll
-          tell you once and then leave you alone until you decide.
+          Tiers are set, checkout is launching soon. Subscribe to the free
+          newsletter below and we&apos;ll tell you the moment Builders opens
+          — then leave you alone until you decide.
         </p>
         <div className="grid md:grid-cols-3 gap-4">
           {[
             {
               name: 'Supporter',
               subtitle: 'Monthly',
+              price: '$7 / mo',
+              priceNote: '≈ $84/yr',
               description:
-                'Covers a month of infrastructure and a slice of reporting time.',
-              price: 'TBD',
+                'Covers one seat in the server budget and a slice of reporting time.',
+              perks: [
+                'Bi-monthly Builders newsletter',
+                'Public thanks on the supporter wall (opt-in)',
+                'Supports our Bluesky + X coverage',
+              ],
             },
             {
               name: 'Builder',
               subtitle: 'Annual',
+              price: '$72 / yr',
+              priceNote: '$6 / mo billed yearly — save $12',
               description:
-                'The core tier. Supporters newsletter, named wall, vote alerts, open-books report.',
-              price: 'TBD',
+                'The core tier. Everything above, plus the stuff we save for readers who really keep the lights on.',
+              perks: [
+                'Everything in Supporter',
+                'Priority vote alerts — emails before public posts',
+                'Quarterly funding transparency report, direct to inbox',
+                'Builders-only reading list once a season',
+              ],
               highlighted: true,
             },
             {
               name: 'Founding Builder',
-              subtitle: 'One-time',
+              subtitle: 'One-time · limited',
+              price: '$250',
+              priceNote: 'One payment, listed forever',
               description:
-                'A lump-sum launch contribution. Listed first and forever on the supporter wall.',
-              price: 'TBD',
+                'A lump-sum launch contribution. Closes after our first 100 Founding Builders — the name stays.',
+              perks: [
+                'One year of Builder access',
+                'Listed first on the supporter wall, permanently',
+                'Handwritten thank-you note in the mail',
+                'Nominate one coverage priority per year',
+              ],
             },
           ].map((tier) => (
             <div
               key={tier.name}
               className={
                 tier.highlighted
-                  ? 'border-2 border-red-600 rounded-lg p-5 bg-white'
-                  : 'border border-gray-200 rounded-lg p-5 bg-white'
+                  ? 'border-2 border-red-600 rounded-lg p-5 bg-white flex flex-col'
+                  : 'border border-gray-200 rounded-lg p-5 bg-white flex flex-col'
               }
             >
               <h3 className="font-bold text-[#1a1a2e] mb-0.5">{tier.name}</h3>
               <p className="text-xs uppercase tracking-wider text-gray-500 mb-3">
                 {tier.subtitle}
               </p>
+              <p className="text-2xl font-bold text-[#1a1a2e] mb-0.5">
+                {tier.price}
+              </p>
+              <p className="text-xs text-gray-500 mb-3">{tier.priceNote}</p>
               <p className="text-sm text-gray-700 mb-3 leading-relaxed">
                 {tier.description}
               </p>
-              <p className="text-2xl font-bold text-[#1a1a2e]">{tier.price}</p>
+              <ul className="text-sm text-gray-800 space-y-1.5 mb-4 flex-1">
+                {tier.perks.map((perk) => (
+                  <li key={perk} className="flex gap-2">
+                    <span
+                      className="text-red-700 font-bold mt-0.5"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                    <span>{perk}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={`/subscribe?intent=builder&tier=${tier.name.toLowerCase().replace(/\s/g, '-')}`}
+                className={
+                  tier.highlighted
+                    ? 'block text-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold transition-colors'
+                    : 'block text-center border-2 border-[#1a1a2e] hover:bg-[#1a1a2e] hover:text-white text-[#1a1a2e] px-4 py-2 rounded font-semibold transition-colors'
+                }
+              >
+                Join wait list →
+              </Link>
             </div>
           ))}
         </div>
+        <p className="text-xs text-gray-500 italic mt-4">
+          Prices include HST where applicable. Annual billing can be cancelled
+          any time; remaining months pro-rated and refunded.
+        </p>
       </section>
 
       {/* Wait list */}
