@@ -132,8 +132,8 @@ function Footer() {
             </ul>
             <h3 className="font-bold mt-4 mb-2">Follow Us</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li><a href="https://x.com/ParliamentAudit" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
-              <li><a href="https://bsky.app/profile/parliamentaudit.bsky.social" className="hover:text-red-600" target="_blank" rel="noopener noreferrer">Bluesky</a></li>
+              <li><a href="https://x.com/ParliamentAudit" className="hover:text-red-600" target="_blank" rel="noopener noreferrer" data-umami-event="outbound-social" data-umami-event-host="x.com" data-umami-event-placement="footer">X / Twitter</a></li>
+              <li><a href="https://bsky.app/profile/parliamentaudit.bsky.social" className="hover:text-red-600" target="_blank" rel="noopener noreferrer" data-umami-event="outbound-social" data-umami-event-host="bsky.app" data-umami-event-placement="footer">Bluesky</a></li>
             </ul>
           </div>
         </div>

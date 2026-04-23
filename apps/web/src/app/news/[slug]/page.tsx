@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getNewsArticle, getAllNewsSlugs, slugifyTag, type NewsArticle } from '@/content/news-articles';
 import RepublishBlock from '@/components/RepublishBlock';
+import { SourceLink } from '@/components/SourceLink';
+import { ArticleEngagementTracker } from '@/components/ArticleEngagementTracker';
+import { ShareLink } from '@/components/ShareLink';
 
 /** Build a plain-HTML version of the article body for CMS copy-paste. */
 function buildRepublishBodyHtml(sections: NewsArticle['sections']): string {
@@ -461,14 +464,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
           <ul className="space-y-2 text-sm">
             {article.sources.map((source, i) => (
               <li key={i}>
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 underline"
-                >
-                  {source.label}
-                </a>
+                <SourceLink url={source.url} label={source.label} slug={article.slug} kind="source" />
               </li>
             ))}
           </ul>
@@ -490,22 +486,24 @@ export default async function NewsArticlePage({ params }: PageProps) {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t">
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-gray-500">Share:</span>
-          <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://parliamentaudit.ca/news/${article.slug}`)}&text=${encodeURIComponent(article.headline)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:text-blue-800"
-          >
-            X / Twitter
-          </a>
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://parliamentaudit.ca/news/${article.slug}`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:text-blue-800"
-          >
-            Facebook
-          </a>
+          <ShareLink
+            url={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://parliamentaudit.ca/news/${article.slug}`)}&text=${encodeURIComponent(article.headline)}`}
+            label="X / Twitter"
+            slug={article.slug}
+            platform="x"
+          />
+          <ShareLink
+            url={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${article.headline} https://parliamentaudit.ca/news/${article.slug}`)}`}
+            label="Bluesky"
+            slug={article.slug}
+            platform="bluesky"
+          />
+          <ShareLink
+            url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://parliamentaudit.ca/news/${article.slug}`)}`}
+            label="Facebook"
+            slug={article.slug}
+            platform="facebook"
+          />
         </div>
         <Link
           href="/subscribe"
@@ -514,6 +512,12 @@ export default async function NewsArticlePage({ params }: PageProps) {
           Get Vote Alerts
         </Link>
       </div>
+
+      {/* Engagement tracker (fires article-engaged + article-finished) */}
+      <ArticleEngagementTracker
+        slug={article.slug}
+        readingTimeMinutes={article.readingTimeMinutes}
+      />
 
       {/* Steal Our Stories — per-article republish block (ProPublica pattern) */}
       <RepublishBlock

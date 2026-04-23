@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { SubscribeForm } from '@/components/SubscribeForm';
 
 export const metadata: Metadata = {
@@ -15,7 +16,9 @@ export default function SubscribePage() {
         division so you always know what&apos;s happening in Ottawa.
       </p>
 
-      <SubscribeForm />
+      <Suspense fallback={<div className="bg-gray-50 border rounded-lg p-6 animate-pulse h-80" />}>
+        <SubscribeForm />
+      </Suspense>
 
       {/* Social follow */}
       <div className="mt-8 bg-[#1a1a2e] text-white rounded-lg p-6">

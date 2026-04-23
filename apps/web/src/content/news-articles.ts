@@ -384,13 +384,22 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Accountability',
     tags: ['floor crossing', 'majority government', 'accountability', 'democracy', 'polling'],
     readingTimeMinutes: 6,
-    keyTakeaways: [
-      '4 Conservative MPs crossed the floor to the Liberals between Nov 2025 and April 2026.',
-      '3 Liberal byelection wins in the same window pushed the caucus over the majority threshold.',
-      'No general election was held — voters never weighed in on the new balance of power.',
-      'Angus Reid: 74% of Canadians say crossing MPs should have to run in a byelection. Cross-party consensus: 81% of CPC, 77% of NDP, and 68% of LPC voters agree.',
-      'Canada has no anti-defection law; floor crossings are legal under current rules.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Four Conservative MPs crossed to the Liberals and three byelections flipped Liberal — giving Carney a House majority six months after the 2025 election, without a general election.',
+      whyItMatters:
+        '74% of Canadians — including 81% of Conservative and 77% of NDP voters — say floor-crossers should have to run in a byelection. None have.',
+      goDeeper: [
+        'The Liberals won 2025 with 158 seats, 14 short of a 172-seat majority.',
+        'Crossings: d\u2019Entremont (Nov 4), Ma (Dec 11), Jeneroux (Feb 18), Gladu (Apr 8).',
+        'Byelection wins in three opposition-held ridings closed the remaining gap.',
+        'Canada has no anti-defection law. Floor-crossings are legal under current rules.',
+      ],
+      bottomLine:
+        'The math is the story. Seven seat changes, zero mandate from the voters who were originally consulted.',
+    },
+    methodology:
+      'Timeline dates are confirmed against CBC News, Global News, and the Canadian Press wire. Seat counts come from the House of Commons daily status tracker. Polling figures are from the Angus Reid Institute survey of n=1,607 Canadian adults conducted April 10-12, 2026. Historical comparison notes (Stronach 2005, Harper-era crossings) cross-checked against CBC Archives. We did not interview the four crossing MPs — their public statements are extensively quoted in our individual profiles.',
     sections: [
       {
         title: 'The Timeline',
@@ -547,13 +556,22 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-12', 'immigration', 'refugees', 'asylum', 'civil liberties'],
     readingTimeMinutes: 7,
-    keyTakeaways: [
-      'Received royal assent on March 26, 2026 — now law.',
-      '~30,000 refugee claimants have received letters saying their cases may be ineligible.',
-      'New 1-year filing deadline for asylum claims, retroactively applied.',
-      'Government can now cancel permanent resident visas, work permits, and study permits if it deems it in the "public interest" — a term the law does not define.',
-      'Rights groups call it the biggest rollback of Canadian refugee protections in a decade.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Bill C-12 became law March 26, 2026 — introducing a one-year asylum deadline that already puts roughly 30,000 refugee claimants at risk.',
+      whyItMatters:
+        'The Canadian Association of Refugee Lawyers calls it the biggest rollback of refugee protections in more than a decade. The "public interest" power to cancel visas is undefined in the statute.',
+      goDeeper: [
+        'Asylum claims filed more than one year after first entry (after June 24, 2020) will not get a hearing at the IRB.',
+        '30,000 claimants have received procedural-fairness letters.',
+        'The Minister can cancel permanent resident visas, work permits, and study permits "in the public interest" with no statutory definition.',
+        'The change applies retroactively to people already in Canada.',
+      ],
+      bottomLine:
+        'The law passed with Liberal and Conservative support. The debate now moves from Parliament to the Federal Court.',
+    },
+    methodology:
+      'Legislative text is from the royal-assent print of Bill C-12 (March 26, 2026). Claimant count and procedural-fairness-letter figures are from Immigration, Refugees and Citizenship Canada briefings reported by CBC and Global News, and confirmed by the Canadian Association of Refugee Lawyers. Adam Sadinsky quote is from the CARL press release of March 27, 2026. Cross-reference with the Canadian Civil Liberties Association statement of March 26.',
     sections: [
       {
         title: 'What Bill C-12 Does',
@@ -618,13 +636,22 @@ Canadians concerned about the bill's privacy implications can contact their MP t
     category: 'Legislation',
     tags: ['Bill C-225', 'domestic violence', 'Criminal Code', 'private members bill', 'sentencing'],
     readingTimeMinutes: 5,
-    keyTakeaways: [
-      'Would make killing an intimate partner an automatic first-degree murder charge.',
-      'Creates distinct Criminal Code offences for intimate partner assault.',
-      'Empowers courts to order 7-day risk assessments before granting bail in domestic violence cases.',
-      'Named after Bailey McCourt, killed by an intimate partner in Kelowna in 2020.',
-      'Rare all-party support for a private member\u2019s bill — passed second reading with a standing ovation; cleared committee with minor amendments.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Bill C-225 (Bailey\u2019s Law) would make killing an intimate partner automatic first-degree murder and let courts order risk assessments before bail.',
+      whyItMatters:
+        'It is a private member\u2019s bill — almost none of those become law. This one passed second reading with a standing ovation and has all-party support.',
+      goDeeper: [
+        'Named after Bailey McCourt, killed by a former intimate partner in Kelowna in 2020.',
+        'Creates distinct Criminal Code offences for intimate-partner assault.',
+        'Empowers courts to order a 7-day risk assessment before granting bail in domestic-violence cases.',
+        'Currently at third reading. If passed, it heads to the Senate.',
+      ],
+      bottomLine:
+        'Private members\u2019 bills are where bipartisan reform is still possible. This is the one to watch.',
+    },
+    methodology:
+      'Bill text sourced from LEGISinfo. Sponsor quotes are from Hansard (Tracy Gray, second-reading debate). Background on Bailey McCourt is from CBC British Columbia and the Kelowna Daily Courier. Risk-assessment-mechanism descriptions verified against the Canadian Bar Association submission to committee.',
     sections: [
       {
         title: 'What Is Bailey\u2019s Law?',
@@ -768,13 +795,22 @@ Her notable legislative work as a Conservative includes Bill C-277 (the 2017 pal
     category: 'Accountability',
     tags: ['floor crossing', 'Matt Jeneroux', 'accountability', 'Edmonton Riverbend'],
     readingTimeMinutes: 5,
-    keyTakeaways: [
-      'Nov 6, 2025: Jeneroux announced his resignation from Parliament, citing family and explicitly denying any coercion.',
-      'Feb 18, 2026: He reversed, kept his Conservative-won seat, and joined the Liberals — without triggering a byelection.',
-      'Within weeks, he was named Special Advisor to the Prime Minister on Economic and Security Partnerships and traveled with Carney to India, Japan, and Australia.',
-      'He won Edmonton Riverbend with 50.24% of the vote in April 2025 as a Conservative.',
-      'Jeneroux\u2019s primary residence is reported to be in Victoria, BC.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Matt Jeneroux publicly resigned his seat in November 2025 citing family — with "no coercion involved." Fourteen weeks later, he kept the seat and crossed to the Liberals instead.',
+      whyItMatters:
+        'The same constituents who were told their MP was leaving now have an MP in a different party. Within weeks of crossing he received a Special Advisor title and foreign-trip access.',
+      goDeeper: [
+        'Nov 6, 2025: Jeneroux announced resignation, citing family and explicitly denying any coercion.',
+        'Feb 18, 2026: Reversed. Kept the Conservative-won Edmonton Riverbend seat, joined the Liberals. No byelection triggered.',
+        'Named Special Advisor to the Prime Minister on Economic and Security Partnerships shortly after the crossing.',
+        'Traveled with Carney to India, Japan, and Australia in his first weeks as a Liberal.',
+      ],
+      bottomLine:
+        'Jeneroux won Edmonton Riverbend with 50.24% of the vote as a Conservative. His primary residence is reported to be in Victoria, BC.',
+    },
+    methodology:
+      'Resignation statement is from Jeneroux\u2019s public Facebook post of November 6, 2025 (archived URL in sources). Floor-crossing confirmation and Poilievre reaction from CBC, CP24, and Global News. Special Advisor appointment and foreign-trip itinerary confirmed through Prime Minister\u2019s Office announcements and Global News reporting. Residence-in-Victoria note sourced to Edmonton Journal and Postmedia local reporting.',
     sections: [
       {
         title: 'November 2025: The Resignation',
@@ -835,13 +871,22 @@ He passed Bill C-220 (extension of bereavement leave) with all-party support and
     category: 'Accountability',
     tags: ['floor crossing', 'Michael Ma', 'accountability', 'Markham\u2013Unionville', 'Hansard'],
     readingTimeMinutes: 5,
-    keyTakeaways: [
-      'Dec 2, 2025: Ma rose in Parliament and called the Liberals "team asset inflation," "team rentier economy," and "team feudalism."',
-      'Dec 11, 2025 — nine days later — he crossed the floor to join the Liberals.',
-      'Ma has publicly admitted he was "truly a Conservative member" at the Conservative Christmas party the night before he crossed.',
-      'A constituent resignation petition has reportedly gathered ~37,000 signatures (CBC). Ma has not committed to a byelection.',
-      'Ma was first elected as a Conservative in April 2025 with 50.65% of the vote in Markham–Unionville, flipping the seat.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'On December 2, 2025, Conservative MP Michael Ma rose in the House and called the Liberals "team feudalism." Nine days later, he joined them.',
+      whyItMatters:
+        'The speech is in Hansard. The crossing is in the House record. Ma has publicly admitted he was "truly a Conservative" at the Conservative Christmas party the night before the crossing.',
+      goDeeper: [
+        'Dec 2: Ma called the Liberals "team asset inflation," "team rentier economy," and "team feudalism" in a Hansard speech.',
+        'Dec 11: Ma crossed to the Liberals.',
+        'A constituent resignation petition has reportedly gathered ~37,000 signatures (CBC).',
+        'Ma flipped Markham\u2013Unionville with 50.65% as a Conservative in April 2025.',
+      ],
+      bottomLine:
+        'Ma has not committed to a byelection.',
+    },
+    methodology:
+      'Dec 2 speech is sourced directly from Hansard and confirmed via video recording of the House. Floor-crossing confirmation from Globe and Mail and CBC. "Truly a Conservative" admission is from Ma\u2019s own remarks to reporters, reported by CBC. Petition-signature count is from CBC News reporting — we have not independently verified the signature log. Electoral result is from Elections Canada.',
     sections: [
       {
         title: 'December 2: "Team Feudalism"',
@@ -912,13 +957,22 @@ Background: Ma was born in Hong Kong, immigrated to Canada at age 12, and holds 
     category: 'Accountability',
     tags: ['floor crossing', 'Chris d\u2019Entremont', 'accountability', 'ethics commissioner', 'Acadie\u2013Annapolis'],
     readingTimeMinutes: 5,
-    keyTakeaways: [
-      'D\u2019Entremont won the April 2025 federal election by approximately 533 votes — the smallest margin in his federal career.',
-      'Crossed the floor on Nov 4, 2025 — the morning of the federal budget. He was the first Conservative to cross to the Carney Liberals.',
-      'Democracy Watch filed a formal complaint asking the Ethics Commissioner to examine whether the loss of his Deputy Speaker salary top-up created a financial motive.',
-      'The Ethics Commissioner declined to investigate; Democracy Watch said the Commissioner "rolled over like a lapdog."',
-      'D\u2019Entremont gave at least three different reasons for crossing in the first five days, one of which he had to retract after misleading a media outlet.',
-    ],
+    smartBrevity: {
+      bigThing:
+        'Chris d\u2019Entremont won Acadie\u2013Annapolis by 533 votes as a Conservative in April 2025. On budget day \u2014 six months later \u2014 he was the first Conservative to join Carney\u2019s Liberals.',
+      whyItMatters:
+        'The watchdog Democracy Watch filed a formal ethics complaint arguing the loss of his Deputy Speaker salary top-up was a financial motive. The Ethics Commissioner declined to investigate.',
+      goDeeper: [
+        'Nov 4, 2025 \u2014 federal budget morning \u2014 d\u2019Entremont announced the crossing.',
+        'He gave at least three different reasons for the move in the first five days; one of them had to be retracted after he misled a media outlet.',
+        'The Conflict of Interest Commissioner\u2019s response to the Democracy Watch complaint was to decline to investigate; Democracy Watch said the Commissioner "rolled over like a lapdog."',
+        'No byelection called.',
+      ],
+      bottomLine:
+        'The financial-motive question is now closed procedurally. It is not closed as a question.',
+    },
+    methodology:
+      'Electoral results from Elections Canada. Crossing timing and reasons cross-checked against CBC, CP wire, and the Halifax Chronicle-Herald coverage. Democracy Watch complaint quoted from the organization\u2019s November 2025 press release. Ethics Commissioner response documented via Democracy Watch follow-up statement. Deputy Speaker salary top-up value is from the Parliament of Canada member compensation schedule.',
     sections: [
       {
         title: 'The Crossing',

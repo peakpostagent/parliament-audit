@@ -1,12 +1,24 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { track } from '@/lib/analytics';
 
 interface Props {
   source?: string;
 }
 
 export function SubscribeForm({ source = 'subscribe-page' }: Props) {
+  // Capture Builder-tier intent from query params (e.g. from /support → /subscribe?intent=builder&tier=founding)
+  const searchParams = useSearchParams();
+  const intent = searchParams?.get('intent') ?? null;
+  const tier = searchParams?.get('tier') ?? null;
+
+  useEffect(() => {
+    if (intent === 'builder' && tier) {
+      track('builder-intent', { tier });
+    }
+  }, [intent, tier]);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +44,7 @@ export function SubscribeForm({ source = 'subscribe-page' }: Props) {
           prefAllVotes,
           prefBillsOnly,
           prefWeeklyDigest,
-          source,
+          source: intent === 'builder' && tier ? `builder-waitlist:${tier}` : source,
         }),
       });
 
@@ -42,6 +54,14 @@ export function SubscribeForm({ source = 'subscribe-page' }: Props) {
         setError(data.error || 'Something went wrong. Please try again.');
         return;
       }
+
+      track('newsletter-subscribed', {
+        source,
+        prefAllVotes,
+        prefBillsOnly,
+        prefWeeklyDigest,
+        builderTier: intent === 'builder' ? tier ?? 'unknown' : 'none',
+      });
 
       setMessage(data.message || 'You\'re subscribed!');
       setSubmitted(true);

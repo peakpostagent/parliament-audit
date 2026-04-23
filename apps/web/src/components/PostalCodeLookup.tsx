@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
+import { track } from '@/lib/analytics';
 
 interface Representative {
   name: string;
@@ -43,10 +44,16 @@ export function PostalCodeLookup() {
 
       if (!res.ok) {
         setResult({ mp: null, senators: [], error: data.error || 'Something went wrong. Please try again.' });
+        track('find-my-mp-submitted', { result: 'error', postalPrefix: cleaned.slice(0, 3) });
         return;
       }
 
       setResult(data);
+      track('find-my-mp-submitted', {
+        result: 'success',
+        postalPrefix: cleaned.slice(0, 3),
+        mpParty: data.mp?.party_name ?? 'unknown',
+      });
     } catch {
       setResult({ mp: null, senators: [], error: 'Could not connect to the lookup service. Please try again later.' });
     } finally {
