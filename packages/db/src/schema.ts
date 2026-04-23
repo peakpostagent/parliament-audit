@@ -218,6 +218,19 @@ export const subscribers = pgTable('subscribers', {
   // Source attribution
   signupSource: text('signup_source'), // e.g. 'homepage', 'subscribe-page', 'find-your-mp'
 
+  // Supporter ("Parliament Audit Builders") tier
+  // Null until the reader upgrades — keeps this table a single source
+  // of truth for both free subs and Builders without a separate model.
+  supporterTier: text('supporter_tier'), // 'supporter' (monthly) | 'builder' (annual) | 'founding' (one-time)
+  supporterStartedAt: timestamp('supporter_started_at', { withTimezone: true }),
+  supporterCancelledAt: timestamp('supporter_cancelled_at', { withTimezone: true }),
+  supporterStripeCustomerId: text('supporter_stripe_customer_id'),
+  supporterStripeSubscriptionId: text('supporter_stripe_subscription_id'),
+  /** Whether they've opted into the public supporter wall. Default opt-OUT. */
+  supporterDisplayPublicly: boolean('supporter_display_publicly').notNull().default(false),
+  /** Optional display name — when null and displayPublicly=true, we show "Builder in <city>". */
+  supporterDisplayName: text('supporter_display_name'),
+
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });

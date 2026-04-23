@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: '/about', label: 'About' },
   { href: '/methodology', label: 'Methodology' },
   { href: '/glossary', label: 'Glossary' },
+  { href: '/support', label: 'Support' },
   { href: '/subscribe', label: 'Subscribe' },
 ];
 

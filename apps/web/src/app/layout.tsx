@@ -90,6 +90,7 @@ function Header() {
           <Link href="/find-your-mp" className="hover:text-red-400 transition-colors">Find Your MP</Link>
           <Link href="/about" className="hover:text-red-400 transition-colors">About</Link>
           <Link href="/methodology" className="hover:text-red-400 transition-colors">Methodology</Link>
+          <Link href="/support" className="hover:text-red-400 transition-colors">Support</Link>
           <Link href="/subscribe" className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-medium transition-colors">Subscribe</Link>
         </nav>
         <MobileNav />
@@ -119,6 +120,7 @@ function Footer() {
               <li><Link href="/corrections" className="hover:text-red-600">Corrections</Link></li>
               <li><Link href="/glossary" className="hover:text-red-600">Glossary</Link></li>
               <li><Link href="/republish" className="hover:text-red-600">Republish</Link></li>
+              <li><Link href="/support" className="hover:text-red-600">Support us</Link></li>
             </ul>
           </div>
           <div>
