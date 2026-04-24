@@ -36,3 +36,9 @@ coverage/
 # TypeScript build info
 *.tsbuildinfo
 .browser-profile/
+
+# Umami deploy secrets
+.umami-creds.json
+
+# Social-brief state (per-machine; tracks what URIs we've replied to)
+content/social-briefs/.state.json
