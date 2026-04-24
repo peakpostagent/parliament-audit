@@ -43,6 +43,15 @@ const FILE_OVERRIDE = (() => {
   return i !== -1 ? args[i + 1] : null;
 })();
 
+/**
+ * Daily-cap safety rail. Any real human reviewing 15 candidates is unlikely
+ * to want >12 items shipped in a single day — if they did it's usually a
+ * misplaced [x] approval or over-enthusiasm that will make @ParliamentAudit
+ * look like a bot. Hard ceiling, overridable with --no-cap for the rare
+ * case where you actually want to blast (e.g. a budget-day live thread).
+ */
+const DAILY_CAP = args.includes('--no-cap') ? Infinity : 12;
+
 const ROOT = process.cwd();
 const BRIEFS_DIR = resolve(ROOT, 'content/social-briefs');
 const EXECUTED_DIR = join(BRIEFS_DIR, 'executed');
@@ -244,6 +253,19 @@ async function main() {
     console.log(
       `  - ${it.action.padEnd(12)} @${it.authorHandle ?? '?'.padEnd(20)}  ${preview}…`,
     );
+  }
+
+  if (items.length > DAILY_CAP) {
+    console.error(
+      `\n[execute] ABORT: ${items.length} approvals exceeds the daily cap of ${DAILY_CAP}.`,
+    );
+    console.error(
+      '  A real reader is unlikely to want that many posts from us in one day.',
+    );
+    console.error('  Either:');
+    console.error('    - Uncheck some approvals in the brief and re-run, OR');
+    console.error('    - Pass --no-cap to override (e.g. for a budget-day live thread).');
+    process.exit(1);
   }
 
   if (!APPLY) {
