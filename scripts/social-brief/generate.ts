@@ -224,7 +224,26 @@ function extractFacts(
     text.matchAll(/\bbill\s+([CSBc][-\s]?\d{1,3}[A-Za-z]?)\b/gi),
   );
   const bills = [...new Set(billMatches.map((m) => `C-${m[1].replace(/^[CSBc][-\s]?/, '')}`))];
-  const voteMatches = text.match(/\b\d+[–-]\d+\b/g) || [];
+
+  // Vote-split detection: "186-137" etc. We need to exclude false positives
+  // from dates ("April 21-22"), poll periods ("21-22"), and small paired
+  // numbers. Rules: (a) at least one side must be >= 30 (any real HoC vote
+  // has more MPs than that on at least one side); (b) reject if preceded
+  // by a month word.
+  const voteMatchesRaw = Array.from(text.matchAll(/\b(\d+)[–-](\d+)\b/g));
+  const monthBefore = /(?:january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sept?|oct|nov|dec)\s+$/i;
+  const voteMatches: string[] = [];
+  for (const m of voteMatchesRaw) {
+    const idx = m.index ?? 0;
+    const left = text.slice(Math.max(0, idx - 20), idx);
+    if (monthBefore.test(left)) continue;
+    const [, aStr, bStr] = m;
+    const a = parseInt(aStr, 10);
+    const b = parseInt(bStr, 10);
+    if (Math.max(a, b) < 30) continue; // too small to be a HoC division
+    voteMatches.push(`${a}-${b}`);
+  }
+
   const mps: string[] = []; // a future pass can cross-reference our news-articles tags
   return { billMentions: bills, mpMentions: mps, voteMentions: voteMatches };
 }

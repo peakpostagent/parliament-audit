@@ -4,40 +4,40 @@
   "platform": "bluesky",
   "journalists": [
     { "handle": "justinling.bsky.social", "name": "Justin Ling", "outlet": "Freelance / CBC", "weight": 10, "notes": "Migrated from X. Vocal about migration. Amplify his parliamentary deep-dives." },
-    { "handle": "paulwellsinc.bsky.social", "name": "Paul Wells", "outlet": "Substack / former Maclean's", "weight": 9, "resolveable": true },
-    { "handle": "aaronwherry.bsky.social", "name": "Aaron Wherry", "outlet": "CBC Politics", "weight": 9, "resolveable": true },
-    { "handle": "althiaraj.bsky.social", "name": "Althia Raj", "outlet": "CBC / Toronto Star", "weight": 9, "resolveable": true },
-    { "handle": "rosiebarton.bsky.social", "name": "Rosemary Barton", "outlet": "CBC", "weight": 8, "resolveable": true },
-    { "handle": "chantalhebert.bsky.social", "name": "Chantal Hébert", "outlet": "Toronto Star / French press", "weight": 9, "resolveable": true },
-    { "handle": "338canada.bsky.social", "name": "Philippe J. Fournier", "outlet": "338Canada", "weight": 10, "resolveable": true, "notes": "Canadian electoral projection, very active, non-partisan model" },
-    { "handle": "davidakin.bsky.social", "name": "David Akin", "outlet": "Global News", "weight": 8, "resolveable": true },
-    { "handle": "jesse-brown.bsky.social", "name": "Jesse Brown", "outlet": "Canadaland", "weight": 8, "resolveable": true, "notes": "Media criticism leader — relevant to our Press Review column" },
-    { "handle": "stpheathen.bsky.social", "name": "Stephen Maher", "outlet": "Maclean's", "weight": 7, "resolveable": true },
-    { "handle": "jenstgerman.bsky.social", "name": "Jen Gerson", "outlet": "The Line", "weight": 7, "resolveable": true },
-    { "handle": "mattgurney.bsky.social", "name": "Matt Gurney", "outlet": "The Line", "weight": 7, "resolveable": true }
+    { "handle": "paulwellsinc.bsky.social", "name": "Paul Wells", "outlet": "Substack / former Maclean's", "weight": 9, "resolveable": true, "notes": "Handle not resolving on Bluesky; may not be there yet." },
+    { "handle": "aaronwherry.bsky.social", "name": "Aaron Wherry", "outlet": "CBC Politics", "weight": 9 },
+    { "handle": "althiaraj.bsky.social", "name": "Althia Raj", "outlet": "CBC / Toronto Star", "weight": 9 },
+    { "handle": "rosiebarton.bsky.social", "name": "Rosemary Barton", "outlet": "CBC", "weight": 8 },
+    { "handle": "chebert18.bsky.social", "name": "Chantal Hébert", "outlet": "Toronto Star / CBC At Issue", "weight": 9, "notes": "Confirmed 2026-04-24 via search. Bio: Journaliste politique/CBC At Issue/Les Coulisses du pouvoir" },
+    { "handle": "338canada.bsky.social", "name": "Philippe J. Fournier", "outlet": "338Canada", "weight": 10, "notes": "Canadian electoral projection, very active, non-partisan model" },
+    { "handle": "davidakin.bsky.social", "name": "David Akin", "outlet": "Global News", "weight": 8 },
+    { "handle": "jesse-brown.bsky.social", "name": "Jesse Brown", "outlet": "Canadaland", "weight": 8, "notes": "Media criticism leader — relevant to our Press Review column" },
+    { "handle": "stephenmaher.bsky.social", "name": "Stephen Maher", "outlet": "Maclean's", "weight": 7, "notes": "Confirmed 2026-04-24 via search. Bio: Journalist, novelist. Nova Scotian." },
+    { "handle": "jenstgerman.bsky.social", "name": "Jen Gerson", "outlet": "The Line", "weight": 7, "resolveable": true, "notes": "Not found on Bluesky as of 2026-04-24 search; may not be there yet." },
+    { "handle": "mattgurney.bsky.social", "name": "Matt Gurney", "outlet": "The Line", "weight": 7 }
   ],
   "mps_leaders": [
-    { "handle": "markcarney.bsky.social", "name": "Mark Carney", "party": "LPC", "weight": 8, "resolveable": true, "notes": "PM; factual amplification of government statements only" },
-    { "handle": "pierrepoilievre.bsky.social", "name": "Pierre Poilievre", "party": "CPC", "weight": 8, "resolveable": true },
-    { "handle": "jagmeetsingh.bsky.social", "name": "Jagmeet Singh", "party": "NDP", "weight": 7, "resolveable": true },
-    { "handle": "yfblanchet.bsky.social", "name": "Yves-François Blanchet", "party": "BQ", "weight": 6, "resolveable": true }
+    { "handle": "markcarney.bsky.social", "name": "Mark Carney", "party": "LPC", "weight": 8, "notes": "PM; factual amplification of government statements only" },
+    { "handle": "pierrepoilievre.bsky.social", "name": "Pierre Poilievre", "party": "CPC", "weight": 8 },
+    { "handle": "jagmeetsingh.bsky.social", "name": "Jagmeet Singh", "party": "NDP", "weight": 7 },
+    { "handle": "yfblanchet.bsky.social", "name": "Yves-François Blanchet", "party": "BQ", "weight": 6 }
   ],
   "parties": [
-    { "handle": "liberal.bsky.social", "name": "Liberal Party of Canada", "party": "LPC", "weight": 5, "resolveable": true },
-    { "handle": "cpc-pcc.bsky.social", "name": "Conservative Party of Canada", "party": "CPC", "weight": 5, "resolveable": true },
-    { "handle": "ndp.bsky.social", "name": "New Democratic Party", "party": "NDP", "weight": 5, "resolveable": true },
-    { "handle": "blocquebecois.bsky.social", "name": "Bloc Québécois", "party": "BQ", "weight": 5, "resolveable": true },
-    { "handle": "greenpartyofcanada.bsky.social", "name": "Green Party of Canada", "party": "GPC", "weight": 5, "resolveable": true }
+    { "handle": "liberal.bsky.social", "name": "Liberal Party of Canada", "party": "LPC", "weight": 5 },
+    { "handle": "cpc-pcc.bsky.social", "name": "Conservative Party of Canada", "party": "CPC", "weight": 5, "resolveable": true, "notes": "Official CPC account not found on Bluesky 2026-04-24; squatter at @cpc-hq.bsky.social — do not follow. Leaving speculative until real account emerges." },
+    { "handle": "ndp.bsky.social", "name": "New Democratic Party", "party": "NDP", "weight": 5 },
+    { "handle": "blocquebecois.bsky.social", "name": "Bloc Québécois", "party": "BQ", "weight": 5 },
+    { "handle": "canadiangreens.bsky.social", "name": "Green Party of Canada", "party": "GPC", "weight": 5, "notes": "Confirmed 2026-04-24. Bio: Official page of the GPC | A voice for the voiceless." }
   ],
   "advocacy_watchdogs": [
-    { "handle": "democracywatch.bsky.social", "name": "Democracy Watch", "weight": 8, "resolveable": true, "notes": "Cited in our d'Entremont piece" },
-    { "handle": "ctffca.bsky.social", "name": "Canadian Taxpayers Federation", "weight": 7, "resolveable": true },
-    { "handle": "policyalternatives.bsky.social", "name": "CCPA", "weight": 7, "resolveable": true },
-    { "handle": "fraserinstitute.bsky.social", "name": "Fraser Institute", "weight": 6, "resolveable": true }
+    { "handle": "democracywatch.bsky.social", "name": "Democracy Watch", "weight": 8, "notes": "Cited in our d'Entremont piece" },
+    { "handle": "ctffca.bsky.social", "name": "Canadian Taxpayers Federation", "weight": 7, "resolveable": true, "notes": "Not found on Bluesky as of 2026-04-24 search." },
+    { "handle": "policyalternatives.ca", "name": "CCPA", "weight": 7, "notes": "Confirmed 2026-04-24. Bio: CCPA — Canadian Centre for Policy Alternatives. Canada's leading progressive policy research institute." },
+    { "handle": "fraserinstitute.bsky.social", "name": "Fraser Institute", "weight": 6, "resolveable": true, "notes": "Not found on Bluesky as of 2026-04-24 search." }
   ],
   "primary_sources": [
-    { "handle": "ourcommons.bsky.social", "name": "House of Commons (unofficial?)", "weight": 10, "resolveable": true, "notes": "Confirm this is official. If not, use RSS from ourcommons.ca instead." },
-    { "handle": "parl-canada.bsky.social", "name": "Parliament of Canada", "weight": 10, "resolveable": true }
+    { "handle": "ourcommons.bsky.social", "name": "House of Commons", "weight": 10, "notes": "Confirm this is official. If not, fall back to RSS from ourcommons.ca." },
+    { "handle": "parl-canada.bsky.social", "name": "Parliament of Canada", "weight": 10, "resolveable": true, "notes": "Official account not found on Bluesky as of 2026-04-24. Leaving speculative." }
   ],
   "hashtags": ["cdnpoli", "hoc", "cdnmedia", "cdnjourno"],
   "keywords_positive": [
