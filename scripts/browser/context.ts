@@ -63,14 +63,20 @@ export async function isLoggedIn(
     return composerCount > 0 && signupHeader === 0;
   }
   if (host === 'bluesky') {
-    await page.goto('https://bsky.app/', { waitUntil: 'load', timeout: 15000 });
-    await page.waitForTimeout(2000);
-    // Logged-in: "New post" button in sidebar OR avatar in top right
-    const newPostBtn = await page
-      .locator('button:has-text("New post"), a[aria-label="New post"]')
+    // Bluesky persists its session in IndexedDB, not cookies or localStorage,
+    // so check via a route that redirects unauthenticated users. /messages
+    // bounces to /login if not signed in; stays on /messages if you are.
+    await page.goto('https://bsky.app/messages', {
+      waitUntil: 'load',
+      timeout: 20000,
+    });
+    await page.waitForTimeout(2500);
+    const url = page.url();
+    // Also confirm no "Sign in" link is visible anywhere on the page.
+    const signInCount = await page
+      .locator('a[href="/signin"], a[href="/signup"]')
       .count();
-    const signInBtn = await page.locator('a[href="/signin"], text=/Sign in$/i').count();
-    return newPostBtn > 0 && signInBtn === 0;
+    return !/\/login|\/signin/i.test(url) && signInCount === 0;
   }
   return false;
 }
