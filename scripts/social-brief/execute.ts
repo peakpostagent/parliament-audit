@@ -38,10 +38,20 @@ import { resolve, join } from 'node:path';
 
 const args = process.argv.slice(2);
 const APPLY = args.includes('--apply');
+const AUTO = args.includes('--auto');
+const NOTIFY = args.includes('--notify') || AUTO; // --auto implies --notify
 const FILE_OVERRIDE = (() => {
   const i = args.indexOf('--file');
   return i !== -1 ? args[i + 1] : null;
 })();
+
+/**
+ * Auto-mode caps. Tighter than --apply mode because these posts have not
+ * been seen by a human before they go live. We pick top reposts only;
+ * replies stay gated on edits because their drafts contain placeholder
+ * markers that must not be posted verbatim.
+ */
+const AUTO_REPOST_CAP = 6;
 
 /**
  * Daily-cap safety rail. Any real human reviewing 15 candidates is unlikely
@@ -51,6 +61,27 @@ const FILE_OVERRIDE = (() => {
  * case where you actually want to blast (e.g. a budget-day live thread).
  */
 const DAILY_CAP = args.includes('--no-cap') ? Infinity : 12;
+
+const NTFY_TOPIC = process.env.NTFY_TOPIC || 'parliamentaudit-posts';
+
+async function notify(title: string, message: string, opts: { tag?: string; click?: string } = {}) {
+  if (!NOTIFY) return;
+  try {
+    const headers: Record<string, string> = {
+      Title: title,
+      Priority: '3',
+    };
+    if (opts.tag) headers.Tags = opts.tag;
+    if (opts.click) headers.Click = opts.click;
+    await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      method: 'POST',
+      headers,
+      body: message,
+    });
+  } catch {
+    // Telemetry must not break the run.
+  }
+}
 
 const ROOT = process.cwd();
 const BRIEFS_DIR = resolve(ROOT, 'content/social-briefs');
@@ -107,7 +138,7 @@ function pickLatestBrief(): string | null {
   return join(BRIEFS_DIR, candidates[0]);
 }
 
-function parseBrief(path: string): Item[] {
+function parseBrief(path: string, autoMode: boolean): Item[] {
   const content = readFileSync(path, 'utf8');
   // Split on '---' separators but keep the prelude for context
   const sections = content.split(/\n---\n/);
@@ -131,21 +162,44 @@ function parseBrief(path: string): Item[] {
     const cid = section.match(/cid:\s*(bafy[a-z0-9]+)/)?.[1];
     const authorHandle = section.match(/—\s*@([a-z0-9.-]+)\s/i)?.[1];
 
-    const approveBox = /\n- \[x\] APPROVE\s*\n/i.test(section);
-    const approveEditsBox = /\n- \[x\] APPROVE WITH EDITS\s*\n/i.test(section);
-    const rejectBox = /\n- \[x\] REJECT\s*\n/i.test(section);
-
-    if (rejectBox) continue;
-
-    const approved = approveBox || approveEditsBox;
-    if (!approved) continue;
-
-    // Extract the edited text from the draft code block
+    // Extract the edited text from the draft code block (if present)
     let editedText: string | undefined;
     const codeBlockMatch = section.match(/```\n([\s\S]*?)\n```/);
     if (codeBlockMatch) {
       editedText = codeBlockMatch[1].trim();
     }
+
+    if (autoMode) {
+      // Auto-mode selection rules:
+      //   1. Reposts: always select. We add no text — just amplify.
+      //   2. Replies / quote-tweets: skip if draft contains placeholder
+      //      markers ([ADD FACTUAL NOTE], [SLUG]) — those are explicit
+      //      signals the draft isn't postable yet.
+      if (action === 'reply' || action === 'quote-tweet') {
+        if (!editedText || /\[ADD FACTUAL NOTE|\[SLUG\]/i.test(editedText)) {
+          continue; // Not safe to auto-ship without human edit
+        }
+      }
+      items.push({
+        heading: head[0],
+        action,
+        approved: true,
+        editedText,
+        originalUri: uri,
+        originalCid: cid,
+        authorHandle,
+      });
+      continue;
+    }
+
+    // Human-approval mode: parse checkboxes
+    const approveBox = /\n- \[x\] APPROVE\s*\n/i.test(section);
+    const approveEditsBox = /\n- \[x\] APPROVE WITH EDITS\s*\n/i.test(section);
+    const rejectBox = /\n- \[x\] REJECT\s*\n/i.test(section);
+
+    if (rejectBox) continue;
+    const approved = approveBox || approveEditsBox;
+    if (!approved) continue;
 
     items.push({
       heading: head[0],
@@ -240,10 +294,31 @@ async function main() {
     process.exit(1);
   }
   console.log(`[execute] Reading ${briefPath}`);
+  if (AUTO) {
+    console.log('[execute] AUTO MODE — no human approval required.');
+    console.log('  Reposts: auto-selected (top ' + AUTO_REPOST_CAP + ').');
+    console.log('  Replies with placeholders: skipped (need editing).');
+    console.log('  Notifications: ntfy.sh/' + NTFY_TOPIC);
+  }
 
-  const items = parseBrief(briefPath);
+  let items = parseBrief(briefPath, AUTO);
+
+  // In auto mode, cap reposts (replies are already filtered to safe ones)
+  if (AUTO) {
+    const reposts = items.filter((it) => it.action === 'repost').slice(0, AUTO_REPOST_CAP);
+    const others = items.filter((it) => it.action !== 'repost');
+    items = [...reposts, ...others];
+  }
+
   if (items.length === 0) {
-    console.log('[execute] No approved items in this brief. Nothing to do.');
+    console.log('[execute] No items to process in this brief.');
+    if (AUTO) {
+      await notify(
+        'Parliament Audit — auto-run',
+        'Daily auto-run completed: 0 posts. (Either no candidates or all reply drafts had placeholders.)',
+        { tag: 'inbox_tray' },
+      );
+    }
     process.exit(0);
   }
 
@@ -268,9 +343,10 @@ async function main() {
     process.exit(1);
   }
 
-  if (!APPLY) {
+  if (!APPLY && !AUTO) {
     console.log('\n[execute] --apply not passed. Dry run complete. No posts sent.');
     console.log('[execute] To actually post: npx tsx scripts/social-brief/execute.ts --apply');
+    console.log('[execute] Or auto-mode: npx tsx scripts/social-brief/execute.ts --auto');
     return;
   }
 
@@ -298,6 +374,7 @@ async function main() {
     saveState(state);
 
     try {
+      let postUri: string | undefined;
       if (it.action === 'reply') {
         const text = it.editedText || '';
         if (!text || text.includes('[ADD FACTUAL NOTE') || text.includes('[SLUG]')) {
@@ -308,19 +385,49 @@ async function main() {
         if (text.length > 300) {
           throw new Error(`Reply exceeds Bluesky 300-char limit (${text.length} chars)`);
         }
-        await postReply(agent, text, it.originalUri, it.originalCid);
+        const res = await postReply(agent, text, it.originalUri, it.originalCid);
+        postUri = (res as any).uri;
       } else if (it.action === 'repost') {
         await repost(agent, it.originalUri, it.originalCid);
+        postUri = it.originalUri; // For ntfy click-through, link to the original
       } else if (it.action === 'quote-tweet') {
         const text = it.editedText || '';
         if (!text) throw new Error('Quote-tweet has no draft text');
         if (text.length > 300) throw new Error(`Quote-tweet exceeds 300 chars (${text.length})`);
-        await quotePost(agent, text, it.originalUri, it.originalCid);
+        const res = await quotePost(agent, text, it.originalUri, it.originalCid);
+        postUri = (res as any).uri;
       } else {
         throw new Error(`Unknown action: ${it.action}`);
       }
       console.log(`  [ok] ${it.action} → @${it.authorHandle}`);
       posted++;
+
+      // Per-post notification — link goes to the post for tap-to-review
+      const clickUrl = (() => {
+        if (it.action === 'repost' && it.authorHandle) {
+          // Reposts: link to the original we amplified
+          const rkey = (it.originalUri ?? '').split('/').pop();
+          return `https://bsky.app/profile/${it.authorHandle}/post/${rkey}`;
+        }
+        if (postUri) {
+          // Replies/quotes: link to OUR new post
+          const ourHandle = process.env.BLUESKY_HANDLE?.replace(/^@/, '');
+          const rkey = postUri.split('/').pop();
+          return `https://bsky.app/profile/${ourHandle}/post/${rkey}`;
+        }
+        return undefined;
+      })();
+
+      const previewText =
+        it.action === 'repost'
+          ? `Reposted @${it.authorHandle ?? '?'}`
+          : (it.editedText || '').slice(0, 140);
+
+      await notify(
+        `Parliament Audit posted: ${it.action}`,
+        `→ @${it.authorHandle ?? '?'}\n${previewText}`,
+        { tag: it.action === 'repost' ? 'loudspeaker' : 'speech_balloon', click: clickUrl },
+      );
     } catch (e: any) {
       // Roll back the state mark since this one failed
       state.executedPostUris = state.executedPostUris.filter((u) => u !== it.originalUri);
@@ -336,6 +443,21 @@ async function main() {
   saveState(state);
 
   console.log(`\n[execute] Done. Posted: ${posted}. Failed: ${failed}.`);
+
+  // Summary notification — landing page after the per-post pings
+  if (posted > 0 || failed > 0) {
+    const profileUrl = `https://bsky.app/profile/${process.env.BLUESKY_HANDLE?.replace(/^@/, '')}`;
+    const summaryLines = [
+      `Posted: ${posted}`,
+      failed > 0 ? `Failed: ${failed}` : null,
+      AUTO ? `Mode: auto (no human approval)` : `Mode: --apply`,
+    ].filter(Boolean);
+    await notify(
+      `Parliament Audit run complete (${posted} posts)`,
+      summaryLines.join('\n'),
+      { tag: posted > 0 ? 'white_check_mark' : 'warning', click: profileUrl },
+    );
+  }
 
   if (posted > 0) {
     // Archive the brief

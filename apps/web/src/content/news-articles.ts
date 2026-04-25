@@ -75,6 +75,29 @@ export interface NewsArticle {
     label: string;
     url: string;
   }[];
+  /**
+   * Optional "subjects" — two named individuals (or one named + one
+   * generic) whose juxtaposition is the story. When set, the social
+   * card uses the comparison-style OG template (split portrait, bold
+   * headline) instead of the default. Photos are pulled from
+   * ourcommons.ca (Crown copyright; non-commercial reproduction
+   * permitted with attribution) or Wikimedia Commons.
+   *
+   * Examples:
+   *   subjects: [
+   *     { name: 'Marilyn Gladu', role: 'Sarnia–Lambton MP', portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo', party: 'LPC' },
+   *     { name: 'Marilyn Gladu (Jan 11)', role: 'Then a Conservative', portraitUrl: 'same as above', party: 'CPC' }
+   *   ]
+   */
+  subjects?: Array<{
+    name: string;
+    role: string;
+    portraitUrl?: string;
+    /** Optional party tint applied behind the portrait. */
+    party?: 'LPC' | 'CPC' | 'NDP' | 'BQ' | 'GPC' | 'IND';
+    /** Optional caption shown under the portrait (e.g. "Then" / "Now"). */
+    caption?: string;
+  }>;
 }
 
 export const newsArticles: NewsArticle[] = [
@@ -901,6 +924,22 @@ Her notable legislative work as a Conservative includes Bill C-277 (the 2017 pal
       { label: 'Sarnia Journal — Gladu apologizes for COVID/polio comparison', url: 'https://www.thesarniajournal.ca/top-story/update-gladu-apologizes-for-remarks-dropped-from-tory-shadow-cabinet-7971815' },
       { label: 'House of Commons — Marilyn Gladu profile', url: 'https://www.ourcommons.ca/members/en/marilyn-gladu(88938)' },
     ],
+    subjects: [
+      {
+        name: 'Marilyn Gladu',
+        role: 'Sarnia–Lambton MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo',
+        party: 'CPC',
+        caption: 'Jan 11',
+      },
+      {
+        name: 'Marilyn Gladu',
+        role: 'Sarnia–Lambton MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo',
+        party: 'LPC',
+        caption: 'Apr 8',
+      },
+    ],
   },
   {
     slug: 'matt-jeneroux-resigned-then-crossed-floor',
@@ -976,6 +1015,22 @@ He passed Bill C-220 (extension of bereavement leave) with all-party support and
       { label: 'Global News — Jeneroux crosses floor to Liberals', url: 'https://globalnews.ca/news/11672379/matt-jeneroux-crosses-floor-liberals/' },
       { label: 'Global News — Carney, Jeneroux, India/Japan/Australia trip', url: 'https://globalnews.ca/news/11686665/mark-carney-matt-jeneroux-india-japan-australia-trip/' },
       { label: 'House of Commons — Matt Jeneroux profile', url: 'https://www.ourcommons.ca/members/en/matt-jeneroux(89167)' },
+    ],
+    subjects: [
+      {
+        name: 'Matt Jeneroux',
+        role: 'Edmonton Riverbend MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/matt-jeneroux(89167)/photo',
+        party: 'CPC',
+        caption: 'Nov 6 — Resigning',
+      },
+      {
+        name: 'Matt Jeneroux',
+        role: 'Edmonton Riverbend MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/matt-jeneroux(89167)/photo',
+        party: 'LPC',
+        caption: 'Feb 18 — Crossing',
+      },
     ],
   },
   {
@@ -1063,6 +1118,23 @@ Background: Ma was born in Hong Kong, immigrated to Canada at age 12, and holds 
       { label: 'The Bureau — coverage of Ma and PRC-linked associations (with caveats)', url: 'https://www.thebureau.news/p/exclusive-floor-crossing-mp-michael' },
       { label: 'Probe International — Ma at Industry Committee, McCuaig-Johnston testimony', url: 'https://journal.probeinternational.org/2026/03/27/liberal-mp-michael-ma-sparks-outrage-and-questions-of-ccp-influence-in-parliament/' },
     ],
+    subjects: [
+      {
+        name: 'Michael Ma',
+        role: 'Markham–Unionville MP',
+        // Portrait URL omitted — Ma's ourcommons member ID not yet verified.
+        // Falls back to "MM" initials in the OG card. Drop a portraitUrl in
+        // when the ID is confirmed.
+        party: 'CPC',
+        caption: 'Dec 2 — "Team Feudalism"',
+      },
+      {
+        name: 'Michael Ma',
+        role: 'Markham–Unionville MP',
+        party: 'LPC',
+        caption: 'Dec 11 — Crossed',
+      },
+    ],
   },
   {
     slug: 'chris-dentremont-deputy-speaker-ethics-complaint',
@@ -1144,6 +1216,22 @@ He was born in Yarmouth, Nova Scotia, and trained in radio broadcasting at Loyal
       { label: 'CTV — d\u2019Entremont on whether he\u2019ll run again', url: 'https://www.ctvnews.ca/politics/article/conservative-mps-absolutely-ask-about-experience-joining-liberal-caucus-floor-crosser-dentremont/' },
       { label: 'House of Commons — Chris d\u2019Entremont profile', url: 'https://www.ourcommons.ca/members/en/chris-dentremont(49344)' },
       { label: 'Liberal Party of Canada — statement on d\u2019Entremont joining caucus', url: 'https://liberal.ca/statement-from-mp-chris-dentremont/' },
+    ],
+    subjects: [
+      {
+        name: 'Chris d’Entremont',
+        role: 'Acadie–Annapolis MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/chris-dentremont(49344)/photo',
+        party: 'CPC',
+        caption: 'Won by 533',
+      },
+      {
+        name: 'Chris d’Entremont',
+        role: 'Acadie–Annapolis MP',
+        portraitUrl: 'https://www.ourcommons.ca/Members/en/chris-dentremont(49344)/photo',
+        party: 'LPC',
+        caption: 'Crossed Nov 4',
+      },
     ],
   },
 ];

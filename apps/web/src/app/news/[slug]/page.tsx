@@ -40,6 +40,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = getNewsArticle(slug);
   if (!article) return { title: 'Article Not Found' };
 
+  // Articles with two named subjects (floor-crossings, contradictions, before/
+  // after stories) get the split-portrait comparison card; others get the
+  // default headline-stat card.
+  const ogPath =
+    article.subjects && article.subjects.length >= 2
+      ? `/api/og/comparison?slug=${encodeURIComponent(article.slug)}`
+      : `/api/og/news/${article.slug}`;
+
   return {
     title: `${article.headline} — Parliament Audit`,
     description: article.summary,
@@ -51,7 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       publishedTime: article.publishedAt,
       images: [
         {
-          url: `/api/og/news/${article.slug}`,
+          url: ogPath,
           width: 1200,
           height: 630,
           alt: article.headline,
@@ -62,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: article.headline,
       description: article.summary,
-      images: [`/api/og/news/${article.slug}`],
+      images: [ogPath],
     },
   };
 }
