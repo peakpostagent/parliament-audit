@@ -42,3 +42,6 @@ coverage/
 
 # Social-brief state (per-machine; tracks what URIs we've replied to)
 content/social-briefs/.state.json
+
+# X mirror per-machine state
+content/social-briefs/.x-mirror-state.json
