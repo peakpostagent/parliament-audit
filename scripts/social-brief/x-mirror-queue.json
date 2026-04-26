@@ -1,0 +1,68 @@
+{
+  "_comment": "Hand-trimmed X versions of Bluesky originals from Apr 19-21 that were too long for X's 280-char limit. Built from content/social-briefs/x-mirror-blockers.json after de-duping against the 4 floor-crossing posts manually mirrored to X earlier today (Apr 26). Each entry: bskyUri (so we can mark as mirrored in state), text (≤255 chars so URL fits in remaining 25), slug (article URL). Run via mirror-queue-apply.ts.",
+  "_built": "2026-04-26",
+  "queue": [
+    {
+      "bskyUri": "Apr 19 — Bill C-9 vote split (will resolve at runtime via Bluesky search)",
+      "matchSubstring": "Bill C-9 passed the House 186",
+      "slug": "bill-c9-combatting-hate-act-religious-exemption",
+      "text": "Bill C-9 passed the House 186–137. Liberals + Bloc voted yes. Conservatives, NDP, and Greens voted no. The key issue: removing a decades-old religious speech defence."
+    },
+    {
+      "bskyUri": "Apr 21 — Bill C-12 public-interest visa cancellation",
+      "matchSubstring": "can now cancel permanent resident visas",
+      "slug": "bill-c12-immigration-reform-refugee-rights",
+      "text": "The government can now cancel permanent resident visas, work permits, and study permits if it's deemed in the \"public interest.\" That term is not defined in the law."
+    },
+    {
+      "bskyUri": "Apr 21 — Sarnia mayor + local CPC president call for Gladu byelection",
+      "matchSubstring": "Sarnia's mayor and the local CPC",
+      "slug": "marilyn-gladu-byelection-pledge-then-floor-cross",
+      "text": "Sarnia's mayor and the local Conservative riding association president have both publicly called for Marilyn Gladu to face a byelection — matching her own January stance.\n\nShe has not committed."
+    },
+    {
+      "bskyUri": "Apr 21 — d'Entremont 3 different reasons / one retracted",
+      "matchSubstring": "5 days after crossing the floor",
+      "slug": "chris-dentremont-deputy-speaker-ethics-complaint",
+      "text": "In the 5 days after crossing the floor, Chris d'Entremont gave at least 3 different reasons. One had to be retracted. One cited the federal budget — which hadn't been tabled yet."
+    },
+    {
+      "bskyUri": "Apr 21 — Ma \"truly a Conservative\" Christmas party quote",
+      "matchSubstring": "I attended the Conservative Christmas party",
+      "slug": "michael-ma-team-feudalism-then-team-liberal",
+      "text": "\"The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.\"\n\n— Michael Ma, on the morning he crossed to the Liberals."
+    },
+    {
+      "bskyUri": "Apr 21 — Jeneroux named Special Advisor + Carney trip",
+      "matchSubstring": "named Special Advisor to the PM",
+      "slug": "matt-jeneroux-resigned-then-crossed-floor",
+      "text": "Weeks after crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia."
+    }
+  ],
+  "skip_as_duplicate": [
+    {
+      "matchSubstring": "MP Marilyn Gladu said constituents \"deserve a chance to have a redo\"",
+      "reason": "Same Gladu Jan-11-quote angle as today's manual X post"
+    },
+    {
+      "matchSubstring": "called the Liberals \"team asset inflation,\"",
+      "reason": "Same Ma team-feudalism angle as today's manual X post"
+    },
+    {
+      "matchSubstring": "Bailey's Law would make killing an intimate partner",
+      "reason": "Bailey's Law (1st-degree murder framing) covered by today's manual X post"
+    },
+    {
+      "matchSubstring": "private member's bill",
+      "reason": "Bailey's Law (committee/PMB framing) covered by today's manual X post"
+    },
+    {
+      "matchSubstring": "won by 533 votes as a CPC in Apr 2025",
+      "reason": "Same d'Entremont 533-votes angle as today's manual X post"
+    },
+    {
+      "matchSubstring": "Nov 6, 2025: MP Matt Jeneroux announced he was resigning",
+      "reason": "Same Jeneroux resign-then-cross arc as today's manual X post"
+    }
+  ]
+}
