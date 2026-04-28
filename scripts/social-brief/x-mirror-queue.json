@@ -30,13 +30,18 @@
       "bskyUri": "Apr 21 — Ma \"truly a Conservative\" Christmas party quote",
       "matchSubstring": "I attended the Conservative Christmas party",
       "slug": "michael-ma-team-feudalism-then-team-liberal",
-      "text": "\"The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.\"\n\n— Michael Ma, on the morning he crossed to the Liberals."
+      "text": "\"The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.\"\n\n— Michael Ma, on the morning he crossed to the Liberals.",
+      "imageMode": "quote",
+      "imageQuote": "The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.",
+      "imageAttrib": "Michael Ma, the morning he crossed to the Liberals",
+      "imageContext": "Markham–Unionville MP. Crossed Dec 11, 2025 — 9 days after a Hansard speech calling the Liberals \"team feudalism.\""
     },
     {
       "bskyUri": "Apr 21 — Jeneroux named Special Advisor + Carney trip",
       "matchSubstring": "named Special Advisor to the PM",
       "slug": "matt-jeneroux-resigned-then-crossed-floor",
-      "text": "Weeks after crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia."
+      "text": "Weeks after crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia.",
+      "imageMode": "comparison"
     }
   ],
   "skip_as_duplicate": [

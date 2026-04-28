@@ -37,6 +37,18 @@ interface QueueEntry {
   matchSubstring: string;
   slug: string;
   text: string;
+  /**
+   * If set, /api/og/feed-card is rendered with this mode and attached
+   * to the X post directly (suppresses the wide link card). Modes:
+   *   stat       — hero-stat-dominant 1200×1200
+   *   comparison — split-portrait (subjects[] required on the article)
+   *   quote      — pull-quote treatment (imageQuote / imageAttrib / imageContext required)
+   *   headline   — fallback, headline-dominant
+   */
+  imageMode?: 'stat' | 'comparison' | 'quote' | 'headline';
+  imageQuote?: string;
+  imageAttrib?: string;
+  imageContext?: string;
 }
 interface SkipEntry {
   matchSubstring: string;
@@ -210,10 +222,25 @@ async function main() {
     console.log(`\n[queue] ${i + 1}/${toShip.length}  ${e.slug}`);
     try {
       const articleUrl = `https://parliamentaudit.ca/news/${e.slug}`;
+
+      // Build the feed-card image URL when imageMode is set.
+      let attachImage: string | undefined;
+      if (e.imageMode) {
+        const params = new URLSearchParams({ slug: e.slug, mode: e.imageMode });
+        if (e.imageMode === 'quote') {
+          if (e.imageQuote) params.set('q', e.imageQuote);
+          if (e.imageAttrib) params.set('attrib', e.imageAttrib);
+          if (e.imageContext) params.set('context', e.imageContext);
+        }
+        attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
+        console.log(`  [image] ${attachImage}`);
+      }
+
       const res = await postToX({
         text: e.text,
         url: articleUrl,
         utmCampaign: `mirror-${todayStamp()}`,
+        attachImage,
       });
       console.log(`  [ok] posted to X. ${res.profileUrl}`);
       state.mirrored[e.resolvedUri] = {
