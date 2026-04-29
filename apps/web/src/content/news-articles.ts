@@ -102,6 +102,175 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'prescribeit-298m-axe-the-fax-shutdown',
+    headline:
+      'Ottawa Spent $298M on PrescribeIT. Telus Kept 85% of the IP. The Service Shuts Down May 29.',
+    subheadline:
+      'After 10 years and roughly $290 million in federal spending on the national e-prescribing service, fewer than 5% of Canadian prescriptions ever moved through it. Conservative MPs have asked the Auditor General to investigate.',
+    summary:
+      'PrescribeIT, the federal e-prescribing service operated by Canada Health Infoway and built primarily by Telus Health, will go offline at 11:59 PM EST on May 29, 2026. Health Canada has acknowledged "more than $290 million" in federal spending on the program over 10 years; Conservative MPs use the rounded "$300 million" figure. Roughly $98 million of that flowed to Telus Health, which retained approximately 85% of the underlying intellectual property. Adoption never broke 5% of Canadian prescriptions. On April 27, 2026, four Conservative MPs on the House of Commons Health Committee — led by Conservative health critic Dan Mazier — formally asked the Auditor General to investigate. The Conservative Party stated that on the same day, "Liberal Members filibustered the health committee to block the release of those documents." Bloc Québécois MP Maxime Blanchette-Joncas endorsed the audit request. Health Canada told the committee that detailed PrescribeIT spending is not centrally tracked.',
+    publishedAt: '2026-04-29T08:00:00-04:00',
+    category: 'Accountability',
+    tags: [
+      'PrescribeIT',
+      'accountability',
+      'Canada Health Infoway',
+      'Telus Health',
+      'Auditor General',
+      'health',
+      'e-prescribing',
+    ],
+    readingTimeMinutes: 6,
+    smartBrevity: {
+      bigThing:
+        'Ottawa spent more than $290M on PrescribeIT. Telus kept 85% of the IP. The service shuts down May 29.',
+      whyItMatters:
+        'Health Canada says the spending is not centrally tracked. On April 27, Conservative MPs asked the Auditor General to investigate. The Conservative Party says Liberal MPs filibustered a committee vote that would have released the program’s contribution agreements.',
+      goDeeper: [
+        'Initial budget (2016): $40M. Total federal spend acknowledged: more than $290M.',
+        'Adoption: fewer than 5% of Canadian prescriptions ever flowed through the system after 10 years.',
+        'Telus Health was paid roughly $98M and retained ~85% of the underlying IP.',
+        'Canada Health Infoway CEO Michael Green declined to disclose his salary when asked at the Health Committee.',
+      ],
+      yesBut:
+        'The Auditor General has not yet committed to opening an investigation. The full text of the Conservative MPs’ letter has not been released. Liberal MPs have not publicly characterized their April 27 procedural conduct as a filibuster.',
+      bottomLine:
+        'Most prescriptions in Canada in 2026 are still sent by fax or paper. Ottawa funded the build, the vendor owns the asset, and Health Canada cannot say where most of the money went.',
+    },
+    methodology:
+      'Spending figures sourced to Health Canada (via Globe and Mail reporting, April 21–22, 2026), to Conservative MP Dan Mazier’s April 27 audit request, and to Canada Health Infoway’s own February 18, 2026 shutdown announcement. The "more than $290 million" figure is Health Canada’s; the rounded "$300 million" framing is Mazier’s. Telus Health\'s ~$98M revenue figure and ~85% IP retention are reported in the Globe and Mail (Feb 10–12, 2026 and Apr 21–22 follow-up). Committee testimony from Canada Health Infoway CEO Michael Green is from House of Commons Health Committee (HESA) Meeting 29, April 21–22, 2026, held in public and webcast. The filibuster claim is attributed to a Conservative Party of Canada press release dated April 27, 2026 — Liberal members of the committee have not publicly characterized their conduct as a filibuster, and HESA Meeting 31 (April 28, 2026) was a Standing Order 106(4) opposition-requested meeting that was televised, not held in camera. We have not seen the text of the Conservative MPs’ formal letter to the Auditor General; only the April 27 press conference and the news coverage that followed. The NDP has not put a position on the record in available reporting. We did not interview Canada Health Infoway, Telus Health, or the Office of the Minister of Health for this piece.',
+    keyTakeaways: [
+      'PrescribeIT shuts down 11:59 PM EST on May 29, 2026 — announced February 18 by Canada Health Infoway.',
+      'Total federal spending: "more than $290 million" (Health Canada). Conservative framing rounds to "$300 million."',
+      'Telus Health was paid roughly $98 million and kept ~85% of the program’s intellectual property.',
+      'Conservative MPs Mazier, Bailey, Konanz, and Strauss requested an Auditor General investigation on April 27. Bloc MP Blanchette-Joncas endorsed the request.',
+      'The Conservative Party says Liberal members filibustered a Health Committee motion that would have released PrescribeIT’s contribution agreements.',
+      'Health Canada told the Health Committee that PrescribeIT spending "is not centrally tracked."',
+    ],
+    sections: [
+      {
+        title: 'The numbers',
+        body: `PrescribeIT was announced in 2016 with a federal budget of $40 million. By the time Canada Health Infoway announced the shutdown on February 18, 2026, Health Canada had acknowledged "more than $290 million" in federal spending across the program’s 10-year run — a figure first reported by the Globe and Mail and confirmed in Conservative MP Dan Mazier’s April 27 audit request, which used the figure $298 million.
+
+Conservative messaging has rounded that to "$300 million." That framing has propagated into outlet headlines at CBC, BNN Bloomberg, and The Deep Dive over the last 24 hours. The "more than $290 million" figure is the conservative-with-a-small-c version, and is the one Health Canada itself has used.
+
+Of the total, roughly $98 million is reported to have flowed to Telus Health — a subsidiary of Telus Corp. and the program’s primary technology vendor. Telus retained approximately 85% of the underlying intellectual property. The federal government holds no IP in the platform it funded.
+
+Recent annual operating cost was approximately $35 million. In 2025, when federal funding was cut, Canada Health Infoway introduced a $0.20-per-prescription fee charged to pharmacists. Some pharmacies abandoned the service in response.`,
+      },
+      {
+        title: 'Why it failed',
+        body: `Adoption never broke 5%. Despite onboarding chains as large as Shoppers Drug Mart, Metro Ontario, and Walmart, fewer than 5 in every 100 prescriptions in Canada in any given year were transmitted through PrescribeIT. The vast majority continued to be sent by fax or paper, including in 2026.
+
+In testimony to the House of Commons Health Committee on April 21–22, 2026, Canada Health Infoway CEO Michael Green told MPs the cause was multi-factor: "The ease of adoption by primary care physicians and prescribers was lower than expected." Glen Doucet, CEO of the Canadian Pharmacists Association, told the committee that the program needed "more of a carrot than a stick" — a reference to the $0.20-per-prescription fee that pharmacists were charged after federal funding was cut.
+
+Health Minister Marjorie Michel’s office, through spokesperson Guillaume Bertrand, has cited the absence of a federal-provincial-territorial cost-sharing agreement as the deciding factor. Provinces and territories declined to share the program’s operating costs. Without an FPT funding model, Infoway could not sustain the system on federal funding alone.
+
+In the same April 21–22 hearing, Liberal committee members — including former Health Committee chair Hedy Fry and MP Doug Eyolfson — asked diagnostic questions about why physicians did not adopt the system and what problems had been identified. Conservative MP Helena Konanz asked Green what his salary was; Green declined to answer.`,
+      },
+      {
+        title: 'The Telus question',
+        body: `The Conservative audit request, filed by Mazier and three other Health Committee members on April 27, focuses partly on the relationship between the federal government, Canada Health Infoway, and Telus Health.
+
+Telus Health, through approximately 50 employees assigned to the program, designed and built the PrescribeIT platform. Globe and Mail reporting puts Telus’s revenue from the project at roughly $98 million since 2017. The vendor retained approximately 85% of the underlying intellectual property.
+
+When the program shuts down on May 29, the federal government will have funded the construction of a system whose intellectual asset is owned by a private vendor. The Conservative MPs have asked the Auditor General to examine whether the federal investment achieved value for money under that structure.
+
+Mazier, framing the file at his April 27 press conference: "So what did Canadians get for their $300 million? Well, that’s the $300-million question." Separately: "The $300-million question is simple: Who got rich?"
+
+Bloc Québécois MP Maxime Blanchette-Joncas endorsed the call for an Auditor General investigation. The NDP has not yet publicly stated a position. The Auditor General’s office has not, as of publication, committed to opening a probe.`,
+      },
+      {
+        title: 'The committee, the documents, and the filibuster',
+        body: `On April 27, 2026, the same day Conservative MPs sent the Auditor General request, the Conservative Party of Canada issued a statement saying Liberal members of the House of Commons Health Committee had filibustered a motion that would have required Canada Health Infoway to release its PrescribeIT contribution agreements and performance documents.
+
+The Conservative wording: "Instead of allowing a vote, Liberal Members filibustered the health committee to block the release of those documents."
+
+Liberal members of the committee have not publicly characterized their April 27 conduct as a filibuster. Parliament Audit has not seen the committee transcript for that day; HESA Meeting 30 minutes had not been published as of the morning this article went up. The Conservative claim is in the public record via party press release; no Liberal counter-statement has yet been published.
+
+On April 28, 2026, the Health Committee held Meeting 31, a Standing Order 106(4) opposition-requested meeting whose agenda items were "Election of Chair" and discussion of the PrescribeIT investigation. The meeting was televised. The Liberals\' new House majority — secured in early April after four Conservative floor crossings — translates to expanded committee majorities, including the chair election that took place at the April 28 meeting.
+
+Conservative MP Helena Konanz also asked Canada Health Infoway CEO Michael Green during his April 21–22 testimony what his salary was. Green declined to answer.`,
+      },
+      {
+        title: 'What happens next',
+        body: `PrescribeIT goes offline at 11:59 PM EST on May 29, 2026. Canada Health Infoway has committed to making "a national e-prescribing standard" publicly available before May 1, 2026 — a framework, not a working system. The Health Committee has set May 6 as a deadline for Infoway and Health Canada to provide follow-up testimony.
+
+What replaces PrescribeIT operationally is unclear. Most Canadian provinces have no operational e-prescribing alternative ready by May 30. The default reverts to fax and paper.
+
+The Conservative MPs’ letter to the Auditor General, summarized in news coverage but not yet released in full, requests an investigation into the spending. Whether the AG accepts the request is at the discretion of that office; the AG can decline. If accepted, an audit report typically takes 12–18 months to produce.
+
+In the meantime, Health Canada’s own statement to the committee — that detailed PrescribeIT spending data "is not centrally tracked by Health Canada" — stands as the most damaging line in the file. The department funded the program. It cannot say where most of the money went.`,
+      },
+      {
+        title: 'What we do not know',
+        body: `We have flagged this honestly so the file can be tracked.
+
+The exact year-by-year federal spending breakdown has not been published. Of the ~$290 million spent, the ~$98 million paid to Telus is the only large allocation accounted for in current reporting. The remaining roughly $200 million has not been line-itemed publicly.
+
+Other vendors’ contracts — if any — are not in the public record.
+
+Canada Health Infoway CEO Michael Green committed at the April 21–22 hearing to providing the Health Committee with detailed board reports. Those have not, as of publication, been provided.
+
+Whether Telus Health was profitable on the project net of operating costs is unknown; the $98 million figure is gross revenue.
+
+Provincial-by-provincial adoption breakdowns have not been published. PrescribeIT operated in eight provinces and territories at peak, with Quebec in trial.
+
+Whether the Auditor General will accept the audit request is unknown.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'CBC News — Conservative MPs call on auditor general to investigate $250M PrescribeIT program (Apr 27, 2026)',
+        url: 'https://www.cbc.ca/news/politics/conservatives-auditor-general-request-prescribeit-9.7179223',
+      },
+      {
+        label: 'Globe and Mail — Conservative MPs call on Auditor-General to probe PrescribeIT (Apr 27, 2026)',
+        url: 'https://www.theglobeandmail.com/business/article-conservative-mps-auditor-general-prescribeit-probe/',
+      },
+      {
+        label: 'Globe and Mail — MPs press official on why $250-million "axe the fax" digital prescribing program failed (Apr 21–22, 2026)',
+        url: 'https://www.theglobeandmail.com/business/economy/article-mps-press-official-on-why-250-million-axe-the-fax-digital-prescribing/',
+      },
+      {
+        label: 'Globe and Mail — Ottawa says digital prescription tool cancelled because it failed to replace fax machines (Feb 10–12, 2026)',
+        url: 'https://www.theglobeandmail.com/business/economy/article-digital-prescription-tool-cancelled-failed-to-replace-fax-machines/',
+      },
+      {
+        label: 'Globe and Mail — Doctors are still faxing prescriptions in 2026. Ottawa’s $250M program just shut down (Feb 2026)',
+        url: 'https://www.theglobeandmail.com/business/economy/article-federal-axe-the-fax-e-prescribing-service-built-with-telus-health-to/',
+      },
+      {
+        label: 'BNN Bloomberg — Conservatives call on auditor general to investigate $250M PrescribeIT program (Apr 27, 2026)',
+        url: 'https://www.bnnbloomberg.ca/business/politics/2026/04/27/conservatives-call-on-auditor-general-to-investigate-250-million-prescribeit-program/',
+      },
+      {
+        label: 'Canadian Press — Conservatives call on auditor general to investigate $250M PrescribeIT program (Apr 27, 2026)',
+        url: 'https://www.thecanadianpressnews.ca/national/conservatives-call-on-auditor-general-to-investigate-250-million-prescribeit-program/article_2ab73084-36ec-50a4-adbd-72b546071ebe.html',
+      },
+      {
+        label: 'Canadian Healthcare Technology — Infoway pulls the plug on PrescribeIT (Feb 18, 2026)',
+        url: 'https://www.canhealth.com/2026/02/18/infoway-pulls-the-plug-on-prescribeit/',
+      },
+      {
+        label: 'Alberta College of Pharmacy — PrescribeIT to cease operations May 29, 2026',
+        url: 'https://abpharmacy.ca/news/prescribeit-e-prescribing-service-to-cease-operations-may-29-2026/',
+      },
+      {
+        label: 'The Deep Dive — Conservative MPs seek auditor-general probe into $298M PrescribeIT (Apr 27, 2026)',
+        url: 'https://thedeepdive.ca/conservative-audit-prescribeit-spending/comment-page-1/',
+      },
+      {
+        label: 'PrescribeIT.ca — Service Update notice (Canada Health Infoway)',
+        url: 'https://www.prescribeit.ca/?view=article&id=477:notice-prescribeit-service-update&catid=2',
+      },
+      {
+        label: 'Telus Health — PrescribeIT product page (vendor confirmation)',
+        url: 'https://www.telus.com/en/health/health-professionals/clinics/emr-add-ons/prescribeit',
+      },
+    ],
+  },
+  {
     slug: 'press-review-budget-austerity-vs-investment',
     headline:
       'Press Review: The Budget Called Both "Austerity" and "Not Really Cutting" by Opposite Sides',
