@@ -25,7 +25,15 @@ function arg(name: string): string | undefined {
   return i !== -1 ? process.argv[i + 1] : undefined;
 }
 
-const TEXT = arg('text');
+// --text-file <path> reads the post body from disk (preferred for
+// multi-line content where shell quoting is unreliable).
+const TEXT_FILE = arg('text-file');
+let TEXT = arg('text');
+if (TEXT_FILE) {
+  // Local-only require — no need to add a top-level fs import.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  TEXT = require('node:fs').readFileSync(TEXT_FILE, 'utf8').trim();
+}
 const SLUG = arg('slug');
 const URL_OVERRIDE = arg('url');
 const CAMPAIGN = arg('campaign');
