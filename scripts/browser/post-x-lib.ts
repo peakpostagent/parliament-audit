@@ -43,6 +43,14 @@ export interface PostToXOpts {
    * If missing/unfetchable, we still post (just text + link card as usual).
    */
   attachImage?: string;
+  /**
+   * "Sources + full breakdown →" CTA inserted between the body and the URL.
+   * Reinforces our transparency brand pillar (every claim has a source).
+   * Defaults to true; pass false to skip. Override the text with ctaText.
+   * Only added when a URL is also being posted (CTA without a link is just noise).
+   */
+  appendCta?: boolean;
+  ctaText?: string;
 }
 
 export interface PostToXResult {
@@ -68,7 +76,17 @@ export async function postToX(opts: PostToXOpts): Promise<PostToXResult> {
       })
     : undefined;
 
-  const finalText = taggedUrl ? `${opts.text}\n\n${taggedUrl}` : opts.text;
+  // Brand-CTA insertion. Inserted between body and URL when both are
+  // present + appendCta isn't explicitly false. Reinforces our "every
+  // claim has a source" pillar; nudges click-through to the article
+  // where the receipts live.
+  const ctaText = opts.ctaText ?? 'Sources + full breakdown →';
+  const includeCta = (opts.appendCta ?? true) && !!taggedUrl;
+  const finalText = taggedUrl
+    ? includeCta
+      ? `${opts.text}\n\n${ctaText}\n${taggedUrl}`
+      : `${opts.text}\n\n${taggedUrl}`
+    : opts.text;
 
   // Pre-warm OG image — X's link-card crawler gives the OG endpoint
   // ~5 sec to respond. Our /api/og/* routes are lazy-rendered, so a
@@ -104,8 +122,10 @@ export async function postToX(opts: PostToXOpts): Promise<PostToXResult> {
   }
 
   // X counts URL as 23 chars regardless of length (t.co wrapping).
+  // CTA adds its full length (no shortening) plus a single newline.
+  const ctaOverhead = includeCta ? 1 + ctaText.length : 0;
   const effectiveLen = taggedUrl
-    ? opts.text.length + 2 + 23
+    ? opts.text.length + 2 + ctaOverhead + 23
     : opts.text.length;
 
   if ((opts.enforceCharLimit ?? true) && effectiveLen > 280) {

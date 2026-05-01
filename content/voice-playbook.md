@@ -166,11 +166,35 @@ Before any post goes out, run this:
 
 1. **Adjective audit.** Read the post aloud. Every adjective — can it be replaced with a number, a timestamp, or a quote? If yes, replace it. If no, keep it.
 2. **First-line test.** Does the opening line name a concrete thing (a bill number, a dollar figure, a date, a person)? If it opens with a framing word ("Interesting," "Big news," "Today,"), rewrite.
-3. **Quiet-close check.** Is the last sentence before the link a declarative fact, not an exclamation or a question? If it ends on "!" or "?", rewrite.
+3. **Quiet-close check.** Is the last sentence before the CTA a declarative fact, not an exclamation or a question? If it ends on "!" or "?", rewrite.
 4. **Partisan-mirror test.** Swap every party name for the opposite party. Does the post still read as fair? If it now sounds like an attack, you've editorialized. Rewrite.
 5. **Link-promise check.** Does the linked article actually deliver what the post implies? Open the URL and read the first paragraph. If there's a gap, fix the post or the article before you post.
 
 If all five pass, ship it.
+
+---
+
+## 7. The closing CTA — every post points to its sources
+
+Every post that links to a parliamentaudit.ca article ends with the same standardized line:
+
+> **Sources + full breakdown →**
+
+Inserted automatically by both posting scripts (`scripts/browser/post-x-lib.ts` and `scripts/post-arbitrary-bluesky.ts`) between the body and the link. Override per-post with `--cta "<text>"`. Skip with `--no-cta` (rare — usually only for posts that don't link to an article at all).
+
+Why this exact phrasing:
+- **"Sources +"** signals our brand pillar (every claim has a source) before "full breakdown" sells the click. Order matters.
+- **"+ full breakdown"** preserves the user's original framing ("more detail at the link") in tighter wording.
+- **"→"** is a visual cue that the link is *below*, which is true on both X (URL after CTA) and Bluesky (link card under post body).
+- **27 chars including the arrow** — leaves enough body budget to fit X's 280 and Bluesky's 300 limits without trimming meaningful content.
+
+What this CTA does NOT say (and why):
+- Not "Click here" — generic, flagged as low-effort by both algorithms.
+- Not "Read more" — fine, but doesn't reinforce sourcing.
+- Not "DM for the article" — closes the open-web loop.
+- Not "Subscribe!" — exclamation; we save subscribe pushes for in-thread replies, not link-card posts.
+
+If a post has no article URL (e.g. a stand-alone observation, a quote-of-the-day), skip the CTA entirely. A CTA without a link is just noise.
 
 ---
 

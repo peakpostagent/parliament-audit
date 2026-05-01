@@ -39,6 +39,14 @@ const URL_OVERRIDE = arg('url');
 const CAMPAIGN = arg('campaign');
 const DRY = process.argv.includes('--dry-run');
 
+// Brand CTA: inserted between body and the embed/hashtag. On Bluesky the
+// link card sits *below* the post body, so "Sources + full breakdown →"
+// reads as a directive to look at the link card. Configurable via --cta;
+// disable with --no-cta. Only added when a URL is present (a CTA without
+// a link is just noise).
+const CTA_TEXT = arg('cta') ?? 'Sources + full breakdown →';
+const SKIP_CTA = process.argv.includes('--no-cta');
+
 if (!TEXT) {
   console.error('Usage: --text "<body>" [--slug <article-slug> | --url <full-url>] [--campaign <name>] [--dry-run]');
   process.exit(1);
@@ -110,7 +118,25 @@ async function main() {
     : undefined;
 
   // Bluesky 300-char limit. Embed link card carries the URL.
-  const fullText = TEXT!;
+  //
+  // CTA insertion: when a URL is present and --no-cta isn't passed, insert
+  // the CTA before any trailing hashtag block. Prefers the structure:
+  //   [body]
+  //   [CTA →]
+  //   [#cdnpoli]
+  // If no hashtag is present, the CTA is appended at the end of the body.
+  const includeCta = !SKIP_CTA && !!taggedUrl;
+  let fullText = TEXT!;
+  if (includeCta) {
+    const hashtagMatch = fullText.match(/(\n+)(#\w[\w\s#]*)$/);
+    if (hashtagMatch) {
+      const tagPart = hashtagMatch[0];
+      const bodyPart = fullText.slice(0, fullText.length - tagPart.length).trimEnd();
+      fullText = `${bodyPart}\n\n${CTA_TEXT}\n\n${tagPart.trimStart()}`;
+    } else {
+      fullText = `${fullText.trimEnd()}\n\n${CTA_TEXT}`;
+    }
+  }
   console.log(`text length: ${fullText.length} / 300`);
   if (fullText.length > 300) {
     console.error('Aborting: post would exceed 300-char Bluesky limit.');
