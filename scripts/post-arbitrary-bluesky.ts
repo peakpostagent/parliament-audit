@@ -47,6 +47,12 @@ const DRY = process.argv.includes('--dry-run');
 const CTA_TEXT = arg('cta') ?? 'Sources + full breakdown →';
 const SKIP_CTA = process.argv.includes('--no-cta');
 
+// --image <url> attaches an image directly to the post (replaces the
+// link card with a 1:1 visual). When set, the URL goes inline in the
+// body since Bluesky only allows one embed type at a time. Use this
+// for visually-driven angles (per-post variety per voice-playbook §8).
+const IMAGE_URL = arg('image');
+
 if (!TEXT) {
   console.error('Usage: --text "<body>" [--slug <article-slug> | --url <full-url>] [--campaign <name>] [--dry-run]');
   process.exit(1);
@@ -59,6 +65,43 @@ async function notify(title: string, body: string, click?: string) {
     if (click) headers.Click = click;
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, { method: 'POST', headers, body });
   } catch {}
+}
+
+/**
+ * Upload an image to Bluesky and return an embed.images structure.
+ * Used when --image is set — replaces the link-card embed.
+ */
+async function fetchImageEmbed(
+  agent: AtpAgent,
+  imageUrl: string,
+  altText: string,
+): Promise<any | undefined> {
+  try {
+    const res = await fetch(imageUrl, {
+      headers: { 'user-agent': 'ParliamentAuditBot/1.0' },
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!res.ok) {
+      console.warn(`  [image-fetch] ${imageUrl}: HTTP ${res.status}`);
+      return undefined;
+    }
+    const buf = Buffer.from(await res.arrayBuffer());
+    const upload = await agent.uploadBlob(buf, {
+      encoding: res.headers.get('content-type') || 'image/png',
+    });
+    return {
+      $type: 'app.bsky.embed.images',
+      images: [
+        {
+          image: upload.data.blob,
+          alt: altText.slice(0, 1000),
+        },
+      ],
+    };
+  } catch (e: any) {
+    console.warn(`  [image-fetch] ${imageUrl}: ${e?.message?.slice(0, 100) || 'err'}`);
+    return undefined;
+  }
 }
 
 async function fetchOgCard(agent: AtpAgent, url: string): Promise<any | undefined> {
@@ -104,30 +147,67 @@ async function fetchOgCard(agent: AtpAgent, url: string): Promise<any | undefine
 }
 
 async function main() {
-  const articleUrl = URL_OVERRIDE
-    ? URL_OVERRIDE
-    : SLUG
-      ? `https://parliamentaudit.ca/news/${SLUG}`
-      : undefined;
-  const taggedUrl = articleUrl
-    ? withUtm(articleUrl, {
+  // URL form depends on attachment mode:
+  //   default (link-card)  → full /news/<slug>?utm_... URL inside embed.external
+  //                          (URL doesn't count against the 300-char body limit
+  //                          since it lives in the embed, not the body)
+  //   --image (attached)   → short /n/<slug>?s=bsky URL inlined in the body
+  //                          (the redirect server-side re-attaches the
+  //                          full UTM tags). Saves ~80 chars.
+  let articleUrl: string | undefined;
+  let taggedUrl: string | undefined;
+  if (URL_OVERRIDE) {
+    articleUrl = URL_OVERRIDE;
+    taggedUrl = withUtm(URL_OVERRIDE, {
+      source: 'bluesky',
+      medium: 'social',
+      campaign: CAMPAIGN,
+    });
+  } else if (SLUG) {
+    if (IMAGE_URL) {
+      // Short form: /n/<slug>?s=bsky. Redirect re-attaches full UTM with
+      // a default img-<ISO-week> campaign. Pass --campaign to override
+      // via &c= when needed (rarely needed; eats ~10 chars).
+      const shortParams = new URLSearchParams({ s: 'bsky' });
+      if (CAMPAIGN) shortParams.set('c', CAMPAIGN);
+      articleUrl = `https://parliamentaudit.ca/n/${SLUG}?${shortParams.toString()}`;
+      taggedUrl = articleUrl;
+    } else {
+      articleUrl = `https://parliamentaudit.ca/news/${SLUG}`;
+      taggedUrl = withUtm(articleUrl, {
         source: 'bluesky',
         medium: 'social',
         campaign: CAMPAIGN,
-      })
-    : undefined;
+      });
+    }
+  }
 
-  // Bluesky 300-char limit. Embed link card carries the URL.
+  // Bluesky 300-char limit. Two modes:
+  //   1. Default: embed.external (link card). URL is in the embed, NOT in body.
+  //   2. --image: embed.images (attached visual). URL must go inline in body
+  //      so readers can click through (no link card to click).
   //
-  // CTA insertion: when a URL is present and --no-cta isn't passed, insert
-  // the CTA before any trailing hashtag block. Prefers the structure:
-  //   [body]
-  //   [CTA →]
-  //   [#cdnpoli]
-  // If no hashtag is present, the CTA is appended at the end of the body.
+  // CTA insertion logic:
+  //   Default mode → CTA before any trailing hashtag (link card sits below).
+  //   --image mode → CTA + URL appended at end (mirrors X structure).
+  //   --no-cta     → no CTA either way.
   const includeCta = !SKIP_CTA && !!taggedUrl;
   let fullText = TEXT!;
-  if (includeCta) {
+
+  if (IMAGE_URL && taggedUrl) {
+    // --image mode: append CTA + URL inline so the link is clickable
+    const hashtagMatch = fullText.match(/(\n+)(#\w[\w\s#]*)$/);
+    if (hashtagMatch) {
+      const tagPart = hashtagMatch[0];
+      const bodyPart = fullText.slice(0, fullText.length - tagPart.length).trimEnd();
+      const ctaBlock = includeCta ? `\n\n${CTA_TEXT}\n${taggedUrl}` : `\n\n${taggedUrl}`;
+      fullText = `${bodyPart}${ctaBlock}\n\n${tagPart.trimStart()}`;
+    } else {
+      const ctaBlock = includeCta ? `\n\n${CTA_TEXT}\n${taggedUrl}` : `\n\n${taggedUrl}`;
+      fullText = `${fullText.trimEnd()}${ctaBlock}`;
+    }
+  } else if (includeCta) {
+    // Default mode: CTA only (URL handled by link card)
     const hashtagMatch = fullText.match(/(\n+)(#\w[\w\s#]*)$/);
     if (hashtagMatch) {
       const tagPart = hashtagMatch[0];
@@ -142,7 +222,8 @@ async function main() {
     console.error('Aborting: post would exceed 300-char Bluesky limit.');
     process.exit(1);
   }
-  if (taggedUrl) console.log(`will attach embed for: ${taggedUrl}`);
+  if (taggedUrl) console.log(`will link to: ${taggedUrl}`);
+  if (IMAGE_URL) console.log(`will attach image: ${IMAGE_URL}`);
   if (DRY) {
     console.log('--- dry run ---');
     console.log(fullText);
@@ -159,7 +240,17 @@ async function main() {
   const rt = new RichText({ text: fullText });
   await rt.detectFacets(agent);
 
-  const embed = taggedUrl ? await fetchOgCard(agent, taggedUrl) : undefined;
+  // Pick the embed: image attach if --image is set, otherwise link card.
+  // Bluesky only allows one embed type per post.
+  const embed = IMAGE_URL
+    ? await fetchImageEmbed(
+        agent,
+        IMAGE_URL,
+        TEXT!.split('\n\n')[0].slice(0, 200), // first paragraph as alt text
+      )
+    : taggedUrl
+      ? await fetchOgCard(agent, taggedUrl)
+      : undefined;
 
   const res = await agent.post({
     text: rt.text,
