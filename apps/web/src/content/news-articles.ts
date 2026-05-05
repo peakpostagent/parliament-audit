@@ -102,6 +102,160 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'liberal-majority-cameras-off-april-28',
+    headline:
+      'Liberals Used Their New Majority to Vote a $298M Health Hearing Behind Closed Doors. The Vote Was 6–5.',
+    subheadline:
+      'On Tuesday, April 28, the Liberal Parliamentary Secretary of Health moved the cameras off two minutes after a Conservative MP moved to ask the Auditor General to audit PrescribeIT. A parallel in-camera vote happened the same morning at the Ethics Committee on a motion about the Prime Minister’s ethics screen. Both votes were 6–5 on Liberal party lines.',
+    summary:
+      'On April 28, 2026 — the first day the Liberals’ new House majority took effect — two House of Commons standing committees voted to go in camera on motions involving public-interest accountability. At HESA (Health), Liberal Parliamentary Secretary Maggie Chi moved to take the meeting in camera while a Conservative motion to ask the Auditor General to audit PrescribeIT was on the floor. The vote was 6–5: six Liberals YEA, four Conservatives plus one Bloc MP NAY. At ETHI (Ethics), Liberal members made an identical move on a Conservative motion that would have required the Privy Council Office to provide regular updates on the Prime Minister’s ethics screen. The pattern triggered a public defence from Liberal House leader Steven MacKinnon, who pledged "open committees" the next day.',
+    publishedAt: '2026-05-05T22:00:00-04:00',
+    category: 'Accountability',
+    tags: [
+      'in camera',
+      'accountability',
+      'committees',
+      'PrescribeIT',
+      'HESA',
+      'ETHI',
+      'Liberal majority',
+      'transparency',
+    ],
+    readingTimeMinutes: 6,
+    smartBrevity: {
+      bigThing:
+        'On Day One of the new Liberal majority, two House committees voted 6–5 to take public-interest accountability motions behind closed doors.',
+      whyItMatters:
+        'The minutes are now public. Liberal Parliamentary Secretary Maggie Chi moved cameras-off two minutes after a motion to audit a $298M health-software program hit the floor. An identical move shut down a motion on the PM’s ethics screen at a second committee the same morning.',
+      goDeeper: [
+        'HESA Meeting 31 minutes record the vote at 12:16 PM — cameras off two minutes after the in-camera motion was moved.',
+        'YEAs (6, all Liberal): Bittle, Chi, Eyolfson, Jaczek, Sawatzky, Sidhu. NAYs (5): Bailey, Blanchette-Joncas, Konanz, Mazier, Strauss.',
+        'Same morning at the Ethics Committee (ETHI), Liberal members moved a Conservative motion on the PM’s ethics screen behind closed doors.',
+        'Liberal House leader Steven MacKinnon publicly committed to "open committees" the next day under pressure.',
+      ],
+      yesBut:
+        'The HESA committee did still order unredacted documents from Canada Health Infoway and Telus Health on PrescribeIT before adjourning. The story is not that no work happened — the story is that the public was kicked out of the room while it happened.',
+      bottomLine:
+        'Two committees, two public-interest motions, two in-camera votes on Day One. That is a strategy, not an incident.',
+    },
+    methodology:
+      'The HESA Meeting 31 vote details — mover, motion text, party-line breakdown — are sourced directly to the official ourcommons.ca minutes. Direct quotes from Conservative MPs Dan Mazier and Michael Barrett, and from Liberal House leader Steven MacKinnon, come from Canadian Press wire reporting (Sarah Ritchie / Nick Murray) carried by Castanet, CBC News, Global News, National Post, and others on April 29–30. We have NOT seen the in-camera proceedings themselves and explicitly do not characterize what was discussed once the cameras went off. The article reports what is on the public record: the motion, the vote, the timing, and the on-the-record reactions from each side. Maggie Chi did not respond to media questions per CP. Liberal MPs Doug Eyolfson and Sonia Sidhu declined to comment per CP. Bloc MP Maxime Blanchette-Joncas attempted to ask Chi her reasoning during the meeting; the chair (acting Liberal Chris Bittle) ruled the question out of order. We did not interview the participants for this piece.',
+    keyTakeaways: [
+      'HESA voted 6–5 to go in camera at 12:16 PM ET on April 28, 2026. Six Liberal MPs YEA; four Conservative MPs plus Bloc MP Blanchette-Joncas NAY.',
+      'The motion to go in camera came two minutes after Conservative MP Dan Mazier moved to have the Auditor General audit the $298M PrescribeIT program.',
+      'Liberal Parliamentary Secretary of Health Maggie Chi was the mover.',
+      'The Standing Committee on Access to Information, Privacy and Ethics (ETHI) made the identical move the same morning on a Conservative motion about the Prime Minister’s ethics screen.',
+      'Liberal House leader Steven MacKinnon publicly committed to "open committees" the next day under media pressure.',
+      'HESA did still order unredacted documents from Canada Health Infoway and Telus Health on PrescribeIT before adjourning — the in-camera vote did not bury the file entirely.',
+    ],
+    sections: [
+      {
+        title: 'The 16 minutes',
+        body: `The Standing Committee on Health gaveled in at 12:00 PM ET on Tuesday, April 28, 2026. The meeting had been forced under Standing Order 106(4) by opposition members who wanted to discuss the PrescribeIT program — the federal e-prescribing service that absorbed more than $290 million over a decade and is shutting down on May 29.
+
+At 12:13 PM, Conservative health critic Dan Mazier moved that the committee request the Auditor General audit the program, and that the committee invite the Minister of Health and senior officials to appear within two weeks.
+
+At 12:14 PM, Liberal Maggie Chi — Parliamentary Secretary to the Minister of Health — moved that the committee proceed to sit in camera.
+
+At 12:16 PM, the cameras went off. The vote was 6–5 on strict party lines.
+
+YEAs, all Liberal: Chris Bittle, Maggie Chi, Doug Eyolfson, Helena Jaczek, Jake Sawatzky, Sonia Sidhu.
+
+NAYs: Burton Bailey (CPC), Maxime Blanchette-Joncas (BQ), Helena Konanz (CPC), Dan Mazier (CPC), Matt Strauss (CPC).
+
+The committee resumed in camera at 12:24 PM, suspended again at 12:36 PM and 12:51 PM, and adjourned at 1:00 PM.
+
+These details are on the official ourcommons.ca Meeting 31 minutes. There is no source-attribution distance between Parliament Audit and the parliamentary record on the vote itself.`,
+      },
+      {
+        title: 'The same morning at Ethics',
+        body: `The same morning, the Standing Committee on Access to Information, Privacy and Ethics (ETHI) was scheduled to debate a Conservative motion that would have required the Privy Council Office to provide regular updates on the Prime Minister’s ethics screen — a reference to the conflict-of-interest screen built around Mark Carney’s former Brookfield Asset Management ties, which Conservative MP Michael Barrett has previously characterized as covering roughly 103 entities.
+
+According to Canadian Press wire reporting on April 29, ETHI’s meeting "went into closed-door sessions minutes after gaveling in," with the same Liberal-majority arithmetic. The party-line vote pattern matches HESA.
+
+It is the same play, on the same day, in two different committees, on two different public-interest accountability motions. That fact — two committees, not one — is what makes the story strategic rather than incidental.`,
+      },
+      {
+        title: 'What each side said on the record',
+        body: `Conservative MP Dan Mazier, after the HESA vote: "We were going to ask the auditor general to come in and do an investigation and Liberal Maggie Chi voted to shut down the cameras." Separately: "It’s very disheartening to see the Liberals go to this degree of kind of authoritarianism." And: "It was astounding, it was awful. I think if that’s what Mark Carney plans to do with his newfound majority, I think Canadians should be really, really distressed."
+
+Conservative ethics critic Michael Barrett, on the ETHI vote: "That means that the media get kicked out, the public can’t watch online. It’s going to make it more difficult for us to be able to bring that accountability to bear and that’s a choice that Liberals have made."
+
+Liberal House leader Steven MacKinnon, in response to the criticism: "I reject the premise. No one’s shutting down debate. We’re having lots of debate every day on a very ambitious legislative agenda."
+
+Bloc MP Maxime Blanchette-Joncas, the lone non-Conservative NAY vote on HESA, attempted to ask Chi her reasoning before the in-camera vote was taken. The chair, acting Liberal MP Chris Bittle, ruled the question out of order on the grounds that members had already been called to vote.
+
+Maggie Chi did not respond to email questions from Canadian Press. Liberal MPs Doug Eyolfson and Sonia Sidhu declined to comment to reporters.`,
+      },
+      {
+        title: 'The pattern that followed',
+        body: `On Wednesday, April 29 — the morning after — Liberal House leader Steven MacKinnon publicly committed to "open committees." This was a reactive commitment, made under media pressure that included Canadian Press wire copy reprinted in 20+ outlets, CBC News’s lead politics piece for the day, Global News, National Post, and others. Conservative House leader Andrew Scheer responded that the commitment did not match what had happened on the ground 18 hours earlier.
+
+On Thursday, April 30, the House of Commons Standing Committee on Human Resources, Skills and Social Development (HUMA) was scheduled to debate a Bloc Québécois motion that would have required the government to produce documents on a $6.6-billion benefits-delivery IT modernization project — originally budgeted at $1.7 billion in 2017, now over three times that.
+
+When HUMA convened, Liberal members instead pushed forward with clause-by-clause consideration of an unrelated bill, without notice, effectively running out the clock on the Bloc motion. This is procedural shelving, not an in-camera vote — different mechanism, same effect on access. Conservative MP Garnett Genuis told reporters: "Canadians will be worse off because they won’t have access to this information about this software."
+
+Three committees in three days, three different mechanisms, three documents-and-audit motions deferred or moved out of public view. The Liberal majority has been in effect since Monday, April 27.`,
+      },
+      {
+        title: 'What we do not know yet',
+        body: `Several pieces of this file are not yet public.
+
+The exact disposition of Mazier’s motion to ask the Auditor General to audit PrescribeIT — once the meeting went in camera — is not on the public record. The committee did, before adjourning, order unredacted documents from Canada Health Infoway and Telus Health on PrescribeIT costs, contracts, and board minutes. Whether the AG-audit motion was passed in part, in full, or shelved during the in-camera portion is not something we can report from the available record. The committee’s report on PrescribeIT, when tabled, will reveal it.
+
+The exact disposition of the ETHI motion on the Prime Minister’s ethics screen is similarly not public.
+
+The Auditor General’s office has not, as of publication, responded to the original April 27 request from Conservative MPs to investigate PrescribeIT. The AG can decline.
+
+Whether HESA Meeting 32 (with the Health Minister summoned within two weeks) will be held in public or in camera is not yet announced.
+
+We will update this article when those facts surface.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'Standing Committee on Health — Meeting 31 Minutes (Apr 28, 2026)',
+        url: 'https://www.ourcommons.ca/DocumentViewer/en/45-1/HESA/meeting-31/minutes',
+      },
+      {
+        label: 'Canadian Press / Castanet — Tories accuse Liberals of shutting down public debate (Apr 29, 2026)',
+        url: 'https://www.castanet.net/news/Canada/611641/Tories-accuse-Liberals-of-shutting-down-public-debate-in-parliamentary-committees',
+      },
+      {
+        label: 'CBC News — Liberals use majority to move some parliamentary committees behind closed doors (Apr 29, 2026)',
+        url: 'https://www.cbc.ca/news/politics/liberals-in-camera-parliamentary-committees-9.7182912',
+      },
+      {
+        label: 'CBC News — MacKinnon defends, commits to open committees (Apr 30, 2026)',
+        url: 'https://www.cbc.ca/news/politics/mackinnon-committees-scheer-in-camera-9.7184688',
+      },
+      {
+        label: 'Global News — House of Commons committee majorities debate (Apr 29, 2026)',
+        url: 'https://globalnews.ca/news/11823220/house-of-commons-committee-majorities-debate-liberals/',
+      },
+      {
+        label: 'Global News — Liberals on transparency under majority (Apr 30, 2026)',
+        url: 'https://globalnews.ca/news/11826939/liberals-committees-transparency-majority-mackinnon/',
+      },
+      {
+        label: 'Unpublished.ca / National Post — Liberals won’t explain why health committee was moved behind closed doors (Apr 29, 2026)',
+        url: 'https://unpublished.ca/news-feed-item/2026-04-29/liberals-wont-explain-why-health-committee-was-moved-behind-closed-doors',
+      },
+      {
+        label: 'National Observer — Liberals use new powers to shut down committee debate on $6.6B IT project (May 1, 2026)',
+        url: 'https://www.nationalobserver.com/2026/05/01/news/liberals-use-new-powers-shut-down-committee-debate-66-billion-it-project',
+      },
+      {
+        label: 'Castanet — Liberals shut down committee debate on $6.6 billion IT project (Apr 30, 2026)',
+        url: 'https://www.castanet.net/news/Canada/611951/Liberals-shut-down-committee-debate-on-6-6-billion-IT-project',
+      },
+      {
+        label: 'Parliament Audit — PrescribeIT $298M post-mortem (Apr 29, 2026)',
+        url: 'https://parliamentaudit.ca/news/prescribeit-298m-axe-the-fax-shutdown',
+      },
+    ],
+  },
+  {
     slug: 'prescribeit-298m-axe-the-fax-shutdown',
     headline:
       'Ottawa Spent $298M on PrescribeIT. Telus Kept 85% of the IP. The Service Shuts Down May 29.',
