@@ -440,8 +440,29 @@ async function main() {
         autoActions.push('paused-per-platform');
       }
     } else {
-      log('  ℹ Mirror queue empty — amplification queue is the next layer (not auto-fired yet)');
-      autoActions.push('queue-empty');
+      // Mirror queue empty — try auto-amplify (category 2). Repost up to
+      // dailyMax candidates from the trusted handles in
+      // content/amplification-queue.json.
+      log('  → mirror queue empty; trying auto-amplify (Bluesky reposts of trusted handles)');
+      try {
+        const out = execSync('npx tsx scripts/social-brief/auto-amplify.ts --apply --max 1', {
+          cwd: ROOT,
+          encoding: 'utf8',
+          timeout: 5 * 60 * 1000,
+        });
+        const tail = out.split('\n').slice(-12).join('\n');
+        log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+        if (out.includes('Reposted') && !out.includes('Reposted 0')) {
+          didFire = true;
+          autoActions.push('auto-amplify:fired');
+        } else {
+          autoActions.push('auto-amplify:no-candidates');
+        }
+      } catch (e: any) {
+        const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+        log(`  ✗ auto-amplify failed: ${msg}`);
+        autoActions.push(`auto-amplify:failed:${msg.slice(0, 80)}`);
+      }
     }
   }
 
