@@ -1,0 +1,89 @@
+{
+  "_comment": "Curated handles whose posts can be auto-amplified (reposted) by Parliament Audit without per-post editorial review. Add to this list to expand the trust boundary; remove to tighten it. Daily-ops picks up to 2 candidates per day from these accounts whose posts (a) are < 24 hours old, (b) match at least one keywords_positive term from social-brief/watchlist.json, and (c) don't trigger any keywords_skip. Reposts attach the original poster's text; we add no commentary.",
+  "_updated": "2026-05-05",
+  "platforms": {
+    "bluesky": {
+      "trusted": [
+        {
+          "handle": "338canada.bsky.social",
+          "name": "Philippe J. Fournier",
+          "outlet": "338Canada",
+          "weight": 10,
+          "rationale": "Non-partisan electoral-projection model; evidence-first content; no opinion grandstanding."
+        },
+        {
+          "handle": "ourcommons.bsky.social",
+          "name": "House of Commons",
+          "weight": 10,
+          "rationale": "Primary source. Procedural updates, Hansard pointers."
+        },
+        {
+          "handle": "aaronwherry.bsky.social",
+          "name": "Aaron Wherry",
+          "outlet": "CBC Politics",
+          "weight": 9,
+          "rationale": "Veteran press-gallery wire reporter; factual feed."
+        },
+        {
+          "handle": "althiaraj.bsky.social",
+          "name": "Althia Raj",
+          "outlet": "CBC / Toronto Star",
+          "weight": 9,
+          "rationale": "Press-gallery columnist; mostly factual on Bluesky."
+        },
+        {
+          "handle": "rosiebarton.bsky.social",
+          "name": "Rosemary Barton",
+          "outlet": "CBC",
+          "weight": 8,
+          "rationale": "CBC chief political correspondent; on-record reporting."
+        },
+        {
+          "handle": "chebert18.bsky.social",
+          "name": "Chantal Hébert",
+          "outlet": "Toronto Star / CBC At Issue",
+          "weight": 9,
+          "rationale": "Long-tenure non-partisan analyst (FR + EN)."
+        },
+        {
+          "handle": "stephenmaher.bsky.social",
+          "name": "Stephen Maher",
+          "outlet": "Maclean's",
+          "weight": 7,
+          "rationale": "Investigative; Atlantic-Canada focus."
+        },
+        {
+          "handle": "davidakin.bsky.social",
+          "name": "David Akin",
+          "outlet": "Global News",
+          "weight": 8,
+          "rationale": "Press-gallery; daily-feed political coverage."
+        },
+        {
+          "handle": "democracywatch.bsky.social",
+          "name": "Democracy Watch",
+          "weight": 8,
+          "rationale": "Non-partisan accountability watchdog; cited in our own d'Entremont piece."
+        }
+      ],
+      "_excluded_intentionally": [
+        "@taxpayerDOTcom — high engagement but advocacy framing, not non-partisan",
+        "@policyalternatives.ca (CCPA) — left-flank advocacy",
+        "@fraserinstitute (if on bsky) — right-flank advocacy"
+      ]
+    },
+    "x": {
+      "_note": "X-side amplification is currently disabled because (a) the Pay Per Use API tier doesn't include the read endpoints needed to find candidate posts safely, and (b) browser-scraping X for amplification candidates introduces brittleness. When ready, mirror the Bluesky list here.",
+      "trusted": []
+    }
+  },
+  "auto_amplification_settings": {
+    "max_per_day": 2,
+    "max_per_account_per_week": 2,
+    "min_minutes_between_posts": 90,
+    "candidate_age_max_hours": 24,
+    "must_match_keywords_positive": true,
+    "must_not_match_keywords_skip": true,
+    "platforms_enabled": ["bluesky"]
+  }
+}

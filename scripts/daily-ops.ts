@@ -23,6 +23,7 @@ import 'dotenv/config';
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { AtpAgent } from '@atproto/api';
+import { execSync } from 'node:child_process';
 
 const ROOT = process.cwd();
 const REPORTS_DIR = resolve(ROOT, 'content/daily-ops');
@@ -30,6 +31,9 @@ mkdirSync(REPORTS_DIR, { recursive: true });
 
 const SKIP_NTFY = process.argv.includes('--no-ntfy');
 const QUIET = process.argv.includes('--quiet');
+// --no-auto-publish disables the auto-publish gate even when conditions
+// would otherwise fire mirror-queue-apply. Useful for read-only cron testing.
+const SKIP_AUTO_PUBLISH = process.argv.includes('--no-auto-publish');
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'parliamentaudit-posts';
 
 const log = (...args: any[]) => {
@@ -379,10 +383,71 @@ async function main() {
   log(`  X today: ${cadence.xToday} · Bluesky today: ${cadence.blueskyToday}`);
   for (const n of cadence.notes) log(`  ⚠ ${n}`);
 
+  // Computed early so the auto-publish gate can use it before report write.
+  const failedRoutes = site.filter((c) => !c.ok);
+
+  // ── Auto-publish gate (per content/editorial-autonomy.md) ──────────
+  const autoActions: string[] = [];
+  const autoPauseGlobal = existsSync(resolve(ROOT, 'content/AUTO_PAUSE'));
+  const autoPauseBsky = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_BLUESKY'));
+  const autoPauseX = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_X'));
+  const sitePassing = failedRoutes.length === 0;
+
+  log('\n[auto-publish gate]');
+  let didFire = false;
+  if (SKIP_AUTO_PUBLISH) {
+    log('  ⏸ --no-auto-publish flag set — gate skipped');
+  } else if (autoPauseGlobal) {
+    log('  ⏸ content/AUTO_PAUSE present — no auto-posting this run');
+    autoActions.push('paused-globally');
+  } else if (!sitePassing) {
+    log(`  ⏸ Site has ${failedRoutes.length} failed route(s) — no auto-posting until green`);
+    autoActions.push(`paused-site-issue:${failedRoutes.length}`);
+  } else if (cadence.xToday >= 1 && cadence.blueskyToday >= 1) {
+    log('  ✓ Cadence target already met for today — no auto-posting needed');
+    autoActions.push('cadence-met');
+  } else {
+    const queueDepthForGate = mirrorQueueDepth();
+    if (queueDepthForGate && queueDepthForGate > 0) {
+      // Mirror queue has items; fire one. mirror-queue-apply has its own
+      // safety rails (daily cap, spacing, dedupe, draft validation).
+      const platformsToFire: string[] = [];
+      if (cadence.blueskyToday < 1 && !autoPauseBsky) platformsToFire.push('bluesky');
+      if (cadence.xToday < 1 && !autoPauseX) platformsToFire.push('x');
+      // mirror-queue-apply ships to BOTH platforms by default (the queue
+      // is platform-agnostic; each entry has both an X draft + a Bluesky
+      // draft path internally). One --batch=1 ships one queue item across.
+      if (platformsToFire.length > 0) {
+        log(`  → firing mirror-queue-apply --apply --batch 1 (gap on: ${platformsToFire.join(', ')})`);
+        try {
+          const out = execSync(
+            'npx tsx scripts/social-brief/mirror-queue-apply.ts --apply --batch 1',
+            { cwd: ROOT, encoding: 'utf8', timeout: 5 * 60 * 1000 },
+          );
+          // Show the last ~12 lines of the apply output so it lands in our
+          // markdown report and is grep-able by the cron orchestrator.
+          const tail = out.split('\n').slice(-15).join('\n');
+          log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+          didFire = true;
+          autoActions.push('mirror-queue-apply:fired');
+        } catch (e: any) {
+          const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+          log(`  ✗ mirror-queue-apply failed: ${msg}`);
+          autoActions.push(`mirror-queue-apply:failed:${msg.slice(0, 80)}`);
+        }
+      } else {
+        log('  ⏸ Both platforms paused via per-platform AUTO_PAUSE files');
+        autoActions.push('paused-per-platform');
+      }
+    } else {
+      log('  ℹ Mirror queue empty — amplification queue is the next layer (not auto-fired yet)');
+      autoActions.push('queue-empty');
+    }
+  }
+
   // ── Write report ────────────────────────────────────────────────────
   const today = startedAt.toISOString().slice(0, 10);
   const reportPath = join(REPORTS_DIR, `${today}.md`);
-  const failedRoutes = site.filter((c) => !c.ok);
   const lines: string[] = [];
   lines.push(`# Daily Ops — ${today}`);
   lines.push('');
@@ -440,18 +505,26 @@ async function main() {
   lines.push(`- X today: **${cadence.xToday}** · Bluesky today: **${cadence.blueskyToday}** · target: ≥${cadence.target}/platform`);
   for (const n of cadence.notes) lines.push(`- ⚠ ${n}`);
   lines.push('');
+  lines.push('## Auto-publish gate');
+  for (const a of autoActions) lines.push(`- ${a}`);
+  if (didFire) {
+    lines.push('- ✓ Auto-publish action fired. See output above for details.');
+  }
+  lines.push('');
   lines.push('## Action items');
   const actions: string[] = [];
   if (failedRoutes.length) {
     actions.push(`- ${failedRoutes.length} site route(s) failed health check — investigate before posting more.`);
   }
-  if (cadence.underTarget) {
-    actions.push('- Below daily cadence target. Consider:');
+  if (cadence.underTarget && !didFire) {
+    actions.push('- Below daily cadence target.');
     if (queueDepth && queueDepth > 0) {
-      actions.push('  - `npx tsx scripts/social-brief/mirror-queue-apply.ts --apply --batch 1` to ship one queued mirror post');
+      actions.push('  - Mirror queue has ' + queueDepth + ' entries. Run: `npx tsx scripts/social-brief/mirror-queue-apply.ts --apply --batch 1`');
+    } else {
+      actions.push('  - Mirror queue empty. Consider drafting a fresh post or adding to amplification queue.');
     }
-    actions.push('  - Generate a fresh draft via the social-brief generator: `npx tsx scripts/social-brief/generate.ts`');
   }
+  if (autoPauseGlobal) actions.push('- ⏸ AUTO_PAUSE active. Remove `content/AUTO_PAUSE` to resume auto-publishing.');
   if (actions.length === 0) actions.push('- ✅ No urgent actions. All systems green.');
   for (const a of actions) lines.push(a);
 
