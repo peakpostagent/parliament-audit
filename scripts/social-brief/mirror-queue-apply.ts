@@ -17,6 +17,7 @@ import { AtpAgent } from '@atproto/api';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { postToX } from '../browser/post-x-lib.js';
+import { runAllGuards } from './guard-rails.js';
 
 const args = process.argv.slice(2);
 const APPLY = args.includes('--apply');
@@ -221,6 +222,26 @@ async function main() {
   for (const [i, e] of toShip.entries()) {
     console.log(`\n[queue] ${i + 1}/${toShip.length}  ${e.slug}`);
     try {
+      // Pre-post guard rails — bracket leaks, stale dates, tragedy pause.
+      // category='analysis' so committee + transcript posts get the 7d window
+      // instead of the 24h breaking-news window.
+      const guard = runAllGuards({
+        text: e.text,
+        eventDate: undefined, // queue entries don't carry an event date today
+        category: 'analysis',
+      });
+      if (guard.severity === 'block') {
+        console.error(`  [block] guard-rail tripped: ${guard.reason}`);
+        await notify('X mirror BLOCKED by guard-rail', `${e.slug}: ${guard.reason}`);
+        failed += 1;
+        // Don't post; don't break — let the loop try the next item, since
+        // the failure is item-specific, not run-fatal.
+        continue;
+      }
+      if (guard.severity === 'warn') {
+        console.warn(`  [warn] guard-rail: ${guard.reason}`);
+      }
+
       const articleUrl = `https://parliamentaudit.ca/news/${e.slug}`;
 
       // Build the feed-card image URL when imageMode is set.

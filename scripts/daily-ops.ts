@@ -305,7 +305,7 @@ function cadenceAudit(social: SocialSummary): CadenceAudit {
   const now = new Date();
   const startOfTodayUtc = new Date(now);
   startOfTodayUtc.setUTCHours(0, 0, 0, 0);
-  const target = 1; // minimum 1 original per day per platform — soft target
+  const target = 2; // soft target: 2 originals per platform per day (see editorial-autonomy.md v3)
 
   const bskyToday =
     social.bluesky?.last5.filter((p) => new Date(p.at) >= startOfTodayUtc).length ?? 0;
@@ -393,6 +393,32 @@ async function main() {
   const autoPauseX = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_X'));
   const sitePassing = failedRoutes.length === 0;
 
+  // Run the tragedy-halt poll BEFORE we look at the autopublish gate.
+  // This both (a) refreshes the AUTO_PAUSE_TRAGEDY flag based on current
+  // newswire state, and (b) gives daily-ops a single composable entry
+  // point so the cron only schedules one task. Failure here is non-fatal
+  // — if the poll throws we don't auto-publish, but we don't crash the
+  // ops audit either.
+  log('\n[tragedy-halt poll]');
+  try {
+    const out = execSync('npx tsx scripts/social-brief/halt-on-tragedy.ts --quiet', {
+      cwd: ROOT,
+      encoding: 'utf8',
+      timeout: 60_000,
+    });
+    if (out.trim()) {
+      log(out.split('\n').map((l) => `  ${l}`).join('\n'));
+    } else {
+      log('  ✓ clean poll, no tragedy flag');
+    }
+  } catch (e: any) {
+    log(`  ⚠ halt-on-tragedy error: ${(e?.message || String(e)).slice(0, 120)}`);
+    // Fall through — we still respect AUTO_PAUSE_TRAGEDY's file-presence
+    // even if the poll itself errored, so we never blast through it on
+    // a stale flag.
+  }
+  const autoPauseTragedy = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_TRAGEDY'));
+
   log('\n[auto-publish gate]');
   let didFire = false;
   if (SKIP_AUTO_PUBLISH) {
@@ -400,11 +426,14 @@ async function main() {
   } else if (autoPauseGlobal) {
     log('  ⏸ content/AUTO_PAUSE present — no auto-posting this run');
     autoActions.push('paused-globally');
+  } else if (autoPauseTragedy) {
+    log('  ⏸ content/AUTO_PAUSE_TRAGEDY present — no auto-posting until news cycle clears');
+    autoActions.push('paused-tragedy-halt');
   } else if (!sitePassing) {
     log(`  ⏸ Site has ${failedRoutes.length} failed route(s) — no auto-posting until green`);
     autoActions.push(`paused-site-issue:${failedRoutes.length}`);
-  } else if (cadence.xToday >= 1 && cadence.blueskyToday >= 1) {
-    log('  ✓ Cadence target already met for today — no auto-posting needed');
+  } else if (cadence.xToday >= cadence.target && cadence.blueskyToday >= cadence.target) {
+    log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no auto-posting needed`);
     autoActions.push('cadence-met');
   } else {
     const queueDepthForGate = mirrorQueueDepth();
@@ -412,8 +441,8 @@ async function main() {
       // Mirror queue has items; fire one. mirror-queue-apply has its own
       // safety rails (daily cap, spacing, dedupe, draft validation).
       const platformsToFire: string[] = [];
-      if (cadence.blueskyToday < 1 && !autoPauseBsky) platformsToFire.push('bluesky');
-      if (cadence.xToday < 1 && !autoPauseX) platformsToFire.push('x');
+      if (cadence.blueskyToday < cadence.target && !autoPauseBsky) platformsToFire.push('bluesky');
+      if (cadence.xToday < cadence.target && !autoPauseX) platformsToFire.push('x');
       // mirror-queue-apply ships to BOTH platforms by default (the queue
       // is platform-agnostic; each entry has both an X draft + a Bluesky
       // draft path internally). One --batch=1 ships one queue item across.

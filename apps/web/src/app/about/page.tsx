@@ -18,6 +18,26 @@ export default function AboutPage() {
           understandable, and transparent for all Canadians.
         </p>
 
+        <div className="bg-gray-50 border-l-4 border-[#1a1a2e] rounded-r-lg p-5 mb-8 not-prose">
+          <h2 className="font-bold text-[#1a1a2e] mb-2">How Parliament Audit is built</h2>
+          <p className="text-sm text-gray-700 leading-relaxed mb-2">
+            Parliament Audit is an <strong>AI-assisted, human-edited</strong> publication. AI tools
+            ingest parliamentary records, draft analysis, and prepare social posts. Every published
+            article is reviewed, fact-checked against primary sources (Hansard, LEGISinfo,
+            ourcommons.ca), and approved by a human editor before it goes out.
+          </p>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Quotation marks are reserved for verbatim text from a primary source — we never put
+            words in an MP's mouth. Photographs of MPs are official Library of Parliament portraits,
+            used as-is. Errors get a public, dated correction.
+          </p>
+          <p className="text-sm mt-3">
+            <Link href="/methodology" className="text-red-600 hover:text-red-800 underline font-semibold">
+              Read our full methodology →
+            </Link>
+          </p>
+        </div>
+
         <h2 className="text-xl font-bold mt-8 mb-3">Our Mission</h2>
         <p>
           We believe Canada deserves to know what its elected representatives are doing. Every vote

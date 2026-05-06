@@ -54,16 +54,33 @@ export default function MethodologyPage() {
           <li><strong>Corrected:</strong> The article was updated after the official record changed or an error was identified. A correction notice is displayed.</li>
         </ul>
 
-        <h2 className="text-xl font-bold mt-8 mb-3">5. Article Generation</h2>
+        <h2 className="text-xl font-bold mt-8 mb-3">5. AI-Assisted Drafting, Human Editorial Responsibility</h2>
         <p>
-          Our articles are generated using AI (Claude by Anthropic) with strict editorial constraints.
-          The AI receives only the verified vote data — it cannot search the internet or invent
-          information. Every generated article must pass our automated fact-check before an editor
-          sees it.
+          Our articles and social posts are drafted with AI tools (Claude by Anthropic, with a
+          local Ollama model used for second-opinion review). The AI works from verified data —
+          it never searches the web at draft time or invents information. Every draft passes an
+          automated fact-check and a separate voice/defamation review before any human sees it.
         </p>
         <p>
-          We are transparent about our use of AI. We use it to scale our coverage, not to replace
-          editorial judgment.
+          <strong>Editorial responsibility for everything published rests with a named human
+          editor.</strong> An editor reviews every article and approves it before publication.
+          For social posts, the same editor reviews automation rules and the autonomy boundary
+          (see our public {' '}
+          <a href="https://github.com/parliamentaudit" className="text-red-600 hover:text-red-800 underline">
+            editorial-autonomy boundary document
+          </a>
+          ) that governs what posts unattended and what requires human approval.
+        </p>
+        <p>
+          <strong>Quotation marks are reserved for verbatim speech from a primary source.</strong>
+          {' '}We never paraphrase inside quotation marks, never compress two source sentences into
+          one quoted sentence, and never invent a quote. This is the single highest-risk failure
+          mode for AI-assisted journalism, and we have a hard rail against it in our drafting
+          pipeline.
+        </p>
+        <p>
+          We are transparent about our use of AI because credibility is the entire asset. We use
+          AI to scale our coverage, not to replace editorial judgment.
         </p>
 
         <h2 className="text-xl font-bold mt-8 mb-3">6. What We Don't Do</h2>

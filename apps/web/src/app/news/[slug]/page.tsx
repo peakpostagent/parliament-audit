@@ -540,14 +540,27 @@ export default async function NewsArticlePage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Verification notice */}
+      {/* Verification + AI-disclosure notice */}
       <div className="bg-[#1a1a2e] text-white rounded-lg p-5 mb-8">
-        <p className="text-sm font-medium mb-1">About this article</p>
-        <p className="text-gray-300 text-sm">
-          This article is based on publicly available legislative documents,
-          government backgrounders, and expert analysis. Parliament Audit is
-          non-partisan and does not endorse or oppose any legislation. All
-          sources are linked above.
+        <p className="text-sm font-medium mb-2">About this article</p>
+        <p className="text-gray-300 text-sm leading-relaxed">
+          Parliament Audit is non-partisan and does not endorse or oppose any
+          legislation. This article is based on publicly available legislative
+          documents and parliamentary records; all sources are linked above.
+        </p>
+        <p className="text-gray-400 text-xs mt-3 pt-3 border-t border-white/10 leading-relaxed">
+          AI-assisted, human-edited. AI tools help us ingest parliamentary
+          records and draft analysis; an editor reviews every article and
+          verifies key facts against primary sources before publication.
+          Quotation marks are reserved for verbatim text from a primary source.
+          See our{' '}
+          <Link href="/methodology" className="underline hover:text-white">
+            methodology
+          </Link>{' '}
+          and{' '}
+          <Link href="/corrections" className="underline hover:text-white">
+            corrections log
+          </Link>.
         </p>
       </div>
 

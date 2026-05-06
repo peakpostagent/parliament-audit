@@ -24,6 +24,7 @@ import 'dotenv/config';
 import { AtpAgent } from '@atproto/api';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { isTragedyPaused, checkBrackets } from './guard-rails.js';
 
 const APPLY = process.argv.includes('--apply');
 const MAX = parseInt(
@@ -149,6 +150,15 @@ async function main() {
     return;
   }
 
+  // Tragedy halt — fail closed. If the file is present we don't even
+  // poll the trusted feeds because amplifying tone-deaf timing during
+  // a breaking incident is exactly what this check exists to prevent.
+  const tragedyGuard = isTragedyPaused(ROOT);
+  if (tragedyGuard.severity === 'block') {
+    console.log(`[amplify] ⏸ ${tragedyGuard.reason} — skipping this run.`);
+    return;
+  }
+
   // Spacing check
   if (state.lastRepostAt) {
     const minsSince = (Date.now() - new Date(state.lastRepostAt).getTime()) / 60000;
@@ -206,6 +216,15 @@ async function main() {
         if (matchAny(text, watchlist.keywords_skip).length > 0) continue;
         const matched = matchAny(text, watchlist.keywords_positive);
         if (matched.length === 0) continue;
+        // Bracket-leak guard on the upstream post itself — if a trusted
+        // account accidentally tweets a templated draft, we don't repost it.
+        const bracketCheck = checkBrackets(text);
+        if (!bracketCheck.ok) {
+          console.log(
+            `  [skip-bracket-leak] @${entry.handle} ${post.uri.split('/').pop()}: ${bracketCheck.reason}`,
+          );
+          continue;
+        }
 
         allCandidates.push({
           uri: post.uri,

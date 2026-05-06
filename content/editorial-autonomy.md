@@ -114,6 +114,7 @@ These apply across ALL categories above, in addition to per-category rules.
 
 | Limit | Value |
 |---|---|
+| Soft target (originals per day per platform) | **2** (drives the daily-ops auto-publish gate) |
 | Max auto-posts per day per platform | **3** (mirror + amp + reply + quote-skeet, combined) |
 | Min minutes between auto-posts | **90** |
 | Stop on any 4xx/5xx from a posting attempt | **immediate halt** for that platform until next daily-ops |
@@ -204,3 +205,4 @@ If something looks off, this log is the first place to check. Logs are committed
 
 - **2026-05-05 (v1)** — Initial document. Drafted in response to 5-day-silence incident; auto-publish enabled for mirror queue + amplification queue. Other categories forbidden.
 - **2026-05-05 (v2)** — Per user direction, promoted ALL categories (A through E) to allowed except E.3 (payment). Added per-category guardrails for fresh articles, replies, quote-skeets, profile changes, follow/unfollow, and DM replies. Wired amplification action layer (category 2). Other categories carry policy-only status until their action layers are built; daily-ops will not fire them yet.
+- **2026-05-05 (v3)** — Cadence target raised from 1/day to 2/day per platform after user flagged 23h gap. Added second scheduled-task slot (`parliament-audit-afternoon-ops`, 1 PM MDT) so the gate can fire morning + afternoon. Hard cap stays at 3/day/platform. mirror-queue-apply still ships --batch 1 per run; the second daily run is what gets us from 1/day → 2/day.
