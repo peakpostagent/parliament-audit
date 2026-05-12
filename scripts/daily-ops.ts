@@ -229,10 +229,23 @@ function mirrorQueueDepth(): number | null {
     const queue = JSON.parse(readFileSync(queuePath, 'utf8'));
     const statePath = resolve(ROOT, 'content/social-briefs/.x-mirror-state.json');
     const state = existsSync(statePath) ? JSON.parse(readFileSync(statePath, 'utf8')) : { mirrored: {} };
-    const total = queue.queue?.length || 0;
-    // We can't fully resolve URI-based dedupe without hitting Bluesky,
-    // so we report the gross queue depth here.
-    return total;
+    const queueEntries: any[] = queue.queue || [];
+    // Fixed 2026-05-12: previously returned the gross queue length, but
+    // mirror-queue-apply dedupes via state.mirrored before posting. The
+    // gate would fire mirror-queue-apply on an already-fully-mirrored
+    // queue, "succeed" without posting anything, then mark itself fired
+    // — and never fall through to auto-amplify. We now estimate
+    // unmirrored depth using a slug / matchSubstring heuristic against
+    // mirrored finalTexts (offline, cheap).
+    const mirroredTexts: string[] = Object.values(state.mirrored || {}).map(
+      (m: any) => (m && typeof m.finalText === 'string' ? m.finalText : ''),
+    );
+    const unmirrored = queueEntries.filter((e: any) => {
+      const slugHit = e?.slug && mirroredTexts.some((t) => t.includes(e.slug));
+      const subHit = e?.matchSubstring && mirroredTexts.some((t) => t.includes(e.matchSubstring));
+      return !(slugHit || subHit);
+    });
+    return unmirrored.length;
   } catch {
     return null;
   }

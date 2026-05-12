@@ -122,19 +122,36 @@ const TRAGEDY_FAMILIES: KeywordFamily[] = [
     patterns: [
       /\bmass shooting\b/i,
       /\bmass casualt(y|ies)\b/i,
-      /\b(at least )?\d+ (people |civilians )?(killed|dead)\b/i,
+      // Tightened 2026-05-12: require ≥5 dead/killed. The old `\d+ dead`
+      // pattern tripped on routine single-victim crime ("1 dead in
+      // shooting") and historic court rulings ("9 dead in 2009 case
+      // smuggling guilty plea"). Mass-casualty definitions in Canadian
+      // public-safety literature typically use ≥4–5; we pick 5 to bias
+      // toward false-negative over false-positive.
+      /\b(at least )?(\d{2,}|[5-9]) (people |civilians |children |students |workers |passengers )?(killed|dead)\b/i,
       /\b(school|workplace) shooting\b/i,
-      /\bfatal stabbing\b/i,
       /\bdeath toll\b/i,
+      // Multi-victim stabbing — single fatal stabbings now excluded.
+      /\bstabbing (spree|rampage)\b/i,
+      /\b(at least )?(\d{2,}|[3-9]) (people |students |children )?(stabbed|injured)\b.*\b(critical|fatal|dead|killed)\b/i,
     ],
   },
   {
     key: 'wildfire-disaster',
     patterns: [
-      /\bevacuat(e|ed|ion order)\b/i,
+      // Tightened 2026-05-12 (twice): Canadian wildfire season produces
+      // weekly single-town evacuation orders. Those don't warrant
+      // halting non-partisan vote-tracking content — the brand-damage
+      // prototypes (LA wildfires shutting brands down) were
+      // multi-region, multi-day, deaths-on-the-newswire events.
+      // Require scale signals: state of emergency, fatalities,
+      // thousands evacuated, or a destroyed community.
       /\bstate of emergency\b/i,
-      /\b(wildfire|forest fire) (rages|spreads|destroys|forces)\b/i,
       /\bhomes destroyed\b/i,
+      /\b(town|community|village|city) (destroyed|burned (down|to the ground)|in ruins)\b/i,
+      /\b(thousands|tens of thousands) (evacuated|forced to flee|lose their homes|flee)\b/i,
+      /\bwildfire (death(s)?|fatalit(y|ies)|kills?)\b/i,
+      /\b(wildfire|forest fire) (rages|spreads).*\b(deaths?|killed|fatal|destroyed)\b/i,
     ],
   },
   {
@@ -160,17 +177,48 @@ const TRAGEDY_FAMILIES: KeywordFamily[] = [
       /\bbombing kills?\b/i,
       /\bvehicle ramming\b/i,
       /\bhostage(s|-taking)\b/i,
+      /\bsuicide bomber\b/i,
     ],
   },
   {
     key: 'public-figure-death',
     patterns: [
-      /\b(prime minister|premier|mp)\b.*\b(dies|death|killed)\b/i,
+      /\b(prime minister|premier|mp)\b.*\b(dies|death|killed|assassinated)\b/i,
       /\b(governor general|chief justice)\b.*\b(dies|death)\b/i,
       // Indigenous-specific tragedy framing: residential-school discoveries
       /\b(unmarked graves?|residential school) (discovered|confirmed|announcement)\b/i,
     ],
   },
+];
+
+/**
+ * Universal anti-patterns: if a headline matches a tragedy family AND
+ * any of these, it is NOT counted toward the trip threshold. This
+ * filters out retrospective / legal-process / anniversary coverage of
+ * historic events, which were the primary cause of false halts.
+ *
+ * Examples that now correctly DON'T halt:
+ *   - "Akwesasne man pleads guilty in case that left 9 dead in 2009"
+ *   - "10 years after the Humboldt bus crash, families gather"
+ *   - "Inquiry finds 5 children died in Manitoba foster care over decade"
+ *
+ * Tuning note: kept "trial"/"hearing" out — they could plausibly appear
+ * in live coverage of an unfolding event (e.g. "hostage hearing begins
+ * after standoff"). The retrospective filter relies on guilty pleas,
+ * convictions, sentencing, anniversaries, inquiry findings.
+ */
+const ANTI_PATTERNS: RegExp[] = [
+  /\bpleads? guilty\b/i,
+  /\bguilty plea\b/i,
+  /\bconvicted\b/i,
+  /\bsentenced\b/i,
+  /\bverdict\b/i,
+  /\bcharged with\b/i,
+  /\banniversary\b/i,
+  /\b(\d+\s+)?(years|decades|months) (after|ago|later|on|since)\b/i,
+  /\b(inquir(y|ies)|coroner)\b.*\b(finds|finding|concludes|hearing|report)\b/i,
+  /\b(report|study|review) (finds|finds that|shows|concludes|reveals)\b/i,
+  /\b(commemorat|remembrance|memorial service|vigil held)\b/i,
 ];
 
 /**
@@ -275,6 +323,7 @@ async function main() {
   // For each family, count distinct sources tripped
   type Hit = { source: string; title: string; matched: string };
   const familyHits: Record<string, Hit[]> = {};
+  const antiSkipped: Array<{ source: string; title: string; matched: string; antiMatch: string }> = [];
   for (const fam of TRAGEDY_FAMILIES) {
     familyHits[fam.key] = [];
     const seenSources = new Set<string>();
@@ -287,6 +336,19 @@ async function main() {
         for (const re of fam.patterns) {
           const m = title.match(re);
           if (m) {
+            // Anti-pattern check: skip retrospective / legal-process /
+            // anniversary coverage. The headline is still "about" a
+            // tragedy keyword but it's not breaking news.
+            const anti = ANTI_PATTERNS.map((r) => title.match(r)).find((x) => x);
+            if (anti) {
+              antiSkipped.push({
+                source: ft.feed.name,
+                title,
+                matched: m[0],
+                antiMatch: anti[0],
+              });
+              continue;
+            }
             familyHits[fam.key].push({
               source: ft.feed.name,
               title,
@@ -298,6 +360,12 @@ async function main() {
         }
         if (seenSources.has(ft.feed.name)) break;
       }
+    }
+  }
+  if (antiSkipped.length && !QUIET) {
+    log(`[tragedy-halt] anti-pattern skipped ${antiSkipped.length} retrospective/legal-process headlines:`);
+    for (const a of antiSkipped.slice(0, 5)) {
+      log(`  - [${a.source}] "${a.matched}" (anti: "${a.antiMatch}") :: ${a.title}`);
     }
   }
 
