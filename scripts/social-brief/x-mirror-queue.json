@@ -3,6 +3,12 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "bskyUri": "May 12 — CRA budget-cuts post (federal-budget-cuts article)",
+      "matchSubstring": "Budget 2025 cuts 2,620 jobs",
+      "slug": "federal-budget-cuts-60-billion-public-service",
+      "text": "Budget 2025 cuts 2,620 jobs from the Canada Revenue Agency — the largest workforce reduction of any federal department in the $60B / 40,000-position plan.\n\nCRA says automation will offset. PSAC warns audit capacity drops."
+    },
+    {
       "bskyUri": "Apr 19 — Bill C-9 vote split (will resolve at runtime via Bluesky search)",
       "matchSubstring": "Bill C-9 passed the House 186",
       "slug": "bill-c9-combatting-hate-act-religious-exemption",
