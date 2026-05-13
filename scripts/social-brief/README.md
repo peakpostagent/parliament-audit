@@ -101,6 +101,42 @@ When adding a new person-article:
    and visually confirm both portraits load (no "XX" initials fallback).
 5. Set `imageMode: 'comparison'` on the X mirror queue entry.
 
+## Cadence: 2 posts per platform per day
+
+`scripts/daily-ops.ts` checks the cadence target (`target: 2` per
+platform) on every cron tick and only fires the auto-publish gate
+when we're below target. With the cron firing at 5 AM MDT and 1 PM
+MDT, we have two opportunities per day to hit cadence.
+
+The gate fires (in priority order):
+
+1. **Mirror queue** — if `scripts/social-brief/x-mirror-queue.json`
+   has an entry whose Bluesky URI hasn't been mirrored yet,
+   `mirror-queue-apply --apply --batch 1` posts it to X with the
+   feed-card image attached (see imageMode table above).
+2. **Auto-amplify** — if the mirror queue is empty, the gate
+   tries `auto-amplify --apply --max 1`, which reposts a fresh
+   (< 24h) post from a trusted Bluesky handle if any matches our
+   `keywords_positive` list.
+
+If both come up empty (mirror queue drained AND no amplify
+candidates), the day ends below target. The mitigation is to keep
+`content/social-briefs/drafts/queued-*.txt` stocked with
+ready-to-fire drafts. The expected flow:
+
+```
+queued-*.txt  →  post-arbitrary-bluesky.ts (manual or scripted)
+              →  Bluesky goes live
+              →  matchSubstring goes into x-mirror-queue.json
+              →  next cron tick fires mirror-queue-apply
+              →  X mirror with feed-card image
+              →  rename file queued-*.txt → executed-*.txt
+```
+
+Each `queued-*.txt` file is one Bluesky-ready draft (≤ 274 chars so
+the auto-CTA fits under the 300-char limit). Its filename hints
+at the angle. Pick one per day to keep cadence alive.
+
 ## Voice rules (enforced in drafts)
 
 Drafts follow `content/voice-playbook.md`:

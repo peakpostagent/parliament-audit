@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "bskyUri": "May 12 — Nomination-rules / non-citizens vote (new evergreen primer article)",
+      "matchSubstring": "Who can vote in a Canadian party",
+      "slug": "party-nominations-non-citizens-can-vote",
+      "text": "Who can vote in a Canadian party's nomination contest?\n\n→ Liberal: anyone who \"ordinarily lives in Canada\"\n→ CPC / NDP / Green: citizen or permanent resident\n→ Bloc: no citizenship or residency requirement",
+      "imageMode": "headline"
+    },
+    {
       "bskyUri": "May 12 — Budget 2025 by-the-numbers (second post of the day)",
       "matchSubstring": "Budget 2025, by the numbers",
       "slug": "federal-budget-cuts-60-billion-public-service",
