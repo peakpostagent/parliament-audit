@@ -244,17 +244,34 @@ async function main() {
 
       const articleUrl = `https://parliamentaudit.ca/news/${e.slug}`;
 
-      // Build the feed-card image URL when imageMode is set.
-      let attachImage: string | undefined;
-      if (e.imageMode) {
-        const params = new URLSearchParams({ slug: e.slug, mode: e.imageMode });
-        if (e.imageMode === 'quote') {
-          if (e.imageQuote) params.set('q', e.imageQuote);
-          if (e.imageAttrib) params.set('attrib', e.imageAttrib);
-          if (e.imageContext) params.set('context', e.imageContext);
-        }
-        attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
-        console.log(`  [image] ${attachImage}`);
+      // Build the feed-card image URL. As of 2026-05-12 we attach an
+      // image to EVERY X mirror, defaulting to imageMode='headline' if
+      // the queue entry didn't specify one. Previously the absence of
+      // imageMode meant we relied on X's link-card crawler — which
+      // sometimes lagged and rendered a blank grey card on X even
+      // though the page's twitter:image meta was valid. Attaching the
+      // 1200×1200 feed-card directly via X's compose upload removes
+      // that dependency and makes the card deterministic.
+      //
+      // Authors should still specify imageMode for richer treatments:
+      //   stat       — hero-stat-dominant ($$, % vote splits, large
+      //                round numbers — best for budget/quant pieces)
+      //   comparison — split portrait (REQUIRES subjects[] on the
+      //                article — for floor-crossings, then/now, etc.)
+      //   quote      — pull-quote treatment (REQUIRES imageQuote +
+      //                imageAttrib + imageContext on the queue entry)
+      //   headline   — default fallback, headline-dominant
+      const mode = e.imageMode ?? 'headline';
+      const params = new URLSearchParams({ slug: e.slug, mode });
+      if (mode === 'quote') {
+        if (e.imageQuote) params.set('q', e.imageQuote);
+        if (e.imageAttrib) params.set('attrib', e.imageAttrib);
+        if (e.imageContext) params.set('context', e.imageContext);
+      }
+      const attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
+      console.log(`  [image] mode=${mode} ${attachImage}`);
+      if (!e.imageMode) {
+        console.log(`  [image] note: no imageMode set on entry; defaulted to 'headline'. Consider stat/comparison/quote for richer cards.`);
       }
 
       const res = await postToX({

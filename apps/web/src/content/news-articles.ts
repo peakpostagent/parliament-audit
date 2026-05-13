@@ -85,7 +85,7 @@ export interface NewsArticle {
    *
    * Examples:
    *   subjects: [
-   *     { name: 'Marilyn Gladu', role: 'Sarnia–Lambton MP', portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo', party: 'LPC' },
+   *     { name: 'Marilyn Gladu', role: 'Sarnia–Lambton MP', portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/GladuMarilyn_CPC.jpg', party: 'LPC' },
    *     { name: 'Marilyn Gladu (Jan 11)', role: 'Then a Conservative', portraitUrl: 'same as above', party: 'CPC' }
    *   ]
    */
@@ -1251,14 +1251,14 @@ Her notable legislative work as a Conservative includes Bill C-277 (the 2017 pal
       {
         name: 'Marilyn Gladu',
         role: 'Sarnia–Lambton MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/GladuMarilyn_CPC.jpg',
         party: 'CPC',
         caption: 'Jan 11',
       },
       {
         name: 'Marilyn Gladu',
         role: 'Sarnia–Lambton MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/marilyn-gladu(88938)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/GladuMarilyn_CPC.jpg',
         party: 'LPC',
         caption: 'Apr 8',
       },
@@ -1343,14 +1343,14 @@ He passed Bill C-220 (extension of bereavement leave) with all-party support and
       {
         name: 'Matt Jeneroux',
         role: 'Edmonton Riverbend MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/matt-jeneroux(89167)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/JenerouxMatt_CPC.jpg',
         party: 'CPC',
         caption: 'Nov 6 — Resigning',
       },
       {
         name: 'Matt Jeneroux',
         role: 'Edmonton Riverbend MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/matt-jeneroux(89167)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/JenerouxMatt_CPC.jpg',
         party: 'LPC',
         caption: 'Feb 18 — Crossing',
       },
@@ -1445,15 +1445,18 @@ Background: Ma was born in Hong Kong, immigrated to Canada at age 12, and holds 
       {
         name: 'Michael Ma',
         role: 'Markham–Unionville MP',
-        // Portrait URL omitted — Ma's ourcommons member ID not yet verified.
-        // Falls back to "MM" initials in the OG card. Drop a portraitUrl in
-        // when the ID is confirmed.
+        // ourcommons.ca ID 105088 (45th Parliament); the photo file is
+        // tagged _CPC at the elected-party because the official MP-photos
+        // index is keyed on the seat-of-election party, not current
+        // caucus. Confirmed working 2026-05-12.
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/MaMichael_CPC.jpg',
         party: 'CPC',
         caption: 'Dec 2 — "Team Feudalism"',
       },
       {
         name: 'Michael Ma',
         role: 'Markham–Unionville MP',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/MaMichael_CPC.jpg',
         party: 'LPC',
         caption: 'Dec 11 — Crossed',
       },
@@ -1544,14 +1547,14 @@ He was born in Yarmouth, Nova Scotia, and trained in radio broadcasting at Loyal
       {
         name: 'Chris d’Entremont',
         role: 'Acadie–Annapolis MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/chris-dentremont(49344)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/DEntremontChris_CPC.jpg',
         party: 'CPC',
         caption: 'Won by 533',
       },
       {
         name: 'Chris d’Entremont',
         role: 'Acadie–Annapolis MP',
-        portraitUrl: 'https://www.ourcommons.ca/Members/en/chris-dentremont(49344)/photo',
+        portraitUrl: 'https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/45/DEntremontChris_CPC.jpg',
         party: 'LPC',
         caption: 'Crossed Nov 4',
       },

@@ -49,6 +49,58 @@ Replies and amplifications are editorial decisions. One misjudged reply from an 
 4. Run `npx tsx scripts/social-brief/execute.ts`.
 5. Done.
 
+## Image cards on X (and Bluesky link-card hygiene)
+
+Every X mirror MUST attach a 1200×1200 feed-card image. We learned the
+hard way (2026-05-12) that relying on X's link-card crawler to pull
+`twitter:image` off the page produces blank grey cards roughly half
+the time, even when the meta tags are perfect — the crawler is
+unreliable on fresh URLs.
+
+`mirror-queue-apply.ts` now defaults `imageMode` to `'headline'` when a
+queue entry omits it, so every X post attaches a card directly through
+the compose upload. Authors should still specify `imageMode` explicitly
+for richer treatments:
+
+| Mode         | When to use                                                                              | Extra fields required                                  |
+|--------------|------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| `stat`       | Big numbers, $$$, vote splits, percentages, deficits                                     | none (renders article's hero stat)                     |
+| `comparison` | Floor-crossings, then/now, two-person contrasts                                          | `subjects[]` array on the **article** (≥2 entries)     |
+| `quote`      | Pull-quote treatment (one-line Hansard / Globe / press-gallery line)                     | `imageQuote`, `imageAttrib`, `imageContext` on entry   |
+| `headline`   | Default. Headline + thumbnail-style card                                                 | none                                                   |
+
+### Person-focused posts → use `comparison` and ensure portraits load
+
+Articles about a named MP (floor-crossings, ethics, vote-pattern
+profiles) carry a `subjects: [{ name, role, portraitUrl, party,
+caption }, …]` array. The OG render fetches the portrait from
+ourcommons.ca at render time.
+
+**The working URL pattern is:**
+```
+https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/<parliament>/<LastnameFirstname>_<PartyAtElection>.jpg
+```
+
+For the 45th Parliament: `parliament = 45`. Names are PascalCase with
+no spaces, no apostrophes (so d'Entremont → `DEntremontChris`). Party
+is the **elected** party (CPC, LPC, NDP, BQ, GPC, IND) — even if the MP
+later crossed, the photo file is keyed by election affiliation.
+
+> Note: the older `ourcommons.ca/Members/en/<name>(<id>)/photo`
+> pattern that ChatGPT / autocomplete tends to produce **returns 404
+> across the entire site as of 2026-05**. All article portraitUrls
+> were migrated to the working pattern in commit (see git log).
+
+When adding a new person-article:
+1. Find the MP via `ourcommons.ca/Members/en/search?searchText=<name>`.
+2. Open their profile; right-click their photo; copy the
+   `OfficialMPPhotos/...jpg` URL.
+3. Drop it into `subjects[].portraitUrl`.
+4. Render-test locally:
+   `curl /api/og/feed-card?slug=<slug>&mode=comparison -o /tmp/test.png`
+   and visually confirm both portraits load (no "XX" initials fallback).
+5. Set `imageMode: 'comparison'` on the X mirror queue entry.
+
 ## Voice rules (enforced in drafts)
 
 Drafts follow `content/voice-playbook.md`:
