@@ -102,6 +102,90 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'party-nominations-non-citizens-can-vote',
+    headline:
+      'The Canada Elections Act Does Not Regulate Who Can Vote in a Party’s Nomination Contest. Each Party Sets Its Own Rule.',
+    subheadline:
+      'The Liberal Party permits anyone who “ordinarily lives in Canada” to be a member — a category that includes non-citizens such as international students and work-visa holders. The Conservative, NDP, and Green parties require members to be Canadian citizens or permanent residents. The Bloc Québécois has no citizenship or residency requirement at all.',
+    summary:
+      'Candidate nomination contests are how Canada’s federal political parties select who will appear on the ballot as their candidate in each riding. The Canada Elections Act does not regulate who can vote in those contests; it leaves the rules entirely to each party. The Foreign Interference Commission’s overview report on political parties’ rules and processes summarized the position of each major federal party. As of 2026, the Liberal Party extends membership and nomination-voting rights to anyone who “ordinarily lives in Canada” — a category that includes individuals on work visas or study permits. The Conservative, NDP, and Green parties require members to be Canadian citizens or permanent residents. The Bloc Québécois has no citizenship or residency requirement at all. Elections Canada has confirmed it has no role in setting these rules.',
+    publishedAt: '2026-05-12T22:30:00-04:00',
+    category: 'Accountability',
+    tags: ['nominations', 'party rules', 'voting eligibility', 'foreign interference', 'Hogue Commission'],
+    readingTimeMinutes: 5,
+    keyTakeaways: [
+      'The Canada Elections Act does not regulate who can vote in a party’s nomination contest — each party sets its own rule.',
+      'Liberal Party: any member who “ordinarily lives in Canada,” including non-citizens (e.g. international students, work-permit holders).',
+      'Conservative, NDP, and Green parties: Canadian citizen or permanent resident.',
+      'Bloc Québécois: no citizenship or residency requirement.',
+      'Minimum age to vote in a nomination is 14 for LPC, CPC, BQ, and GPC; NDP varies by province (typically 12–14).',
+    ],
+    smartBrevity: {
+      bigThing:
+        'Federal law leaves it to each party to decide who can vote in its candidate nomination contests — and the parties have made very different choices.',
+      whyItMatters:
+        'A nomination contest is the gate between an aspiring politician and the ballot. Who can pass through that gate is a question about democratic legitimacy that federal law doesn’t answer.',
+      goDeeper: [
+        'LPC: “Ordinarily lives in Canada” — non-citizens included.',
+        'CPC / NDP / GPC: Canadian citizen or permanent resident only.',
+        'Bloc: no citizenship or residency requirement.',
+        'Federal election candidacy itself still requires Canadian citizenship.',
+      ],
+      bottomLine:
+        'Federal candidacy requires citizenship. The nomination vote that produces the candidate does not — at least in three of the five major parties.',
+    },
+    methodology:
+      'Membership and nomination-voting rules are taken from the Foreign Interference Commission’s public Overview Report: Political Parties’ Rules and Processes, exhibit COM0000591.EN, published by the Public Inquiry into Foreign Interference in Federal Electoral Processes and Democratic Institutions (the Hogue Commission). The relevant section is Part 2 (“Membership”), paragraphs [4]–[6]. The Liberal Party’s current rule is also documented in its National Rules for the Selection of Candidates (February 2026 edition) and the party’s public Nomination FAQ. Conservative Party rules are documented in the Conservative Party of Canada Membership By-law. We did not contact the parties for comment; we are citing their published rules verbatim. The age threshold for NDP voting varies by provincial/territorial section per paragraph [5] of the Commission’s report.',
+    sections: [
+      {
+        title: 'What the Canada Elections Act says — and does not say',
+        body: `The Canada Elections Act regulates federal elections. It sets the rules for who can vote in a federal election (Canadian citizens 18+ who are ordinarily resident in Canada), who can run as a candidate (Canadian citizens 18+), how campaigns are financed, what signs may be posted on polling day, and how votes are counted.\n\nIt does not set rules for who can vote inside a political party. That is a private matter for each party. The Foreign Interference Commission summarized the position this way: “The Canada Elections Act doesn’t determine who is allowed to vote at a party nomination. That is a private matter. The law leaves that up to each political party, and lets them make whatever rules they want regarding selecting the candidate.”\n\nElections Canada’s role in a nomination contest is limited to financial oversight — contributions and spending limits — and confirming a registered party’s endorsement of the candidate who eventually emerges.`,
+      },
+      {
+        title: 'Each major federal party’s rule, in plain language',
+        body: `Per the Hogue Commission overview report, paragraph [4]:\n\n“The CPC, NDP and GPC require members to be either citizens or permanent residents, while the LPC extends eligibility to those who ‘ordinarily live in Canada’ and to Canadians living abroad who are eligible to vote in federal elections. The BQ has no citizenship or residency requirements.”\n\nIn plain terms:\n\nLiberal Party of Canada (LPC) — Membership is open to anyone 14+ who “ordinarily lives in Canada,” plus Canadian expatriates who would be eligible to vote in a federal election. Non-citizens on long-term residency — international students, work-permit holders, refugee claimants pending determination — are eligible to become Registered Liberals. Registered Liberals living in the electoral district vote at the riding’s nomination meeting.\n\nConservative Party of Canada (CPC) — Membership requires being 14+ and either a Canadian citizen or a permanent resident. Only members in good standing as of the closing notice can vote in a nomination contest.\n\nNew Democratic Party (NDP) — Federal NDP membership is processed through provincial and territorial parties (except in Quebec and Nunavut). All provincial constitutions require members to be Canadian citizens or permanent residents. The minimum age varies by province, typically 12 to 14.\n\nGreen Party of Canada (GPC) — Members must be 14+ and either Canadian citizens or permanent residents. Members aged 12–14 may join but cannot vote on party matters.\n\nBloc Québécois (BQ) — The Bloc’s membership rules contain no citizenship or residency requirement. Membership is open to any applicant who pays the fee and is approved 30 days after submission.`,
+      },
+      {
+        title: 'Why this is in the public record now',
+        body: `The Public Inquiry into Foreign Interference in Federal Electoral Processes and Democratic Institutions — chaired by Justice Marie-Josée Hogue — was commissioned in 2023 after reporting and intelligence-leak disclosures suggested foreign-state involvement in some Canadian nomination contests, particularly in ridings with large diaspora communities.\n\nA stated rationale for the inquiry was that nomination contests are the least-regulated step in the path to elected office, and that the asymmetry between federal-election eligibility (which requires citizenship) and party-nomination eligibility (which varies) creates a vector for foreign-influence operations.\n\nThe Commission’s overview report on parties’ rules was published as a public exhibit so that any Canadian can read the rules for themselves. We have linked it under Sources.`,
+      },
+      {
+        title: 'What this article is not arguing',
+        body: `Parliament Audit takes no position on whether any of these rules should change. There are arguments on every side — from “it’s a private association, the rules are theirs to set” to “citizenship should be required because candidates ultimately need it.”\n\nWhat we report is what the rules currently are, where they come from in writing, and what the gaps between them and federal-election law actually are. Canadians can decide what to do with that information.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'Public Inquiry into Foreign Interference — Overview Report: Political Parties’ Rules and Processes (exhibit COM0000591.EN)',
+        url: 'https://foreigninterferencecommission.ca/fileadmin/foreign_interference_commission/Documents/Exhibits_and_Presentations/Overview_Reports/COM0000591.EN.pdf',
+      },
+      {
+        label: 'Liberal Party of Canada — National Rules for the Selection of Candidates (February 2026)',
+        url: 'https://liberal.ca/wp-content/uploads/sites/292/2023/01/National-Rules-for-the-Selection-of-Candidates.pdf',
+      },
+      {
+        label: 'Liberal Party of Canada — Nomination FAQ',
+        url: 'https://liberal.ca/nomination-faq/',
+      },
+      {
+        label: 'Conservative Party of Canada — Membership By-law',
+        url: 'https://cpcassets.conservative.ca/wp-content/uploads/2020/10/20170655/98bd7fe568afae5.pdf',
+      },
+      {
+        label: 'New Democratic Party of Canada — Constitution (April 2021)',
+        url: 'https://xfer.ndp.ca/2023/Documents/Constitution%20EN-2021.pdf',
+      },
+      {
+        label: 'Elections Canada — Chapter 5: Political Parties and Candidates (March 2025)',
+        url: 'https://www.elections.ca/content.aspx?section=res&dir=pub%2Fecdocs%2From%2FvII%2Fch_5&document=ch_5&lang=e',
+      },
+      {
+        label: 'Canadian Affairs — “Ballots beyond borders: should non-citizens vote in party nomination races?” (Dec 3, 2024)',
+        url: 'https://www.canadianaffairs.news/2024/12/03/ballots-beyond-borders-should-non-citizens-vote-in-party-nomination-races/',
+      },
+    ],
+  },
+  {
     slug: 'liberal-majority-cameras-off-april-28',
     headline:
       'Liberals Used Their New Majority to Vote a $298M Health Hearing Behind Closed Doors. The Vote Was 6–5.',
