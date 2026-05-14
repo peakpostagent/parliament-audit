@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "bskyUri": "May 12/13 — Alberta citizen petition vs Quebec referendums",
+      "matchSubstring": "Alberta's independence petition",
+      "slug": "alberta-citizen-petition-quebec-referendums-compared",
+      "text": "Alberta independence petition: ~302K signatures (threshold 178K).\n\nCompared to Quebec:\n→ 1980: 59.6% NO (86% turnout)\n→ 1995: 50.6% NO (93.5%, highest in Canadian history)\n\nQuebec's were government-sponsored. Alberta's isn't.",
+      "imageMode": "stat"
+    },
+    {
       "bskyUri": "May 12 — Nomination-rules / non-citizens vote (new evergreen primer article)",
       "matchSubstring": "Who can vote in a Canadian party",
       "slug": "party-nominations-non-citizens-can-vote",
