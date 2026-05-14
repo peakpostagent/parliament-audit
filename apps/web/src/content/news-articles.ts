@@ -47,6 +47,19 @@ export interface NewsArticle {
    */
   methodology?: string;
   /**
+   * Optional explicit hero-stat override for the OG / feed-card image.
+   * When set, the social-card renderer uses these values verbatim
+   * instead of running its extractor over the summary text. Use it
+   * whenever the auto-extractor would pick a misleading number or
+   * apply a misleading label — for example, on a piece about
+   * procedural thresholds where '10%' could be misread as '10% of
+   * Canadians.' The label should be neutral and factually scoped
+   * (e.g. 'Signatures submitted', 'NO vote 1980', 'Of vote cast').
+   * Added 2026-05-13 after the Alberta-petition article rendered
+   * '10% OF CANADIANS' via the percentage-auto-label path.
+   */
+  heroStat?: { value: string; label: string };
+  /**
    * Optional structured vote data — rendered as a table and emitted as
    * JSON-LD Dataset structured data so AI search engines (ChatGPT,
    * Perplexity, Google AI Overviews) can cite us when answering
@@ -113,6 +126,7 @@ export const newsArticles: NewsArticle[] = [
     category: 'Accountability',
     tags: ['Alberta', 'Quebec', 'referendums', 'sovereignty', 'Citizen Initiative Act', 'Bill 54', 'treaty rights', 'Clarity Act'],
     readingTimeMinutes: 7,
+    heroStat: { value: '~302K', label: 'Signatures submitted' },
     keyTakeaways: [
       'Stay Free Alberta submitted ~302,000 signatures by May 2, 2026 — above the 177,732-signature threshold (10% of 2023 provincial-vote count).',
       'Question on the petition: “Do you agree that the Province of Alberta should cease to be a part of Canada to become an independent state?”',

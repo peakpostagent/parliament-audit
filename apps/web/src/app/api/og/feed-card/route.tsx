@@ -76,15 +76,20 @@ function extractHeroStat(text: string): { value: string; label: string } | null 
   // Vote tallies
   const v = text.match(/(\d{2,3})\s*[–\-to]+\s*(\d{2,3})\s*(?:vote|division|in favour|in favor|—|\.)/i);
   if (v) return { value: `${v[1]}–${v[2]}`, label: 'Vote split' };
-  // Percentages
+  // Percentages — default label changed from 'Of Canadians' (2026-05-13)
+  // to the neutral 'Headline figure'. A percentage with no context
+  // gets mis-read when paired with 'Of Canadians' — for example, a
+  // procedural-threshold piece could imply "10% of Canadians" support
+  // a thing they have not been polled on. Authors who want a precise
+  // label should set article.heroStat = { value, label } explicitly.
   const p = text.match(/(\d{1,3})\s?%/);
   if (p) {
     const n = parseInt(p[1], 10);
-    if (n >= 5 && n <= 99) return { value: `${n}%`, label: 'Of Canadians' };
+    if (n >= 5 && n <= 99) return { value: `${n}%`, label: 'Headline figure' };
   }
   // Big counts (5-figure or up)
   const big = text.match(/\b(\d{1,3}(?:,\d{3})+|\d{4,})\b/);
-  if (big) return { value: big[1], label: 'Affected' };
+  if (big) return { value: big[1], label: 'In the record' };
   return null;
 }
 
@@ -585,6 +590,7 @@ export async function GET(request: NextRequest) {
   let summary = url.searchParams.get('summary') || '';
   let category = url.searchParams.get('category') || 'NEWS';
   let subjects: any[] | undefined;
+  let heroOverride: { value: string; label: string } | undefined;
 
   if (slug) {
     const article = getNewsArticle(slug);
@@ -593,6 +599,7 @@ export async function GET(request: NextRequest) {
       summary = article.summary;
       category = article.category;
       subjects = article.subjects;
+      heroOverride = article.heroStat;
     }
   }
 
@@ -601,7 +608,7 @@ export async function GET(request: NextRequest) {
   if (!mode) {
     if (subjects && subjects.length >= 2) mode = 'comparison';
     else {
-      const stat = extractHeroStat(summary);
+      const stat = heroOverride ?? extractHeroStat(summary);
       mode = stat ? 'stat' : 'headline';
     }
   }
@@ -628,7 +635,9 @@ export async function GET(request: NextRequest) {
   }
 
   if (mode === 'stat') {
-    const hero = extractHeroStat(summary) || extractHeroStat(headline);
+    // heroOverride (article.heroStat) always wins, then summary
+    // extractor, then headline extractor.
+    const hero = heroOverride ?? extractHeroStat(summary) ?? extractHeroStat(headline);
     if (hero) {
       return new ImageResponse(
         <StatLayout category={category} hero={hero} headline={headline} summary={summary} />,

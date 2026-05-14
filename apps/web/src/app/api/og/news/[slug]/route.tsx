@@ -96,11 +96,16 @@ export async function GET(
       ? article.summary.slice(0, 198) + '\u2026'
       : article.summary;
 
-  // Pull a hero stat from headline+summary
-  const keyStat = extractKeyStat(
-    `${article.headline} ${article.summary}`,
-    article.category,
-  );
+  // Pull a hero stat. If the article specifies article.heroStat,
+  // that wins (authors who set it deliberately want a specific
+  // pairing of value + label). Otherwise we fall back to the
+  // category-labeled auto-extractor.
+  const keyStat = article.heroStat
+    ? { value: article.heroStat.value, label: article.heroStat.label }
+    : extractKeyStat(
+        `${article.headline} ${article.summary}`,
+        article.category,
+      );
 
   const date = new Date(article.publishedAt).toLocaleDateString('en-CA', {
     year: 'numeric',
