@@ -137,6 +137,63 @@ Each `queued-*.txt` file is one Bluesky-ready draft (≤ 274 chars so
 the auto-CTA fits under the 300-char limit). Its filename hints
 at the angle. Pick one per day to keep cadence alive.
 
+## Proofread gate — Claude Sonnet 4.6, with Ollama fallback
+
+Before posting any new Bluesky/X draft, run it through
+`scripts/claude-proofread.ts`. Uses Claude Sonnet 4.6 (recommended
+model for writing/editing per the Anthropic model lineup as of
+2026-05) via the Anthropic API. Sonnet 4.6 catches editorial issues
+that the previous local-only Ollama qwen3:14b gate consistently
+missed:
+
+- **Asymmetric comparisons** — e.g. comparing Alberta petition
+  signatures (procedural milestone) with Quebec referendum vote
+  percentages (completed-vote results) as if they were the same
+  metric. The May 2026 Alberta-vs-Quebec post had to be deleted +
+  rewritten because of exactly this; Sonnet would have caught it
+  pre-publish.
+- **Plain-English / jargon** — flags phrases like "59.6% NO" that a
+  smart layperson has to re-parse, and proposes plain-language
+  alternatives like "60% voted to stay."
+- **Framing risk** — wording that reads as a partisan "gotcha" even
+  if every fact is true.
+- **Unsourced claims** — surfacing every number that lacks an inline
+  source pointer.
+
+Cost: ~$0.01 per check (input + output tokens combined, Sonnet 4.6
+pricing $3/$15 per 1M tokens). Cap is 4,096 max-output-tokens — more
+than enough for a review-with-rewrite of a 300-char post.
+
+### Usage
+
+```bash
+# read the draft from a file (preferred — preserves newlines)
+npx tsx scripts/claude-proofread.ts \
+  --text-file content/social-briefs/drafts/<draft>.txt \
+  --platform bluesky \
+  --context "what the post is about, what it links to, any sensitivity"
+
+# or inline
+npx tsx scripts/claude-proofread.ts --text "draft body" --platform x
+```
+
+`--context` matters — Sonnet calibrates its flags to what the post is
+*for*. "Floor-crossing accountability piece" vs "evergreen civic
+primer" get different reviews.
+
+### Fallback to Ollama qwen3:14b
+
+If the Anthropic API is unreachable (network, rate limit, 5xx), the
+script transparently falls back to the local Ollama model. You'll
+see a `[claude-proofread] falling back to Ollama` warning on stderr.
+The local model is slower (~30s vs ~3s) and misses some framing
+issues, but it beats posting blind.
+
+If `ANTHROPIC_API_KEY` is missing entirely, it also falls back —
+useful for offline editing or when Claude Code's shell ends up with
+a stale empty `ANTHROPIC_API_KEY=` (a known issue on some Windows
+shells; the script forces dotenv override to work around it).
+
 ## Voice rules (enforced in drafts)
 
 Drafts follow `content/voice-playbook.md`:

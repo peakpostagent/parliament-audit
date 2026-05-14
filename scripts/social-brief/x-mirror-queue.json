@@ -3,10 +3,10 @@
   "_built": "2026-04-26",
   "queue": [
     {
-      "bskyUri": "May 12/13 — Alberta citizen petition vs Quebec referendums",
-      "matchSubstring": "Alberta's independence petition",
+      "bskyUri": "May 13 — Alberta vs Quebec, Sonnet-proofread precision rewrite",
+      "matchSubstring": "Alberta's independence petition cleared",
       "slug": "alberta-citizen-petition-quebec-referendums-compared",
-      "text": "Alberta independence petition: ~302K signatures (threshold 178K).\n\nCompared to Quebec:\n→ 1980: 59.6% NO (86% turnout)\n→ 1995: 50.6% NO (93.5%, highest in Canadian history)\n\nQuebec's were government-sponsored. Alberta's isn't.",
+      "text": "Alberta's independence petition cleared its threshold: ~302K signatures vs. 178K required. If certified, the legislature must respond with legislation or a referendum. Quebec's referendums (1980, 1995) were government-initiated.",
       "imageMode": "stat"
     },
     {
