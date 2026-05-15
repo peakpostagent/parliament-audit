@@ -115,6 +115,89 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'canada-net-electricity-importer-oct-dec-2025',
+    headline:
+      'Canada Was a Net Electricity Importer for Three Consecutive Months. December 2025 Imports from the US Rose 79% Year-Over-Year.',
+    subheadline:
+      'Statistics Canada confirmed in its March 2026 energy-statistics release that Canada imported more electricity than it exported in October, November, and December 2025. The same three-month pattern occurred in early 2024. The drivers are provincial and physical — drought-reduced hydroelectric output in British Columbia and Quebec, and scheduled nuclear refurbishments in Ontario — rather than federal policy choice.',
+    summary:
+      'Statistics Canada\'s March 2026 release of December 2025 energy statistics confirmed that Canada was a net electricity importer for three consecutive months — October, November, and December 2025. Imports from the United States in December reached 3.1 million MWh, up 79.3% versus December 2024, against exports of 2.3 million MWh, down 34.5%. The same three-month pattern occurred earlier in 2024 (March 2024 alone reached 3.3 million MWh in imports, the highest single month in the series). Drivers are provincial and physical: drought-reduced hydroelectric output in British Columbia and Quebec, paired with scheduled nuclear-plant refurbishments in Ontario that pushed Ontario\'s combustible-fuel generation up 56.8% to 4.2 million MWh. British Columbia accounts for roughly 57% of Canadian electricity imports from the United States. Electricity generation, transmission, and trade are constitutionally provincial jurisdiction; the federal government regulates the international crossing only.',
+    publishedAt: '2026-05-15T15:30:00-04:00',
+    category: 'Energy',
+    tags: ['electricity', 'StatsCan', 'hydro', 'energy trade', 'BC drought', 'Ontario nuclear', 'provincial jurisdiction'],
+    readingTimeMinutes: 6,
+    keyTakeaways: [
+      'Canada was a net electricity importer for three consecutive months: October, November, and December 2025.',
+      'December 2025 imports from the US: 3.1 million MWh, up 79.3% vs. December 2024.',
+      'December 2025 exports to the US: 2.3 million MWh, down 34.5% vs. December 2024.',
+      'The same three-month net-importer pattern occurred earlier in 2024. March 2024 (3.3M MWh) remains the highest single month of imports in the series.',
+      'Drivers are physical, not federal-policy: BC + Quebec drought reducing hydro output, plus scheduled nuclear refurbishments in Ontario.',
+      'Electricity is constitutionally provincial jurisdiction. Ottawa regulates the international crossing only.',
+    ],
+    smartBrevity: {
+      bigThing:
+        'Canada — historically a major net exporter of electricity — was a net importer of electricity from the United States for three consecutive months ending December 2025.',
+      whyItMatters:
+        'The pattern is real and recurring (it also happened in early 2024). But "Canada had to buy power to keep the lights on" is loose framing for what the data shows: an electricity-trade pattern shaped by drought and scheduled maintenance, in a sector that is provincial jurisdiction.',
+      goDeeper: [
+        'Dec 2025 imports: 3.1M MWh (+79.3% YoY); exports: 2.3M MWh (−34.5% YoY).',
+        'British Columbia takes ~57% of US electricity imports — a drought-driven baseload story.',
+        'Ontario filled the nuclear-maintenance gap with combustible-fuel generation (+56.8%).',
+        'Quebec — historically the largest provincial exporter — also imported some US power in 2025.',
+      ],
+      yesBut:
+        'The grid worked as designed: cross-border interconnections exist precisely so a drought year in one country can be balanced by surplus in the other. Net-importer status is not equivalent to a supply shortage or "blackout risk."',
+      bottomLine:
+        'A factual, multi-month story. Not a "first time" event and not the federal cabinet\'s direct doing.',
+    },
+    methodology:
+      'All MWh figures and year-over-year percentage changes come from Statistics Canada\'s "Energy statistics, December 2025" release, published in The Daily on March 2, 2026 (catalogue 11-001-X). Historical context (3-month net-importer streak in 2024, March 2024 peak of 3.3M MWh, provincial export shares) cross-checked against the C.D. Howe Institute\'s "Graph of the Week" analysis and the Canada Energy Regulator\'s Electricity Trade Summary. No politician\'s statement is quoted in this piece because the data itself is the story; the press releases came later. We did not contact StatsCan, the CER, or any provincial utility for additional comment.',
+    sections: [
+      {
+        title: 'What StatsCan actually said',
+        body: `In its March 2, 2026 release of December 2025 energy statistics, Statistics Canada reported that Canada was a net electricity importer for the third consecutive month. The exact figures:\n\n- December 2025 imports from the United States: **3.1 million MWh**, up **79.3% year-over-year**.\n- December 2025 exports to the United States: **2.3 million MWh**, down **34.5% year-over-year**.\n- Net trade balance for December 2025: a deficit of roughly 0.8 million MWh.\n\nThe full series remains publicly available through StatsCan\'s "Imports and Exports of Electricity" dataset on Open Government Portal, with monthly granularity going back to 1990.\n\nMarch 2024 — not December 2025 — is the single-month record for electricity imports from the US in this series, at approximately 3.3 million MWh. The current pattern is a continuation, not a one-off event.`,
+      },
+      {
+        title: 'The 2024 precedent',
+        body: `Canada was also a net electricity importer for three months in early 2024. The C.D. Howe Institute, in its "Graph of the Week" review of the data, attributed that 2024 shift to two compounding factors: drought conditions reducing Canadian hydroelectric output, and lower natural-gas prices in the United States that made American thermal generation more competitive across the border.\n\nThe 2025 streak (October, November, December) has similar underlying causes but a different sectoral mix. By 2025, Ontario nuclear-plant refurbishments — scheduled outages at units that are routinely refit at multi-decade intervals — were a larger contributor than they had been in 2024. Ontario\'s combustible-fuel generation rose 56.8% year-over-year in December 2025 to 4.2 million MWh, filling the gap from nuclear units that were temporarily offline.`,
+      },
+      {
+        title: 'Why this is a provincial story, not a federal one',
+        body: `Under section 92A of the Constitution Act, 1867, electricity generation, transmission, and intra-provincial distribution are provincial jurisdiction. Each province owns or regulates its own grid. The federal government — through the Canada Energy Regulator — regulates the international crossing (the wires that physically span the border) but not the underlying decisions about how much to generate, what fuel to burn, or whether to buy or sell across that crossing.\n\nThe provinces driving the December 2025 net-import position:\n\n- **British Columbia** accounts for roughly 57% of Canada\'s electricity imports from the United States. BC is in a multi-year drought cycle that has lowered reservoir levels at major hydroelectric facilities, including those operated by BC Hydro. The British Columbia government, an NDP minority, sets BC Hydro\'s operating mandate.\n- **Ontario** filled its temporary nuclear-output gap with natural-gas-fired generation. The Ontario Progressive Conservative government, a majority, sets the Independent Electricity System Operator\'s procurement directions.\n- **Quebec** — historically Canada\'s largest electricity exporter via Hydro-Québec — also began importing some US power in 2025 as drought reduced reservoir storage at the La Grande complex. The Coalition Avenir Québec government sets Hydro-Québec\'s strategic plan.\n\nThe federal Cabinet — Liberal, under Prime Minister Mark Carney — does not directly choose how much electricity flows in either direction. Federal policy can shape long-run incentives (the Clean Electricity Regulations, federal Investment Tax Credits for clean-power assets, the Atlantic Loop transmission proposal), but the month-by-month trade flow is the output of provincial generation decisions and weather.`,
+      },
+      {
+        title: 'What this article is not arguing',
+        body: `Parliament Audit takes no position on whether Canada should expand its hydroelectric capacity, accelerate nuclear refurbishments, or build new inter-tie transmission. Those are decisions for provincial legislatures and utilities, with federal cost-sharing where the parties choose to negotiate it.\n\nWhat we report is the trade balance, sourced to Statistics Canada, with the recurring pattern and the physical drivers laid out so readers do not have to take any politician\'s framing on trust. If electricity-trade fluctuations come up in question period or at a parliamentary committee, we will cover those exchanges and link the underlying StatsCan series here.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada — "Energy statistics, December 2025" (The Daily, March 2, 2026)',
+        url: 'https://www150.statcan.gc.ca/n1/daily-quotidien/260302/dq260302a-eng.htm',
+      },
+      {
+        label: 'Statistics Canada — "Imports and Exports of Electricity" dataset (Open Government Portal)',
+        url: 'https://open.canada.ca/data/en/dataset/5c358f51-bc8c-4565-854d-9d2e35e6b178',
+      },
+      {
+        label: 'C.D. Howe Institute — "Graph of the Week: Canada Becomes Temporary Net Electricity Importer Amid Shifting Energy Dynamics"',
+        url: 'https://cdhowe.org/publication/graph-week-canada-becomes-temporary-net-electricity-importer-amid-shifting/',
+      },
+      {
+        label: 'Canada Energy Regulator — Electricity Trade Summary',
+        url: 'https://www.cer-rec.gc.ca/en/data-analysis/energy-commodities/electricity/statistics/electricity-trade-summary/',
+      },
+      {
+        label: 'U.S. Energy Information Administration — "The United States is a net energy importer from Canada"',
+        url: 'https://www.eia.gov/todayinenergy/detail.php?id=36332',
+      },
+      {
+        label: 'Constitution Act, 1867 — Section 92A (Non-renewable natural resources, forestry resources and electrical energy)',
+        url: 'https://laws-lois.justice.gc.ca/eng/const/page-5.html',
+      },
+    ],
+  },
+  {
     slug: 'spaceport-canso-200m-defence-lease',
     headline:
       'Ottawa Signed a $200M, 10-Year Lease for a Launch Pad. The Site Is a Concrete Slab and Two Shipping Containers. The Tenant Reported $14,980 in Revenue Last Year.',
