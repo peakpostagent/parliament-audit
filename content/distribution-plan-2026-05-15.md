@@ -11,8 +11,31 @@
 ## 30-day goal
 
 - **Site**: 100+ unique visitors / week
-- **Bluesky**: 50–100 followers
-- **Earned media**: 1 mention in a Canadian political-press venue (Hill Times, Globe and Mail, CBC blog, Halifax Examiner, The Line, or Substack-tier political newsletter)
+- **Bluesky**: 50–100 followers (interim milestone toward the 1,000-follower outreach threshold)
+- **Earned media**: deferred until 1K-follower threshold reached (operator decision 2026-05-15)
+
+## Long-arc goal: 1,000 Bluesky followers before any earned-media outreach
+
+Operator-set credibility floor. Until we cross 1,000 followers, any journalist
+who clicks our profile from a cold-outreach email sees a small account and
+makes a snap judgment we can't recover from. Better to wait and arrive
+with social proof.
+
+### Honest timeline estimate
+
+| Tactic | Realistic monthly delta | To 1,000 |
+|---|---|---|
+| Daily 3-reply quota only | +30–80 followers/mo | 12–30 months |
+| Replies + cadence (2 posts/day, all proofread, with strong stat cards) | +60–150 followers/mo | 7–16 months |
+| Above + 2–3 viral-tier breakdowns (a vote that becomes news while we're already on it) | +200–500 followers/mo | 3–6 months |
+| Above + a paid Bluesky Premium amplification on one strong article | +400+ in a single week | 1–3 months |
+
+We do not have to commit to any tier above the first now. The plan ramps
+naturally: ship daily, watch which posts compound, double down on what works.
+
+The 1K threshold is far enough out that **none of the operator decisions we
+were waiting on (outreach target, outreach email tone) are blocking** for now.
+That clears focus to execution.
 
 ## Why this is a brand-safe distribution problem, not a content problem
 
@@ -53,11 +76,7 @@ Our content is already at publishable quality (Sonnet 4.6 proofread, primary sou
 ### Day 3 (May 17)
 
 - [ ] **Same daily reply quota (3 + 1 quote-repost)**.
-- [ ] **First earned-media outreach**: pick ONE of the following and send a single direct, short email:
-  - **Justin Ling** — most likely to engage with a civic-data startup, runs a Substack ("Bug-eyed and Shameless") that covers parliamentary accountability.
-  - **Tim Bousquet** (Halifax Examiner) — wrote the on-site spaceport piece we cited; would care that we cited him.
-  - **Aaron Wherry** (CBC) — high reach, factual feed.
-  - Outreach email draft is at the end of this document.
+- [ ] ~~First earned-media outreach~~ — **SHELVED until we hit 1,000 Bluesky followers** (operator decision, 2026-05-15). Until then we lean entirely on organic distribution: daily replies, follow-back from the bootstrap batch, content cadence, and the algorithmic-discovery surface. Outreach gets revisited when a journalist clicking our profile sees a 1K-follower civic-data account, not a 1-follower account. Email draft remains in this doc for that moment.
 
 ### Day 4 (May 18)
 
@@ -130,24 +149,26 @@ Our content is already at publishable quality (Sonnet 4.6 proofread, primary sou
 
 ## Metrics to watch
 
-| Metric | Baseline (May 15) | Day-7 target | Day-30 target |
-|---|---|---|---|
-| Bluesky followers | 1 | 20 | 50–100 |
-| Site visitors / 7-day | 9 | 30 | 100+ |
-| Site pageviews / 7-day | 12 | 50 | 200+ |
-| Bounce rate | 80% | <70% | <60% |
-| Articles published | 16 | 18 | 25 |
-| Earned-media mentions | 0 | 0–1 | 1 |
+| Metric | Baseline (May 15) | Day-7 target | Day-30 target | Outreach gate |
+|---|---|---|---|---|
+| Bluesky followers | 1 | 20 | 50–100 | **1,000** |
+| Site visitors / 7-day | 9 | 30 | 100+ | — |
+| Site pageviews / 7-day | 12 | 50 | 200+ | — |
+| Bounce rate | 80% | <70% | <60% | — |
+| Articles published | 17 | 19 | 27 | — |
+| Earned-media mentions | 0 | 0 | 0 | first outreach unlocks at 1K followers |
 
 If we miss Day-7 by a lot, the issue is reply-quota execution, not the plan. If we hit Day-7 but miss Day-30, we're getting noticed but not retained — that's an article-mix / CTA / newsletter problem.
+
+**Outreach gate**: every weekly review, log current Bluesky follower count. The day we hit 1,000, re-read the outreach section below and ship the first email within 48 hours of crossing the threshold. Don't wait for "the perfect article" — at 1K followers, three of our existing pieces (Spaceport Canso, Party nominations, Energy net-importer) are already strong enough to lead with.
 
 ---
 
 ## What I want from you (the operator)
 
-- [ ] **Approve the bootstrap-follow batch** (or hand me a target list of 60 accounts you trust and I'll follow them via the bsky API).
-- [ ] **Pick ONE of the three earned-media outreach targets** for Day 3 — Ling, Wherry, or Bousquet.
-- [ ] **Confirm tone of the outreach email** is correct, or tweak it.
-- [ ] **Decide on Mastodon mirror** — yes or no.
+- [x] **Approve the bootstrap-follow batch** — done 2026-05-15: 33 followed, 0 failed, 23 unresolved logged for next-session chase.
+- [ ] ~~Pick ONE of the three earned-media outreach targets~~ — deferred to 1K-follower threshold (operator decision 2026-05-15).
+- [ ] ~~Confirm tone of the outreach email~~ — deferred to 1K-follower threshold (re-review the email draft at that moment in case our brand voice has evolved).
+- [ ] **Decide on Mastodon mirror** — yes or no. Free, ~30 min setup, ongoing cost = 0. Canadian-news Mastodon servers have an underserved #cdnpoli audience.
 
 Everything else is execution. I can run most of it autonomously on the cron schedule + per-day prompts.
