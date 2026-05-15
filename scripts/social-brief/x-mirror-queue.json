@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "bskyUri": "May 15 — Canada net electricity importer Oct-Dec 2025 (Sonnet-reviewed accountability angle, hydro-exporter contrast)",
+      "matchSubstring": "Canada — a major hydro exporter — was a net electricity importer",
+      "slug": "canada-net-electricity-importer-oct-dec-2025",
+      "text": "Canada — a major hydro exporter — was a net electricity importer for 3 consecutive months (Oct–Dec 2025). Dec 2025 US imports: 3.1M MWh, +79.3% YoY (StatsCan). Drivers: BC/Quebec drought + Ontario nuclear.",
+      "imageMode": "stat"
+    },
+    {
       "bskyUri": "May 15 — Spaceport Canso $200M defence-lease (Sonnet 3-pass proofread)",
       "matchSubstring": "Canada's Defence Dept. pays Maritime Launch Services $20M",
       "slug": "spaceport-canso-200m-defence-lease",
