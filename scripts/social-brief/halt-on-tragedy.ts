@@ -175,7 +175,11 @@ const TRAGEDY_FAMILIES: KeywordFamily[] = [
     patterns: [
       /\bterror(ist)? attack\b/i,
       /\bbombing kills?\b/i,
-      /\bvehicle ramming\b/i,
+      // Tightened 2026-05-15: naked /\bvehicle ramming\b/ tripped on
+      // single-victim Vancouver West End pedestrian incident with no
+      // terror/political intent. Now requires multi-victim or intent signal.
+      /\bvehicle ramming\b.*\b(killed|dead|multiple|deaths?|claimed by|terror|attack)\b/i,
+      /\b(killed|dead|multiple|deaths?|terror|attack)\b.*\bvehicle ramming\b/i,
       /\bhostage(s|-taking)\b/i,
       /\bsuicide bomber\b/i,
     ],
