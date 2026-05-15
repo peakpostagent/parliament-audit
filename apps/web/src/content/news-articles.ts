@@ -115,6 +115,98 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: 'spaceport-canso-200m-defence-lease',
+    headline:
+      'Ottawa Signed a $200M, 10-Year Lease for a Launch Pad. The Site Is a Concrete Slab and Two Shipping Containers. The Tenant Reported $14,980 in Revenue Last Year.',
+    subheadline:
+      'Defence Minister David McGuinty announced the agreement on March 16, 2026 — a $20-million-per-year payment to Maritime Launch Services for a dedicated military launch pad near Canso, Nova Scotia. As of late March 2026, the site has a gravel road, two sea cans, and one 25-by-35-foot concrete pad. MLS reported a $47-million loss in 2025.',
+    summary:
+      'On March 16, 2026, Defence Minister David McGuinty announced a 10-year, $200-million lease agreement between the Department of National Defence and Halifax-based Maritime Launch Services (MLS) for a dedicated launch pad at Spaceport Nova Scotia near Canso. The deal pays MLS $20 million annually, backdated to April 1, 2025, with 90% of the rental payments directed to support the Canadian Space Agency. As of March 21, 2026, the site consists of a gravel access road, two shipping containers, and one 25-by-35-foot concrete pad — no servicing infrastructure. MLS reported $14,980 in revenue and a $47-million loss in its 2025 financial filings; combined CEO and CFO compensation was $697,308, rising to $984,930 with stock options and directors’ fees. The company’s original Cyclone 4M rocket design has never been built. No launches have occurred at the site by MLS itself; the launch pad has been used twice — by a York University rocketry club in 2023 and by Dutch firm T-Minus Engineering in November 2025. Separately, on April 21, 2026, Transport Minister Steven MacKinnon tabled Bill C-28, the Canadian Space Launch Act, the first dedicated federal legislative framework for space launch activities from Canadian territory.',
+    publishedAt: '2026-05-15T09:00:00-04:00',
+    category: 'Accountability',
+    tags: ['defence spending', 'Maritime Launch Services', 'Canso spaceport', 'Bill C-28', 'space policy', 'procurement'],
+    readingTimeMinutes: 7,
+    keyTakeaways: [
+      'Ottawa is paying $20 million per year for 10 years ($200M total) to lease a launch pad in Canso, Nova Scotia.',
+      'The lease was signed by the Department of National Defence on March 16, 2026, backdated to April 1, 2025.',
+      'As of March 21, 2026, the site is a gravel road, two shipping containers, and one 25×35-foot concrete pad. No servicing infrastructure.',
+      'Maritime Launch Services reported $14,980 in revenue and a $47-million loss in 2025. CEO+CFO total compensation: $984,930.',
+      'Zero launches by MLS itself. Two third-party launches at the site (York U rocketry club, 2023; Dutch firm T-Minus, 2025).',
+      'Bill C-28 (Canadian Space Launch Act) was tabled separately on April 21, 2026 by Transport Minister Steven MacKinnon.',
+    ],
+    smartBrevity: {
+      bigThing:
+        'The federal government has committed $200 million over 10 years to lease a launch pad that today consists of a concrete slab, two shipping containers, and a gravel road.',
+      whyItMatters:
+        'Canada is the only G7 nation without sovereign space-launch capability, and government rationale is defence and industrial policy. But the contract was awarded to a company that reported $14,980 in revenue last year against a $47-million operating loss.',
+      goDeeper: [
+        'Lease term: 10 years, $20M/year, backdated to April 1, 2025.',
+        '90% of MLS’s rental payments are earmarked back to the Canadian Space Agency.',
+        'MLS 2025: $14,980 revenue · $47M loss · $984,930 in top-executive compensation.',
+        'Original Cyclone 4M rocket: never built. MLS launches to date: 0.',
+        'A separate $24.9M is funding three other domestic rocket companies.',
+      ],
+      yesBut:
+        'Critics call this a boondoggle; supporters note no infrastructure-led industrial strategy starts with infrastructure already in place, and that $200M is small relative to Canada’s $40-billion projected space industry over the next decade.',
+      bottomLine:
+        'A $20M-per-year lease is an unusual instrument for industrial policy. The Auditor General has not yet commented; Bill C-28 is at first reading.',
+    },
+    methodology:
+      'All dollar figures, dates, and infrastructure details come from: (1) the Department of National Defence announcement of March 16, 2026 covered by The Globe and Mail; (2) Maritime Launch Services’ public 2025 financial disclosures, as reported by the Halifax Examiner; (3) the Halifax Examiner reporter’s on-site inspection of March 21, 2026; (4) Bill C-28 First Reading text on the Parliament of Canada website. The “zero MLS launches” count is as reported in the Halifax Examiner April 20, 2026 review and corroborated by Maritime Technology Review on April 23, 2026; the two third-party launches at the site (York University, T-Minus) come from the same source. We did not contact Maritime Launch Services, the Department of National Defence, or the Canadian Space Agency for comment — every claim here is sourced to a public document. If MLS issues a clarification or correction, we will update this article and disclose it under our corrections policy.',
+    sections: [
+      {
+        title: 'The deal',
+        body: `On March 16, 2026, at the Canadian Space Agency’s David Florida Laboratory in Ottawa, Defence Minister David McGuinty announced that the Department of National Defence had signed a 10-year, $200-million lease agreement with Maritime Launch Services (MLS), a Halifax-based publicly traded company.\n\nThe agreement pays MLS $20 million per year. It is backdated to April 1, 2025, meaning the first year’s payment was made before the announcement was public. Ninety per cent of the rental payments flow back to the Canadian Space Agency to support its mandate.\n\nMcGuinty framed the deal in defence and sovereignty terms: "With this step, we are not only advancing our capabilities here on Earth — we are reaffirming our place among the spacefaring nations shaping the future beyond it." The press release positions the lease as a "cornerstone of Canada’s defence capabilities."\n\nIn his remarks, McGuinty also announced a separate $24.9 million in initial funding for three other Canadian rocket-development companies, bringing the total federal commitment around the file to nearly $225 million.`,
+      },
+      {
+        title: 'What $200 million currently buys',
+        body: `Halifax Examiner journalist Tim Bousquet visited the site on March 21, 2026 — five days after the announcement. His on-site inspection found:\n\n- One gravel access road.\n- Two repurposed shipping containers ("sea cans").\n- One concrete pad measuring 25 feet by 35 feet.\n- No on-site fuel storage, no control facility, no servicing infrastructure of any kind.\n\nThe lease agreement itself describes the facility as "currently provisioned with a single launch pad suitable for suborbital and orbital launch vehicles." MLS pays Nova Scotia an annual land lease of $13,500 plus HST for the property — the federal government is paying $20 million per year to access what MLS is renting for the price of a used compact car.`,
+      },
+      {
+        title: 'Who is Maritime Launch Services',
+        body: `MLS was registered in Nova Scotia in October 2016 and listed on the NEO Exchange (now the Cboe Canada exchange) in 2022. It received provincial environmental approval for the Canso site on June 4, 2019, and federal construction approval in August 2022.\n\nThe company’s 2025 audited financial statements (filed publicly on SEDAR) report:\n\n- Revenue: **$14,980**.\n- Net loss: **$47 million**.\n- Combined CEO and CFO compensation: $697,308.\n- With stock options and directors’ fees added: $984,930.\n\nThe company’s originally announced rocket — the Cyclone 4M, derived from a Soviet-era Ukrainian launch vehicle — has never been built. MLS has launched zero rockets of any kind itself. The Canso pad has been used twice: once by a York University rocketry club in 2023, and once by Dutch firm T-Minus Engineering in November 2025 for a sub-orbital test flight.\n\nCEO Steve Matier has said that MLS plans to launch two Barracuda rockets (built by US firm Reaction Dynamics) from the site in May or June 2026, with a fourth launch planned for late 2026.`,
+      },
+      {
+        title: 'The broader context',
+        body: `Canada is the only G7 country without a sovereign space-launch capability. Every Canadian satellite to date has reached orbit on a rocket built by — and a launch service provided by — another country: most often the United States, France, India, or Japan. The federal rationale for the MLS lease is to change that.\n\nOn April 21, 2026, Transport Minister Steven MacKinnon tabled Bill C-28, the Canadian Space Launch Act — the first dedicated federal legislative framework for space launches and re-entries from Canadian territory. The bill received first reading and is expected to enter second-reading debate in May or June 2026. As of this writing, no recorded vote has occurred. The bill is supported in principle by NordSpace Corp. and other Canadian space-launch startups; the Canso project is the most visible existing site that would operate under the new framework.\n\nA $40-billion projected Canadian space industry over the next decade is the figure most often cited by supporters as the prize that justifies the early-stage spending.`,
+      },
+      {
+        title: 'What this article is not arguing',
+        body: `Parliament Audit takes no position on whether Canada should pursue a sovereign space-launch capability, whether $200 million is too much or too little, or whether MLS is the right vehicle. These are matters for the elected legislature and, in due course, for the Auditor General.\n\nWhat we report is the contract as written, the company as audited, and the site as it presently stands. The contrast between those three is unusual enough in a federal procurement that it merits being on the public record in one place.`,
+      },
+    ],
+    sources: [
+      {
+        label: 'The Globe and Mail — "Ottawa investing $200-million in Nova Scotia spaceport to enable sovereign satellite launches" (March 16, 2026)',
+        url: 'https://www.theglobeandmail.com/business/article-canada-sovereign-satellite-launches-space-defence/',
+      },
+      {
+        label: 'Government of Canada announcement — Atlantic Canada Opportunities Agency (March 16, 2026)',
+        url: 'https://www.canada.ca/en/atlantic-canada-opportunities/news/2026/03/historic-200-million-investment-positions-nova-scotia-spaceport-as-cornerstone-of-canadas-defence-capabilities.html',
+      },
+      {
+        label: 'Halifax Examiner — "Everything you need to know about the spaceport in Nova Scotia" (Tim Bousquet, April 20, 2026)',
+        url: 'https://www.halifaxexaminer.ca/commentary/everything-you-need-to-know-about-the-spaceport-in-nova-scotia/',
+      },
+      {
+        label: 'Maritime Technology Review — "Canada\'s $200M Spaceport Nova Scotia Gamble Hits Turbulence" (April 23, 2026)',
+        url: 'https://maritimetechnologyreview.com/2026/04/23/canadas-200m-spaceport-nova-scotia-gamble-hits-turbulence/',
+      },
+      {
+        label: 'BetaKit — "Feds commit nearly $225 million to advance Canada\'s sovereign space launch capabilities"',
+        url: 'https://betakit.com/feds-commit-nearly-225-million-to-advance-canadas-sovereign-space-launch-capabilities/',
+      },
+      {
+        label: 'Parliament of Canada — Bill C-28: Canadian Space Launch Act (First Reading, April 21, 2026)',
+        url: 'https://www.parl.ca/DocumentViewer/en/45-1/bill/C-28/first-reading',
+      },
+      {
+        label: 'Maritime Launch Services — corporate site',
+        url: 'https://www.maritimelaunch.com/',
+      },
+    ],
+  },
+  {
     slug: 'alberta-citizen-petition-quebec-referendums-compared',
     headline:
       'Alberta’s Citizen-Led Independence Petition Has Cleared the Signature Threshold. Here Is How the Process Compares to Quebec’s Two Sovereignty Referendums.',
