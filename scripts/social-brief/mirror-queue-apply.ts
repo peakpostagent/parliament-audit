@@ -17,6 +17,7 @@ import { AtpAgent } from '@atproto/api';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { postToX } from '../browser/post-x-lib.js';
+import { verifyXPost } from '../browser/verify-x-post.js';
 import { runAllGuards } from './guard-rails.js';
 
 const args = process.argv.slice(2);
@@ -32,6 +33,55 @@ const DAILY_CAP = parseInt(arg('daily-cap', '6') || '6', 10);
 const ROOT = process.cwd();
 const QUEUE_PATH = resolve(ROOT, 'scripts/social-brief/x-mirror-queue.json');
 const STATE_PATH = resolve(ROOT, 'content/social-briefs/.x-mirror-state.json');
+const FAILURE_LOG_PATH = resolve(ROOT, 'content/social-briefs/.x-mirror-failures.json');
+
+/**
+ * After postToX returns, we re-open X and confirm the tweet actually
+ * appears on our public profile. Without this check, the script can mark
+ * a post as `mirrored` in state even when X silently dropped it (rate
+ * limit, "we couldn't post that" modal the script missed, etc.). The
+ * verification policy is:
+ *   1. Wait 30s after compose-submit (X needs render time)
+ *   2. Try verifyXPost (up to 4 attempts, 15s apart)
+ *   3. If verification fails:
+ *      a. retry the WHOLE post ONCE (same content, same image)
+ *      b. if that also fails verification: retry the post WITHOUT image
+ *      c. if THAT also fails: log to .x-mirror-failures.json + ntfy alert,
+ *         do NOT mark as mirrored (so next run retries)
+ * The unique substring used for verification is the first 40 chars of
+ * the queue entry's text, which is distinctive enough across our content.
+ */
+function verifySubstringFor(text: string): string {
+  return text.replace(/\s+/g, ' ').trim().slice(0, 40);
+}
+
+interface MirrorFailureRecord {
+  slug: string;
+  bskyUri: string;
+  attemptedAt: string;
+  attempts: number;
+  finalText: string;
+  reason: string;
+  staleMatchPostedAt?: string;
+}
+interface MirrorFailureLog {
+  failures: MirrorFailureRecord[];
+}
+function loadFailureLog(): MirrorFailureLog {
+  if (!existsSync(FAILURE_LOG_PATH)) return { failures: [] };
+  try {
+    return { failures: [], ...JSON.parse(readFileSync(FAILURE_LOG_PATH, 'utf8')) };
+  } catch {
+    return { failures: [] };
+  }
+}
+function appendFailure(rec: MirrorFailureRecord) {
+  const log = loadFailureLog();
+  log.failures.push(rec);
+  // Keep the file from growing unbounded — keep the most recent 200.
+  if (log.failures.length > 200) log.failures = log.failures.slice(-200);
+  writeFileSync(FAILURE_LOG_PATH, JSON.stringify(log, null, 2));
+}
 
 interface QueueEntry {
   bskyUri: string;
@@ -274,27 +324,102 @@ async function main() {
         console.log(`  [image] note: no imageMode set on entry; defaulted to 'headline'. Consider stat/comparison/quote for richer cards.`);
       }
 
-      const res = await postToX({
+      // ── Step 1: post via compose ──────────────────────────────────
+      let res = await postToX({
         text: e.text,
         url: articleUrl,
         utmCampaign: `mirror-${todayStamp()}`,
         attachImage,
       });
-      console.log(`  [ok] posted to X. ${res.profileUrl}`);
-      state.mirrored[e.resolvedUri] = {
-        mirroredAt: new Date().toISOString(),
-        finalText: res.finalText,
-      };
-      state.todayCount += 1;
-      state.lastPostedAt = new Date().toISOString();
-      saveState(state);
-      posted += 1;
+      console.log(`  [submit] compose returned ok. ${res.profileUrl}`);
 
-      await notify(
-        `Mirrored to X: ${e.slug}`,
-        e.text.split('\n\n')[0].slice(0, 140),
-        res.profileUrl,
-      );
+      // ── Step 2: verify the tweet actually appeared on our profile ─
+      const verifySub = verifySubstringFor(e.text);
+      console.log(`  [verify] looking for "${verifySub}" on profile (30s settle)`);
+      await new Promise((r) => setTimeout(r, 30_000));
+      let v = await verifyXPost({ textSubstring: verifySub });
+      let verifyMode: 'first' | 'retry-with-image' | 'retry-no-image' = 'first';
+
+      // ── Step 3a: retry once with the same content if verify failed ─
+      if (!v.ok) {
+        console.log(`  [verify] FIRST attempt failed (${v.reason}). Retrying post with same content in 60s.`);
+        await notify(
+          `X verify failed, retrying: ${e.slug}`,
+          `reason=${v.reason}; first retry with same content`,
+        );
+        await new Promise((r) => setTimeout(r, 60_000));
+        res = await postToX({
+          text: e.text,
+          url: articleUrl,
+          utmCampaign: `mirror-${todayStamp()}-r1`,
+          attachImage,
+        });
+        await new Promise((r) => setTimeout(r, 30_000));
+        v = await verifyXPost({ textSubstring: verifySub });
+        verifyMode = 'retry-with-image';
+      }
+
+      // ── Step 3b: if still failing AND we had an image, try without ─
+      if (!v.ok && attachImage) {
+        console.log(`  [verify] retry-with-image failed (${v.reason}). Trying without image.`);
+        await notify(
+          `X verify failed twice, trying no-image: ${e.slug}`,
+          `reason=${v.reason}; image upload may be the suspect`,
+        );
+        await new Promise((r) => setTimeout(r, 60_000));
+        res = await postToX({
+          text: e.text,
+          url: articleUrl,
+          utmCampaign: `mirror-${todayStamp()}-r2`,
+          // attachImage intentionally omitted — fall back to X's link-card crawler
+        });
+        await new Promise((r) => setTimeout(r, 30_000));
+        v = await verifyXPost({ textSubstring: verifySub });
+        verifyMode = 'retry-no-image';
+      }
+
+      // ── Step 4: decide ────────────────────────────────────────────
+      if (v.ok) {
+        console.log(`  [verify] ✓ post is live (${verifyMode}, ${v.attempts} verify-attempts). ${v.found?.url || ''}`);
+        state.mirrored[e.resolvedUri] = {
+          mirroredAt: new Date().toISOString(),
+          finalText: res.finalText,
+        };
+        state.todayCount += 1;
+        state.lastPostedAt = new Date().toISOString();
+        saveState(state);
+        posted += 1;
+
+        await notify(
+          `Mirrored to X: ${e.slug}`,
+          (verifyMode !== 'first' ? `(via ${verifyMode}) ` : '') +
+            e.text.split('\n\n')[0].slice(0, 120),
+          v.found?.url || res.profileUrl,
+        );
+      } else {
+        // All recovery paths exhausted. Log to audit trail; DO NOT mark
+        // as mirrored. Next mirror-queue-apply run will see this entry
+        // as still-pending and retry.
+        console.error(
+          `  [verify] ✗ post is NOT live after ${verifyMode} (${v.attempts} verify-attempts). reason=${v.reason}.`,
+        );
+        appendFailure({
+          slug: e.slug,
+          bskyUri: e.resolvedUri,
+          attemptedAt: new Date().toISOString(),
+          attempts: v.attempts,
+          finalText: res.finalText,
+          reason: `${verifyMode}:${v.reason}`,
+          staleMatchPostedAt: v.staleMatch?.postedAt,
+        });
+        failed += 1;
+        await notify(
+          `🚨 X mirror FAILED verification: ${e.slug}`,
+          `Tried ${verifyMode}. reason=${v.reason}. Logged to .x-mirror-failures.json. Entry remains in queue for next run.`,
+        );
+        // Don't break — keep trying other queue entries; this one is just
+        // logged as a failure and will be retried on the next run.
+      }
 
       if (i < toShip.length - 1) {
         console.log(`  [wait] ${SPACING_MIN} min before next…`);

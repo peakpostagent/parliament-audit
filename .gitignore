@@ -46,5 +46,10 @@ content/social-briefs/.state.json
 # X mirror per-machine state
 content/social-briefs/.x-mirror-state.json
 
+# X mirror per-post-verification failure audit log (gitignored — local-only
+# audit trail. NOT a substitute for re-queueing; failed entries stay in
+# x-mirror-queue.json and re-attempt on the next run).
+content/social-briefs/.x-mirror-failures.json
+
 # Mastodon mirror per-machine state
 content/social-briefs/.mastodon-state.json

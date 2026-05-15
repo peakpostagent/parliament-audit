@@ -261,10 +261,41 @@ async function main() {
   const ourHandle = (BLUESKY_HANDLE as string).replace(/^@/, '');
   const rkey = res.uri.split('/').pop();
   const liveUrl = `https://bsky.app/profile/${ourHandle}/post/${rkey}`;
-  console.log(`[bsky] [ok] posted: ${liveUrl}`);
+  console.log(`[bsky] [submit] returned ok. uri=${res.uri}`);
+
+  // ── Verify-your-work step ───────────────────────────────────────────
+  // Bluesky's AT Proto returns a URI on agent.post() success — usually
+  // authoritative. But occasional indexing lag, AppView replication, or
+  // (rare) silent server rejection means we shouldn't fully trust it.
+  // Call getPost on the URI we just got back: if the AppView can serve
+  // it, the post is genuinely live. Retry briefly to tolerate ~5s lag.
+  let verified = false;
+  let lastErr = '';
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const got = await agent.getPostThread({ uri: res.uri, depth: 0 });
+      if ((got.data?.thread as any)?.post?.uri === res.uri) {
+        verified = true;
+        break;
+      }
+      lastErr = 'getPostThread did not return our post';
+    } catch (e: any) {
+      lastErr = (e?.message || String(e)).slice(0, 120);
+    }
+    await new Promise((r) => setTimeout(r, 2500));
+  }
+
+  if (verified) {
+    console.log(`[bsky] ✓ verified live: ${liveUrl}`);
+  } else {
+    console.error(
+      `[bsky] ⚠ post submitted but NOT verifiable on AppView after 4 attempts. last error: ${lastErr}.`,
+    );
+    console.error(`[bsky] URI was: ${res.uri} — likely still propagating; check ${liveUrl} manually.`);
+  }
 
   await notify(
-    'Bluesky posted',
+    verified ? 'Bluesky posted (verified)' : 'Bluesky posted (verify lag)',
     fullText.split('\n\n')[0].slice(0, 140),
     liveUrl,
   );

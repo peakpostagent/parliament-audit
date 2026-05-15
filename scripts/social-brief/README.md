@@ -49,6 +49,61 @@ Replies and amplifications are editorial decisions. One misjudged reply from an 
 4. Run `npx tsx scripts/social-brief/execute.ts`.
 5. Done.
 
+## Verify-your-work: post-publish verification (2026-05-15)
+
+Every X mirror and every Bluesky original now goes through a
+verification step **after** the publish API/browser returns ok.
+The reason: browser-automated X posts have a non-zero rate of
+"succeeded in script, didn't actually post" failures — silent
+rate-limit drops, missed modals, partial image uploads. The mirror
+state would mark these as `mirrored` and we'd think we were
+shipping when we weren't.
+
+### X — `scripts/browser/verify-x-post.ts`
+
+After `postToX` returns, `mirror-queue-apply` waits 30 seconds for
+X's render lag, then opens a fresh browser to `x.com/ParliamentAudit`,
+scrapes the most recent ~15 tweets, and looks for one whose
+`time[datetime]` is within 10 minutes of now AND whose text
+contains a 40-char substring of what we just posted.
+
+If verification fails, the script auto-recovers in a tiered fallback:
+
+| Attempt | Action |
+|---|---|
+| 1st verify | Just check after the initial post (4 polling attempts, 15s apart) |
+| 1st retry | If 1st verify fails: wait 60s, re-submit the same post with the same image, verify again |
+| 2nd retry | If 1st retry also fails AND we attached an image: re-submit WITHOUT the image (image upload is a frequent suspect), verify again |
+| Give up | If all three exhaust: log to `.x-mirror-failures.json` (gitignored), push ntfy alert, DO NOT mark the queue entry as mirrored. Next `mirror-queue-apply` run retries from scratch. |
+
+A successful verification stores the real tweet URL (from the
+profile-scrape, not the compose-return) so subsequent state lookups
+have a working link.
+
+### Bluesky — `post-arbitrary-bluesky.ts`
+
+Lighter touch: AT Proto's `agent.post()` is API-authoritative, but
+the AppView (bsky.app) can lag by a few seconds before serving the
+post via `getPostThread`. We poll up to 4× with 2.5s spacing. If
+the AppView never serves the URI we just created, we don't crash —
+we log a warning ("submitted but NOT verifiable") and continue,
+because the URI itself is recorded by the PDS and the post will
+appear once replication catches up.
+
+### Audit trail
+
+`content/social-briefs/.x-mirror-failures.json` (gitignored, capped
+at 200 most-recent entries) records every verification failure
+that exhausted all retries. Includes the slug, Bluesky URI, the
+final text we tried to post, attempt count, reason code, and a
+stale-match timestamp if we found an older tweet with similar text
+(useful for detecting duplicate-text collisions).
+
+Inspect after any cron run that reported `mastodon-mirror:failed:*`
+or `mirror-queue-apply:failed:*` in the daily-ops report.
+
+---
+
 ## Image cards on X (and Bluesky link-card hygiene)
 
 Every X mirror MUST attach a 1200×1200 feed-card image. We learned the
