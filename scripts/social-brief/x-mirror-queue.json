@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "bskyUri": "May 15 — Spaceport Canso $200M defence-lease (Sonnet 3-pass proofread)",
+      "matchSubstring": "Canada's Defence Dept. pays Maritime Launch Services $20M",
+      "slug": "spaceport-canso-200m-defence-lease",
+      "text": "Canada's Defence Dept. pays Maritime Launch Services $20M/yr for launch-pad access at Canso, NS — separate from MLS's $13,500/yr land-tenure fee. MLS 2025 filings: $14,980 revenue, $47M loss, no launches conducted.",
+      "imageMode": "stat"
+    },
+    {
       "bskyUri": "May 13 — Alberta vs Quebec, Sonnet-proofread precision rewrite",
       "matchSubstring": "Alberta's independence petition cleared",
       "slug": "alberta-citizen-petition-quebec-referendums-compared",
