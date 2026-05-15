@@ -45,3 +45,6 @@ content/social-briefs/.state.json
 
 # X mirror per-machine state
 content/social-briefs/.x-mirror-state.json
+
+# Mastodon mirror per-machine state
+content/social-briefs/.mastodon-state.json

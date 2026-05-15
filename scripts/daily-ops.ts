@@ -508,6 +508,36 @@ async function main() {
     }
   }
 
+  // ── Mastodon mirror (RSS-driven, runs independently of the auto-publish
+  //    gate above) ──────────────────────────────────────────────────────
+  // Posts any newly-published articles to our Mastodon account. Hooks the
+  // existing RSS feed; tracks state in content/social-briefs/.mastodon-state.json
+  // (gitignored). Tragedy-halt-aware inside the script itself, so it skips
+  // automatically during breaking-news halts. Silent no-op if the
+  // MASTODON_* env vars aren't configured yet (so this loop is safe to
+  // ship before the operator finishes the one-time Mastodon signup).
+  if (!SKIP_AUTO_PUBLISH) {
+    log('\n[mastodon-mirror]');
+    try {
+      const out = execSync('npx tsx scripts/social-brief/mastodon-rss-mirror.ts --apply --limit 3', {
+        cwd: ROOT,
+        encoding: 'utf8',
+        timeout: 2 * 60 * 1000,
+      });
+      const tail = out.split('\n').slice(-8).join('\n');
+      log(tail.split('\n').map((l) => `  ${l}`).join('\n'));
+      if (out.includes('posted ') && !out.includes('posted 0')) {
+        autoActions.push('mastodon-mirror:posted');
+      } else {
+        autoActions.push('mastodon-mirror:nothing-new');
+      }
+    } catch (e: any) {
+      const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+      log(`  ✗ mastodon-mirror failed: ${msg}`);
+      autoActions.push(`mastodon-mirror:failed:${msg.slice(0, 80)}`);
+    }
+  }
+
   // ── Write report ────────────────────────────────────────────────────
   const today = startedAt.toISOString().slice(0, 10);
   const reportPath = join(REPORTS_DIR, `${today}.md`);
