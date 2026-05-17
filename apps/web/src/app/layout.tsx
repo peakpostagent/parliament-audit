@@ -58,6 +58,28 @@ export default function RootLayout({
           title="Parliament Audit — News"
           href="/rss.xml"
         />
+        {/*
+          Mastodon domain verification. The <link rel="me"> tag tells
+          Mastodon that this domain claims ownership of the linked
+          profile; Mastodon then re-checks the profile and, if the
+          website field on the profile points back to this domain,
+          shows a green ✓ checkmark next to the website link on the
+          public profile. Server-rendered in <head>; no JS required.
+          Pairs with the website field on
+          https://mstdn.ca/@parliamentaudit which lists
+          https://parliamentaudit.ca .
+        */}
+        <link rel="me" href="https://mstdn.ca/@parliamentaudit" />
+        {/*
+          Author attribution for shares-on-Mastodon. When someone
+          shares a /news/<slug> URL on Mastodon, the renderer reads
+          this meta and credits the post to our fediverse handle
+          (shown as a "More from Parliament Audit" tag on the card).
+          Page-level <Metadata.other> would also work, but a single
+          site-wide value is the right default and only article pages
+          would need a more granular override.
+        */}
+        <meta name="fediverse:creator" content="@parliamentaudit@mstdn.ca" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -70,6 +92,7 @@ export default function RootLayout({
               sameAs: [
                 'https://x.com/ParliamentAudit',
                 'https://bsky.app/profile/parliamentaudit.bsky.social',
+                'https://mstdn.ca/@parliamentaudit',
               ],
             }),
           }}
@@ -156,6 +179,15 @@ function Footer() {
             <ul className="text-sm text-gray-600 space-y-1">
               <li><a href="https://x.com/ParliamentAudit" className="hover:text-red-600" target="_blank" rel="noopener noreferrer" data-umami-event="outbound-social" data-umami-event-host="x.com" data-umami-event-placement="footer">X / Twitter</a></li>
               <li><a href="https://bsky.app/profile/parliamentaudit.bsky.social" className="hover:text-red-600" target="_blank" rel="noopener noreferrer" data-umami-event="outbound-social" data-umami-event-host="bsky.app" data-umami-event-placement="footer">Bluesky</a></li>
+              {/*
+                rel="me" on this anchor is the canonical place for it
+                per Mastodon's docs — an invisible <link> in <head>
+                works too (we have one), but having BOTH lets the
+                check pass regardless of whether the Mastodon
+                verifier follows <head> tags or visible-page <a>
+                elements. Belt and suspenders, no extra render cost.
+              */}
+              <li><a rel="me noopener noreferrer" href="https://mstdn.ca/@parliamentaudit" className="hover:text-red-600" target="_blank" data-umami-event="outbound-social" data-umami-event-host="mstdn.ca" data-umami-event-placement="footer">Mastodon</a></li>
             </ul>
           </div>
         </div>
