@@ -249,6 +249,26 @@ useful for offline editing or when Claude Code's shell ends up with
 a stale empty `ANTHROPIC_API_KEY=` (a known issue on some Windows
 shells; the script forces dotenv override to work around it).
 
+## Image sourcing (when drafting a new article)
+
+Operator decision 2026-05-16: every new article gets a ~3-minute
+search step for a real licensed photo, in priority order:
+
+1. **Wikimedia Commons** (CC0 / CC-BY / CC-BY-SA / PD)
+2. **Flickr Creative Commons** (commercial-use-allowed filter)
+3. **Crown copyright** — Government of Canada photos under the
+   Open Government Licence Canada 2.0 (Canada.ca releases, DND
+   media, House of Commons MP photos)
+4. **Direct ask** — indie journalists we've cited (template + reply-
+   rate expectations in the full doc)
+5. **Skip** — fall back to our generated stat / headline OG card
+
+**Never** repost a paywalled outlet's photo without permission.
+Attribution alone is not a license — that's the misconception that
+gets civic accounts publicly accused of theft. Full rules,
+attribution formats, and an outreach email template at
+[`scripts/social-brief/image-sourcing.md`](./image-sourcing.md).
+
 ## Voice rules (enforced in drafts)
 
 Drafts follow `content/voice-playbook.md`:
