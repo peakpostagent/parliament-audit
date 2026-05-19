@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Bill C-22 passed second reading April 20",
+      "slug": "bill-c-22-second-reading-update-april-20-2026",
+      "text": "Bill C-22 passed second reading April 20.\n\n→ 1 year metadata retention\n→ Secret order power for Public Safety\n→ Lower access threshold\n\nOpposed: Geist, EFF, Meta, Apple, US House Judiciary.",
+      "imageMode": "stat",
+      "bskyUri": "Series bill-c-22 — day-01.article.ts"
+    },
+    {
       "bskyUri": "May 15 — Canada net electricity importer Oct-Dec 2025 (Sonnet-reviewed accountability angle, hydro-exporter contrast)",
       "matchSubstring": "Canada — a major hydro exporter — was a net electricity importer",
       "slug": "canada-net-electricity-importer-oct-dec-2025",
