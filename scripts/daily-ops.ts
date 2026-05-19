@@ -449,6 +449,91 @@ async function main() {
     log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no auto-posting needed`);
     autoActions.push('cadence-met');
   } else {
+    // ── Priority 1: Series publisher ───────────────────────────────
+    // If there's an active multi-day series with an unpublished day
+    // staged in content/series/<series>/day-NN.article.ts, fire that
+    // first. The script handles the full chain: prepend to
+    // news-articles.ts, commit/push, wait for deploy, post Bluesky,
+    // queue + fire X mirror, ntfy. Idempotent: exits clean when the
+    // series is caught up. Safe to call every cron tick.
+    //
+    // Discovery: scan content/series/*/day-*.article.ts. We default to
+    // the first series alphabetically (currently bill-c-22). When new
+    // series are added, this list extends; we ship one series-day per
+    // cron tick to spread cadence across the day.
+    const seriesDirs: string[] = (() => {
+      const seriesRoot = resolve(ROOT, 'content/series');
+      if (!existsSync(seriesRoot)) return [];
+      try {
+        return require('node:fs').readdirSync(seriesRoot)
+          .filter((d: string) => {
+            const full = resolve(seriesRoot, d);
+            return require('node:fs').statSync(full).isDirectory();
+          })
+          .sort();
+      } catch {
+        return [];
+      }
+    })();
+    let seriesFired = false;
+    for (const seriesName of seriesDirs) {
+      // Cheap pre-check: are there ANY day-NN.article.ts files whose
+      // slug isn't already in news-articles.ts? If yes, run the
+      // publisher. If not, skip to the next series. We do this with a
+      // grep-style scan rather than evaluating to keep daily-ops fast.
+      const seriesDir = resolve(ROOT, 'content/series', seriesName);
+      const dayFiles: string[] = require('node:fs')
+        .readdirSync(seriesDir)
+        .filter((f: string) => /^day-\d+\.article\.ts$/.test(f))
+        .sort();
+      let hasUnpublished = false;
+      for (const f of dayFiles) {
+        try {
+          const content = require('node:fs').readFileSync(resolve(seriesDir, f), 'utf8');
+          const m = content.match(/slug:\s*['\"]([^'\"]+)['\"]/);
+          if (!m) continue;
+          const slug = m[1];
+          const articlesContent = require('node:fs').readFileSync(
+            resolve(ROOT, 'apps/web/src/content/news-articles.ts'),
+            'utf8',
+          );
+          if (!articlesContent.includes(`slug: '${slug}'`) && !articlesContent.includes(`slug: \"${slug}\"`)) {
+            hasUnpublished = true;
+            break;
+          }
+        } catch {
+          /* ignore individual file errors */
+        }
+      }
+      if (!hasUnpublished) {
+        log(`  ✓ series "${seriesName}" caught up — no unpublished day`);
+        continue;
+      }
+      log(`  → series "${seriesName}" has an unpublished day; firing publish-next-day`);
+      try {
+        const out = execSync(
+          `npx tsx scripts/series/publish-next-day.ts --apply --series ${seriesName}`,
+          { cwd: ROOT, encoding: 'utf8', timeout: 12 * 60 * 1000 },
+        );
+        const tail = out.split('\n').slice(-12).join('\n');
+        log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+        didFire = true;
+        seriesFired = true;
+        autoActions.push(`series-publish:${seriesName}:fired`);
+        break; // one series-day per cron tick
+      } catch (e: any) {
+        const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+        log(`  ✗ series-publish failed: ${msg}`);
+        autoActions.push(`series-publish:${seriesName}:failed:${msg.slice(0, 80)}`);
+        // Continue to fallback chain on failure rather than blocking
+        // the whole gate. The series day stays staged for the next
+        // tick.
+      }
+    }
+    if (seriesFired) {
+      // We shipped a series-day; skip the rest of the auto-publish
+      // chain for this tick to avoid double-posting.
+    } else {
     const queueDepthForGate = mirrorQueueDepth();
     if (queueDepthForGate && queueDepthForGate > 0) {
       // Mirror queue has items; fire one. mirror-queue-apply has its own
@@ -506,6 +591,7 @@ async function main() {
         autoActions.push(`auto-amplify:failed:${msg.slice(0, 80)}`);
       }
     }
+    } // end of "else (series didn't fire)" — fall through to mirror-queue / auto-amplify chain
   }
 
   // ── Mastodon mirror (RSS-driven, runs independently of the auto-publish
