@@ -594,6 +594,37 @@ async function main() {
     } // end of "else (series didn't fire)" — fall through to mirror-queue / auto-amplify chain
   }
 
+  // ── Analytics snapshot (read-only, every cron tick, fast) ─────────
+  // Appends today's entry to content/analytics/.followers-ledger.json
+  // so we have a real growth time-series. Writes a daily JSON snapshot.
+  // Idempotent: re-running on the same UTC date overwrites today's
+  // entry rather than duplicating.
+  log('\n[analytics-snapshot]');
+  try {
+    const out = execSync('npx tsx scripts/analytics/snapshot.ts', {
+      cwd: ROOT,
+      encoding: 'utf8',
+      timeout: 90_000,
+    });
+    // Only log the high-signal summary lines, not the full report.
+    const summaryLines = out
+      .split('\n')
+      .filter(
+        (l) =>
+          l.includes('Followers:') ||
+          l.includes('Last 24h:') ||
+          l.includes('wrote ') ||
+          l.includes('⚠'),
+      )
+      .slice(0, 12);
+    for (const l of summaryLines) log(`  ${l.trim()}`);
+    autoActions.push('analytics-snapshot:done');
+  } catch (e: any) {
+    const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+    log(`  ✗ analytics-snapshot failed: ${msg}`);
+    autoActions.push(`analytics-snapshot:failed:${msg.slice(0, 80)}`);
+  }
+
   // ── Mastodon mirror (RSS-driven, runs independently of the auto-publish
   //    gate above) ──────────────────────────────────────────────────────
   // Posts any newly-published articles to our Mastodon account. Hooks the

@@ -53,3 +53,11 @@ content/social-briefs/.x-mirror-failures.json
 
 # Mastodon mirror per-machine state
 content/social-briefs/.mastodon-state.json
+
+# Analytics snapshots — daily JSON dump + follower-growth ledger.
+# Per-machine, contains live numbers from the social APIs at snapshot
+# time. We don't commit these because (a) they update every cron tick
+# and would bloat the diff history, and (b) anyone with read access to
+# the repo could correlate timing with our follower-count fluctuations.
+content/analytics/.followers-ledger.json
+content/analytics/snapshot-*.json
