@@ -6,6 +6,7 @@ import RepublishBlock from '@/components/RepublishBlock';
 import { SourceLink } from '@/components/SourceLink';
 import { ArticleEngagementTracker } from '@/components/ArticleEngagementTracker';
 import { ShareLink } from '@/components/ShareLink';
+import { ContactYourMP } from '@/components/ContactYourMP';
 
 /** Build a plain-HTML version of the article body for CMS copy-paste. */
 function buildRepublishBodyHtml(sections: NewsArticle['sections']): string {
@@ -594,6 +595,15 @@ export default async function NewsArticlePage({ params }: PageProps) {
           Get Vote Alerts
         </Link>
       </div>
+
+      {/* Contact-your-MP action embed.
+          Pattern: 5 Calls (41K Bluesky followers, 10M+ calls routed).
+          Civic content → low-friction action. Email-first because Canadian
+          MPs respond to constituent inboxes more than to call volume. */}
+      <ContactYourMP
+        articleSlug={article.slug}
+        articleHeadline={article.headline}
+      />
 
       {/* Engagement tracker (fires article-engaged + article-finished) */}
       <ArticleEngagementTracker

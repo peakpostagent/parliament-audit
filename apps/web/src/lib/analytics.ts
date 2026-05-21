@@ -30,7 +30,14 @@ export type AnalyticsEvent =
   | 'article-engaged'
   | 'article-finished'
   | 'builder-intent'
-  | 'republish-copied';
+  | 'republish-copied'
+  // ContactYourMP action embed (added 2026-05-20, idea #6 from
+  // competitive review — 5 Calls pattern).
+  | 'contact-mp-lookup-submitted'
+  | 'contact-mp-lookup-success'
+  | 'contact-mp-lookup-error'
+  | 'contact-mp-message-copied'
+  | 'contact-mp-email-opened';
 
 /**
  * Fire a named event. `data` is an optional flat object of string/number/
