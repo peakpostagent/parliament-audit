@@ -1,0 +1,7 @@
+{
+  "_comment": "Day 7 X mirror queue entry — MP-accountability piece. Lists the 12 Liberal MPs (sponsor, cabinet speakers, House Leader, SECU members) who moved Bill C-22 to committee. publish-next-day.ts prepends this to scripts/social-brief/x-mirror-queue.json on publish day.",
+  "matchSubstring": "Bill C-22 is at committee. Here are the 12 Liberal MPs",
+  "slug": "bill-c-22-mps-who-moved-it-to-committee",
+  "text": "Bill C-22 is at committee. Here are the 12 Liberal MPs who put it there:\n\n→ Sponsor: PS Min Anandasangaree\n→ Cabinet speakers: Fraser, Sahota, Lattanzio\n→ House Leader: MacKinnon\n→ SECU (7): Duclos (chair), Acan, Dandurand, Housefather, Powlowski, Ramsay, Sodhi\n\nContact info on the article.",
+  "imageMode": "headline"
+}
