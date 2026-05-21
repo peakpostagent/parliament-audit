@@ -61,3 +61,9 @@ content/social-briefs/.mastodon-state.json
 # the repo could correlate timing with our follower-count fluctuations.
 content/analytics/.followers-ledger.json
 content/analytics/snapshot-*.json
+content/analytics/per-mp-topical.json
+
+# Vote-watcher state (per-machine; tracks which House divisions the
+# watcher has already evaluated). Lives next to the other social-brief
+# state files. Not committed for the same reason as x-mirror-state.
+content/social-briefs/.vote-watcher-state.json
