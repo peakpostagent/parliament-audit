@@ -3,9 +3,9 @@
   "_built": "2026-04-26",
   "queue": [
     {
-      "matchSubstring": "Bill C-22 is at committee. Here are the 12 Liberal MPs",
+      "matchSubstring": "Bill C-22 is at committee. The 12 Liberal MPs who put it there",
       "slug": "bill-c-22-mps-who-moved-it-to-committee",
-      "text": "Bill C-22 is at committee. Here are the 12 Liberal MPs who put it there:\n\n→ Sponsor: PS Min Anandasangaree\n→ Cabinet speakers: Fraser, Sahota, Lattanzio\n→ House Leader: MacKinnon\n→ SECU (7): Duclos (chair), Acan, Dandurand, Housefather, Powlowski, Ramsay, Sodhi\n\nContact info on the article.",
+      "text": "Bill C-22 → committee. The 12 Liberal MPs who moved it:\n\nSponsor: Anandasangaree\nCabinet: Fraser, Sahota, Lattanzio\nHouse Leader: MacKinnon\nSECU: Duclos (chair), Acan, Dandurand, Housefather, Powlowski, Ramsay, Sodhi",
       "imageMode": "headline",
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmevuc7rps2u"
     },
