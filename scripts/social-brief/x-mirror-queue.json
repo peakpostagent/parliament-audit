@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Bill C-22 is at committee. Here are the 12 Liberal MPs",
+      "slug": "bill-c-22-mps-who-moved-it-to-committee",
+      "text": "Bill C-22 is at committee. Here are the 12 Liberal MPs who put it there:\n\n→ Sponsor: PS Min Anandasangaree\n→ Cabinet speakers: Fraser, Sahota, Lattanzio\n→ House Leader: MacKinnon\n→ SECU (7): Duclos (chair), Acan, Dandurand, Housefather, Powlowski, Ramsay, Sodhi\n\nContact info on the article.",
+      "imageMode": "headline",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmevuc7rps2u"
+    },
+    {
       "matchSubstring": "Bill C-22 passed second reading April 20",
       "slug": "bill-c-22-second-reading-update-april-20-2026",
       "text": "Bill C-22 passed second reading April 20.\n\n→ 1 year metadata retention\n→ Secret order power for Public Safety\n→ Lower access threshold\n\nOpposed: Geist, EFF, Meta, Apple, US House Judiciary.",
