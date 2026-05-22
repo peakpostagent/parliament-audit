@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Bill C-22 creates new surveillance powers",
+      "slug": "bill-c-22-privacy-commissioner-no-oversight-role",
+      "text": "Bill C-22 creates new surveillance powers + a 1-year metadata retention regime + secret capability orders.\n\nThe Privacy Commissioner has no statutory role in any of it.\n\nEvery prior lawful-access bill included one. C-22 doesn't.",
+      "imageMode": "stat",
+      "bskyUri": "Series bill-c-22 — day-03.article.ts"
+    },
+    {
       "matchSubstring": "Bill C-22 doesn't allow police to read your texts",
       "slug": "bill-c-22-what-one-year-of-metadata-reveals",
       "text": "Bill C-22 doesn't allow police to read your texts. It doesn't have to.\n\nMetadata = who, when, where, what device. A year of that, on every Canadian.\n\nFormer NSA + CIA director Michael Hayden: \"We kill people based on metadata.\"",
