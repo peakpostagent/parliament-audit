@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Bill C-22 lets the Public Safety Minister order a telecom",
+      "slug": "bill-c-22-secret-capability-orders-public-safety-minister",
+      "text": "Bill C-22 lets the Public Safety Minister order a telecom to build a surveillance capability into their service.\n\nThe telecom must comply. The telecom is legally barred from telling you.\n\nMeta, Apple, EFF, and Geist all oppose this provision.",
+      "imageMode": "headline",
+      "bskyUri": "Series bill-c-22 — day-04.article.ts"
+    },
+    {
       "matchSubstring": "Bill C-22 creates new surveillance powers",
       "slug": "bill-c-22-privacy-commissioner-no-oversight-role",
       "text": "Bill C-22 creates new surveillance powers + a 1-year metadata retention regime + secret capability orders.\n\nThe Privacy Commissioner has no statutory role in any of it.\n\nEvery prior lawful-access bill included one. C-22 doesn't.",
