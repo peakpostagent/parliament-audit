@@ -3,9 +3,16 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "RCMP surveilled Tommy Douglas",
+      "slug": "bill-c-22-canadian-surveillance-history-tommy-douglas-pipeline-protesters",
+      "text": "RCMP surveilled Tommy Douglas — the man who built Medicare — for 30+ years.\n\nCSIS told police Indigenous land defenders at Ipperwash were armed in 1995. They were not.\n\nCSIS later spied on Northern Gateway protesters + shared intel with Enbridge. Declassified.",
+      "imageMode": "stat",
+      "bskyUri": "Series bill-c-22 — day-06.article.ts"
+    },
+    {
       "matchSubstring": "In 2014, the European Court of Justice struck down",
       "slug": "bill-c-22-europe-data-retention-directive-struck-down",
-      "text": "In 2014, the European Court of Justice struck down the EU's mandatory metadata-retention directive.\n\nSame data category. Comparable retention duration. The Court called it a \"particularly serious\" rights interference.\n\nCanada is now proposing a similar scheme.",
+      "text": "In 2014, the EU's highest court struck down a near-identical metadata-retention regime.\n\nThe Court called it \"particularly serious\" interference with fundamental rights.\n\nCanada is now proposing the same scheme.",
       "imageMode": "quote",
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmmwvtm4hs2a"
     },
