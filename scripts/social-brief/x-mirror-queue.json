@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "In 2014, the European Court of Justice struck down",
+      "slug": "bill-c-22-europe-data-retention-directive-struck-down",
+      "text": "In 2014, the European Court of Justice struck down the EU's mandatory metadata-retention directive.\n\nSame data category. Comparable retention duration. The Court called it a \"particularly serious\" rights interference.\n\nCanada is now proposing a similar scheme.",
+      "imageMode": "quote",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmmwvtm4hs2a"
+    },
+    {
       "matchSubstring": "Bill C-22 lets the Public Safety Minister order a telecom",
       "slug": "bill-c-22-secret-capability-orders-public-safety-minister",
       "text": "Bill C-22 lets the Public Safety Minister order a telecom to build a surveillance capability into their service.\n\nThe telecom must comply. The telecom is legally barred from telling you.\n\nMeta, Apple, EFF, and Geist all oppose this provision.",
