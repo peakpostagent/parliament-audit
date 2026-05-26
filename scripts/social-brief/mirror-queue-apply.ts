@@ -95,11 +95,18 @@ interface QueueEntry {
    *   comparison — split-portrait (subjects[] required on the article)
    *   quote      — pull-quote treatment (imageQuote / imageAttrib / imageContext required)
    *   headline   — fallback, headline-dominant
+   *   custom     — use the exact `imageUrl` field on the entry; bypasses
+   *                the OG feed-card endpoint entirely. Use this when an
+   *                article ships with a pre-rendered chart or infographic
+   *                (e.g. apps/web/public/charts/<name>.png) that should
+   *                be the hero image rather than the generic feed card.
    */
-  imageMode?: 'stat' | 'comparison' | 'quote' | 'headline';
+  imageMode?: 'stat' | 'comparison' | 'quote' | 'headline' | 'custom';
   imageQuote?: string;
   imageAttrib?: string;
   imageContext?: string;
+  /** Only consulted when imageMode === 'custom'. Must be a publicly-resolvable URL. */
+  imageUrl?: string;
 }
 interface SkipEntry {
   matchSubstring: string;
@@ -312,13 +319,24 @@ async function main() {
       //                imageAttrib + imageContext on the queue entry)
       //   headline   — default fallback, headline-dominant
       const mode = e.imageMode ?? 'headline';
-      const params = new URLSearchParams({ slug: e.slug, mode });
-      if (mode === 'quote') {
-        if (e.imageQuote) params.set('q', e.imageQuote);
-        if (e.imageAttrib) params.set('attrib', e.imageAttrib);
-        if (e.imageContext) params.set('context', e.imageContext);
+      let attachImage: string;
+      if (mode === 'custom') {
+        if (!e.imageUrl) {
+          console.warn(`  [image] mode=custom but imageUrl is missing on entry — falling back to headline feed-card`);
+          const params = new URLSearchParams({ slug: e.slug, mode: 'headline' });
+          attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
+        } else {
+          attachImage = e.imageUrl;
+        }
+      } else {
+        const params = new URLSearchParams({ slug: e.slug, mode });
+        if (mode === 'quote') {
+          if (e.imageQuote) params.set('q', e.imageQuote);
+          if (e.imageAttrib) params.set('attrib', e.imageAttrib);
+          if (e.imageContext) params.set('context', e.imageContext);
+        }
+        attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
       }
-      const attachImage = `https://parliamentaudit.ca/api/og/feed-card?${params.toString()}`;
       console.log(`  [image] mode=${mode} ${attachImage}`);
       if (!e.imageMode) {
         console.log(`  [image] note: no imageMode set on entry; defaulted to 'headline'. Consider stat/comparison/quote for richer cards.`);
