@@ -67,3 +67,9 @@ content/analytics/per-mp-topical.json
 # watcher has already evaluated). Lives next to the other social-brief
 # state files. Not committed for the same reason as x-mirror-state.
 content/social-briefs/.vote-watcher-state.json
+
+# Windows Task Scheduler per-run log output. The run-daily-ops.cmd
+# wrapper appends to .task-run-<YYYYMMDD>.log so we can debug missed
+# or failed task fires after the fact. Local-only — the committed
+# daily-ops/<YYYY-MM-DD>.md reports are the audit trail of WHAT ran.
+content/daily-ops/.task-run-*.log
