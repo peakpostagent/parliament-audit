@@ -3,6 +3,20 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "The Snowbirds will fly their final show on October 11",
+      "slug": "snowbirds-grounded-2026-until-early-2030s",
+      "text": "The Snowbirds will fly their final show on October 11, 2026.\n\nAfter 55 years and ~140M viewers, 431 Squadron stands down until at least the early 2030s.\n\nTheir replacement aircraft is a turboprop, not a jet.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmrhqbrvks2n"
+    },
+    {
+      "matchSubstring": "The CRTC just tripled what Netflix owes Canada",
+      "slug": "crtc-streaming-contribution-5-to-15-percent-is-it-a-tax",
+      "text": "The CRTC just tripled what Netflix owes Canada — from 5% to 15% of Canadian revenues.\n\nLiberals call it a contribution, not a tax.\nStreamers + US call it a tax.\n\nLegally a regulatory charge. Functionally — on your bill — a tax.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmrhlxmm4k2n"
+    },
+    {
       "matchSubstring": "Before 10 years of Liberals: Canada produced 2,393,890",
       "slug": "canadian-auto-industry-2014-vs-2024-44-percent-decline",
       "text": "Before 10 years of Liberals: Canada produced 2,393,890 vehicles in 2014.\n\nAfter 10 years: 1,339,288 vehicles in 2024.\n\nA 44% decline.",
