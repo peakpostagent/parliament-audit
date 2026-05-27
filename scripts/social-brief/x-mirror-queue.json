@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Canadian tankers: banned from BC",
+      "slug": "bc-tanker-ban-eastern-canada-saudi-oil-imports",
+      "text": "Canadian tankers: banned from BC north coast since 2019.\nU.S. tankers from Alaska: still pass through.\nSaudi tankers: still deliver crude to New Brunswick.\n\nThe Alberta-to-NB pipeline (Energy East) was cancelled in 2017.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmuolcvsgk2c"
+    },
+    {
       "matchSubstring": "When Quebec tried to leave Canada in 1995, the Crees voted first",
       "slug": "indigenous-treaty-rights-quebec-1995-vs-alberta-2026",
       "text": "When Quebec tried to leave Canada in 1995, the Crees voted first.\n\nOct 24, 1995: 96.3% of Crees voted No.\nOct 30, 1995: Quebec voted No by 0.58%.\n\n2026: Treaty 6/7/8 chiefs are doing the same on Alberta.",
