@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "100M for 200 Indian students",
+      "slug": "uoft-100m-india-scholarships-vs-first-nations-water-shortfall",
+      "text": "$100M for 200 Indian students (UofT pledge during PM Carney March 2026 India visit).\n$138M/yr shortfall on First Nations water operations (PBO).\n40 long-term boil-water advisories still active.\n\nTwo real numbers. Same year.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmuoz2u3un2u"
+    },
+    {
       "matchSubstring": "Canadian tankers: banned from BC",
       "slug": "bc-tanker-ban-eastern-canada-saudi-oil-imports",
       "text": "Canadian tankers: banned from BC north coast since 2019.\nU.S. tankers from Alaska: still pass through.\nSaudi tankers: still deliver crude to New Brunswick.\n\nThe Alberta-to-NB pipeline (Energy East) was cancelled in 2017.",
