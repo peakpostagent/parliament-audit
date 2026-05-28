@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "PM Mark Carney chaired Brookfield",
+      "slug": "carney-brookfield-conflict-of-interest-documented-record",
+      "text": "PM Mark Carney chaired Brookfield's board until Jan 2025, weeks before becoming PM. He still holds ~US$6.8M in Brookfield options.\n\nParliament's Ethics Committee says his blind trust isn't enough — it wants divestment.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmvctcnpfc2o"
+    },
+    {
       "matchSubstring": "100M for 200 Indian students",
       "slug": "uoft-100m-india-scholarships-vs-first-nations-water-shortfall",
       "text": "$100M for 200 Indian students (UofT pledge during PM Carney March 2026 India visit).\n$138M/yr shortfall on First Nations water operations (PBO).\n40 long-term boil-water advisories still active.\n\nTwo real numbers. Same year.",
