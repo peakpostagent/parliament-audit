@@ -72,9 +72,12 @@ interface XSnap {
 }
 
 interface MastodonSnap {
-  followers: number;
-  following: number;
-  statuses: number;
+  // Counts are nullable so we can distinguish "API said zero" from
+  // "API failed / returned malformed data." The latter should NOT be
+  // written as zero into the follower-growth ledger.
+  followers: number | null;
+  following: number | null;
+  statuses: number | null;
   recentStatuses: Array<{
     createdAt: string;
     text: string;
@@ -83,6 +86,7 @@ interface MastodonSnap {
     replies: number;
   }>;
   recentFollowers: string[];
+  error?: string;
 }
 
 interface UmamiSnap {
@@ -221,27 +225,89 @@ async function pullX(): Promise<XSnap> {
 }
 
 // ── Mastodon ─────────────────────────────────────────────────────────
+//
+// We treat an upstream Mastodon API failure as missing-data (followers
+// reported as null) rather than zero. The previous version coerced any
+// missing `me.followers_count` to 0 via `me.followers_count || 0`, which
+// silently corrupted the follower-growth ledger when verify_credentials
+// returned a transient error object (no id, no count). The ledger writer
+// downstream now carries forward the prior day's value when this returns
+// null, so a one-off API blip doesn't show up as a 100% drop in the chart.
 async function pullMastodon(): Promise<MastodonSnap> {
   const url = process.env.MASTODON_INSTANCE_URL;
   const token = process.env.MASTODON_ACCESS_TOKEN;
   if (!url || !token)
-    return { followers: 0, following: 0, statuses: 0, recentStatuses: [], recentFollowers: [] };
+    return {
+      followers: null,
+      following: null,
+      statuses: null,
+      recentStatuses: [],
+      recentFollowers: [],
+      error: 'no MASTODON_INSTANCE_URL or MASTODON_ACCESS_TOKEN',
+    };
   const base = url.replace(/\/+$/, '');
   const headers = { authorization: `Bearer ${token}` };
-  const me: any = await fetch(`${base}/api/v1/accounts/verify_credentials`, { headers }).then((r) =>
-    r.json(),
-  );
+
+  let me: any;
+  try {
+    const res = await fetch(`${base}/api/v1/accounts/verify_credentials`, { headers });
+    if (!res.ok) {
+      return {
+        followers: null,
+        following: null,
+        statuses: null,
+        recentStatuses: [],
+        recentFollowers: [],
+        error: `verify_credentials HTTP ${res.status}`,
+      };
+    }
+    me = await res.json();
+  } catch (e: any) {
+    return {
+      followers: null,
+      following: null,
+      statuses: null,
+      recentStatuses: [],
+      recentFollowers: [],
+      error: `verify_credentials fetch: ${e?.message || String(e)}`.slice(0, 200),
+    };
+  }
+
+  // Defensive: Mastodon error responses look like `{ error: '...' }` —
+  // they parse cleanly as JSON but have no `id` field. If we get one of
+  // those (or any response missing the load-bearing `id`/`followers_count`
+  // fields), report failure rather than emitting a zeroed-out snapshot.
+  if (!me || typeof me !== 'object' || typeof me.id !== 'string' || typeof me.followers_count !== 'number') {
+    return {
+      followers: null,
+      following: null,
+      statuses: null,
+      recentStatuses: [],
+      recentFollowers: [],
+      error: `verify_credentials returned malformed body: ${me?.error || JSON.stringify(me).slice(0, 120)}`,
+    };
+  }
+
   const id = me.id;
-  const statusesRes: any[] = await fetch(
-    `${base}/api/v1/accounts/${id}/statuses?limit=10&exclude_replies=true&exclude_reblogs=true`,
-    { headers },
-  ).then((r) => r.json());
-  const followersRes: any[] = await fetch(
-    `${base}/api/v1/accounts/${id}/followers?limit=20`,
-    { headers },
-  ).then((r) => r.json());
+  let statusesRes: any[] = [];
+  let followersRes: any[] = [];
+  try {
+    statusesRes = await fetch(
+      `${base}/api/v1/accounts/${id}/statuses?limit=10&exclude_replies=true&exclude_reblogs=true`,
+      { headers },
+    ).then((r) => r.json());
+    if (!Array.isArray(statusesRes)) statusesRes = [];
+  } catch { /* statuses are non-load-bearing — keep going */ }
+  try {
+    followersRes = await fetch(
+      `${base}/api/v1/accounts/${id}/followers?limit=20`,
+      { headers },
+    ).then((r) => r.json());
+    if (!Array.isArray(followersRes)) followersRes = [];
+  } catch { /* followers list is non-load-bearing too */ }
+
   return {
-    followers: me.followers_count || 0,
+    followers: me.followers_count,
     following: me.following_count || 0,
     statuses: me.statuses_count || 0,
     recentStatuses: statusesRes.map((s) => ({
@@ -390,10 +456,32 @@ async function pullUmami(): Promise<UmamiSnap> {
 }
 
 // ── Newsletter subscribers ───────────────────────────────────────────
+//
+// Connects to Postgres to count the `subscribers` table. The database
+// URL is resolved in this priority order:
+//   1. DATABASE_URL_PROD — explicit "use the production DB here" override.
+//      Use this when DATABASE_URL points at a local dev Postgres but you
+//      want the analytics snapshot to read from the Railway production DB.
+//   2. DATABASE_URL — the default.
+//
+// When the connection fails, we unwrap the postgres-js AggregateError
+// (which is what bubbles up when every connection attempt to a host:port
+// fails — usually because there's no Postgres listening at that address)
+// so the operator sees a useful message instead of the bare class name.
 async function pullSubscribers(): Promise<SubscribersSnap> {
-  const dbUrl = process.env.DATABASE_URL;
+  const dbUrl = process.env.DATABASE_URL_PROD || process.env.DATABASE_URL;
   if (!dbUrl)
-    return { total: null, confirmed: null, unsubscribed: null, error: 'no DATABASE_URL' };
+    return { total: null, confirmed: null, unsubscribed: null, error: 'no DATABASE_URL or DATABASE_URL_PROD' };
+
+  // Surface the host being probed so the error message is actionable.
+  let probeHost = '?';
+  try {
+    const u = new URL(dbUrl);
+    probeHost = `${u.hostname}:${u.port || '5432'}`;
+  } catch {
+    /* malformed URL — let postgres-js complain about it */
+  }
+
   try {
     // Use postgres-js (the same driver packages/db/src/client.ts uses).
     // Local Postgres won't need SSL; Railway production URL provides
@@ -415,14 +503,27 @@ async function pullSubscribers(): Promise<SubscribersSnap> {
     }
     return { total, confirmed, unsubscribed };
   } catch (e: any) {
-    // Common failure: the DB isn't reachable from this host (e.g. local
-    // dev pointing at a Railway-only DB). Surface the message; don't
-    // crash the rest of the snapshot.
+    // Unwrap AggregateError (postgres-js wraps every-attempt-failed in this).
+    // Surface the inner cause so the operator sees the real reason instead
+    // of the bare "AggregateError" class name.
+    let detail = e?.message || String(e);
+    if (e?.name === 'AggregateError' && Array.isArray(e?.errors) && e.errors.length > 0) {
+      const innerMessages = e.errors
+        .map((inner: any) => inner?.code ? `${inner.code} ${inner.message || ''}`.trim() : (inner?.message || String(inner)))
+        .filter(Boolean);
+      const unique = Array.from(new Set(innerMessages));
+      detail = `connection to ${probeHost} failed — ${unique.join('; ')}`;
+      // The classic case: DATABASE_URL points at localhost with no
+      // Postgres running there. Give the operator the actionable fix.
+      if (probeHost.startsWith('localhost') || probeHost.startsWith('127.0.0.1')) {
+        detail += ` (DATABASE_URL points at local Postgres — set DATABASE_URL_PROD to your Railway DB URL to read subscriber counts here)`;
+      }
+    }
     return {
       total: null,
       confirmed: null,
       unsubscribed: null,
-      error: (e?.message || String(e)).slice(0, 200),
+      error: detail.slice(0, 400),
     };
   }
 }
@@ -435,9 +536,12 @@ interface LedgerEntry {
   bluesky_posts: number;
   x_followers: number | null;
   x_posts: number | null;
-  mastodon_followers: number;
-  mastodon_following: number;
-  mastodon_statuses: number;
+  // Mastodon counts are nullable so a transient API blip doesn't write a
+  // bogus 0 into the historical ledger. When the API fails on a given run
+  // we carry forward the previous day's value (see appendOrReplaceTodaysEntry).
+  mastodon_followers: number | null;
+  mastodon_following: number | null;
+  mastodon_statuses: number | null;
   newsletter_total: number | null;
   newsletter_confirmed: number | null;
   umami_pv_24h: number;
@@ -457,6 +561,18 @@ function saveLedger(entries: LedgerEntry[]) {
   writeFileSync(LEDGER_PATH, JSON.stringify(entries, null, 2));
 }
 function appendOrReplaceTodaysEntry(snap: Snapshot, ledger: LedgerEntry[]): LedgerEntry[] {
+  // Find the most-recent prior entry so we can carry forward when an
+  // upstream probe fails. Without this, a one-off transient API error
+  // becomes a permanent zero in the historical record (which is what
+  // produced the bogus May-26 Mastodon=0 row).
+  const sortedPrior = ledger
+    .filter((e) => e.date !== todayISO)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const prior = sortedPrior[sortedPrior.length - 1];
+
+  const carry = <T>(current: T | null | undefined, last: T | null | undefined): T | null =>
+    (current === null || current === undefined ? (last ?? null) : current) as T | null;
+
   const entry: LedgerEntry = {
     date: todayISO,
     bluesky_followers: snap.bluesky.followers,
@@ -464,11 +580,11 @@ function appendOrReplaceTodaysEntry(snap: Snapshot, ledger: LedgerEntry[]): Ledg
     bluesky_posts: snap.bluesky.posts,
     x_followers: snap.x.followers,
     x_posts: snap.x.postsCount,
-    mastodon_followers: snap.mastodon.followers,
-    mastodon_following: snap.mastodon.following,
-    mastodon_statuses: snap.mastodon.statuses,
-    newsletter_total: snap.newsletter.total,
-    newsletter_confirmed: snap.newsletter.confirmed,
+    mastodon_followers: carry(snap.mastodon.followers, prior?.mastodon_followers),
+    mastodon_following: carry(snap.mastodon.following, prior?.mastodon_following),
+    mastodon_statuses: carry(snap.mastodon.statuses, prior?.mastodon_statuses),
+    newsletter_total: carry(snap.newsletter.total, prior?.newsletter_total),
+    newsletter_confirmed: carry(snap.newsletter.confirmed, prior?.newsletter_confirmed),
     umami_pv_24h: snap.umami.last24h.pageviews,
     umami_visitors_24h: snap.umami.last24h.visitors,
     umami_pv_7d: snap.umami.last7d.pageviews,
@@ -589,13 +705,20 @@ function render(snap: Snapshot, ledger: LedgerEntry[], topicRollup: TopicRollup[
 
   // Mastodon
   lines.push('## 🐘 Mastodon');
+  if (snap.mastodon.error) {
+    lines.push(`- ⚠ probe error: ${snap.mastodon.error}`);
+  }
   const prevMasto = ledger.length >= 2 ? ledger[ledger.length - 2] : undefined;
-  const mDelta = prevMasto
-    ? ` (was ${prevMasto.mastodon_followers}; ${fmtDelta(snap.mastodon.followers, prevMasto.mastodon_followers)})`
-    : '';
-  lines.push(`- Followers: **${snap.mastodon.followers}**${mDelta}`);
-  lines.push(`- Following: ${snap.mastodon.following}`);
-  lines.push(`- Statuses:  ${snap.mastodon.statuses}`);
+  const mDelta =
+    prevMasto && snap.mastodon.followers !== null && prevMasto.mastodon_followers !== null
+      ? ` (was ${prevMasto.mastodon_followers}; ${fmtDelta(snap.mastodon.followers, prevMasto.mastodon_followers)})`
+      : '';
+  const mastoFollowersStr = snap.mastodon.followers === null ? '?' : String(snap.mastodon.followers);
+  const mastoFollowingStr = snap.mastodon.following === null ? '?' : String(snap.mastodon.following);
+  const mastoStatusesStr = snap.mastodon.statuses === null ? '?' : String(snap.mastodon.statuses);
+  lines.push(`- Followers: **${mastoFollowersStr}**${mDelta}`);
+  lines.push(`- Following: ${mastoFollowingStr}`);
+  lines.push(`- Statuses:  ${mastoStatusesStr}`);
   lines.push('### Recent statuses');
   for (const s of snap.mastodon.recentStatuses) {
     lines.push(`- \`${s.createdAt.slice(5, 16)}\` ♥${s.favourites} 🔁${s.reblogs} 💬${s.replies} — ${s.text.replace(/\n/g, ' ').slice(0, 80)}`);
@@ -665,7 +788,7 @@ function render(snap: Snapshot, ledger: LedgerEntry[], topicRollup: TopicRollup[
     lines.push('|---|---|---|---|---|---|---|');
     for (const e of ledger.slice(-7)) {
       lines.push(
-        `| ${e.date} | ${e.bluesky_followers} | ${e.x_followers ?? '?'} | ${e.mastodon_followers} | ${e.newsletter_total ?? '?'} | ${e.umami_pv_24h} | ${e.umami_pv_7d} |`,
+        `| ${e.date} | ${e.bluesky_followers} | ${e.x_followers ?? '?'} | ${e.mastodon_followers ?? '?'} | ${e.newsletter_total ?? '?'} | ${e.umami_pv_24h} | ${e.umami_pv_7d} |`,
       );
     }
     lines.push('');
