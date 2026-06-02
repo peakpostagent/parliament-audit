@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Carney in-flight refreshment bill, Year 1",
+      "slug": "carney-flight-catering-524000-canadian-family-food-budget",
+      "text": "Carneys in-flight refreshment bill, Year 1 as PM:\n\n$524,815 across 28 flights.\n$21,000 on the 2-hr Washington flight alone.\n\nAvg Canadian family of four: $16,297/yr on food.\n\nCarneys plane catering = 32 of those budgets.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnd36hp6lr24"
+    },
+    {
       "matchSubstring": "Ontario PCs defeated a bill to remove HST from groceries",
       "slug": "ontario-grocery-tax-defeated-sales-tax-middle-class-incidence",
       "text": "Ontario PCs defeated a bill to cut HST from groceries on May 27.\n\nFederal data: poorest decile pays 3.8% of income in GST, richest 2.1%. HST roughly doubles those.\n\nThe GST credit phases out by ~$54K. Middle class pays full HST.",
