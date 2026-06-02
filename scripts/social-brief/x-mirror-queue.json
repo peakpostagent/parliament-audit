@@ -3,6 +3,13 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "Ontario PCs defeated a bill to remove HST from groceries",
+      "slug": "ontario-grocery-tax-defeated-sales-tax-middle-class-incidence",
+      "text": "Ontario PCs defeated a bill to cut HST from groceries on May 27.\n\nFederal data: poorest decile pays 3.8% of income in GST, richest 2.1%. HST roughly doubles those.\n\nThe GST credit phases out by ~$54K. Middle class pays full HST.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnbf52s6qm22"
+    },
+    {
       "matchSubstring": "How a federal bill becomes law in Canada",
       "slug": "how-a-bill-becomes-law-in-canada-every-stage-explained",
       "text": "How a federal bill becomes law in Canada:\n\n→ 1st reading (introduction)\n→ 2nd reading (debate the principle)\n→ Committee (clause-by-clause, testimony)\n→ Report stage\n→ 3rd reading\n→ Other chamber\n→ Royal Assent",
