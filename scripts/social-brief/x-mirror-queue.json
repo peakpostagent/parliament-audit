@@ -3,6 +3,34 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "How a federal bill becomes law in Canada",
+      "slug": "how-a-bill-becomes-law-in-canada-every-stage-explained",
+      "text": "How a federal bill becomes law in Canada, every stage:\n\n→ 1st reading (introduction, no debate)\n→ 2nd reading (debate the principle)\n→ Committee (clause-by-clause, public testimony, amendments)\n→ Report stage\n→ 3rd reading\n→ Other chamber\n→ Royal Assent → proclamation",
+      "imageMode": "headline",
+      "bskyUri": "Series evergreen — day-01.article.ts"
+    },
+    {
+      "matchSubstring": "Carney's $25B \"sovereign wealth fund\" is borrowed",
+      "slug": "canada-strong-fund-sovereign-wealth-fund-debt-funded",
+      "text": "Carney's $25B \"sovereign wealth fund\" is borrowed money.\n\nReal SWFs — Norway, Singapore, the Gulf — run on surpluses. Canada is running a $66.9B deficit.\n\nLike opening a new credit card with the others maxed out.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mn43pu3xrf2s"
+    },
+    {
+      "matchSubstring": "the RCMP signed a secret police-cooperation deal",
+      "slug": "carney-rcmp-china-public-security-mou-police-stations",
+      "text": "On Carney's Jan 2026 Beijing trip, the RCMP signed a secret police-cooperation deal with China's Ministry of Public Security — the same body behind the illegal \"police stations\" here.\n\nThe RCMP won't release it.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmyzytxjwx2i"
+    },
+    {
+      "matchSubstring": "Carney campaigned on building",
+      "slug": "canada-technical-recession-carney-strongest-g7-economy-promise-mexico",
+      "text": "Carney campaigned on building \"the strongest economy in the G7.\"\n\nCanada just posted two straight quarters of GDP decline — a technical recession, the first since COVID.\n\nMexico, hit by the same tariffs, grew 0.6%.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmyzjbhyj32y"
+    },
+    {
       "matchSubstring": "Designated terrorists have obtained Canadian entry",
       "slug": "designated-terrorists-granted-canadian-entry-documented-cases",
       "text": "Designated terrorists have obtained Canadian entry:\n\nA PFLP member convicted over a 1968 attack — granted residency 1987, removed only in 2013.\nA UN-listed al-Qaeda financier — a citizen.\nIRGC: 28 found inadmissible, 1 removed.",
