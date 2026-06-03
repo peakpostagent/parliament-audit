@@ -3,9 +3,16 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "A Senate committee just voted 4-3 to amend Bill C-9",
+      "slug": "bill-c9-senate-amendment-residential-school-denialism-charter",
+      "text": "A Senate committee voted 4-3 to add a Bill C-9 offence: criminalizing \"misrepresenting facts\" about residential schools. Up to 2 years.\n\nSCC struck down nearly identical language in 1992 (R v Zundel) on Charter grounds.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnft26372r2j"
+    },
+    {
       "matchSubstring": "The Parliamentary Budget Officer's only job",
       "slug": "what-the-parliamentary-budget-officer-actually-does",
-      "text": "The Parliamentary Budget Officer's only job is to tell Canada whether the government's numbers add up.\n\nTheir analyses regularly contradict official projections — often by tens of billions.\n\nIndependent. 7-year non-renewable term. Reports to Parliament, not Cabinet.",
+      "text": "The Parliamentary Budget Officer's job: tell Canada whether the government's numbers add up.\n\nTheir analyses regularly contradict official projections — by tens of billions.\n\nIndependent. 7-year non-renewable term.",
       "imageMode": "stat",
       "bskyUri": "Series evergreen — day-02.article.ts"
     },
