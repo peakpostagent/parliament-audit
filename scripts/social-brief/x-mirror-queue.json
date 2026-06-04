@@ -3,6 +3,20 @@
   "_built": "2026-04-26",
   "queue": [
     {
+      "matchSubstring": "No Canadian province can secede unilaterally",
+      "slug": "reference-re-secession-of-quebec-the-supreme-court-ruling-every-province-has-to-reckon-with",
+      "text": "No Canadian province can secede unilaterally.\n\nBut a clear majority on a clear question imposes a constitutional duty on the rest of Canada to negotiate — with the feds, the other provinces, and Indigenous nations.\n\n1998 SCC. Still governs Alberta 2026.",
+      "imageMode": "stat",
+      "bskyUri": "Series evergreen — day-05.article.ts"
+    },
+    {
+      "matchSubstring": "CRTC's 15% streaming tax will cost Canadian households",
+      "slug": "streaming-tax-40-per-service-wireless-protectionism-parallel",
+      "text": "15% CRTC streaming tax → ~$40/yr per service for Canadian households.\n\nOttawa admits the cost will fall on consumers.\n\nWeve seen this before — wireless protectionism gave Canada the worlds highest cell phone bills.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mni4co56642h"
+    },
+    {
       "matchSubstring": "A Senate committee just voted 4-3 to amend Bill C-9",
       "slug": "bill-c9-senate-amendment-residential-school-denialism-charter",
       "text": "A Senate committee voted 4-3 to add a Bill C-9 offence: criminalizing \"misrepresenting facts\" about residential schools. Up to 2 years.\n\nSCC struck down nearly identical language in 1992 (R v Zundel) on Charter grounds.",
