@@ -1,13 +1,21 @@
 {
-  "_comment": "Hand-trimmed X versions of Bluesky originals from Apr 19-21 that were too long for X's 280-char limit. Built from content/social-briefs/x-mirror-blockers.json after de-duping against the 4 floor-crossing posts manually mirrored to X earlier today (Apr 26). Each entry: bskyUri (so we can mark as mirrored in state), text (≤255 chars so URL fits in remaining 25), slug (article URL). Run via mirror-queue-apply.ts.",
-  "_built": "2026-04-26",
+  "_comment": "X mirror queue. Entries whose bskyUri is in .x-mirror-state.json mirrored map are history (already posted); new entries are prepended by publish flows. Pruned 2026-06-10: removed 21 stale April/May pending entries per the social-split strategy (X = zero-effort mirror of NEW accountability articles only; back-posting weeks-old content to a 3-follower channel has no value).",
+  "_built": "2026-06-10",
   "queue": [
     {
-      "matchSubstring": "No Canadian province can secede unilaterally",
-      "slug": "reference-re-secession-of-quebec-the-supreme-court-ruling-every-province-has-to-reckon-with",
-      "text": "No Canadian province can secede unilaterally.\n\nBut a clear majority on a clear question imposes a constitutional duty on the rest of Canada to negotiate — with the feds, the other provinces, and Indigenous nations.\n\n1998 SCC. Still governs Alberta 2026.",
+      "matchSubstring": "cell phone \"monopoly\" is 3 companies wearing 8 costumes",
+      "slug": "canada-wireless-oligopoly-how-ottawa-built-it-who-fought-it",
+      "text": "Canadas cell phone monopoly is 3 companies wearing 8 costumes.\n\nFido, Chatr = Rogers. Koodo, Public = Telus. Virgin, Lucky = Bell. ~90% share.\n\nEvery challenger Ottawa created since 2008 got bought. Prices are rising again.",
       "imageMode": "stat",
-      "bskyUri": "Series evergreen — day-05.article.ts"
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnwaet3utx2g"
+    },
+    {
+      "matchSubstring": "Today is Tax Freedom Day",
+      "slug": "tax-freedom-day-2026-full-category-breakdown",
+      "text": "Today is Tax Freedom Day in Canada.\n\nThe day the average family stops paying government and starts keeping what it earns.\n\n2026 bill: $72,539 in tax on $166,790 family income. 43.5%.",
+      "imageMode": "custom",
+      "imageUrl": "apps/web/public/charts/tax-freedom-day-2026.png",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnsxepyckq2z"
     },
     {
       "matchSubstring": "CRTC's 15% streaming tax will cost Canadian households",
@@ -24,32 +32,11 @@
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnft26372r2j"
     },
     {
-      "matchSubstring": "The Parliamentary Budget Officer's only job",
-      "slug": "what-the-parliamentary-budget-officer-actually-does",
-      "text": "The Parliamentary Budget Officer's job: tell Canada whether the government's numbers add up.\n\nTheir analyses regularly contradict official projections — by tens of billions.\n\nIndependent. 7-year non-renewable term.",
-      "imageMode": "stat",
-      "bskyUri": "Series evergreen — day-02.article.ts"
-    },
-    {
-      "matchSubstring": "Carney in-flight refreshment bill, Year 1",
-      "slug": "carney-flight-catering-524000-canadian-family-food-budget",
-      "text": "Carneys in-flight refreshment bill, Year 1 as PM:\n\n$524,815 across 28 flights.\n$21,000 on the 2-hr Washington flight alone.\n\nAvg Canadian family of four: $16,297/yr on food.\n\nCarneys plane catering = 32 of those budgets.",
-      "imageMode": "stat",
-      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnd36hp6lr24"
-    },
-    {
       "matchSubstring": "Ontario PCs defeated a bill to remove HST from groceries",
       "slug": "ontario-grocery-tax-defeated-sales-tax-middle-class-incidence",
       "text": "Ontario PCs defeated a bill to cut HST from groceries on May 27.\n\nFederal data: poorest decile pays 3.8% of income in GST, richest 2.1%. HST roughly doubles those.\n\nThe GST credit phases out by ~$54K. Middle class pays full HST.",
       "imageMode": "stat",
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnbf52s6qm22"
-    },
-    {
-      "matchSubstring": "How a federal bill becomes law in Canada",
-      "slug": "how-a-bill-becomes-law-in-canada-every-stage-explained",
-      "text": "How a federal bill becomes law in Canada:\n\n→ 1st reading (introduction)\n→ 2nd reading (debate the principle)\n→ Committee (clause-by-clause, testimony)\n→ Report stage\n→ 3rd reading\n→ Other chamber\n→ Royal Assent",
-      "imageMode": "headline",
-      "bskyUri": "Series evergreen — day-01.article.ts"
     },
     {
       "matchSubstring": "Carney's $25B \"sovereign wealth fund\" is borrowed",
@@ -130,13 +117,6 @@
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmq643rder2j"
     },
     {
-      "matchSubstring": "RCMP surveilled Tommy Douglas",
-      "slug": "bill-c-22-canadian-surveillance-history-tommy-douglas-pipeline-protesters",
-      "text": "RCMP surveilled Tommy Douglas — Medicare's founder — for 30+ years.\n\nIn 1995, CSIS told police land defenders at Ipperwash were armed. They were not.\n\nCSIS later spied on Northern Gateway protesters + shared intel with Enbridge.",
-      "imageMode": "stat",
-      "bskyUri": "Series bill-c-22 — day-06.article.ts"
-    },
-    {
       "matchSubstring": "In 2014, the European Court of Justice struck down",
       "slug": "bill-c-22-europe-data-retention-directive-struck-down",
       "text": "In 2014, the EU's highest court struck down a near-identical metadata-retention regime.\n\nThe Court called it \"particularly serious\" interference with fundamental rights.\n\nCanada is now proposing the same scheme.",
@@ -144,122 +124,11 @@
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmmwvtm4hs2a"
     },
     {
-      "matchSubstring": "Bill C-22 lets the Public Safety Minister order a telecom",
-      "slug": "bill-c-22-secret-capability-orders-public-safety-minister",
-      "text": "Bill C-22 lets the Public Safety Minister order a telecom to build a surveillance capability into their service.\n\nThe telecom must comply. The telecom is legally barred from telling you.\n\nMeta, Apple, EFF, and Geist all oppose this provision.",
-      "imageMode": "headline",
-      "bskyUri": "Series bill-c-22 — day-04.article.ts"
-    },
-    {
-      "matchSubstring": "Bill C-22 creates new surveillance powers",
-      "slug": "bill-c-22-privacy-commissioner-no-oversight-role",
-      "text": "Bill C-22 creates new surveillance powers + a 1-year metadata retention regime + secret capability orders.\n\nThe Privacy Commissioner has no statutory role in any of it.\n\nEvery prior lawful-access bill included one. C-22 doesn't.",
-      "imageMode": "stat",
-      "bskyUri": "Series bill-c-22 — day-03.article.ts"
-    },
-    {
-      "matchSubstring": "Bill C-22 doesn't allow police to read your texts",
-      "slug": "bill-c-22-what-one-year-of-metadata-reveals",
-      "text": "Bill C-22 doesn't allow police to read your texts. It doesn't have to.\n\nMetadata = who, when, where, what device. A year of that, on every Canadian.\n\nFormer NSA + CIA director Michael Hayden: \"We kill people based on metadata.\"",
-      "imageMode": "quote",
-      "bskyUri": "Series bill-c-22 — day-02.article.ts"
-    },
-    {
       "matchSubstring": "Bill C-22 is at committee. The 12 Liberal MPs who put it there",
       "slug": "bill-c-22-mps-who-moved-it-to-committee",
       "text": "Bill C-22 → committee. The 12 Liberal MPs who moved it:\n\nSponsor: Anandasangaree\nCabinet: Fraser, Sahota, Lattanzio\nHouse Leader: MacKinnon\nSECU: Duclos (chair), Acan, Dandurand, Housefather, Powlowski, Ramsay, Sodhi",
       "imageMode": "headline",
       "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mmevuc7rps2u"
-    },
-    {
-      "matchSubstring": "Bill C-22 passed second reading April 20",
-      "slug": "bill-c-22-second-reading-update-april-20-2026",
-      "text": "Bill C-22 passed second reading April 20.\n\n→ 1 year metadata retention\n→ Secret order power for Public Safety\n→ Lower access threshold\n\nOpposed: Geist, EFF, Meta, Apple, US House Judiciary.",
-      "imageMode": "stat",
-      "bskyUri": "Series bill-c-22 — day-01.article.ts"
-    },
-    {
-      "bskyUri": "May 15 — Canada net electricity importer Oct-Dec 2025 (Sonnet-reviewed accountability angle, hydro-exporter contrast)",
-      "matchSubstring": "Canada — a major hydro exporter — was a net electricity importer",
-      "slug": "canada-net-electricity-importer-oct-dec-2025",
-      "text": "Canada — a major hydro exporter — was a net electricity importer for 3 consecutive months (Oct–Dec 2025). Dec 2025 US imports: 3.1M MWh, +79.3% YoY (StatsCan). Drivers: BC/Quebec drought + Ontario nuclear.",
-      "imageMode": "stat"
-    },
-    {
-      "bskyUri": "May 15 — Spaceport Canso $200M defence-lease (Sonnet 3-pass proofread)",
-      "matchSubstring": "Canada's Defence Dept. pays Maritime Launch Services $20M",
-      "slug": "spaceport-canso-200m-defence-lease",
-      "text": "Canada's Defence Dept. pays Maritime Launch Services $20M/yr for launch-pad access at Canso, NS — separate from MLS's $13,500/yr land-tenure fee. MLS 2025 filings: $14,980 revenue, $47M loss, no launches conducted.",
-      "imageMode": "stat"
-    },
-    {
-      "bskyUri": "May 13 — Alberta vs Quebec, Sonnet-proofread precision rewrite",
-      "matchSubstring": "Alberta's independence petition cleared",
-      "slug": "alberta-citizen-petition-quebec-referendums-compared",
-      "text": "Alberta's independence petition cleared its threshold: ~302K signatures vs. 178K required. If certified, the legislature must respond with legislation or a referendum. Quebec's referendums (1980, 1995) were government-initiated.",
-      "imageMode": "stat"
-    },
-    {
-      "bskyUri": "May 12 — Nomination-rules / non-citizens vote (new evergreen primer article)",
-      "matchSubstring": "Who can vote in a Canadian party",
-      "slug": "party-nominations-non-citizens-can-vote",
-      "text": "Who can vote in a Canadian party's nomination contest?\n\n→ Liberal: anyone who \"ordinarily lives in Canada\"\n→ CPC / NDP / Green: citizen or permanent resident\n→ Bloc: no citizenship or residency requirement",
-      "imageMode": "headline"
-    },
-    {
-      "bskyUri": "May 12 — Budget 2025 by-the-numbers (second post of the day)",
-      "matchSubstring": "Budget 2025, by the numbers",
-      "slug": "federal-budget-cuts-60-billion-public-service",
-      "text": "Budget 2025, by the numbers:\n\n→ $60.6B in cuts over 4 years\n→ 40,000 public service positions eliminated\n→ CRA: -2,620 jobs (largest)\n→ +$5.3B/yr to National Defence\n→ Deficit target: $43.1B → $21.8B by 2028-29",
-      "imageMode": "stat"
-    },
-    {
-      "bskyUri": "May 12 — CRA budget-cuts post (federal-budget-cuts article)",
-      "matchSubstring": "Budget 2025 cuts 2,620 jobs",
-      "slug": "federal-budget-cuts-60-billion-public-service",
-      "text": "Budget 2025 cuts 2,620 jobs from the Canada Revenue Agency — the largest workforce reduction of any federal department in the $60B / 40,000-position plan.\n\nCRA says automation will offset. PSAC warns audit capacity drops.",
-      "imageMode": "stat"
-    },
-    {
-      "bskyUri": "Apr 19 — Bill C-9 vote split (will resolve at runtime via Bluesky search)",
-      "matchSubstring": "Bill C-9 passed the House 186",
-      "slug": "bill-c9-combatting-hate-act-religious-exemption",
-      "text": "Bill C-9 passed the House 186–137. Liberals + Bloc voted yes. Conservatives, NDP, and Greens voted no. The key issue: removing a decades-old religious speech defence."
-    },
-    {
-      "bskyUri": "Apr 21 — Bill C-12 public-interest visa cancellation",
-      "matchSubstring": "can now cancel permanent resident visas",
-      "slug": "bill-c12-immigration-reform-refugee-rights",
-      "text": "The government can now cancel permanent resident visas, work permits, and study permits if it's deemed in the \"public interest.\" That term is not defined in the law."
-    },
-    {
-      "bskyUri": "Apr 21 — Sarnia mayor + local CPC president call for Gladu byelection",
-      "matchSubstring": "Sarnia's mayor and the local CPC",
-      "slug": "marilyn-gladu-byelection-pledge-then-floor-cross",
-      "text": "Sarnia's mayor and the local Conservative riding association president have both publicly called for Marilyn Gladu to face a byelection — matching her own January stance.\n\nShe has not committed."
-    },
-    {
-      "bskyUri": "Apr 21 — d'Entremont 3 different reasons / one retracted",
-      "matchSubstring": "5 days after crossing the floor",
-      "slug": "chris-dentremont-deputy-speaker-ethics-complaint",
-      "text": "In the 5 days after crossing the floor, Chris d'Entremont gave at least 3 different reasons. One had to be retracted. One cited the federal budget — which hadn't been tabled yet."
-    },
-    {
-      "bskyUri": "Apr 21 — Ma \"truly a Conservative\" Christmas party quote",
-      "matchSubstring": "I attended the Conservative Christmas party",
-      "slug": "michael-ma-team-feudalism-then-team-liberal",
-      "text": "\"The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.\"\n\n— Michael Ma, on the morning he crossed to the Liberals.",
-      "imageMode": "quote",
-      "imageQuote": "The night I attended the Conservative Christmas party, I was truly a Conservative member… I had not made a decision at that point.",
-      "imageAttrib": "Michael Ma, the morning he crossed to the Liberals",
-      "imageContext": "Markham–Unionville MP. Crossed Dec 11, 2025 — 9 days after a Hansard speech calling the Liberals \"team feudalism.\""
-    },
-    {
-      "bskyUri": "Apr 21 — Jeneroux named Special Advisor + Carney trip",
-      "matchSubstring": "named Special Advisor to the PM",
-      "slug": "matt-jeneroux-resigned-then-crossed-floor",
-      "text": "Weeks after crossing, Matt Jeneroux was named Special Advisor to the PM on Economic and Security Partnerships, and joined Mark Carney on a trip to India, Japan, and Australia.",
-      "imageMode": "comparison"
     }
   ],
   "skip_as_duplicate": [
