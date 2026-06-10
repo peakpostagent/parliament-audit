@@ -44,15 +44,27 @@ interface CheckResult {
   ok: boolean;
   label: string;
   detail: string;
+  /**
+   * Critical routes block auto-publishing when they fail (the reader-
+   * facing article path is actually broken). Non-critical routes —
+   * OG-image endpoints, sitemap, secondary pages — only warn.
+   *
+   * Added 2026-06-10 after a single 404 on /api/og/news/<new-slug>
+   * (a deploy-lag artifact on a social-card image) blocked the entire
+   * June 9 publishing day via paused-site-issue. A missing decoration
+   * must never silence the newsroom.
+   */
+  critical: boolean;
 }
 
 // ── 1. Site health ───────────────────────────────────────────────────────
 
 async function checkRoute(
   path: string,
-  expected: { status?: number; contentType?: string } = { status: 200 },
+  expected: { status?: number; contentType?: string; critical?: boolean } = { status: 200 },
 ): Promise<CheckResult> {
   const url = `https://parliamentaudit.ca${path}`;
+  const critical = expected.critical ?? true;
   try {
     const res = await fetch(url, {
       method: path.includes('/api/og/') ? 'GET' : 'HEAD',
@@ -72,12 +84,14 @@ async function checkRoute(
       ok,
       label: path,
       detail: `HTTP ${res.status}${expected.contentType ? ` · ${ct}` : ''}`,
+      critical,
     };
   } catch (e: any) {
     return {
       ok: false,
       label: path,
       detail: `error: ${(e?.message || String(e)).slice(0, 100)}`,
+      critical,
     };
   }
 }
@@ -92,18 +106,23 @@ async function siteHealth(): Promise<CheckResult[]> {
     .slice(0, 3);
   const latestSlug = slugs[0] || 'news';
 
+  // critical: reader-facing article path + the redirect social posts
+  // depend on + the RSS feed the Mastodon mirror reads. Everything
+  // else (OG images, sitemap, secondary pages) warns but does not
+  // block publishing — OG endpoints in particular 404 transiently
+  // for a freshly-deployed slug and self-heal on the next deploy.
   const checks = await Promise.all([
     checkRoute('/'),
     checkRoute('/news'),
     checkRoute(`/news/${latestSlug}`),
-    checkRoute(`/api/og/news/${latestSlug}`, { status: 200, contentType: 'image/png' }),
-    checkRoute(`/api/og/feed-card?slug=${latestSlug}`, { status: 200, contentType: 'image/png' }),
+    checkRoute(`/api/og/news/${latestSlug}`, { status: 200, contentType: 'image/png', critical: false }),
+    checkRoute(`/api/og/feed-card?slug=${latestSlug}`, { status: 200, contentType: 'image/png', critical: false }),
     checkRoute('/rss.xml', { status: 200, contentType: 'xml' }),
-    checkRoute('/sitemap.xml', { status: 200, contentType: 'xml' }),
+    checkRoute('/sitemap.xml', { status: 200, contentType: 'xml', critical: false }),
     checkRoute(`/n/${latestSlug}?s=bsky`, { status: 302 }),
-    checkRoute('/support'),
-    checkRoute('/builders'),
-    checkRoute('/find-your-mp'),
+    checkRoute('/support', { status: 200, critical: false }),
+    checkRoute('/builders', { status: 200, critical: false }),
+    checkRoute('/find-your-mp', { status: 200, critical: false }),
   ]);
   for (const c of checks) {
     log(`  ${c.ok ? '✓' : '✗'} ${c.label}  ${c.detail}`);
@@ -404,13 +423,19 @@ async function main() {
 
   // Computed early so the auto-publish gate can use it before report write.
   const failedRoutes = site.filter((c) => !c.ok);
+  // Only CRITICAL failures block publishing. A 404 on an OG image or a
+  // secondary page is a warning, not a newsroom outage — on June 9 a
+  // transient OG-route 404 for the newest slug silenced a full
+  // publishing day. Non-critical failures still land in the report's
+  // action items.
+  const failedCritical = failedRoutes.filter((c) => c.critical);
 
   // ── Auto-publish gate (per content/editorial-autonomy.md) ──────────
   const autoActions: string[] = [];
   const autoPauseGlobal = existsSync(resolve(ROOT, 'content/AUTO_PAUSE'));
   const autoPauseBsky = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_BLUESKY'));
   const autoPauseX = existsSync(resolve(ROOT, 'content/AUTO_PAUSE_X'));
-  const sitePassing = failedRoutes.length === 0;
+  const sitePassing = failedCritical.length === 0;
 
   // Run the tragedy-halt poll BEFORE we look at the autopublish gate.
   // This both (a) refreshes the AUTO_PAUSE_TRAGEDY flag based on current
@@ -449,8 +474,8 @@ async function main() {
     log('  ⏸ content/AUTO_PAUSE_TRAGEDY present — no auto-posting until news cycle clears');
     autoActions.push('paused-tragedy-halt');
   } else if (!sitePassing) {
-    log(`  ⏸ Site has ${failedRoutes.length} failed route(s) — no auto-posting until green`);
-    autoActions.push(`paused-site-issue:${failedRoutes.length}`);
+    log(`  ⏸ Site has ${failedCritical.length} CRITICAL failed route(s) — no auto-posting until green`);
+    autoActions.push(`paused-site-issue:${failedCritical.length}`);
   } else if (cadence.xToday >= cadence.target && cadence.blueskyToday >= cadence.target) {
     log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no auto-posting needed`);
     autoActions.push('cadence-met');
@@ -739,8 +764,12 @@ async function main() {
   lines.push('');
   lines.push('## Action items');
   const actions: string[] = [];
-  if (failedRoutes.length) {
-    actions.push(`- ${failedRoutes.length} site route(s) failed health check — investigate before posting more.`);
+  if (failedCritical.length) {
+    actions.push(`- ${failedCritical.length} CRITICAL route(s) failed health check — publishing is paused until these are green.`);
+  }
+  const failedWarnOnly = failedRoutes.filter((c) => !c.critical);
+  if (failedWarnOnly.length) {
+    actions.push(`- ${failedWarnOnly.length} non-critical route(s) failing (${failedWarnOnly.map((c) => c.label).join(', ')}) — publishing continues; investigate when convenient.`);
   }
   if (cadence.underTarget && !didFire) {
     actions.push('- Below daily cadence target.');
