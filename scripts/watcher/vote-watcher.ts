@@ -47,6 +47,8 @@
 import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { execSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
 
 const args = process.argv.slice(2);
 const APPLY = args.includes('--apply');
@@ -57,6 +59,11 @@ function arg(name: string): string | undefined {
 }
 const SINCE = arg('since') ? parseInt(arg('since')!, 10) : undefined;
 const SESSION = arg('session') || '45-1';
+// Cap live posts per invocation. A sitting day can produce 10+
+// divisions (e.g. marathon estimates votes); flooding the feed with
+// all of them violates the 1-2-strong-posts cadence strategy. Capped
+// votes are NOT marked seen — they re-evaluate next poll.
+const MAX_POSTS_PER_RUN = 2;
 
 const ROOT = process.cwd();
 const STATE_DIR = resolve(ROOT, 'content/social-briefs');
@@ -294,21 +301,55 @@ async function main() {
         .join('\n'),
     );
     if (!APPLY) {
-      console.log(`   [DRY-RUN] would post to Bluesky + queue X mirror`);
+      console.log(`   [DRY-RUN] would post to Bluesky`);
       wouldPost++;
       continue;
     }
-    // ── Apply mode: post Bluesky + queue X mirror ───────────────────
-    // (Deferred: invoke post-arbitrary-bluesky.ts here + add to
-    //  scripts/social-brief/x-mirror-queue.json. Sonnet proofread runs
-    //  first; reject if BLOCK.)
-    console.log(`   [APPLY] (publish chain not yet wired — placeholder)`);
-    state.postedIds[v.id] = { postedAt: state.lastPollAt!, note: 'apply path not yet wired' };
-    posted++;
+    // ── Apply mode: post to Bluesky ──────────────────────────────────
+    // No Sonnet proofread gate here by design: the draft is a
+    // deterministic template fill from the official ourcommons XML
+    // (result, tally, subject verbatim) — there is no generated prose
+    // to mis-frame. The link card points at the official division
+    // page; vote posts get no X mirror for now (feed-card images need
+    // an article slug; X cadence is covered by the article pipeline).
+    if (posted >= MAX_POSTS_PER_RUN) {
+      console.log(`   [APPLY] per-run cap (${MAX_POSTS_PER_RUN}) reached — leaving for next poll`);
+      // Don't mark as seen: re-evaluated next run.
+      continue;
+    }
+    try {
+      const tmpFile = join(tmpdir(), `vote-${v.id}-${Date.now()}.txt`);
+      writeFileSync(tmpFile, draft, 'utf8');
+      const officialUrl = `https://www.ourcommons.ca/members/en/votes/${v.parliament}/${v.session}/${v.divisionNumber}`;
+      const out = execSync(
+        `npx tsx scripts/post-arbitrary-bluesky.ts --text-file ${JSON.stringify(tmpFile)} --url ${JSON.stringify(officialUrl)} --campaign ${JSON.stringify(`vote-${v.id}`)} --no-cta`,
+        { cwd: ROOT, encoding: 'utf8', timeout: 120_000 },
+      );
+      const uriMatch = out.match(/uri=(at:\/\/\S+)/);
+      if (!out.includes('verified live')) {
+        console.error(`   [APPLY] ✗ Bluesky post not verified for ${v.id} — will retry next poll`);
+        continue; // not marked seen; retried next run
+      }
+      state.postedIds[v.id] = {
+        postedAt: state.lastPollAt!,
+        bskyUri: uriMatch?.[1],
+      };
+      posted++;
+      console.log(`   [APPLY] ✓ posted ${v.id} → ${uriMatch?.[1] ?? '(uri not captured)'}`);
+    } catch (e: any) {
+      console.error(`   [APPLY] ✗ post failed for ${v.id}: ${(e?.message || String(e)).slice(0, 160)}`);
+      continue; // not marked seen; retried next run
+    }
   }
 
-  if (candidates.length) {
-    state.lastSeenDivision = Math.max(state.lastSeenDivision, candidates[candidates.length - 1].divisionNumber);
+  // Advance lastSeenDivision only through the CONTIGUOUS prefix of
+  // decided candidates (posted or skipped). A capped or failed post
+  // must stay below the cutoff so the next poll retries it — blanket
+  // advancing to the newest division would silently orphan them.
+  for (const v of candidates) {
+    const decided = state.postedIds[v.id] || state.skippedIds[v.id];
+    if (!decided) break;
+    state.lastSeenDivision = Math.max(state.lastSeenDivision, v.divisionNumber);
   }
   saveState(state);
 

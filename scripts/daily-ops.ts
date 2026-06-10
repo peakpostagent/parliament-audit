@@ -480,6 +480,37 @@ async function main() {
     log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no auto-posting needed`);
     autoActions.push('cadence-met');
   } else {
+    // ── Priority 0: Vote watcher (live divisions) ──────────────────
+    // Time-sensitive: the GovTrack pattern only compounds when the
+    // post lands within hours of the division. Runs before the series
+    // chain; if it posts, that's the tick's social activity. Bluesky-
+    // only, capped at 2 posts/run inside the watcher, deterministic
+    // template drafts from official XML (no LLM prose). State was
+    // bootstrapped 2026-06-10 at division 144 — only NEW divisions post.
+    try {
+      const out = execSync('npx tsx scripts/watcher/vote-watcher.ts --apply', {
+        cwd: ROOT,
+        encoding: 'utf8',
+        timeout: 5 * 60 * 1000,
+      });
+      const tail = out.split('\n').slice(-6).join('\n');
+      log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+      const postedMatch = out.match(/done\. posted=(\d+)/);
+      const votesPosted = postedMatch ? parseInt(postedMatch[1], 10) : 0;
+      if (votesPosted > 0) {
+        didFire = true;
+        autoActions.push(`vote-watcher:posted:${votesPosted}`);
+      } else {
+        autoActions.push('vote-watcher:no-new-votes');
+      }
+    } catch (e: any) {
+      const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+      log(`  ✗ vote-watcher failed: ${msg}`);
+      autoActions.push(`vote-watcher:failed:${msg.slice(0, 80)}`);
+    }
+    if (didFire) {
+      // Vote post(s) shipped — that's this tick's activity.
+    } else {
     // ── Priority 1: Series publisher ───────────────────────────────
     // If there's an active multi-day series with an unpublished day
     // staged in content/series/<series>/day-NN.article.ts, fire that
@@ -660,6 +691,7 @@ async function main() {
       }
     }
     } // end of "else (series didn't fire)" — fall through to mirror-queue / auto-amplify chain
+    } // end of "else (vote-watcher didn't post)" — fall through to series chain
   }
 
   // ── Analytics snapshot (read-only, every cron tick, fast) ─────────
