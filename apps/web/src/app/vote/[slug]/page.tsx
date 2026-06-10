@@ -40,7 +40,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const ogImageUrl = `https://parliamentaudit.ca/api/og/vote/${slug}`;
 
   return {
-    title: `${article.headline} — Parliament Audit`,
+    // Root layout template appends "— Parliament Audit"; don't double it.
+    title: article.headline,
     description: article.summary,
     openGraph: {
       title: article.headline,

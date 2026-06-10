@@ -21,7 +21,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!label) return { title: 'Tag Not Found — Parliament Audit' };
 
   const count = getArticlesByTagSlug(slug).length;
-  const title = `${label} — Parliament Audit`;
+  // Root layout template appends "— Parliament Audit"; don't double it.
+  // OG cards get the site name from the layout's siteName instead.
+  const title = label;
   const description = `${count} article${count === 1 ? '' : 's'} on Parliament Audit tagged "${label}". In-depth Canadian parliamentary coverage.`;
   return {
     title,

@@ -47,6 +47,22 @@ export interface NewsArticle {
    */
   methodology?: string;
   /**
+   * Optional hero image — rendered full-width between the headline and
+   * the Smart Brevity block, and used as the OG image when set. Use for
+   * custom chart/table PNGs (e.g. /charts/tax-freedom-day-2026.png)
+   * where the visual IS the story.
+   */
+  heroImage?: string;
+  /**
+   * Optional FAQ block — rendered as a Q&A section near the foot of the
+   * article AND emitted as FAQPage JSON-LD. Use 3-5 questions phrased
+   * the way a reader would actually search them ("How much tax does the
+   * average Canadian family pay?"). This is the highest-leverage schema
+   * for AI search engines (ChatGPT referrals are already a measurable
+   * acquisition channel) and for Google AI Overviews.
+   */
+  faq?: Array<{ question: string; answer: string }>;
+  /**
    * Optional explicit hero-stat override for the OG / feed-card image.
    * When set, the social-card renderer uses these values verbatim
    * instead of running its extractor over the summary text. Use it
@@ -126,6 +142,28 @@ export const newsArticles: NewsArticle[] = [
   tags: ['Tax Freedom Day', 'Fraser Institute', 'taxes', 'cost of living', 'budget', 'CPP', 'GST', 'HST', 'carbon tax', 'property tax'],
   readingTimeMinutes: 6,
   heroImage: '/charts/tax-freedom-day-2026.png',
+  faq: [
+    {
+      question: 'What is Tax Freedom Day in Canada?',
+      answer:
+        'Tax Freedom Day is the Fraser Institute\'s annual calculation of the day the average Canadian family has earned enough money to pay all the taxes it owes to federal, provincial, and local governments for the year. In 2026, it falls on June 9 — meaning the average family works the first 159 days of the year for government before keeping anything for itself.',
+    },
+    {
+      question: 'How much tax does the average Canadian family pay in 2026?',
+      answer:
+        'By the Fraser Institute calculation, the average Canadian family (two or more people) will pay $72,539 in total taxes in 2026 on $166,790 of cash income — 43.5% of its income. That includes income tax ($25,352), payroll and health taxes ($17,069), sales taxes ($10,519), corporate taxes passed through in prices ($7,819), property taxes ($4,939), and smaller categories like fuel, carbon, liquor, tobacco, and import duties.',
+    },
+    {
+      question: 'Which province has the earliest and latest Tax Freedom Day?',
+      answer:
+        'In 2026, Saskatchewan has the earliest Tax Freedom Day (May 20) and Quebec the latest (June 27) — a 38-day gap. Ontario falls on June 8. The differences reflect each province\'s income tax rates, sales taxes, and payroll levies.',
+    },
+    {
+      question: 'Is Tax Freedom Day a fair measure of taxation?',
+      answer:
+        'It measures the price of government, not the value received — the same money funds healthcare, education, pensions, and public services. The Fraser methodology also counts business taxes as ultimately falling on households, which is a standard economic assumption but produces a larger number than what appears on any personal tax return. The 43.5% figure is an average; actual burdens vary by income, province, and household.',
+    },
+  ],
   keyTakeaways: [
     'Tax Freedom Day 2026 is June 9 — one day later than 2025.',
     'The average Canadian family will earn $166,790 and pay $72,539 in tax — 43.5% of income.',

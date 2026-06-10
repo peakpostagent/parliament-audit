@@ -36,6 +36,20 @@ export async function generateStaticParams() {
   return getAllNewsSlugs().map((slug) => ({ slug }));
 }
 
+/**
+ * Truncate on a word boundary for SERP-friendly meta tags. Google
+ * displays ~60 chars of a title and ~155-160 of a description; longer
+ * values get machine-truncated mid-word or rewritten entirely. Our
+ * headlines and summaries are long-form by design, so the meta layer
+ * trims them rather than the editorial layer shortening them.
+ */
+function truncateAtWord(s: string, max: number): string {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${cut.slice(0, lastSpace > max * 0.6 ? lastSpace : cut.length).replace(/[,;:.\s]+$/, '')}…`;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = getNewsArticle(slug);
@@ -49,13 +63,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ? `/api/og/comparison?slug=${encodeURIComponent(article.slug)}`
       : `/api/og/news/${article.slug}`;
 
+  // SERP meta: subheadline is usually the tighter editorial summary;
+  // fall back to the (long) summary. Both get word-boundary truncation.
+  const metaDescription = truncateAtWord(article.subheadline || article.summary, 158);
+
   return {
-    title: `${article.headline} — Parliament Audit`,
-    description: article.summary,
+    // Root layout template appends "— Parliament Audit"; don't double it.
+    title: truncateAtWord(article.headline, 68),
+    description: metaDescription,
     alternates: { canonical: `/news/${article.slug}` },
     openGraph: {
+      // Social cards tolerate (and reward) longer titles than SERPs do.
       title: article.headline,
-      description: article.summary,
+      description: truncateAtWord(article.summary, 300),
       type: 'article',
       publishedTime: article.publishedAt,
       images: [
@@ -69,8 +89,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.headline,
-      description: article.summary,
+      title: truncateAtWord(article.headline, 70),
+      description: truncateAtWord(article.summary, 200),
       images: [ogPath],
     },
   };
@@ -126,6 +146,21 @@ function buildJsonLd(article: NewsArticle): unknown {
   };
 
   const graph: unknown[] = [articleSchema, breadcrumb];
+
+  // FAQPage schema — the highest-leverage block for AI search engines
+  // (ChatGPT referrals are a measured acquisition channel as of June
+  // 2026) and Google AI Overviews. Only emitted when the article
+  // carries an explicit faq block.
+  if (article.faq && article.faq.length > 0) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: article.faq.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    });
+  }
 
   // Dataset schema for structured vote data — parseable by AI agents
   // answering "how did party X vote on bill Y?"
@@ -324,6 +359,19 @@ export default async function NewsArticlePage({ params }: PageProps) {
         <p className="text-lg text-gray-600 mb-6">{article.subheadline}</p>
       )}
 
+      {/* Hero image — custom chart/table PNGs where the visual IS the story */}
+      {article.heroImage && (
+        <figure className="mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={article.heroImage}
+            alt={article.headline}
+            className="w-full rounded-lg border border-gray-200 shadow-sm"
+            loading="eager"
+          />
+        </figure>
+      )}
+
       {/* Editor's note — for corrections, substantive post-publish edits */}
       {article.editorsNote && (
         <aside
@@ -505,6 +553,26 @@ export default async function NewsArticlePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* FAQ — visible Q&A, mirrored into FAQPage JSON-LD above */}
+      {article.faq && article.faq.length > 0 && (
+        <section className="mb-8" aria-labelledby="faq-heading">
+          <h3
+            id="faq-heading"
+            className="font-bold mb-4 text-sm uppercase tracking-wide text-gray-600"
+          >
+            Frequently asked questions
+          </h3>
+          <dl className="space-y-4">
+            {article.faq.map((f, i) => (
+              <div key={i} className="border border-gray-200 rounded-lg p-4">
+                <dt className="font-semibold text-[#1a1a2e] mb-1">{f.question}</dt>
+                <dd className="text-gray-700 text-sm leading-relaxed">{f.answer}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
       )}
 

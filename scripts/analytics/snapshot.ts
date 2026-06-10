@@ -391,39 +391,41 @@ async function pullUmami(): Promise<UmamiSnap> {
       utmBreakdown['search'] = (utmBreakdown['search'] || 0) + r.y;
     else utmBreakdown['other'] = (utmBreakdown['other'] || 0) + r.y;
   }
-  // ── UTM campaign breakdown (parse individual sessions for ?utm_*) ─
-  // We hit /api/websites/<id>/sessions to fetch the raw session list and
-  // parse the utm params out of each session's referrer URL. Then group
-  // by utm_campaign for the report.
+  // ── UTM campaign breakdown (landing-page query strings) ─
+  // UTM params live on OUR landing URL's query string (?utm_source=…),
+  // not on the visitor's referrer (which is just bsky.app etc.). Umami
+  // exposes landing-page query strings via metrics type=query. We parse
+  // utm_campaign/utm_source out of each query-string row and aggregate.
+  //
+  // (Previous implementation parsed session referrer URLs for utm_ —
+  // which never matches, since the referrer is the page the visitor
+  // came FROM, not the page they landed ON. It reported zero campaigns
+  // forever. Fixed 2026-06-10.)
   const utmCampaignsMap: Record<string, { campaign: string; source: string; visits: number }> = {};
   try {
-    const sessionsRes: any = await fetch(
-      `${UMAMI}/api/websites/${wid}/sessions?startAt=${w7d}&endAt=${now}&pageSize=200`,
+    const queryRes: any = await fetch(
+      `${UMAMI}/api/websites/${wid}/metrics?startAt=${w7d}&endAt=${now}&type=query&limit=100`,
       { headers },
     ).then((r) => r.json());
-    const sessions: any[] = Array.isArray(sessionsRes?.data) ? sessionsRes.data : Array.isArray(sessionsRes) ? sessionsRes : [];
-    for (const s of sessions) {
-      // Each session may have referrer / firstReferrer / utm fields in
-      // various shapes across Umami versions. We look at all of them.
-      const refUrl: string = s.referrer || s.firstReferrer || s.entryReferrer || '';
-      const referrer: string = String(refUrl);
-      if (!referrer || !referrer.includes('utm_')) continue;
-      try {
-        const url = new URL(referrer);
-        const camp = url.searchParams.get('utm_campaign');
-        const src = url.searchParams.get('utm_source') || 'unknown';
-        if (!camp) continue;
-        const key = `${src}::${camp}`;
-        if (!utmCampaignsMap[key]) {
-          utmCampaignsMap[key] = { campaign: camp, source: src, visits: 0 };
-        }
-        utmCampaignsMap[key].visits += 1;
-      } catch {
-        /* ignore unparseable referrer */
+    const rows: any[] = Array.isArray(queryRes) ? queryRes : Array.isArray(queryRes?.data) ? queryRes.data : [];
+    for (const row of rows) {
+      const qs = String(row.x || '');
+      if (!qs.includes('utm_')) continue;
+      const params = new URLSearchParams(qs);
+      const camp = params.get('utm_campaign');
+      // Some sources (e.g. ChatGPT) tag only utm_source with no campaign —
+      // still worth surfacing, under campaign "(none)".
+      const src = params.get('utm_source') || 'unknown';
+      if (!camp && src === 'unknown') continue;
+      const campaign = camp || '(none)';
+      const key = `${src}::${campaign}`;
+      if (!utmCampaignsMap[key]) {
+        utmCampaignsMap[key] = { campaign, source: src, visits: 0 };
       }
+      utmCampaignsMap[key].visits += Number(row.y) || 1;
     }
   } catch {
-    /* sessions endpoint failure is non-fatal */
+    /* query-metrics failure is non-fatal */
   }
   const utmCampaigns = Object.values(utmCampaignsMap).sort((a, b) => b.visits - a.visits);
 
@@ -758,7 +760,7 @@ function render(snap: Snapshot, ledger: LedgerEntry[], topicRollup: TopicRollup[
   for (const [src, n] of Object.entries(u.utmBreakdown || {})) {
     lines.push(`- ${n}× ${src}`);
   }
-  lines.push('### UTM campaigns (last 7d, parsed from session referrers)');
+  lines.push('### UTM campaigns (last 7d, landing-page query strings)');
   if (!u.utmCampaigns || u.utmCampaigns.length === 0) {
     lines.push('- (no campaign-tagged referrals captured yet — needs a few days of post-traffic to fill in)');
   } else {
