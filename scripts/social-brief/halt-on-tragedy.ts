@@ -31,8 +31,12 @@
  *   npx tsx scripts/social-brief/halt-on-tragedy.ts --clear     # manual override
  */
 
-import 'dotenv/config';
+// override: true is load-bearing — see scripts/claude-proofread.ts for
+// the Windows empty-shell-var story.
+import dotenv from 'dotenv';
+dotenv.config({ override: true });
 import { writeFileSync, readFileSync, existsSync, mkdirSync, unlinkSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { resolve, join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -43,6 +47,7 @@ mkdirSync(STATE_DIR, { recursive: true });
 
 const ARG_STATUS = process.argv.includes('--status');
 const ARG_CLEAR = process.argv.includes('--clear');
+const ARG_TEST_SONNET = process.argv.includes('--test-sonnet');
 const QUIET = process.argv.includes('--quiet');
 
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'parliamentaudit-posts';
@@ -59,6 +64,16 @@ interface TragedyState {
   lastTrippedKey: string | null;
   /** Last list of source-headlines that contributed to the trip */
   lastEvidence: Array<{ source: string; title: string; matched: string }>;
+  /**
+   * Sonnet second-opinion cache, keyed by a hash of the evidence
+   * headlines. Prevents re-calling the API every 30-minute poll while
+   * the same event sits in the feeds. Entries are tiny; we keep the
+   * last 20.
+   */
+  sonnetVerdicts?: Record<
+    string,
+    { verdict: 'real' | 'false_positive'; reasoning: string; at: string }
+  >;
 }
 
 function loadState(): TragedyState {
@@ -287,6 +302,107 @@ async function notify(title: string, body: string, click?: string) {
   } catch {}
 }
 
+/**
+ * Sonnet second opinion on a keyword trip.
+ *
+ * The regex layer optimizes for recall (never miss a real national
+ * moment); this layer restores precision. Operator-approved policy
+ * (2026-05-17 editorial direction): the halt may be auto-overridden
+ * when Sonnet confirms a false positive. The week of June 2 alone had
+ * two false halts (an obituary, a single-victim collision) and one
+ * real one (mass-casualty strikes on Ukrainian cities) — the
+ * distinction is consistently a judgment call regexes can't make.
+ *
+ * Judgment standard given to the model: "would a reasonable Canadian
+ * reader find a parliamentary vote-tracking post jarring right now?"
+ * — NOT "is this event sad." Distant natural disasters with routine
+ * coverage: post. Events dominating Canadian front pages with national
+ * grief or mass casualties (domestic OR foreign): halt.
+ *
+ * Fail-safe: any API error, missing key, or ambiguous output returns
+ * 'real' (keep the halt). The cost of a wrong clear is brand damage;
+ * the cost of a wrong keep is one quiet day. Verdicts are cached by
+ * evidence hash so a persisting event costs one API call, not one per
+ * 30-minute poll. ~$0.01/call at Sonnet pricing.
+ */
+async function sonnetSecondOpinion(
+  state: TragedyState,
+  trippedKey: string,
+  evidence: Array<{ source: string; title: string; matched: string }>,
+): Promise<{ verdict: 'real' | 'false_positive'; reasoning: string; cached: boolean }> {
+  const keep = (reasoning: string, cached = false) =>
+    ({ verdict: 'real' as const, reasoning, cached });
+
+  const hash = createHash('sha256')
+    .update(evidence.map((e) => e.title).sort().join('\n'))
+    .digest('hex')
+    .slice(0, 16);
+  const cached = state.sonnetVerdicts?.[hash];
+  if (cached) return { ...cached, cached: true };
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return keep('no ANTHROPIC_API_KEY — regex verdict stands');
+  }
+
+  try {
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const client = new Anthropic();
+    const res = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 300,
+      system: [
+        'You are the tone-safety judge for @ParliamentAudit, a non-partisan Canadian civic-media account that posts factual parliamentary vote-tracking content.',
+        'A keyword monitor paused all posting because tragedy-related headlines appeared in 2+ Canadian news feeds. Your job is to judge whether the pause is warranted.',
+        '',
+        'The standard is NOT "is this event sad" — it is: "would a reasonable Canadian reader find a dry parliamentary-data post jarring or disrespectful in this news cycle?"',
+        '',
+        'HALT IS WARRANTED (verdict: real) when the event plausibly dominates Canadian attention with grief or shock: any Canadian mass-casualty event; death/assassination of a major Canadian public figure; a major disaster in Canada; OR a foreign event of front-page-dominating scale (mass-casualty attacks in an active war, a 9/11-scale event, a disaster with major Canadian victims or response).',
+        'HALT IS A FALSE POSITIVE when the headlines are: routine ongoing-conflict background coverage; a distant natural disaster receiving ordinary world-news coverage with no Canadian nexus; single-victim crime; retrospective/legal-process/anniversary coverage; or sports/entertainment uses of tragedy vocabulary.',
+        '',
+        'When genuinely uncertain, answer real (keep the pause) — a wrong clear damages the brand permanently; a wrong keep costs one quiet day.',
+        '',
+        'Answer in exactly this format:',
+        'VERDICT: real | false_positive',
+        'REASONING: <one or two sentences>',
+      ].join('\n'),
+      messages: [
+        {
+          role: 'user',
+          content: `Keyword family tripped: "${trippedKey}"\n\nHeadlines that tripped it:\n${evidence
+            .map((e) => `- [${e.source}] "${e.title}" (matched: "${e.matched}")`)
+            .join('\n')}\n\nIs this halt warranted?`,
+        },
+      ],
+    });
+    const text = res.content
+      .filter((b): b is { type: 'text'; text: string } => b.type === 'text')
+      .map((b) => b.text)
+      .join('\n');
+    const vm = text.match(/VERDICT:\s*(real|false_positive)/i);
+    const rm = text.match(/REASONING:\s*([\s\S]+)/i);
+    if (!vm) return keep('Sonnet output unparseable — regex verdict stands');
+    const verdict = vm[1].toLowerCase() as 'real' | 'false_positive';
+    const reasoning = (rm?.[1] || '').trim().slice(0, 400) || '(no reasoning returned)';
+
+    state.sonnetVerdicts = state.sonnetVerdicts || {};
+    state.sonnetVerdicts[hash] = { verdict, reasoning, at: new Date().toISOString() };
+    // Keep the cache bounded.
+    const keys = Object.keys(state.sonnetVerdicts);
+    if (keys.length > 20) {
+      for (const k of keys
+        .sort((a, b) =>
+          (state.sonnetVerdicts![a].at || '').localeCompare(state.sonnetVerdicts![b].at || ''),
+        )
+        .slice(0, keys.length - 20)) {
+        delete state.sonnetVerdicts[k];
+      }
+    }
+    return { verdict, reasoning, cached: false };
+  } catch (e: any) {
+    return keep(`Sonnet check failed (${(e?.message || String(e)).slice(0, 80)}) — regex verdict stands`);
+  }
+}
+
 async function main() {
   if (ARG_CLEAR) {
     if (existsSync(FLAG_PATH)) {
@@ -298,6 +414,37 @@ async function main() {
       );
     } else {
       console.log('[tragedy-halt] flag not present; nothing to clear');
+    }
+    return;
+  }
+  if (ARG_TEST_SONNET) {
+    // Exercise the second-opinion path with two known cases from the
+    // week of June 2 — one that SHOULD clear, one that SHOULD hold.
+    // Uses a throwaway state object so verdicts aren't cached to disk.
+    const scratch: TragedyState = { lastPolledAt: null, lastTrippedAt: null, lastTrippedKey: null, lastEvidence: [] };
+    const cases = [
+      {
+        label: 'expect false_positive (distant natural disaster, routine coverage)',
+        key: 'mass-casualty',
+        evidence: [
+          { source: 'cbc-top', title: 'Philippines earthquake leads to landslides, raising death toll to at least 32', matched: 'death toll' },
+          { source: 'cbc-world', title: 'Philippines earthquake leads to landslides, raising death toll to at least 32', matched: 'death toll' },
+        ],
+      },
+      {
+        label: 'expect real (mass-casualty strikes in active war, front-page scale)',
+        key: 'mass-casualty',
+        evidence: [
+          { source: 'cbc-top', title: 'Russian missile strikes on Kyiv apartment blocks kill at least 28, including children', matched: 'killed' },
+          { source: 'globe-canada', title: 'Death toll climbs after overnight strikes across Ukraine; Canada condemns attacks', matched: 'death toll' },
+        ],
+      },
+    ];
+    for (const c of cases) {
+      const o = await sonnetSecondOpinion(scratch, c.key, c.evidence);
+      console.log(`\n[test] ${c.label}`);
+      console.log(`  verdict: ${o.verdict}${o.cached ? ' (cached)' : ''}`);
+      console.log(`  reasoning: ${o.reasoning}`);
     }
     return;
   }
@@ -385,6 +532,31 @@ async function main() {
   state.lastPolledAt = new Date().toISOString();
 
   if (tripped) {
+    // ── Sonnet second opinion (operator-approved auto-override) ──────
+    // Runs on every trip decision, new or persisting. Cached by
+    // evidence hash, so a persisting event costs one API call total.
+    const opinion = await sonnetSecondOpinion(state, tripped.key, tripped.evidence);
+    if (opinion.verdict === 'false_positive') {
+      // Do NOT trip. Record the poll, clear any existing flag, move on.
+      saveState(state);
+      const hadFlag = existsSync(FLAG_PATH);
+      if (hadFlag) unlinkSync(FLAG_PATH);
+      console.log(
+        `[tragedy-halt] regex tripped "${tripped.key}" but Sonnet ruled FALSE POSITIVE${opinion.cached ? ' (cached)' : ''} — ${hadFlag ? 'flag cleared' : 'no flag written'}`,
+      );
+      console.log(`  reasoning: ${opinion.reasoning}`);
+      if (!opinion.cached) {
+        await notify(
+          'Tragedy halt auto-overridden (Sonnet: false positive)',
+          `Family "${tripped.key}" tripped on: "${tripped.evidence[0].title}"\nSonnet: ${opinion.reasoning}`,
+        );
+      }
+      return;
+    }
+    if (!opinion.cached) {
+      log(`[tragedy-halt] Sonnet second opinion: REAL — ${opinion.reasoning}`);
+    }
+
     state.lastTrippedAt = state.lastPolledAt;
     state.lastTrippedKey = tripped.key;
     state.lastEvidence = tripped.evidence;
