@@ -318,7 +318,13 @@ function cadenceAudit(social: SocialSummary): CadenceAudit {
   const now = new Date();
   const startOfTodayUtc = new Date(now);
   startOfTodayUtc.setUTCHours(0, 0, 0, 0);
-  const target = 2; // soft target: 2 originals per platform per day (see editorial-autonomy.md v3)
+  // Soft target: 1 original per platform per day. Lowered from 2 on
+  // 2026-06-10 after the analytics review: our highest-volume week
+  // (5+ posts/day) coincided with a net follower LOSS on Bluesky, and
+  // engagement concentrates in 1-2 strong Accountability posts, not
+  // volume. Peer accounts that grow (Geist, Polling Canada) cap at
+  // 2-3/day with heavy reply/quote activity — quality over cadence.
+  const target = 1;
 
   const bskyToday =
     social.bluesky?.last5.filter((p) => new Date(p.at) >= startOfTodayUtc).length ?? 0;
@@ -510,9 +516,19 @@ async function main() {
         continue;
       }
       log(`  → series "${seriesName}" has an unpublished day; firing publish-next-day`);
+      // Social-split (2026-06-10, analytics-driven): series marked with a
+      // .site-only file publish to the website only (Mastodon still picks
+      // them up via the RSS mirror). Bluesky/X are reserved for
+      // Accountability-category pieces — our own engagement data shows
+      // 7.0 engagements/post for Accountability vs 2.3 for Legislation
+      // explainers, and follower count DROPPED during the highest-volume
+      // mirror-everything week. Evergreen explainers are SEO inventory,
+      // not social inventory.
+      const siteOnly = existsSync(resolve(seriesDir, '.site-only'));
+      if (siteOnly) log(`    (.site-only marker — skipping Bluesky + X for this series)`);
       try {
         const out = execSync(
-          `npx tsx scripts/series/publish-next-day.ts --apply --series ${seriesName}`,
+          `npx tsx scripts/series/publish-next-day.ts --apply --series ${seriesName}${siteOnly ? ' --skip-bsky --skip-x' : ''}`,
           { cwd: ROOT, encoding: 'utf8', timeout: 12 * 60 * 1000 },
         );
         const tail = out.split('\n').slice(-12).join('\n');

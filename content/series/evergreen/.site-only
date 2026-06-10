@@ -1,0 +1,13 @@
+Social-split marker (2026-06-10).
+
+Series in a directory containing this file publish to the website only:
+publish-next-day gets --skip-bsky --skip-x from daily-ops. Mastodon
+still mirrors them via the RSS mirror (zero-effort channel).
+
+Why: our Bluesky engagement data shows Accountability posts average
+7.0 engagements vs 2.3 for Legislation explainers, and follower count
+dropped during the mirror-everything high-volume week. Evergreen
+explainers are SEO inventory (search is our top acquisition channel),
+not social inventory.
+
+Delete this file to restore full social mirroring for the series.
