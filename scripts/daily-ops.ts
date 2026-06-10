@@ -608,28 +608,55 @@ async function main() {
         autoActions.push('paused-per-platform');
       }
     } else {
-      // Mirror queue empty — try auto-amplify (category 2). Repost up to
-      // dailyMax candidates from the trusted handles in
-      // content/amplification-queue.json.
-      log('  → mirror queue empty; trying auto-amplify (Bluesky reposts of trusted handles)');
-      try {
-        const out = execSync('npx tsx scripts/social-brief/auto-amplify.ts --apply --max 1', {
-          cwd: ROOT,
-          encoding: 'utf8',
-          timeout: 5 * 60 * 1000,
-        });
-        const tail = out.split('\n').slice(-12).join('\n');
-        log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
-        if (out.includes('Reposted') && !out.includes('Reposted 0')) {
-          didFire = true;
-          autoActions.push('auto-amplify:fired');
-        } else {
-          autoActions.push('auto-amplify:no-candidates');
+      // Mirror queue empty — emergency-recycle first (re-promote one of
+      // our own back-catalogue Accountability pieces with a Sonnet-fresh
+      // body; drives traffic to OUR site), then auto-amplify (reposts of
+      // trusted handles) as the true last resort.
+      let recycled = false;
+      if (cadence.blueskyToday < cadence.target && !autoPauseBsky) {
+        log('  → mirror queue empty; trying emergency-recycle (re-promote back-catalogue)');
+        try {
+          const out = execSync('npx tsx scripts/social-brief/emergency-recycle.ts --apply', {
+            cwd: ROOT,
+            encoding: 'utf8',
+            timeout: 5 * 60 * 1000,
+          });
+          const tail = out.split('\n').slice(-8).join('\n');
+          log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+          if (out.includes('✓ posted')) {
+            didFire = true;
+            recycled = true;
+            autoActions.push('emergency-recycle:fired');
+          } else {
+            autoActions.push('emergency-recycle:no-candidates');
+          }
+        } catch (e: any) {
+          const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+          log(`  ✗ emergency-recycle failed: ${msg}`);
+          autoActions.push(`emergency-recycle:failed:${msg.slice(0, 80)}`);
         }
-      } catch (e: any) {
-        const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
-        log(`  ✗ auto-amplify failed: ${msg}`);
-        autoActions.push(`auto-amplify:failed:${msg.slice(0, 80)}`);
+      }
+      if (!recycled) {
+        log('  → trying auto-amplify (Bluesky reposts of trusted handles)');
+        try {
+          const out = execSync('npx tsx scripts/social-brief/auto-amplify.ts --apply --max 1', {
+            cwd: ROOT,
+            encoding: 'utf8',
+            timeout: 5 * 60 * 1000,
+          });
+          const tail = out.split('\n').slice(-12).join('\n');
+          log(tail.split('\n').map((l) => `    ${l}`).join('\n'));
+          if (out.includes('Reposted') && !out.includes('Reposted 0')) {
+            didFire = true;
+            autoActions.push('auto-amplify:fired');
+          } else {
+            autoActions.push('auto-amplify:no-candidates');
+          }
+        } catch (e: any) {
+          const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+          log(`  ✗ auto-amplify failed: ${msg}`);
+          autoActions.push(`auto-amplify:failed:${msg.slice(0, 80)}`);
+        }
       }
     }
     } // end of "else (series didn't fire)" — fall through to mirror-queue / auto-amplify chain
