@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { newsArticles, slugifyTag, type NewsArticle } from '@/content/news-articles';
+import { TOPIC_LABELS, tagsForVote, type Topic } from '@/content/topic-taxonomy';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 300;
@@ -141,10 +142,33 @@ export default async function MPPage({ params }: PageProps) {
       .leftJoin(schema.articles, eq(schema.articles.voteId, schema.votes.id))
       .where(eq(schema.voteMemberResults.memberName, member.memberName))
       .orderBy(desc(schema.votes.voteDate))
-      .limit(50);
+      .limit(500); // full session; display list slices to 50 below
   } catch {
     // Fine — no vote data yet.
   }
+
+  // ── Per-topic voting summary (idea #1, TheyWorkForYou pattern) ────
+  // Aggregates the MP's recorded yea/nay by topic via the taxonomy.
+  // Deliberately DESCRIPTIVE, not directional: we say "Yea on 12 of 14
+  // privacy & surveillance votes", never "voted for privacy" — a Yea
+  // on a surveillance bill is a vote AGAINST privacy, and a directional
+  // label would invert the meaning. Counts only yea/nay (paired,
+  // abstentions, absences excluded from the ratio). Topics under
+  // MIN_TOPIC_VOTES are suppressed — too few votes to summarize.
+  const MIN_TOPIC_VOTES = 3;
+  const topical = new Map<Topic, { yea: number; nay: number }>();
+  for (const v of memberVotes) {
+    if (v.voteCast !== 'yea' && v.voteCast !== 'nay') continue;
+    for (const t of tagsForVote(v.billNumber || '', v.subjectText || '')) {
+      const row = topical.get(t) || { yea: 0, nay: 0 };
+      row[v.voteCast as 'yea' | 'nay'] += 1;
+      topical.set(t, row);
+    }
+  }
+  const topicalRows = Array.from(topical.entries())
+    .map(([topic, r]) => ({ topic, ...r, total: r.yea + r.nay }))
+    .filter((r) => r.total >= MIN_TOPIC_VOTES)
+    .sort((a, b) => b.total - a.total);
 
   // Our editorial coverage of this specific MP (floor-crosser profiles etc.)
   const coverage = findArticlesByMp(slug, member.memberName);
@@ -214,6 +238,50 @@ export default async function MPPage({ params }: PageProps) {
         </div>
       )}
 
+      {/* Per-topic voting summary — descriptive counts, never directional */}
+      {topicalRows.length > 0 && (
+        <section className="mb-8" aria-labelledby="topical-heading">
+          <h2 id="topical-heading" className="text-xl font-bold mb-1">
+            Votes by topic
+          </h2>
+          <p className="text-sm text-gray-500 mb-4">
+            Recorded yea/nay divisions, grouped by subject area. Counts are
+            descriptive — a Yea is a vote for the motion before the House,
+            which may support or oppose the policy area named.
+          </p>
+          <ul className="space-y-3">
+            {topicalRows.map((r) => {
+              const info = TOPIC_LABELS[r.topic];
+              const pct = Math.round((r.yea / r.total) * 100);
+              return (
+                <li key={r.topic} className="bg-white border rounded-lg p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                    <span className="font-semibold text-[#1a1a2e] capitalize">
+                      {info.label}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      Yea on <strong>{r.yea}</strong> of <strong>{r.total}</strong>{' '}
+                      recorded votes
+                    </span>
+                  </div>
+                  <div
+                    className="h-2 w-full bg-red-100 rounded overflow-hidden"
+                    role="img"
+                    aria-label={`${pct}% yea, ${100 - pct}% nay`}
+                  >
+                    <div
+                      className="h-full bg-green-600"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">{info.description}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {/* Our coverage of this MP (when we've written about them) */}
       {coverage.length > 0 && (
         <section className="mb-8">
@@ -261,7 +329,7 @@ export default async function MPPage({ params }: PageProps) {
         <section>
           <h2 className="text-xl font-bold mb-4">Recent Voting Record</h2>
           <div className="space-y-2">
-            {memberVotes.map((v, i) => (
+            {memberVotes.slice(0, 50).map((v: any, i: number) => (
               <div
                 key={i}
                 className="flex items-center justify-between bg-white border rounded-lg p-3 hover:border-gray-300 transition-colors"

@@ -123,20 +123,26 @@ export function PostalCodeLookup() {
                     {result.mp.email}
                   </p>
                 )}
-                <div className="flex gap-3 mt-3">
+                <div className="flex flex-wrap gap-3 mt-3">
+                  <Link
+                    href={`/mp/${result.mp.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}
+                    className="text-sm font-semibold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded transition-colors"
+                  >
+                    Voting record &amp; votes by topic →
+                  </Link>
                   {result.mp.url && (
                     <a
                       href={result.mp.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-red-600 hover:text-red-800 underline"
+                      className="text-sm text-red-600 hover:text-red-800 underline self-center"
                     >
                       Official Profile
                     </a>
                   )}
                   <a
                     href={`/archive?q=${encodeURIComponent(result.mp.name)}`}
-                    className="text-sm text-red-600 hover:text-red-800 underline"
+                    className="text-sm text-red-600 hover:text-red-800 underline self-center"
                   >
                     Search Voting Record
                   </a>
