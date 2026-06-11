@@ -3,6 +3,13 @@
   "_built": "2026-06-10",
   "queue": [
     {
+      "matchSubstring": "Canada pumps 6.1M barrels of oil a day",
+      "slug": "canada-refining-gap-export-crude-import-gasoline",
+      "text": "Canada pumps 6.1M barrels of oil a day. We can refine 1.9M.\n\n98% of crude exports go to the U.S. — which now tariffs them 10%.\n\nB.C. sends crude to Washington refineries, then buys it back as gasoline.",
+      "imageMode": "stat",
+      "bskyUri": "at://did:plc:365sg7bnecsihrfl2t4p6m35/app.bsky.feed.post/3mnylj7jiec2n"
+    },
+    {
       "matchSubstring": "cell phone \"monopoly\" is 3 companies wearing 8 costumes",
       "slug": "canada-wireless-oligopoly-how-ottawa-built-it-who-fought-it",
       "text": "Canadas cell phone monopoly is 3 companies wearing 8 costumes.\n\nFido, Chatr = Rogers. Koodo, Public = Telus. Virgin, Lucky = Bell. ~90% share.\n\nEvery challenger Ottawa created since 2008 got bought. Prices are rising again.",
