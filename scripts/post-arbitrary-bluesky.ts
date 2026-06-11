@@ -77,17 +77,38 @@ async function fetchImageEmbed(
   altText: string,
 ): Promise<any | undefined> {
   try {
-    const res = await fetch(imageUrl, {
-      headers: { 'user-agent': 'ParliamentAuditBot/1.0' },
-      signal: AbortSignal.timeout(20000),
-    });
-    if (!res.ok) {
-      console.warn(`  [image-fetch] ${imageUrl}: HTTP ${res.status}`);
-      return undefined;
+    let buf: Buffer;
+    let contentType = 'image/png';
+    // Local path support: if the value doesn't start with http(s)://, treat
+    // as a filesystem path. Useful when a chart PNG isn't yet deployed to
+    // parliamentaudit.ca but exists in apps/web/public/charts/.
+    if (!/^https?:\/\//i.test(imageUrl)) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const fs = require('node:fs');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const path = require('node:path');
+      const resolved = path.isAbsolute(imageUrl) ? imageUrl : path.resolve(process.cwd(), imageUrl);
+      if (!fs.existsSync(resolved)) {
+        console.warn(`  [image-fetch] local file not found: ${resolved}`);
+        return undefined;
+      }
+      buf = fs.readFileSync(resolved);
+      const ext = path.extname(resolved).toLowerCase();
+      contentType = ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : ext === '.webp' ? 'image/webp' : 'image/png';
+    } else {
+      const res = await fetch(imageUrl, {
+        headers: { 'user-agent': 'ParliamentAuditBot/1.0' },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!res.ok) {
+        console.warn(`  [image-fetch] ${imageUrl}: HTTP ${res.status}`);
+        return undefined;
+      }
+      buf = Buffer.from(await res.arrayBuffer());
+      contentType = res.headers.get('content-type') || 'image/png';
     }
-    const buf = Buffer.from(await res.arrayBuffer());
     const upload = await agent.uploadBlob(buf, {
-      encoding: res.headers.get('content-type') || 'image/png',
+      encoding: contentType,
     });
     return {
       $type: 'app.bsky.embed.images',

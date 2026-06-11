@@ -32,21 +32,39 @@ async function main() {
   console.log(`HTTP ${res.status}`);
   console.log(text.slice(0, 800));
 
-  // Also pull pageviews by URL
+  // Top URLs — Umami v3 needs unit + timezone
   const urlsRes = await fetch(
-    `${UMAMI_URL}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&type=url&limit=20`,
+    `${UMAMI_URL}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&unit=hour&timezone=America%2FEdmonton&type=url&limit=20`,
     { headers: { authorization: `Bearer ${token}` } },
   );
   console.log('\n-- top URLs --');
-  console.log(await urlsRes.text().then((t) => t.slice(0, 800)));
+  console.log((await urlsRes.text()).slice(0, 800));
 
-  // And by referrer
+  // Referrers
   const refRes = await fetch(
-    `${UMAMI_URL}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&type=referrer&limit=10`,
+    `${UMAMI_URL}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&unit=hour&timezone=America%2FEdmonton&type=referrer&limit=10`,
     { headers: { authorization: `Bearer ${token}` } },
   );
   console.log('\n-- top referrers --');
-  console.log(await refRes.text().then((t) => t.slice(0, 400)));
+  console.log((await refRes.text()).slice(0, 400));
+
+  // Browsers + OS + country
+  for (const t of ['browser', 'os', 'country', 'device']) {
+    const r = await fetch(
+      `${UMAMI_URL}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&unit=hour&timezone=America%2FEdmonton&type=${t}&limit=10`,
+      { headers: { authorization: `Bearer ${token}` } },
+    );
+    console.log(`\n-- top ${t} --`);
+    console.log((await r.text()).slice(0, 300));
+  }
+
+  // Last-7-days stats so we can see early cumulative
+  const seven = await fetch(
+    `${UMAMI_URL}/api/websites/${websiteId}/stats?startAt=${endAt - 7 * 24 * 60 * 60 * 1000}&endAt=${endAt}`,
+    { headers: { authorization: `Bearer ${token}` } },
+  );
+  console.log('\n-- last 7 days stats --');
+  console.log(await seven.text());
 
   console.log('\n-- active visitors --');
   const active = await fetch(`${UMAMI_URL}/api/websites/${websiteId}/active`, {

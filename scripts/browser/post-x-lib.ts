@@ -136,21 +136,36 @@ export async function postToX(opts: PostToXOpts): Promise<PostToXResult> {
 
   // Pre-fetch the attached image to a temp file (before opening browser
   // so a fetch failure doesn't waste a Chromium spin-up).
+  //
+  // Accepts either a URL (http/https) OR a local filesystem path. Local
+  // paths are useful when a chart PNG exists in apps/web/public/charts/
+  // but Railway hasn't deployed it yet — we can still post the X mirror
+  // without depending on a public URL.
   let attachPath: string | undefined;
   if (opts.attachImage) {
     try {
-      const res = await fetch(opts.attachImage, {
-        headers: { 'user-agent': 'ParliamentAuditBot/1.0' },
-        signal: AbortSignal.timeout(20000),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const buf = Buffer.from(await res.arrayBuffer());
-      const ct = res.headers.get('content-type') || '';
-      const ext = /jpeg/.test(ct) ? '.jpg' : /webp/.test(ct) ? '.webp' : '.png';
-      const dir = join(tmpdir(), 'parliament-audit-x');
-      mkdirSync(dir, { recursive: true });
-      attachPath = resolve(dir, `attach-${Date.now()}${ext}`);
-      writeFileSync(attachPath, buf);
+      if (!/^https?:\/\//i.test(opts.attachImage)) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const fs = require('node:fs');
+        const localResolved = resolve(process.cwd(), opts.attachImage);
+        if (!fs.existsSync(localResolved)) {
+          throw new Error(`local file not found: ${localResolved}`);
+        }
+        attachPath = localResolved;
+      } else {
+        const res = await fetch(opts.attachImage, {
+          headers: { 'user-agent': 'ParliamentAuditBot/1.0' },
+          signal: AbortSignal.timeout(20000),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const buf = Buffer.from(await res.arrayBuffer());
+        const ct = res.headers.get('content-type') || '';
+        const ext = /jpeg/.test(ct) ? '.jpg' : /webp/.test(ct) ? '.webp' : '.png';
+        const dir = join(tmpdir(), 'parliament-audit-x');
+        mkdirSync(dir, { recursive: true });
+        attachPath = resolve(dir, `attach-${Date.now()}${ext}`);
+        writeFileSync(attachPath, buf);
+      }
     } catch (e: any) {
       console.warn(
         `[postToX] attachImage fetch failed (${e?.message || e}); proceeding without attachment.`,
