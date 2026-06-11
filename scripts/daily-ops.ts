@@ -477,8 +477,51 @@ async function main() {
     log(`  ⏸ Site has ${failedCritical.length} CRITICAL failed route(s) — no auto-posting until green`);
     autoActions.push(`paused-site-issue:${failedCritical.length}`);
   } else if (cadence.xToday >= cadence.target && cadence.blueskyToday >= cadence.target) {
-    log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no auto-posting needed`);
+    log(`  ✓ Cadence target (${cadence.target}/platform) already met for today — no SOCIAL auto-posting needed`);
     autoActions.push('cadence-met');
+    // Site-only series are NOT social posts — the cadence gate must not
+    // starve them. (June 10 post-mortem: evergreen day-03 sat staged
+    // while cadence-met skipped the whole chain.) Fire at most one
+    // site-only series day per tick, with --skip-bsky --skip-x.
+    const seriesRoot = resolve(ROOT, 'content/series');
+    if (existsSync(seriesRoot)) {
+      const fsx = require('node:fs');
+      const siteOnlyDirs: string[] = fsx.readdirSync(seriesRoot)
+        .filter((d: string) => {
+          const full = resolve(seriesRoot, d);
+          return fsx.statSync(full).isDirectory() && existsSync(resolve(full, '.site-only'));
+        })
+        .sort();
+      for (const seriesName of siteOnlyDirs) {
+        const seriesDir = resolve(seriesRoot, seriesName);
+        const dayFiles: string[] = fsx.readdirSync(seriesDir)
+          .filter((f: string) => /^day-\d+\.article\.ts$/.test(f))
+          .sort();
+        const articlesContent = fsx.readFileSync(
+          resolve(ROOT, 'apps/web/src/content/news-articles.ts'), 'utf8');
+        const hasUnpublished = dayFiles.some((f: string) => {
+          try {
+            const m = fsx.readFileSync(resolve(seriesDir, f), 'utf8').match(/slug:\s*['\"]([^'\"]+)['\"]/);
+            return m && !articlesContent.includes(`slug: '${m[1]}'`) && !articlesContent.includes(`slug: \"${m[1]}\"`);
+          } catch { return false; }
+        });
+        if (!hasUnpublished) continue;
+        log(`  → site-only series "${seriesName}" has an unpublished day; firing publish-next-day (site-only, cadence-exempt)`);
+        try {
+          const out = execSync(
+            `npx tsx scripts/series/publish-next-day.ts --apply --series ${seriesName} --skip-bsky --skip-x`,
+            { cwd: ROOT, encoding: 'utf8', timeout: 12 * 60 * 1000 },
+          );
+          log(out.split('\n').slice(-8).map((l) => `    ${l}`).join('\n'));
+          autoActions.push(`series-publish:${seriesName}:fired-site-only`);
+        } catch (e: any) {
+          const msg = (e?.stderr?.toString() || e?.message || String(e)).slice(0, 240);
+          log(`  ✗ site-only series-publish failed: ${msg}`);
+          autoActions.push(`series-publish:${seriesName}:failed:${msg.slice(0, 80)}`);
+        }
+        break; // one per tick
+      }
+    }
   } else {
     // ── Priority 0: Vote watcher (live divisions) ──────────────────
     // Time-sensitive: the GovTrack pattern only compounds when the
