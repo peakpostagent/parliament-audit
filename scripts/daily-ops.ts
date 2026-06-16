@@ -737,6 +737,36 @@ async function main() {
     } // end of "else (vote-watcher didn't post)" — fall through to series chain
   }
 
+  // ── Quality-content cadence (independent of the vote-watcher gate) ─
+  // The vote-watcher posts ≤2 notable divisions/day, but those draw
+  // little engagement. To keep the Bluesky feed anchored by the
+  // accountability content that actually grows followers, re-promote a
+  // back-catalogue Accountability article ~2x/week (every ≥3 days),
+  // regardless of what the gate above did. emergency-recycle has its
+  // own 60-day per-article cooldown + 14-day min-age, so it never
+  // repeats and never promotes something still fresh.
+  if (!SKIP_AUTO_PUBLISH && !autoPauseGlobal && !autoPauseTragedy && !autoPauseBsky && sitePassing) {
+    try {
+      const recycleStatePath = resolve(ROOT, 'content/social-briefs/.recycle-state.json');
+      let daysSinceRecycle = Infinity;
+      if (existsSync(recycleStatePath)) {
+        const rs = JSON.parse(readFileSync(recycleStatePath, 'utf8'));
+        const dates = Object.values(rs.recycled || {}).map((d) => new Date(d as string).getTime());
+        if (dates.length) daysSinceRecycle = (Date.now() - Math.max(...dates)) / 86400000;
+      }
+      if (daysSinceRecycle >= 3) {
+        log(`\n[quality-cadence] ${Math.round(daysSinceRecycle)}d since last recycle ≥ 3 — promoting a back-catalogue Accountability piece`);
+        const out = execSync('npx tsx scripts/social-brief/emergency-recycle.ts --apply', {
+          cwd: ROOT, encoding: 'utf8', timeout: 5 * 60 * 1000,
+        });
+        log(out.split('\n').slice(-4).map((l) => `    ${l}`).join('\n'));
+        autoActions.push(out.includes('✓ posted') ? 'quality-recycle:fired' : 'quality-recycle:no-op');
+      }
+    } catch (e: any) {
+      log(`  ⚠ quality-cadence recycle error: ${(e?.message || String(e)).slice(0, 120)}`);
+    }
+  }
+
   // ── Analytics snapshot (read-only, every cron tick, fast) ─────────
   // Appends today's entry to content/analytics/.followers-ledger.json
   // so we have a real growth time-series. Writes a daily JSON snapshot.
