@@ -60,10 +60,13 @@ function arg(name: string): string | undefined {
 const SINCE = arg('since') ? parseInt(arg('since')!, 10) : undefined;
 const SESSION = arg('session') || '45-1';
 // Cap live posts per invocation. A sitting day can produce 10+
-// divisions (e.g. marathon estimates votes); flooding the feed with
-// all of them violates the 1-2-strong-posts cadence strategy. Capped
-// votes are NOT marked seen — they re-evaluate next poll.
-const MAX_POSTS_PER_RUN = 2;
+// divisions; with two cron ticks/day this keeps vote posts to ≤2/day so
+// they don't crowd out the accountability content that actually drives
+// engagement. Overflow is DROPPED (marked seen), not backlogged — a
+// vote tally posted 3 days late is worthless, and a stale backlog was
+// the old failure mode. Lowered 2→1 on 2026-06-16 alongside the
+// stricter judge().
+const MAX_POSTS_PER_RUN = 1;
 
 const ROOT = process.cwd();
 const STATE_DIR = resolve(ROOT, 'content/social-briefs');
@@ -158,50 +161,84 @@ interface Verdict {
   category: 'close' | 'unanimous' | 'bill-vote' | 'noteworthy' | 'skip';
   reason: string;
 }
+
+/**
+ * Bills we've covered editorially — any recorded division on these is
+ * worth posting, at any stage. Keep in sync with the articles we've
+ * shipped + topic-taxonomy BILL_TOPICS.
+ */
+const TRACKED_BILLS = new Set(['C-9', 'C-22', 'C-12', 'C-11', 'C-225']);
+
+/**
+ * Selective worth-posting heuristic (tightened 2026-06-16).
+ *
+ * Earlier version posted EVERY numbered-bill vote and every procedural
+ * motion with a keyword match (time allocation, concurrence, estimates).
+ * Result: the Bluesky feed filled with low-value tally posts that drew
+ * literally zero engagement (0♥/0↻/0💬 across a week) and crowded out
+ * the accountability content that actually grows followers. We now post
+ * only genuinely notable divisions:
+ *   - close votes (margin ≤ 10) — always news, even procedural
+ *   - bills we cover editorially (TRACKED_BILLS) — any stage
+ *   - final passage of a bill (3rd reading / adoption / royal assent)
+ *   - lopsided-but-notable: a bill defeated, or unanimous on a bill
+ * Everything else — time allocation, report-stage churn, routine 2nd
+ * readings, estimates, opposition motions — is skipped.
+ */
 function judge(vote: VoteRecord): Verdict {
   const total = vote.yeas + vote.nays;
+  const margin = Math.abs(vote.yeas - vote.nays);
+  const sub = vote.subject.toLowerCase();
+  const bill = (vote.billNumberCode || '').replace(/\s+/g, '').toUpperCase();
 
-  // Hard skips: procedural noise
+  // ── Hard skips ──────────────────────────────────────────────────
   if (vote.documentTypeName === 'Ways and means') {
     return { worth: false, category: 'skip', reason: 'Ways-and-means motion (procedural)' };
   }
-  // Skip Supply motions that aren't on a numbered bill
   if (vote.documentTypeName === 'Supply' && !vote.billNumberCode) {
     return { worth: false, category: 'skip', reason: 'Non-bill Supply / Opposition Motion (procedural)' };
   }
-  // Skip very low quorum
   if (total < 50) {
     return { worth: false, category: 'skip', reason: `Low quorum (${total} ballots cast)` };
   }
 
-  // Worth-posting cases
-  const margin = Math.abs(vote.yeas - vote.nays);
-  if (margin <= 10) {
+  // ── 1. Genuinely close votes. In a minority Parliament the routine
+  //       whipped government margin is ~7, so ≤5 means it was actually
+  //       tight (a few absences could have flipped it) — that's news.
+  if (margin <= 5) {
     return { worth: true, category: 'close', reason: `Close vote (margin ${margin})` };
   }
-  if (vote.nays === 0 && total >= 100) {
-    return { worth: true, category: 'unanimous', reason: 'Unanimous (or near-unanimous) decision' };
+
+  // Procedural motions that flood the feed: only the close ones (caught
+  // above) get through. Everything else here is skipped.
+  const procedural =
+    /time allocation|closure|main estimates|supplementary estimates|concurrence in the budget|opposition motion/.test(sub);
+  if (procedural) {
+    return { worth: false, category: 'skip', reason: 'Procedural motion, not close' };
   }
-  if (vote.billNumberCode && /^(C|S)-\d+/.test(vote.billNumberCode)) {
-    return { worth: true, category: 'bill-vote', reason: `Numbered bill vote (${vote.billNumberCode})` };
+
+  // ── 2. Bills we cover editorially — any stage.
+  if (TRACKED_BILLS.has(bill)) {
+    return { worth: true, category: 'bill-vote', reason: `Tracked bill (${bill})` };
   }
-  // Subject keywords that flag noteworthy
-  const sub = vote.subject.toLowerCase();
-  const keywords = [
-    'time allocation',
-    'closure',
-    'concurrence at report stage',
-    'royal assent',
-    'concurrence in the budget',
-    'amendment',
-    'opposition motion',
-    'main estimates',
-    'supplementary estimates',
-  ];
-  if (keywords.some((k) => sub.includes(k))) {
-    return { worth: true, category: 'noteworthy', reason: 'Subject keyword match' };
+
+  // ── 3. Final passage of a bill (becomes law or dies). Skip the
+  //       earlier-stage / report-stage churn.
+  if (bill && /third reading|3rd reading|and adoption|royal assent/.test(sub)) {
+    return { worth: true, category: 'bill-vote', reason: `Final passage (${bill})` };
   }
-  return { worth: false, category: 'skip', reason: 'No worth-posting signal' };
+
+  // ── 4. A bill actually defeated is news regardless of stage.
+  if (bill && vote.result === 'Negatived') {
+    return { worth: true, category: 'bill-vote', reason: `Bill defeated (${bill})` };
+  }
+
+  // ── 5. Unanimous on a substantive bill.
+  if (bill && vote.nays === 0 && total >= 150) {
+    return { worth: true, category: 'unanimous', reason: 'Unanimous on a bill' };
+  }
+
+  return { worth: false, category: 'skip', reason: 'Not notable enough to post' };
 }
 
 // ── Post drafting (deterministic format) ─────────────────────────────
@@ -313,8 +350,16 @@ async function main() {
     // page; vote posts get no X mirror for now (feed-card images need
     // an article slug; X cadence is covered by the article pipeline).
     if (posted >= MAX_POSTS_PER_RUN) {
-      console.log(`   [APPLY] per-run cap (${MAX_POSTS_PER_RUN}) reached — leaving for next poll`);
-      // Don't mark as seen: re-evaluated next run.
+      // DROP overflow rather than backlog it. Marking seen advances
+      // lastSeenDivision past these so they never post stale days later.
+      // We accept losing coverage of the excess notable votes — a media
+      // account posts the day's most-timely division, not all of them.
+      state.skippedIds[v.id] = {
+        reason: 'over per-run cap — dropped to avoid stale backlog',
+        at: state.lastPollAt!,
+      };
+      skipped++;
+      console.log(`   [APPLY] per-run cap reached — dropping ${v.id} (no stale backlog)`);
       continue;
     }
     try {
